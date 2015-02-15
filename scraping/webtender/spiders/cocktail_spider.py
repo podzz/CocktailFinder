@@ -1,6 +1,6 @@
 import scrapy
 
-from tutorial.items import CocktailItem
+from webtender.items import CocktailItem
 
 class CocktailSpider(scrapy.Spider):
     name = "cocktail"
