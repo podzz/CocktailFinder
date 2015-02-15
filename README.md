@@ -14,7 +14,9 @@ Scraping
 ========
 
 Export JSON of WebTender cocktails :
-> - make scrapy
+```
+sh$>make scrapy
+```
 
 To get the exported
 > - Go to scraping/export folder
