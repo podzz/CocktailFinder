@@ -11,7 +11,7 @@ class UrlSpider(scrapy.Spider):
 
     urls = []
     index = 0
-    if os.path.isfile('url.csv'):
+    if os.path.isfile('./url.csv'):
         with open('url.csv') as f:
             for line in f:
                 if index != 0:
