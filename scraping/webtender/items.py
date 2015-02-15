@@ -7,10 +7,20 @@
 
 import scrapy
 
+def serialize_url(value):
+    s = "http://www.webtender.com"
+    return [s + aux for aux in value]
+
+class UrlItem(scrapy.Item):
+    url = scrapy.Field(serializer=serialize_url)
 
 class CocktailItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    url = scrapy.Field()
+    name = scrapy.Field()
+    alcohol = scrapy.Field()
+    category = scrapy.Field()
+    recipe = scrapy.Field()
+
     ingredients = scrapy.Field()
     instructions = scrapy.Field()

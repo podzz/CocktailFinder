@@ -6,17 +6,15 @@ How to install ?
 
 *Scraping* :
 
-- Install last version of python
-- Run the command : "pip install scrapy"
+First :
+> - sudo make install
 
 Scraping
 ========
 
-Scraping is done with scrapy python module.
+Export JSON of WebTender cocktails :
+> - make scrapy
 
-*Fist step* :
-
-Crawling the url of cocktails data :
-
-> - Run the command : scrapy crawl cocktail -o cocktail-url.json
-
+To get the exported
+> - Go to export scraping/export folder
+> - Enjoy with cocktail.csv
