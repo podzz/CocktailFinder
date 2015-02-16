@@ -27,15 +27,14 @@ class UrlSpider(scrapy.Spider):
         cocktail["name"] = response.xpath('//td/h1/text()').extract()
         cocktail["instructions"] = response.xpath('//td/p/text()').extract()[0]
 
-        ingredients = []
-        for li_item in response.xpath('//td/ul/li'):
-        	ingredients.append(li_item.xpath('text()').extract()[0] + li_item.xpath('a/text()').extract()[0])
-        cocktail["ingredients"] = ingredients
+        cocktail["ingredients"] = ''.join(response.xpath('//td/ul/li//text()').extract())[:-1].split('\n')
 
         cocktail["alcohol"] = response.xpath('//tr/td/small/text()').extract()[1]
 
         cocktail["category"] = response.xpath('//tr/td/small/text()').extract()[0]
 
-        cocktail["recipe"] = response.xpath('//tr/td/small/a/text()').extract()[0]
+        cocktail["recipe"] = response.xpath('//tr/td/small/text()').extract()[2]
+        if "votes" in cocktail["recipe"]:
+            cocktail["recipe"] = response.xpath('//tr/td/small/a/text()').extract()[0]
 
         yield cocktail

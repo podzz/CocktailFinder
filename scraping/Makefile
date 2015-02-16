@@ -1,6 +1,6 @@
 all:
 	scrapy crawl url -o webtender/spiders/url.csv -t csv
-	cd webtender/spiders && scrapy crawl cocktail -o ../../export/cocktail.json
+	cd webtender/spiders && scrapy crawl cocktail -o ../../export/cocktail.csv -t csv
 
 clean:
 	find . -name "*.pyc" -type f -delete
