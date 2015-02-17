@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Cocktail Finder</title>
+        <style>
+            a {text-decoration: none; color: black;}
+        </style>
+    </head>
+
+    <body>
+        <h1>Mes cocktails</h1>
+
+        <ul>
+        <% cocktaillist.forEach(function(cocktail, index) { %>
+            <li><a href="/cocktail/supprimer/<%= index %>">✘</a> <%= cocktail %></li>
+        <% }); %>
+        </ul>
+
+        <form action="/cocktail/ajouter/" method="post">
+            <p>
+                <label for="newcocktail">Enter a recipe</label>
+                <input type="text" name="newcocktail" id="newcocktail" autofocus />
+                <input type="submit" />
+            </p>
+        </form>
+    </body>
+</html>
