@@ -1,24 +1,22 @@
-{ "name": "Cocktail Finder"
-, "description": "An app that propose Cocktail recipes that match your needs"
-, "version": "0.0.1"
-, "author": "Edouard Durieux <edouard.durieux@gmail.com>"
-, "private": true
-, "dependencies":
-  { "express": "~3.2.0"
-  , "jade": "~0.26.3"
-  , "neo4j": "~1.1"
-  }
-, "devDependencies":
-  { "chai": "~1.8"
-  , "mocha": "~1.18"
-  , "node-dev": "~2.0.1"
-  }
-, "engines":
-  { "node": "0.10.x"
-  , "npm": "1.2.x"
-  }
-, "scripts":
-  { "start": "node-dev app.js"
-  , "test": "mocha test/*/*.js"
+{
+  "name": "Cocktail Finder",
+  "description": "An app that propose Cocktail recipes that match your needs",
+  "version": "0.0.1",
+  "author": "Edouard Durieux <edouard.durieux@gmail.com>",
+  "private": true,
+  "dependencies":
+  {
+    "express": "~3.2.0",
+    "jade": "~0.26.3",
+    "neo4j": "~1.1"
+  },
+  "engines":
+  {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "scripts":
+  {
+    "start": "node-dev app.js"
   }
 }
