@@ -46,11 +46,11 @@ class GraalSpider(scrapy.Spider):
         		liquid = liquid[0]
         	ingredients_list.append((number,mesure,liquid))
 
-        recipe = response.xpath("/html/body/div[1]/div[6]/div[1]/span[3]/a/u//text()").extract()
-        if len(recipe) < 1:
-        	item["recipe"] = ""
+        recipient = response.xpath("/html/body/div[1]/div[6]/div[1]/span[3]/a/u//text()").extract()
+        if len(recipient) < 1:
+        	item["recipient"] = ""
         else:
-        	item["recipe"] = recipe[0]
+        	item["recipient"] = recipient[0]
         item["ingredients"] = ingredients_list
 
         yield item

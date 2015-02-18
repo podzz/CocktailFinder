@@ -24,7 +24,7 @@ class UrlCocktailItem(scrapy.Item):
 class CocktailGraalItem(scrapy.Item):
     name = scrapy.Field()
     ingredients = scrapy.Field()
-    recipe = scrapy.Field()
+    recipient = scrapy.Field()
 
 class CocktailItem(scrapy.Item):
     # define the fields for your item here like:

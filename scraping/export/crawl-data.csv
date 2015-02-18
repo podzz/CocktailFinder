@@ -1,4 +1,4 @@
-recipe,name,ingredients
+recipient,name,ingredients
 tumbler,Alaska Ice Tea,"[(u'2', u'cl de', u'cura\xe7ao bleu'), (u'2', u'cl de', u'triple sec (cointreau, grand marnier)'), (u'2', u'cl de', u'rhum blanc'), (u'2', u'cl de', u'vodka'), (u'2', u'cl de', u'gin')]"
 tumbler,Alamo,"[(u'', '', u'limonade (soda, sprite, 7up)'), (u'4.5', u'cl de', u'tequila'), (u'3', u'cl de', u""jus d'oranges""), (u'1.5', u'cl de', u""jus d'ananas"")]"
 tumbler,Albermarle Fizz,"[(u'4', u'cl de', u'gin'), (u'2', u'cl de', u'sirop de framboises'), (u'1', u'cl de', u'jus de citrons verts'), (u'', '', u'eau gazeuse (perrier, salvetat)')]"
