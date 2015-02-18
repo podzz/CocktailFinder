@@ -11,8 +11,20 @@ def serialize_url(value):
     s = "http://www.webtender.com"
     return [s + aux for aux in value]
 
+def serialize_cocktail_url(value):
+    s = "http://www.1001cocktails.com"
+    return s + value
+
 class UrlItem(scrapy.Item):
     url = scrapy.Field(serializer=serialize_url)
+
+class UrlCocktailItem(scrapy.Item):
+    url = scrapy.Field(serializer=serialize_cocktail_url)
+
+class CocktailGraalItem(scrapy.Item):
+    name = scrapy.Field()
+    ingredients = scrapy.Field()
+    recipe = scrapy.Field()
 
 class CocktailItem(scrapy.Item):
     # define the fields for your item here like:

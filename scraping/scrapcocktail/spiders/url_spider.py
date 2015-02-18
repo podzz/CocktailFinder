@@ -1,6 +1,6 @@
 import scrapy
 
-from webtender.items import UrlItem
+from scrapcocktail.items import UrlItem
 
 class UrlSpider(scrapy.Spider):
     name = "url"

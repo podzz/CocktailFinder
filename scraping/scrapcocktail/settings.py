@@ -8,10 +8,12 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
 
-BOT_NAME = 'webtender'
+BOT_NAME = 'scrapcocktail'
 
-SPIDER_MODULES = ['webtender.spiders']
-NEWSPIDER_MODULE = 'webtender.spiders'
+SPIDER_MODULES = ['scrapcocktail.spiders']
+NEWSPIDER_MODULE = 'scrapcocktail.spiders'
+ITEM_PIPELINES = ['scrapcocktail.pipelines.JsonWithEncodingPipeline']
+CONCURRENT_REQUESTS = 1000
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'tutorial (+http://www.yourdomain.com)'

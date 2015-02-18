@@ -1,2 +1,3 @@
 *.pyc
-*.csv
+/scraping/webtender/*.csv
+/scraping/webtender/spiders/*.csv

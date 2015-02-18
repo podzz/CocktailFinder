@@ -2,7 +2,7 @@ import scrapy
 import json
 import os.path
 
-from webtender.items import CocktailItem
+from scrapcocktail.items import CocktailItem
 from pprint import pprint
 
 class UrlSpider(scrapy.Spider):
@@ -38,3 +38,6 @@ class UrlSpider(scrapy.Spider):
             cocktail["recipe"] = response.xpath('//tr/td/small/a/text()').extract()[0]
 
         yield cocktail
+
+# response.xpath("//div[@id='content']//a[re:match(@href,
+# '/cocktails/')][re:match(@title, 'Cocktail')]/@href").extract()
