@@ -1,48 +1,51 @@
-var express = require('express');
-var session = require('cookie-session'); // Charge le middleware de sessions
-var bodyParser = require('body-parser'); // Charge le middleware de gestion des paramètres
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+// Module dependencies.
+
+var express = require('express')
+  , routes = require('./routes')
+  , http = require('http')
+  , path = require('path');
 
 var app = express();
 
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.favicon());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
 
-/* On utilise les sessions */
-app.use(session({secret: 'cocktailtopsecret'}))
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
 
+app.locals({
+    title: 'Cocktail Finder'    // default title
+});
 
-/* S'il n'y a pas de cocktaillist dans la session,
-on en crée une vide sous forme d'array avant la suite */
-.use(function(req, res, next){
-    if (typeof(req.session.cocktaillist) == 'undefined') {
-        req.session.cocktaillist = [];
-    }
-    next();
-})
+// Routes
 
-/* On affiche la cocktaillist et le formulaire */
-.get('/cocktail', function(req, res) { 
-    res.render('cocktail.ejs', {cocktaillist: req.session.cocktaillist});
-})
+app.get('/', routes.site.index);
 
-/* On ajoute un élément à la cocktaillist */
-.post('/cocktail/ajouter/', urlencodedParser, function(req, res) {
-    if (req.body.newcocktail != '') {
-        req.session.cocktaillist.push(req.body.newcocktail);
-    }
-    res.redirect('/cocktail');
-})
+app.get('/users', routes.users.list);
+app.post('/users', routes.users.create);
+app.get('/users/:id', routes.users.show);
+app.post('/users/:id', routes.users.edit);
+app.del('/users/:id', routes.users.del);
 
-/* Supprime un élément de la cocktaillist */
-.get('/cocktail/supprimer/:id', function(req, res) {
-    if (req.params.id != '') {
-        req.session.cocktaillist.splice(req.params.id, 1);
-    }
-    res.redirect('/cocktail');
-})
+app.post('/users/:id/follow', routes.users.follow);
+app.post('/users/:id/unfollow', routes.users.unfollow);
 
-/* On redirige vers la cocktaillist si la page demandée n'est pas trouvée */
-.use(function(req, res, next){
-    res.redirect('/cocktail');
-})
+// Server deployment
 
-.listen(8080);   
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('-------------------------------------');
+  console.log('Cocktail Finder');
+  console.log('-------------------------------------');
+  console.log('Server running');
+  console.log('Server listening @ http://localhost:%d/', app.get('port'));
+});
