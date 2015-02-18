@@ -2,3 +2,9 @@
 /scraping/webtender/*.csv
 /scraping/webtender/spiders/*.csv
 *.log
+.DS_Store
+node_modules/
+npm-debug.log
+/neo4j-*
+/neo4j
+
