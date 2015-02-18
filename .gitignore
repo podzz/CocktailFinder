@@ -1,3 +1,4 @@
 *.pyc
 /scraping/webtender/*.csv
 /scraping/webtender/spiders/*.csv
+*.log
