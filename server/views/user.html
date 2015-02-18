@@ -15,9 +15,9 @@
            {% for other in following %}
            <li class='user'>
               <form action='/users/{{ user.id }}/unfollow' method='post'>
-                <a href='/users/{{ other.id }}>{{ other.name }}</a>
-                <input type='hidden', name='user[id]', value='{{other.id}}'>
-                <input type='submit', class='unfollow', value='x'>
+                <a href='/users/{{ other.id }}'>{{ other.name }}</a>
+                <input type='hidden' name='user[id]' value='{{other.id}}'>
+                <input type='submit' class='unfollow' value='x'>
               </form>
            </li>
            {% endfor %}
