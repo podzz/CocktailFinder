@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Users</h1>
+
+    {{ dump(users) }}
+
+    {% if users.length %}
+        <p>Here are the current users:</p>
+        <ul class='users'>
+        {% for user in users %}
+          <li class='user'>
+            <a href='/users/{{ user.id }}'>{{ user.name }} </a>
+          </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no users currently.</p>
+    {% endif %}
+
+    <form action='' method='POST'>
+      <p>Create a new user:</p>
+      <input type='text' name='name' placeholder='Name' required>
+      <input type='submit' value='Create'>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends layout %}
+
+{% block content %}
+
+    <h1>{{ user.name }}</h1>
+
+    <p>
+      <a href='/users'>Back to everyone</a>
+    </p>
+
+    {% if following.length %}
+        <p>
+         {{ user.name }} is following {{ following.length }} users:
+        <ul class=".users">
+           {% for other in following %}
+           <li class='user'>
+              <form action='/users/{{ user.id }}/unfollow' method='post'>
+                <a href='/users/{{ other.id }}>{{ other.name }}</a>
+                <input type='hidden', name='user[id]', value='{{other.id}}'>
+                <input type='submit', class='unfollow', value='x'>
+              </form>
+           </li>
+           {% endfor %}
+        </ul>
+    {% else %}
+    <p>{{ user.name }} isn't following anyone currently.</p>
+
+        {% if others.length %}
+        <form action='/users/{{ user.id }}/follow' method='post'>
+          <p>Add someone for {{ user.name }} to follow:</p>
+            <label>
+            <select name='user[id]' required>
+            <option></option>
+            {% for user in others %}
+              <option value='{{ user.id }}'>{{ user.name }}</option>
+            {% endfor %}
+            <input type='submit' value='Follow'>
+            </label>
+        </form>
+
+        {% else %}
+          <p> There's no one else left for {{ user.name }} to follow! </p>
+        {% endif %}
+
+    {% endif %}
+
+    <form action='/users/{{ user.id }}' method='POST'>
+        <p>Edit this user:</p>
+        <input type='text' name='name' placeholder='{{ user.name }}' required>
+        <input type='submit' value='Update'>
+</form>
+    <form action='/users/{{ user.id }}' method='POST' onsubmit='return
+    confirm("Are you sure?");'>
+        <p>And if you're feeling destructive…</p>
+        <input type='hidden' name='_method' value='DELETE'>
+        <input type='submit' value='Delete User'>
+        </form>
+
+{% endblock %}
