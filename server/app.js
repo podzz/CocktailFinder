@@ -24,9 +24,6 @@ app.use(express.methodOverride());
 
 app.use(app.router);
 
-app.set('view cache', false);
-swig.setDefaults({ cache: false });
-
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
