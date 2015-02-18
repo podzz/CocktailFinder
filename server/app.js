@@ -1,7 +1,4 @@
-
-/**
- * Module dependencies.
- */
+// Module dependencies.
 
 var express = require('express')
   , routes = require('./routes')
@@ -27,7 +24,7 @@ if ('development' == app.get('env')) {
 }
 
 app.locals({
-    title: 'Node-Neo4j Template'    // default title
+    title: 'Cocktail Finder'    // default title
 });
 
 // Routes
@@ -43,6 +40,12 @@ app.del('/users/:id', routes.users.del);
 app.post('/users/:id/follow', routes.users.follow);
 app.post('/users/:id/unfollow', routes.users.unfollow);
 
+// Server deployment
+
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening at: http://localhost:%d/', app.get('port'));
+  console.log('-------------------------------------');
+  console.log('Cocktail Finder');
+  console.log('-------------------------------------');
+  console.log('Server running');
+  console.log('Server listening @ http://localhost:%d/', app.get('port'));
 });

@@ -1,7 +1,7 @@
-{ "name": "NodeNeo4jTemplate"
-, "description": "A sample Node.js + Neo4j app."
+{ "name": "Cocktail Finder"
+, "description": "An app that propose Cocktail recipes that match your needs"
 , "version": "0.0.1"
-, "author": "Aseem Kishore <aseem.kishore@gmail.com>"
+, "author": "Edouard Durieux <edouard.durieux@gmail.com>"
 , "private": true
 , "dependencies":
   { "express": "~3.2.0"
