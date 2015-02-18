@@ -1,5 +1,5 @@
 scrapy:
-	cd scraping && $(MAKE) all
+	cd scraping && $(MAKE) 1001cocktail
 
 clean:
 	cd scraping && $(MAKE) clean
