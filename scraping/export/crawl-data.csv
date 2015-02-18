@@ -2666,7 +2666,6 @@ verre à martini,Ours blanc,"[(u'1', u'cl de', u'cr\xe8me fra\xeeche liquide'), 
 tumbler,Oubol,"[(u'', '', u'tonic (schweppes)'), (u'4', u'cl de', u'liqueur de bananes (pisang ambon)'), (u'3', u'cl de', u'jus de pamplemousses'), (u'3', u'cl de', u'gin')]"
 verre à martini,Ours rose,"[(u'4', u'cl de', u'gin'), (u'3', u'cl de', u'triple sec (cointreau, grand marnier)'), (u'1', u'cl de', u'cr\xe8me de cassis'), (u'', u'cl de', u'tonic (schweppes)'), (u'1', u'cl de', u'jus de citrons')]"
 verre à martini,Ouragan,"[(u'0.5', u'cl de', u'sirop de grenadine'), (u'1', u'cl de', u""liqueur d'abricots (abricot brandy)""), (u'1', u'cl de', u'vermouth dry (martini, noilly prat)'), (u'1', u'cl de', u""jus d'oranges""), (u'2.5', u'cl de', u'gin')]"
-shooter,Ouverture des chakras,
 old fashioned,Ours Brun,"[(u'10', u'cl de', u""jus d'oranges""), (u'10', u'cl de', u'cola (coca cola, pepsi)')]"
 verre à martini,Ovni,"[(u'3', u'cl de', u'vodka'), (u'3', u'cl de', u'vermouth dry (martini, noilly prat)'), (u'1', u'cl de', u'triple sec (cointreau, grand marnier)'), (u'0.5', u'cl de', u'angostura bitters')]"
 tumbler,P.C.B.,"[(u'3', u'cl de', u'picon'), (u'1', u'trait de', u'sirop de citrons'), (u'25', u'cl de', u'bi\xe8re blonde')]"
@@ -3841,7 +3840,6 @@ tumbler,Verdure,"[(u'60', u'g de', u'chou blanc'), (u'50', u'g de', u'salade de 
 tumbler,Vermouth cassis,"[(u'9', u'cl de', u'vermouth dry (martini, noilly prat)'), (u'1.5', u'cl de', u'cr\xe8me de cassis'), (u'', '', u'eau gazeuse (perrier, salvetat)')]"
 ,Vermouth pêche,"[(u'1', u'litres de', u'vin blanc'), (u'80', u'feuilles de', u'p\xeacher'), (u'250', u'grammes de', u'sucre'), (u'10', u'cl de', u'kirsch')]"
 flûte,Veronique,"[(u'', '', u'champagne'), (u'3', u'cl de', u'cognac'), (u'2', u'cl de', u""liqueur d'abricots (abricot brandy)""), (u'2', u'cl de', u""jus d'abricots"")]"
-,Verre des dieux,
 ,Verra Mexiquaine,"[(u'1', u'cuill\xe8re de', u'cura\xe7ao bleu'), (u'2', u'cl de', u'triple sec (cointreau, grand marnier)'), (u'2', u'cl de', u'tequila'), (u'1', u'pinc\xe9es de', u'piments rouges'), (u'25', u'gouttes de', u'aloe vera')]"
 flûte,Vertige,"[(u'', '', u'champagne'), (u'0.5', u'cl de', u'jus de citrons'), (u'0.5', u'cl de', u'eau-de-vie de poires williams'), (u'1.5', u'cl de', u'triple sec (cointreau, grand marnier)')]"
 chope,Verveine rose,"[(u'0.5', u'cl de', u'sucre'), (u'2', u'cl de', u'jus de citrons'), (u'3', u'cl de', u'sirop de framboises'), (u'10', u'cl de', u'tisane \xe0 la verveine')]"
