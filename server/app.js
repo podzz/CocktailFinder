@@ -46,8 +46,8 @@ app.locals({
 app.get('/', routes.site.index);
 
 app.get('/recipes', routes.recipes.list);
-app.get('/recipe/:id', routes.recipes.show);
-app.del('/recipe/:id', routes.recipes.del);
+app.get('/recipes/:id', routes.recipes.show);
+app.del('/recipes/:id', routes.recipes.del);
 app.get('/ingredients', routes.ingredients.list);
 
 app.get('/users', routes.users.list);

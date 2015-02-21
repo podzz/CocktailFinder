@@ -18,10 +18,10 @@ exports.list = function (req, res, next) {
 exports.show = function (req, res, next) {
     Recipe.getId(req.params.id, function (err, recipe) {
         if (err) return next(err);
-            if (err) return next(err);
-            res.render('recipe', {
-                recipe: recipe,
-            });
+        if (err) return next(err);
+        res.render('recipe', {
+            recipe: recipe,
+        });
     });
 };
 
