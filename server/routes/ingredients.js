@@ -4,7 +4,7 @@ var Ingredient  = require('../models/ingredient');
  * GET /ingredients
  */
 exports.list = function(req, res, next) {
-  Ingredient.getAll(function(err, users) {
+  Ingredient.getAll(function(err, ingredients) {
     if (err) {
       return next(err);
     }
@@ -15,15 +15,15 @@ exports.list = function(req, res, next) {
 };
 
 /**
- * POST /users
+ * POST /ingredients
  */
-exports.create = function (req, res, next) {
+exports.create = function(req, res, next) {
   Ingredient.create({
     name: req.body['name']
   }, function (err, user) {
     if (err) {
       return next(err);
     }
-    res.redirect('/ingredients/' + ingredients.id);
+    res.redirect('/ingredients/');
   });
 };

@@ -12,7 +12,7 @@ var db = new neo4j.GraphDatabase(
 // Constructor
 // ----------------------------------------
 
-var Recipe = module.exports = funciton Recipe(_node) {
+var Recipe = module.exports = function Recipe(_node) {
   this._node = _node
 }
 
