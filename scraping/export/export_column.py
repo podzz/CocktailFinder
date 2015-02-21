@@ -4,29 +4,40 @@ recipe_list = []
 ingredients_list = []
 measure_list = []
 
+count_recipe = 1
+count_ingredients = 1
+
 with open('crawl-data.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        if row['recipient'] not in recipe_list and row['recipient'] != "":
-        	recipe_list.append(row['recipient'])
+        if len([item for item in recipe_list if item[1] == row["name"]]) == 0:
+        	recipe_list.append((count_recipe, row["name"]))
+        	count_recipe = count_recipe + 1
         for switchcase in eval(row['ingredients']):
-        	if switchcase[2] not in ingredients_list:
-        		ingredients_list.append(switchcase[2])
-        	if switchcase[1] not in measure_list:
-        		measure_list.append(switchcase[1])
+        	if len([item for item in ingredients_list if item[1] == switchcase[2]]) == 0:
+        		ingredients_list.append((count_ingredients,switchcase[2]))
+        		count_ingredients = count_ingredients + 1
 
-with open('crawl-data-recipients.csv', 'wb') as csvfile:
+with open('liquids.csv', 'wb') as csvfile:
         spamwriter = csv.writer(csvfile)
-        for s in sorted(recipe_list):
-            spamwriter.writerow([s])
-
-with open('crawl-data-fluids.csv', 'wb') as csvfile:
         spamwriter = csv.writer(csvfile)
-        for s in sorted(ingredients_list):
-            spamwriter.writerow([s.encode('utf-8')])
+        spamwriter.writerow(['index', 'name'])
+        for (id_ing,s) in ingredients_list:
+        	spamwriter.writerow([id_ing, s.encode('utf-8')])
 
-
-with open('crawl-data-measures.csv', 'wb') as csvfile:
+with open('recipes.csv', 'wb') as csvfile:
         spamwriter = csv.writer(csvfile)
-        for s in sorted(measure_list):
-            spamwriter.writerow([s.encode('utf-8')])
+        spamwriter.writerow(['index', 'name'])
+        for (id_recipe,s) in recipe_list:
+        	spamwriter.writerow([id_recipe, s])
+
+with open('recipes_link_liquids.csv', 'wb') as csvfile:
+    spamwriter = csv.writer(csvfile)
+    spamwriter.writerow(['id_recipe', 'quantity', 'measure', 'id_ingredient'])
+    with open('crawl-data.csv') as csvreadfile:
+        reader = csv.DictReader(csvreadfile)
+        for row in reader:
+            recipe_id = [str(item[0]) for item in recipe_list if row['name'] == item[1]][0]
+            for triple in eval(row['ingredients']):
+                ingredient_id = [str(item[0]) for item in ingredients_list if triple[2] == item[1]][0]
+            	spamwriter.writerow([recipe_id, triple[0].encode('utf-8'),triple[1].encode('utf-8'),ingredient_id])
