@@ -65,7 +65,7 @@ Recipe.prototype.del = function(callback) {
 };
 
 // Get the Recipe by ID
-Recipe.get = function(id, callback) {
+Recipe.getId = function(id, callback) {
     db.getNodeById(id, function(err, node) {
         if (err) return callback(err);
         callback(null, new Recipe(node));

@@ -66,7 +66,7 @@ Ingredient.prototype.del = function(callback) {
 };
 
 // Get the Ingredient by ID
-Ingredient.get = function (id, callback) {
+Ingredient.getIngredients = function (id, callback) {
     db.getNodeById(id, function (err, node) {
         if (err) return callback(err);
         callback(null, new Ingredient(node));

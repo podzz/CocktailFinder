@@ -16,15 +16,12 @@ exports.list = function (req, res, next) {
  * GET /recipe/:id
  */
 exports.show = function (req, res, next) {
-    Recipe.get(req.params.id, function (err, recipe) {
+    Recipe.getId(req.params.id, function (err, recipe) {
         if (err) return next(err);
-        recipe.getIngredients(function (err, ingredients) {
             if (err) return next(err);
             res.render('recipe', {
                 recipe: recipe,
-                ingredients: ingredients
             });
-        });
     });
 };
 
