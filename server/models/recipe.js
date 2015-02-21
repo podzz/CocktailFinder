@@ -20,8 +20,9 @@ var Recipe = module.exports = function Recipe(_node) {
 // Attributes
 // ----------------------------------------
 
-Object.defineProperty(Recipe.prototype, 'id', {
-    get: function () { return this._node.id; }
+Object.defineProperty(Recipe.prototype, 'index', {
+    get: function () { return this._node.data['index']; },
+    set : function(index) { this._node.data['index'] = index; }
 });
 
 Object.defineProperty(Recipe.prototype, 'name', {

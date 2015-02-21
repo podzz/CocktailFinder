@@ -4,15 +4,15 @@ DELETE n,r;
 
 CREATE CONSTRAINT ON (in:Ingredient) ASSERT in.index IS UNIQUE;
 USING PERIODIC COMMIT
-LOAD CSV FROM 'file:///Users/Francois/CocktailFinder/data/liquids.csv' AS line
-CREATE (:Ingredient { index: line[0], name: line[1]});
+LOAD CSV WITH HEADERS FROM 'file:///Users/Francois/CocktailFinder/data/liquids.csv' AS line
+CREATE (:Ingredient { index: line.index, name: line.name});
 
 CREATE CONSTRAINT ON (re:Recipe) ASSERT re.index IS UNIQUE;
 USING PERIODIC COMMIT
-LOAD CSV FROM 'file:///Users/Francois/CocktailFinder/data/recipes.csv' AS line
-CREATE (:Recipe { index: line[0], name: line[1]});
+LOAD CSV WITH HEADERS FROM 'file:///Users/Francois/CocktailFinder/data/recipes.csv' AS line
+CREATE (:Recipe { index: line.index, name: line.name});
 
-LOAD CSV FROM 'file:///Users/Francois/CocktailFinder/data/recipes_link_liquids.csv' AS line
-MATCH (re:Recipe) WHERE re.index=line[0]
-MATCH (in:Ingredient) WHERE in.index=line[3]
-CREATE UNIQUE (re)-[r:COMPOSED_OF{ quantity: line[1], unity: line[2] }]->(in);
+LOAD CSV WITH HEADERS FROM 'file:///Users/Francois/CocktailFinder/data/recipes_link_liquids.csv' AS line
+MATCH (re:Recipe) WHERE re.index=line.id_recipe
+MATCH (in:Ingredient) WHERE in.index=line.id_ingredient
+CREATE UNIQUE (re)-[r:COMPOSED_OF{ quantity: line.quantity, unity: line.measure }]->(in);

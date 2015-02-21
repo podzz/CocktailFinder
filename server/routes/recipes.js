@@ -1,4 +1,5 @@
 var Recipe = require('../models/recipe');
+var Ingredient = require('../models/ingredient');
 
 /**
  * GET /recipes
@@ -18,9 +19,12 @@ exports.list = function (req, res, next) {
 exports.show = function (req, res, next) {
     Recipe.getId(req.params.id, function (err, recipe) {
         if (err) return next(err);
-        if (err) return next(err);
-        res.render('recipe', {
-            recipe: recipe,
+        Ingredient.getIngredientsOfRecipe(req.params.id, function (err, ingredients) {
+            if (err) return next(err);
+                res.render('recipe', {
+                    recipe: recipe,
+                    ingredients: ingredients
+            });
         });
     });
 };

@@ -20,8 +20,8 @@ var Ingredient = module.exports = function Ingredient(_node) {
 // Attributes
 // ----------------------------------------
 
-Object.defineProperty(Ingredient.prototype, 'id', {
-    get: function () { return this._node.id; }
+Object.defineProperty(Ingredient.prototype, 'index', {
+    get: function () { return this._node.index; }
 });
 
 Object.defineProperty(Ingredient.prototype, 'name', {
@@ -64,6 +64,21 @@ Ingredient.prototype.del = function(callback) {
         callback(err);
     });
 };
+
+// Get the Ingredients list for a recipe
+Ingredient.getIngredientsOfRecipe = function(recipe_id, callback) {
+    var query = [
+        'MATCH (re:Recipe {index:\'' + recipe_id + '\'})-->(ingredient:Ingredient)',
+        'return ingredient'
+    ].join(' ')
+    db.query(query, null, function(err, results) {
+        if (err) return callback(err);
+        var ingrs = results.map(function (result) {
+            return new Ingredient(result['ingredient']);
+        });
+        callback(null,ingrs);
+    });
+}
 
 // Get the Ingredient by ID
 Ingredient.getIngredients = function (id, callback) {
