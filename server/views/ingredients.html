@@ -3,14 +3,12 @@
 {% block content %}
     <h1>Ingredients</h1>
 
-    {{ dump(ingredients) }}
-
     {% if ingredients.length %}
         <p>Here are the current ingredients:</p>
         <ul class='ingredients'>
         {% for ing in ingredients %}
           <li class='user'>
-            <a href='/ingredients/{{ ing.id }}'>{{ ing.name }} </a>
+            <a href='/ingredient/{{ ing.id }}'>{{ ing.name }} </a>
           </li>
         {% endfor %}
         </ul>

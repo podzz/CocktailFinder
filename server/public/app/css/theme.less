@@ -1,0 +1,293 @@
+@import "components/lib.less";
+@import url("http://fonts.googleapis.com/css?family=Monda|Fugaz+One|Oleo+Script");
+
+/*******************************************************
+CONTENTS
+
+01. BASE
+02. LAYOUT
+03. MODULES
+
+This style sheet organization is based on the SMACCS 
+system. Please visit the following website for more info:
+http://smacss.com/
+
+--
+
+01. BASE
+
+All base HTML tags that require styling
+*********************************************************/
+html {
+	font-size: @base-font-size-mobile;
+	
+		@media only screen and (min-width: 768px) {
+			font-size: @base-font-size-desktop;
+		}
+}
+
+body {
+	background-color: @light-bg;
+	color: @body-color;
+	font-family: @body-copy;
+	font-size: 100%;
+	line-height: @base-line-height-mobile;
+	overflow-x: hidden;
+	
+		@media only screen and (min-width: 768px) {
+			font-size: 100%;
+			line-height: @base-line-height-desktop;
+		}
+}
+
+body.home-page {
+	overflow-y: hidden;
+}
+
+li {
+	line-height: @base-line-height-mobile;
+	
+		@media only screen and (min-width: 768px) {
+			line-height: @base-line-height-desktop;
+		}
+}
+
+a, a:link, a:visited {
+	color: @primary-link-color;
+	outline: none;
+	text-decoration: underline;
+}
+
+a {
+	line-height: @base-line-height-mobile;
+	.transition;
+	
+		@media only screen and (min-width: 768px) {
+			line-height: @base-line-height-desktop;
+		}
+}
+
+a:hover,
+a:focus {
+	color: @primary-link-color-hover;
+	outline: none;
+	text-decoration: underline;
+}
+
+p {
+	font-weight: 400;
+	line-height: @base-line-height-mobile;
+	margin-bottom: @margin;
+	
+		@media only screen and (min-width: 768px) {
+			line-height: @base-line-height-desktop;
+		}
+}
+
+img, figure {
+	display: block;
+	margin: 0 @margin (@margin / 2);
+}
+
+hr {
+	border-bottom: 0;
+	border-top: @border-size @border-type @border-color;
+	margin: @margin 0;
+	opacity: .6;
+}
+
+/*******************************************************
+02. LAYOUT
+
+Styles specific to your layout or website
+*******************************************************/
+/* Preloader */
+.preloader {
+	background: @light-bg;
+	height: 100%;
+	min-height: 1000px;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	width: 100%;
+	z-index: 999999;
+}
+
+.preloader img {
+	display: block;
+	left: 50%;
+	margin: -16px 0px 0px -16px;
+	position: fixed;
+	text-align: center;
+	top: 50%;
+}
+/* WRAPPERS AND CONTAINERS */
+
+/* Site Wrapper */
+#site-wrapper {
+    padding-left: 0;
+    
+	.transition;
+	
+		@media only screen and (min-width:768px) {
+			padding-left: 250px;
+		}
+}
+
+#site-wrapper.toggled {
+    padding-left: 250px;
+	
+		@media only screen and (min-width:768px) {
+			padding-left: 0;
+		}
+}
+
+/* Sidebar wrapper */
+#sidebar-wrapper {
+	background: @dark-bg url("../imgs/pattern.png") 0 0 repeat;
+	height: 100%;
+	left: 250px;
+	margin-left: -250px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: fixed;
+	width: 0;
+	z-index: 1000;
+	
+	.transition;
+	
+		@media only screen and (min-width:768px) {
+			width: 250px;
+		}
+}
+
+#site-wrapper.toggled #sidebar-wrapper {
+	width: 250px;
+	
+		@media only screen and (min-width:768px) {
+			width: 0;
+		}
+}
+
+/* Page content wrapper */
+#page-content-wrapper {
+	padding: 15px;
+	width: 100%;
+	
+		@media only screen and (min-width:768px) {
+			padding: 20px;
+		}
+}
+
+#site-wrapper.toggled #page-content-wrapper {
+	margin-right: -250px;
+	position: absolute;
+	
+		@media only screen and (min-width:768px) {
+			margin-right: 0;
+			position: relative;
+		}
+}
+
+//content wrapper in home page: no navigation is present
+#page-content-wrapper.home {
+	background-color: @light-bg;
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: relative;
+	width: 100%;
+	z-index: 1;
+	
+	& .inner {
+		bottom: 5px;
+		left: 5px;
+		position: absolute;
+		right: 5px;
+		top: 5px;
+		
+			@media only screen and (min-width: 768px) {
+				bottom: 20px;
+				left: 20px;
+				right: 20px;
+				top: 20px;
+			}
+		& .image {
+			background-attachment: fixed;
+			background-color: @black;
+			background-image: url("../imgs/home-banner.jpg");
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+		
+		& .overlay {
+			bottom: 0;
+			left: 0;
+			padding-top: 0 !important;
+			position: absolute !important;
+			right: 0;
+			top: 0;
+	
+			.linear-gradient;
+		}
+	}
+}
+
+/* About wrapper */
+.about-wrapper .artist-img-container img {
+	border: @border-size @border-type @border-color;
+	margin: 0 auto;
+			
+	.rounded;
+}
+
+/* Contact info container */
+.contact-info-container {
+	border-left: @border-size @border-type @border-color;
+	border-top: @border-size @border-type @border-color;
+	border-right: @border-size @border-type @border-color;
+	margin: 0 auto;
+	padding: @padding;
+	width: 100%;
+}
+
+.contact-info-container p {
+	border-bottom: @border-size @border-type @border-color;
+}
+
+.contact-info-container p strong a {
+	color: @dark-color;
+	text-decoration: none;
+}
+
+.contact-info-container p strong a:hover,
+.contact-info-container p strong a:focus {
+	color: @darker-color;
+	text-decoration: none;
+}
+
+/*******************************************************
+03. MODULES
+
+Reusable classes or components
+*******************************************************/
+@import "components/helpers.less";
+@import "components/typography.less";
+@import "components/buttons.less";
+@import "components/tables.less";
+@import "components/forms.less";
+@import "components/navigation.less";
+@import "components/menu-toggle.less";
+@import "components/banner.less";
+@import "components/social-icons.less";
+@import "components/navs.less";
+@import "components/display-grids.less";
+@import "components/lightbox.less";
+@import "components/post-meta.less";

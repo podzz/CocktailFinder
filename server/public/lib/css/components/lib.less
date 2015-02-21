@@ -1,0 +1,115 @@
+// VARIABLES
+
+// Color Palette
+@light-gray : #cccccc;  //rgb(204, 204, 204)
+@medium-gray : #808080;
+@charcoal : #4d4d4d;
+@copper-rose : #956868;
+@puce : #cc8f8f;  
+@white : #fff;
+@black : #191919; //rgb(25, 25, 25)
+
+//Background colors 
+@dark-bg : @black;
+@darkish-bg : @charcoal;
+@dark-bg-transparent : rgba(25, 25, 25, .8);
+@light-bg : @white;
+@muted-bg : @light-gray;
+@muted-bg-transparent : rgba(204, 204, 204, .6);
+@light-bg-transparent : rgba(205, 205, 205, .2);
+
+//text colors 
+@body-color : @medium-gray;
+@heading-color : @copper-rose;
+@dark-color : @charcoal;
+@darker-color : @black;
+@light-color : @white;
+@muted-color : @light-gray;
+@grayish-color : @medium-gray;
+@light-tinted-color : @puce;
+
+// global link colors 
+@primary-link-color : lighten(@medium-gray, 10%);
+@primary-link-color-hover : darken(@medium-gray, 20%);
+
+// typography 
+@body-copy : 'Monda', helvetica, arial, verdana, sans-serif;
+@heading-copy : "Fugaz One",serif;
+@heading-variant : "Oleo Script",serif;
+
+@base-font-size-mobile : 16px;
+@base-font-size-desktop : 18px;
+@font-size : 1em;
+@base-line-height-mobile : 1.5; 
+@base-line-height-desktop : 1.8; 
+
+// global borders 
+@border-color : @muted-bg-transparent;
+@border-size : 1px;
+@border-type : solid;
+@border-focus : darken(@light-gray, 10%);
+
+// global layout 
+@margin: 1em;
+@padding: 1em;
+
+// MIXINS
+
+//eliminates rounded corners 
+.round-corners (@radius: 2px) {
+	-moz-border-radius: @radius;/*Firefox*/
+	-webkit-border-radius: @radius;/*Safari, Chrome*/
+	border-radius: @radius;
+}
+
+//used in class to make elements circle-shaped 
+.rounded (@radius: 50%) {
+	-moz-border-radius: @radius;/*Firefox*/
+	-webkit-border-radius: @radius;/*Safari, Chrome*/
+	border-radius: @radius;
+}
+
+.box-shadow (@shadow: none) {
+	-moz-box-shadow: @shadow;
+	-webkit-box-shadow: @shadow;
+	box-shadow: @shadow;
+}
+
+.transition (@transition: all .5s ease) {
+	-moz-transition: @transition;
+	-webkit-transition: @transition;
+	-o-transition: @transition;
+	transition: @transition;
+}
+
+.opacity-transition (@transition: opacity 0.4s ease-in-out) {
+	-moz-transition: @transition;
+	-webkit-transition: @transition;
+	-o-transition: @transition;
+	transition: @transition;
+}
+
+.size-transform (@transform: rotate(2deg) scale(1.1, 1.1) skewX(0deg) skewY(0deg) translate(0px, 0px) ) {
+	-moz-transform: @transform;
+	-webkit-transform: @transform;
+	-o-transform: @transform;
+	-ms-transform: @transform;
+	transform: @transform;
+}
+
+.box-sizing (@box-sizing: border-box) {
+	-moz-box-sizing: @box-sizing;
+	-webkit-box-sizing: @box-sizing;
+	-ms-box-sizing: @box-sizing;
+	box-sizing: @box-sizing;
+}
+
+.linear-gradient (@start-color : rgba(0, 0, 0, 1), @end-color: rgba(0, 0, 0, .6)) {
+	background-color: @start-color;
+	background: -webkit-gradient(linear, left top, left bottom, from(@start-color), to(@end-color));
+	background: -webkit-linear-gradient(top, @start-color, @end-color);
+	background: -moz-linear-gradient(top, @start-color, @end-color);
+	background: -ms-linear-gradient(top, @start-color, @end-color);
+	background: -o-linear-gradient(top, @start-color, @end-color);
+}
+

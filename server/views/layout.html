@@ -1,12 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title></title>
-    <link rel='stylesheet' href='/stylesheets/style.css'>
-  </head>
-  <body>
-{% block content %}
-{% endblock %}
+<head>
+    <title> Cocktail Finder - {% block title %}Home{% endblock %}</title>
 
-  </body>
+    {% include 'meta.html.twig' %}
+
+    {% block favicon %}
+    {% include 'favicon.html.twig' %}
+    {% endblock %}
+
+    {% block stylesheet %}
+    {% include 'stylesheets.html.twig' %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="site-wrapper">
+
+        {% block nav %}
+        {% include 'nav.html.twig' %}
+        {% endblock %}
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                {% block content %}
+                {% endblock %}
+            </div> <!-- .container -->
+        </div> <!-- /#page-content-wrapper -->
+
+    </div> <!-- /#site-wrapper -->
+    {% block javascripts %}
+    {% endblock %}
+
+    {% block tags %}
+    {% include 'tags.html.twig' %}
+    {% endblock %}
+
+</body>
 </html>

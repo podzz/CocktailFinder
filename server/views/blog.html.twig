@@ -1,0 +1,116 @@
+{% extends 'layout.html.twig' %}
+
+{% block nav %}
+{% include 'nav.html.twig' with {'active' : 'blog'} %}
+{% endblock %}
+
+{% block content %}
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <h2 class="page-header centered-header">Latest News</h2>
+                        </div>
+                    </div> <!-- /.row -->
+
+                    <div class="row pad-top">
+
+                        <div class="col-md-8 col-md-offset-2">
+
+                            <div class="row" id="blog">
+
+                                <!-- article row 1 -->
+                                <article class="col-md-12">
+                                    <a href="article.php" title="Article Title">
+                                        <div class="img-container" style="background-image: url('imgs/work3-thumb.jpg');">
+                                            <div class="photo-overlay"></div>
+                                        </div>
+                                        <div class="blog-info">
+                                            <div class="blog-meta">October 10, 2014</div>
+                                            <div class="title-container"><h3>Article Title</h3></div>
+                                        </div>
+                                    </a>
+                                </article> <!-- /.col-md-12 -->
+                                <!-- /article row 1 -->
+
+                                <!-- article row 2 -->
+                                <article class="col-md-6">
+                                    <a href="article.php" title="Article Title">
+                                        <div class="img-container" style="background-image: url('imgs/work4-thumb.jpg');">
+                                            <div class="photo-overlay"></div>
+                                        </div>
+                                        <div class="blog-info">
+                                            <div class="blog-meta">October 15, 2014</div>
+                                            <div class="title-container"><h3>Article Title</h3></div>
+                                        </div>
+                                    </a>
+                                </article> <!-- /.col-md-6 -->
+                                <article class="col-md-6">
+                                    <a href="article.php" title="Article Title">
+                                        <div class="img-container" style="background-image: url('imgs/work10-thumb.jpg');">
+                                            <div class="photo-overlay"></div>
+                                        </div>
+                                        <div class="blog-info">
+                                            <div class="blog-meta">October 18, 2014</div>
+                                            <div class="title-container"><h3>Article Title</h3></div>
+                                        </div>
+                                    </a>
+                                </article> <!-- /.col-md-6 -->
+                                <!-- /article row 2 -->
+
+                                <!-- article row 3 -->
+                                <article class="col-md-6">
+                                    <a href="article.php" title="Article Title">
+                                        <div class="img-container" style="background-image: url('imgs/work12-thumb.jpg');">
+                                            <div class="photo-overlay"></div>
+                                        </div>
+                                        <div class="blog-info">
+                                            <div class="blog-meta">October 20, 2014</div>
+                                            <div class="title-container"><h3>Article Title</h3></div>
+                                        </div>
+                                    </a>
+                                </article> <!-- /.col-md-6 -->
+                                <article class="col-md-6">
+                                    <a href="article.php" title="Article Title">
+                                        <div class="img-container" style="background-image: url('imgs/work13-thumb.jpg');">
+                                            <div class="photo-overlay"></div>
+                                        </div>
+                                        <div class="blog-info">
+                                            <div class="blog-meta">October 22, 2014</div>
+                                            <div class="title-container"><h3>Article Title</h3></div>
+                                        </div>
+                                    </a>
+                                </article> <!-- /.col-md-6 -->
+                                <!-- /article row 3 -->
+
+                            </div> <!-- .row (nested row)-->
+
+                        </div> <!-- /.col-md-8 -->
+
+                    </div> <!-- .row -->
+{% endblock %}
+{% block javascripts %}
+
+        <!-- Gallery dialog markup: this must go at the bottom -->
+        <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+        <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+            <div class="slides"></div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="close"><i class="fa fa-times"></i></a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
+        </div>
+
+        <!-- jQuery Version 1.11.1 -->
+        <script src="lib/js/jquery-1.11.1.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="lib/js/bootstrap.min.js"></script>
+        <!-- FitText Plugin -->
+        <script src="lib/js/jquery.fittext.js"></script>
+        <!-- ArcText Plugin -->
+        <script src="lib/js/jquery.arctext.js"></script>
+        <!-- Blue Imp GAllery Plugin -->
+        <script src="lib/js/jquery.blueimp-gallery.min.js"></script>
+        <!-- Theme Scripts -->
+        <script src="app/js/app.js"></script>
+{% endblock %}

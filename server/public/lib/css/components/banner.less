@@ -1,0 +1,47 @@
+/* Home banner */
+.banner {
+	position: relative;
+}
+
+.banner-header span {
+	font-family: @heading-variant;
+}
+
+.banner-header,
+h1.banner-header {
+	color: @light-color;
+	font-size: 2.8em;
+	margin-bottom: 0;
+	opacity: 1;
+	text-align: center;
+	text-transform: uppercase;
+	
+		@media only screen and (min-width: 768px) {
+			font-size: 3.5em;
+		}
+		
+		@media only screen and (min-width: 1200px) {
+			font-size: 4em;
+		}
+}
+
+.banner p.lead {
+	color: @white;
+	margin: 0 auto;
+	opacity: 1;
+	padding-bottom: (@padding / 2);
+	text-align: center;
+	text-transform: capitalize;
+	width: 100%;
+}
+
+.banner i {
+	font-size: 2em;
+	margin-top: @margin;
+	opacity: 1;
+	padding-bottom: (@padding / 4);
+	
+		@media only screen and (min-width: 768px) {
+			font-size: 3.2em;
+		}
+}

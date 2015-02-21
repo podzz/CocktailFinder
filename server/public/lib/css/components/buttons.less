@@ -1,0 +1,42 @@
+/* Buttons */
+
+@btn-color-light : #e5e5e5;
+@btn-color-light-hover : @light-color;
+@btn-color-dark : @dark-color;
+@btn-color-dark-hover : @darker-color;
+
+.btn,
+a.btn,
+.btn-default,
+a.btn-default {
+	background-color: transparent;
+	border: @border-size @border-type @border-color;
+	text-decoration: none;
+	text-transform: uppercase;
+	
+	.round-corners;
+	.transition;
+}
+
+//use class of light to add a light text color if you place the button on a dark background 
+.btn-default.light {
+	color: @btn-color-light;
+}
+
+.btn-default.light:hover,
+.btn-default.light:focus {
+	background-color: @black;
+	box-shadow: none;
+	color: @btn-color-light-hover;
+}
+
+//use class of dark to add a dark text color if you place the button on a light background
+.btn-default.dark {
+	color: @btn-color-dark;
+}
+
+.btn-default.dark:hover,
+.btn-default.dark:focus {
+	background-color: @white;
+	color: @btn-color-dark-hover;
+}

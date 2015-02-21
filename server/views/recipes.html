@@ -3,14 +3,12 @@
 {% block content %}
     <h1>Recipes</h1>
 
-    {{ dump(recipes) }}
-
     {% if recipes.length %}
         <p>Here are the current recipes:</p>
         <ul class='recipes'>
-        {% for user in recipes %}
+        {% for recipe in recipes %}
           <li class='user'>
-            <a href='/recipes/{{ user.id }}'>{{ user.name }} </a>
+            <a href='/recipe/{{ recipe.id }}'>{{ recipe.name }} </a>
           </li>
         {% endfor %}
         </ul>

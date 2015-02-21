@@ -1,0 +1,58 @@
+/* Forms */
+
+form,
+.form {
+	margin-bottom: @margin;
+}
+
+.form-group {
+	margin-bottom: @margin;
+}
+
+.form-control {
+    background-color: transparent;
+    background-image: none;
+    border: @border-size @border-type @border-color;
+    box-shadow: none;
+    color: @dark-color;
+    font-size: @font-size;
+	line-height: @base-line-height-mobile;
+    padding: (@padding / 2);
+	
+	.round-corners;
+	.transition;
+	
+		@media only screen and (min-width: 768px) {
+			line-height: @base-line-height-desktop;
+		}
+}
+
+.form-control:focus {
+	border-color: @border-focus;
+	
+	.box-shadow;
+}
+
+.form-control::-moz-placeholder {
+    color: @grayish-color;
+    opacity: 1;
+}
+
+.help-block {
+	color: lighten(@dark-color, 30%);
+	font-size: 80%;
+}
+
+.input-group-addon {
+    background-color: @muted-bg;
+    border: @border-size @border-type @border-color;
+    color: @dark-color;
+    font-size: @font-size;
+	
+	.round-corners;
+}
+
+input[type="radio"], 
+input[type="checkbox"] {
+	margin: (@margin / 2) 0 0;
+}

@@ -1,0 +1,180 @@
+/* Gallery Albums and Blog Grids */
+#gallery .img-container,
+#albums .img-container { 
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 300px;
+	margin-bottom: 30px;
+	
+	.transition;
+}
+
+#gallery .img-container { 
+	position: relative;
+}
+
+#gallery .img-container:hover,
+#gallery .img-container:focus,
+#albums .img-container:hover,
+#albums .img-container:focus {
+	opacity: .5;
+}
+
+#gallery .title-container {
+	background-color: rgba(0, 0, 0, 0.7);
+	bottom: 30px;
+	font-size: 10px;
+	left: 15px;
+	opacity: 0;
+	position: absolute;
+	
+	.transition;
+}
+
+#gallery .title-container h3 {
+	color: @light-color;
+	opacity: 1;
+	padding: 0 (@padding / 8) 0;
+}
+
+#gallery article:hover  .title-container {
+	opacity: 1;
+}
+
+.album-container .album {
+	height: 100%;
+	padding: 0;
+}
+
+.album-container .album > a .photo-overlay {
+	background-color: rgba(0, 0, 0, .4);
+	bottom: 0;
+	display: block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 3;
+	
+		.transition;
+}
+
+.album-container .album > a {
+	background-color: transparent;
+	display: block;
+}
+
+.album-container .album > a:hover .photo-overlay { 
+	background-color: rgba(0, 0, 0, .7);
+}
+
+.album-container .album figure {
+	bottom: 0;
+	height: 100%;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+	.transition;
+	
+		& img {
+			margin: 0;
+			min-width: 100%;
+			z-index: 0;
+		}
+}
+
+.album-container .album .photo-title {
+	background: rgba(0, 0, 0, .3);
+	bottom: 0;
+	color: @light-color;
+	left: 0;
+	position: absolute;
+	text-align: center;
+	z-index: 4;
+	
+		& h5 {
+			color: @light-color;
+			padding: 0 (@padding / 2);
+		}
+}
+
+/* Blog grid */
+#blog .img-container {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 250px;
+	
+	.transition;
+}
+
+#blog .img-container {
+	position: relative;
+}
+
+#blog article {
+	height: 100%;
+	margin-bottom: 30px;
+}
+
+#blog .photo-overlay {
+	background-color: rgba(0, 0, 0, .4);
+	bottom: 0;
+	display: block;
+	height: 100%;
+	left: 0;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 3;
+	
+		.transition;
+}
+
+#blog a {
+	background-color: transparent;
+	display: block;
+	padding: 0;
+}
+
+#blog a:hover .photo-overlay {
+	background-color: rgba(0, 0, 0, .6);
+}
+
+#blog article .blog-info {
+	left: 0;
+	margin: 0 auto;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	top: 0;
+	z-index: 5;
+	
+		& .blog-meta,
+			.title-container {
+			width: 100%;
+		}	
+}
+
+#blog .blog-meta {
+	color: @light-color;
+	font-size: 1em;
+	margin: 12% auto 0;
+	opacity: 1;
+}
+
+#blog .title-container h3 {
+	color: @light-color;
+	font-size: 1.2em;
+	opacity: 1;
+}

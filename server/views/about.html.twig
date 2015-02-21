@@ -1,0 +1,79 @@
+{% extends 'layout.html.twig' %}
+
+{% block nav %}
+{% include 'nav.html.twig' with {'active' : 'about'} %}
+{% endblock %}
+
+{% block content %}
+                    <div class="row">
+
+                        <div class="col-md-6 col-md-offset-3 about-wrapper">
+
+                            <div class="artist-img-container">
+                                <img src="../app/imgs/ephemere-logo-black-300.png" alt="" class="img-responsive">
+                            </div>
+
+                            <article>
+                                <h3>Who we are</h3>
+
+                                <blockquote class="blockquote-reverse">
+                                    <p>
+                                        Ephemere is an association that talk about photography and other funny stuff.
+                                    </p>
+                                </blockquote>
+
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, amet, vero assumenda voluptatem fugit repudiandae quam explicabo facere ipsam quae ea ullam dolorem ducimus reprehenderit temporibus eligendi a adipisci quod.
+                                </p>
+
+                                <h4>Our Story</h4>
+
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit facilis unde eius itaque obcaecati qui repellat dolor voluptatum! Cumque, perferendis, doloribus voluptas fugiat nulla amet rem cum ullam! Dolorem, fugiat.
+                                </p>
+
+                                <h4>Our Inspiration</h4>
+
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, optio aliquam repellat eveniet odit. Ducimus, voluptate, perspiciatis necessitatibus reprehenderit aut non similique libero rem eum sit ullam excepturi tenetur dolor!
+                                </p>
+
+                            </article>
+
+                            <hr>
+
+                            <div class="pad-top pad-bottom text-center">
+                                <a href="contact.php" class="btn btn-default btn-lg dark">Contact Us</a>
+                            </div>
+
+                        </div> <!-- /.col-md-6 -->
+
+                    </div> <!-- .row -->
+{% endblock %}
+{% block javascripts %}
+
+        <!-- Gallery dialog markup: this must go at the bottom -->
+        <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+        <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+            <div class="slides"></div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="close"><i class="fa fa-times"></i></a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
+        </div>
+
+        <!-- jQuery Version 1.11.1 -->
+        <script src="lib/js/jquery-1.11.1.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="lib/js/bootstrap.min.js"></script>
+        <!-- FitText Plugin -->
+        <script src="lib/js/jquery.fittext.js"></script>
+        <!-- ArcText Plugin -->
+        <script src="lib/js/jquery.arctext.js"></script>
+        <!-- Blue Imp GAllery Plugin -->
+        <script src="lib/js/jquery.blueimp-gallery.min.js"></script>
+        <!-- Theme Scripts -->
+        <script src="app/js/app.js"></script>
+{% endblock %}
