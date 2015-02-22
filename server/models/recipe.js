@@ -67,9 +67,14 @@ Recipe.prototype.del = function(callback) {
 
 // Get the Recipe by ID
 Recipe.getId = function(id, callback) {
-    db.getNodeById(id, function(err, node) {
+    var query = [
+        'MATCH (re:Recipe { index:\'' + id + '\'})',
+        'RETURN re'
+    ].join(' ');
+    db.query(query, null, function (err, results) {
         if (err) return callback(err);
-        callback(null, new Recipe(node));
+        var recipes = new Recipe(results[0]['re']);
+        callback(null, recipes);
     });
 };
 
