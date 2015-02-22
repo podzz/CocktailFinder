@@ -4,6 +4,7 @@
     <h1>Ingredients</h1>
 
     {% if ingredients.length %}
+        <p>Current ingredient number : {{ ingredients.length }} </p>
         <p>Here are the current ingredients:</p>
         <ul class='ingredients'>
         {% for ing in ingredients %}

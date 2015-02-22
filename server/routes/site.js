@@ -4,5 +4,5 @@
  */
 
 exports.index = function(req, res){
-  res.render('ingredients');
+  res.redirect('/ingredients/');
 };
