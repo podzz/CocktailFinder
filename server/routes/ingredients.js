@@ -1,10 +1,11 @@
 var Ingredient  = require('../models/ingredient');
+var ControllerIngredient = require('../controller/ControllerIngredient');
 
 /**
  * GET /ingredients
  */
 exports.list = function(req, res, next) {
-  Ingredient.getAll(function(err, ingredients) {
+  ControllerIngredient.getAll(function(err, ingredients) {
     if (err) {
       return next(err);
     }
@@ -18,7 +19,7 @@ exports.list = function(req, res, next) {
  * POST /ingredients
  */
 exports.create = function(req, res, next) {
-  Ingredient.create({
+  ControllerIngredient.create({
     name: req.body['name']
   }, function (err, user) {
     if (err) {

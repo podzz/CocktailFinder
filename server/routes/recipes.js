@@ -1,12 +1,15 @@
 var Recipe = require('../models/recipe');
 var Ingredient = require('../models/ingredient');
 var Compose = require('../models/compose');
+var ControllerCompose = require('../controller/ControllerCompose');
+var ControllerIngredient= require('../controller/ControllerIngredient');
+var ControllerRecipe = require('../controller/ControllerRecipe');
 
 /**
  * GET /recipes
  */
 exports.list = function (req, res, next) {
-    Recipe.getAll(function (err, recipes) {
+    ControllerRecipe.getAll(function (err, recipes) {
         if (err) return next(err);
         res.render('recipes', {
             recipes: recipes
@@ -18,11 +21,11 @@ exports.list = function (req, res, next) {
  * GET /recipe/:id
  */
 exports.show = function (req, res, next) {
-    Recipe.getId(req.params.id, function (err, recipe_out) {
+    ControllerRecipe.getId(req.params.id, function (err, recipe_out) {
         if (err) return next(err);
-        Ingredient.getIngredientsOfRecipe(req.params.id, function (err, ingredients) {
+        ControllerIngredient.getIngredientsOfRecipe(req.params.id, function (err, ingredients) {
             if (err) return next(err);
-            Compose.getComposeOfRecipe(req.params.id, function (err, composed_list) {
+            ControllerCompose.getComposeOfRecipe(req.params.id, function (err, composed_list) {
                 if (err) return next(err);
                 res.render('recipe', {
                     recipe: recipe_out,
@@ -38,9 +41,9 @@ exports.show = function (req, res, next) {
  * DELETE /recipe/:id
  */
 exports.del = function (req, res, next) {
-    Recipe.get(req.params.id, function (err, recipe) {
+    ControllerRecipe.get(req.params.id, function (err, recipe) {
         if (err) return next(err);
-        recipe.del(function (err) {
+        ControllerRecipe.del(function (err) {
             if (err) return next(err);
             res.redirect('/recipes');
         });
