@@ -1,4 +1,4 @@
-function TestLiquidTimer() {
+function CocktailFinderTest() {
   camera.position.y = 2;
   camera.position.z = 3;
   var bd = new b2BodyDef;
@@ -13,7 +13,7 @@ function TestLiquidTimer() {
   ground.CreateFixtureFromShape(shape, 0.0);
 
   var psd = new b2ParticleSystemDef();
-  psd.radius = 0.015;
+  psd.radius = 0.025;
   var particleSystem = world.CreateParticleSystem(psd);
 
   shape = new b2PolygonShape;
