@@ -1,0 +1,75 @@
+/* Lightbox plugin modifications */
+
+.blueimp-gallery {
+    background: @light-bg;
+}
+
+.blueimp-gallery > .slides > .slide > .slide-content {
+    max-height: 80%;
+    max-width: 80%;
+}
+
+.blueimp-gallery>.slides>.slide-loading {
+	background: url("../lightbox-icons/preloader.gif") center no-repeat;
+	background-size: 32px 32px;
+}
+
+.blueimp-gallery > .prev, 
+.blueimp-gallery > .next {
+    background: rgba(0, 0, 0, 0.8);
+	text-shadow: none;
+}
+
+.blueimp-gallery > .prev:hover,
+.blueimp-gallery > .next:hover {
+	background-color: @dark-bg;
+}
+
+body:last-child .blueimp-gallery > .play-pause {
+	background-color: transparent;
+    background-image: url("../lightbox-icons/play-pause.svg");
+	padding: @padding 0 0;
+	opacity: 1;
+}
+
+.blueimp-gallery > .close {
+    color: @dark-color;
+	text-shadow: none;
+}
+
+.blueimp-gallery > .close:hover {
+	color: @darker-color;
+}
+
+.blueimp-gallery > .title {
+	background-color: rgba(0, 0, 0, 0.8);
+	color: @light-color;
+	padding: (@padding / 2);
+	text-shadow: none;
+	z-index: 999;
+}
+
+.blueimp-gallery > .title:hover {
+	background-color: @dark-bg;
+}
+
+.blueimp-gallery > .indicator {
+	bottom: 20%;
+	
+		@media only screen and (min-width: 768px) {
+			bottom: 4%;
+		}
+}
+
+.blueimp-gallery > .indicator > li {
+    background: @dark-bg;
+    border: @border-size @border-type @dark-color;
+    box-shadow: none;
+	opacity: 1;
+}
+
+.blueimp-gallery > .indicator > li:hover, 
+.blueimp-gallery > .indicator > .active {
+    background-color: @light-bg;
+    border-color: @dark-bg;
+}

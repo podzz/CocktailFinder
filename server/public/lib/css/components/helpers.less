@@ -1,0 +1,96 @@
+/*
+HELPERS
+*/
+
+/* Theme's specific utility classes */
+//add border
+.bordered {
+	border: @border-size @border-type @border-color;
+}
+
+//add outline 
+.outlined {
+	outline: @border-size @border-type @border-color;
+}
+
+//add circled shape
+.bordered-round {
+	border: @border-size @border-type @border-color;
+	
+	.rounded;
+}
+
+//Control line breaking: wrap lines of text that you don't want to be 
+//broken in between span tags with class no-break
+span.no-break {
+	white-space: nowrap;
+} 
+
+//margin bottom the same as the base line height 
+.push {
+	margin-bottom: @margin;
+}
+
+.push-none, .push-0 {
+	margin-bottom: 0;
+}
+
+.push-half {
+	margin-bottom: (@margin / 2);
+}
+
+.push-double {
+	margin-bottom: (@margin * 2);
+}
+
+.push-right {
+	margin-right: @margin;
+}
+
+.push-left {
+	margin-left: @margin;
+}
+
+.push-top {
+	margin-top: @margin;
+}
+
+.pad-top {
+	padding-top: @padding;
+}
+
+.pad-top-none {
+	padding-top: 0;
+}
+
+.pad-top-half {
+	padding-top: (@padding / 2);
+}
+
+.pad-top-double {
+	padding-top: (@padding * 2);
+}
+
+.pad-bottom {
+	padding-bottom: @padding;
+}
+
+.pad-bottom-none {
+	padding-bottom: 0;
+}
+
+.pad-bottom-half {
+	padding-bottom: (@padding / 2);
+}
+
+.pad-bottom-double {
+	padding-bottom: (@padding * 2);
+}
+
+.pad-right {
+	padding-right: @padding;
+}
+
+.pad-left {
+	padding-left : @padding;
+}

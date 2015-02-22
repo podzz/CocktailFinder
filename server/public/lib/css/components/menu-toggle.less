@@ -1,0 +1,25 @@
+/* Menu toggle */
+.menu-toggle-container {
+	height: (@margin * 2);
+	margin-bottom: @margin;
+}
+
+.menu-toggle {
+	color: @dark-color;
+	cursor: pointer;
+	display: inline-block;
+	font-size: (@font-size * 2);
+	left: 50%;
+	position: absolute;
+	top: -.8em;
+	z-index: 3;
+	
+		@media only screen and (min-width: 768px) {
+			top: -.9em;
+		}
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus {
+	color: @darker-color;
+}

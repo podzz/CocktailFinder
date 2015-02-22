@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Ingredients</h1>
+
+    {% if ingredients.length %}
+        <p>Here are the current ingredients:</p>
+        <ul class='ingredients'>
+        {% for ing in ingredients %}
+          <li class='user'>
+            <p>{{ ing.name }}</p>
+          </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no ingredients currently.</p>
+    {% endif %}
+
+{% endblock %}

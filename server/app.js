@@ -1,14 +1,20 @@
+// ---------------------------------
 // Module dependencies.
+// ---------------------------------
 
 var express = require('express');
-var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 var swig = require('swig');
 
+// CocktailFd Route module
+var routes = require('./routes');
+
 var app = express();
 
-// all environments
+// ---------------------------------
+// ENV setup
+// ---------------------------------
 
 app.engine('html', swig.renderFile);
 
@@ -33,9 +39,16 @@ app.locals({
     title: 'Cocktail Finder'    // default title
 });
 
+// ---------------------------------
 // Routes
+// ---------------------------------
 
 app.get('/', routes.site.index);
+
+app.get('/recipes', routes.recipes.list);
+app.get('/recipes/:id', routes.recipes.show);
+app.del('/recipes/:id', routes.recipes.del);
+app.get('/ingredients', routes.ingredients.list);
 
 app.get('/users', routes.users.list);
 app.post('/users', routes.users.create);
@@ -46,7 +59,9 @@ app.del('/users/:id', routes.users.del);
 app.post('/users/:id/follow', routes.users.follow);
 app.post('/users/:id/unfollow', routes.users.unfollow);
 
+// ---------------------------------
 // Server deployment
+// ---------------------------------
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('-------------------------------------');
