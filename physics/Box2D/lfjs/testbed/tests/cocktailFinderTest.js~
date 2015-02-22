@@ -1,4 +1,4 @@
-function TestLiquidTimer() {
+function CocktailFinderTest() {
   camera.position.y = 2;
   camera.position.z = 3;
   var bd = new b2BodyDef;

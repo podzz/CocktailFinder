@@ -35,7 +35,7 @@ function TestWaveMachine() {
 
   // setup particles
   var psd = new b2ParticleSystemDef();
-  psd.radius = 0.010;
+  psd.radius = 0.020;
   psd.dampingStrength = 0.2;
 
   var particleSystem = world.CreateParticleSystem(psd);
