@@ -1,5 +1,5 @@
 var Ingredient  = require('../models/ingredient');
-var ControllerIngredient = require('../controller/ControllerIngredient');
+var ControllerIngredient = require('../controller/controllerIngredient');
 
 /**
  * GET /ingredients

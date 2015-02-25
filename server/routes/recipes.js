@@ -1,9 +1,9 @@
 var Recipe = require('../models/recipe');
 var Ingredient = require('../models/ingredient');
 var Compose = require('../models/compose');
-var ControllerCompose = require('../controller/ControllerCompose');
-var ControllerIngredient= require('../controller/ControllerIngredient');
-var ControllerRecipe = require('../controller/ControllerRecipe');
+var ControllerCompose = require('../controller/controllerCompose');
+var ControllerIngredient= require('../controller/controllerIngredient');
+var ControllerRecipe = require('../controller/controllerRecipe');
 
 /**
  * GET /recipes

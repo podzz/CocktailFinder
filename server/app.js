@@ -57,14 +57,6 @@ app.get('/recipes/:id', routes.recipes.show);
 app.del('/recipes/:id', routes.recipes.del);
 app.get('/ingredients', routes.ingredients.list);
 
-app.get('/users', routes.users.list);
-app.post('/users', routes.users.create);
-app.get('/users/:id', routes.users.show);
-app.post('/users/:id', routes.users.edit);
-app.del('/users/:id', routes.users.del);
-
-app.post('/users/:id/follow', routes.users.follow);
-app.post('/users/:id/unfollow', routes.users.unfollow);
 
 // ---------------------------------
 // Server deployment
