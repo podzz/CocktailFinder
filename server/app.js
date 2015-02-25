@@ -5,7 +5,8 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var swig = require('swig');
+var Twig = require('twig');
+var twig = Twig.twig;
 
 // CocktailFd Route module
 var routes = require('./routes');
@@ -16,11 +17,17 @@ var app = express();
 // ENV setup
 // ---------------------------------
 
-app.engine('html', swig.renderFile);
+app.set("twig options", {
+     strict_variables: false
+     });
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'html');
+app.set('view engine', 'twig');
+
+app.set('twig options', {
+  strict_variables: false
+});
 
 app.use(express.favicon());
 app.use(express.static(path.join(__dirname, 'public')));

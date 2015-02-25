@@ -5,7 +5,7 @@
     <ul class='ingredients'>
     {% for ing in ingredients %}
     <li class='user'>
-        <p>{{ ing.name }}</p>
+        <p>{{ composed.quantity + ' ' + composed.unity + ing.id + ' ' + ing.name }}</p>
     </li>
     {% endfor %}
     </ul>
