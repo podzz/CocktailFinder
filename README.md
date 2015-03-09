@@ -26,7 +26,9 @@ To get the exported
 Cocktail Finder API
 ===================
 
-/cocktail
+GET:/cocktail
+
+Basic API request that returns a list of recipes with the ingredients.
 
 ```
 {
