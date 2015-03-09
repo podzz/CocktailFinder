@@ -28,7 +28,7 @@ Cocktail Finder API
 
 /cocktail
 
-'''
+```
 {
   "cocktails": [
     {
@@ -65,5 +65,4 @@ Cocktail Finder API
     }
   ]
 }
-
-'''
+```
