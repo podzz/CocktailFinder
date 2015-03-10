@@ -18,7 +18,6 @@
     <link href="css/cocktail.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
           type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -45,6 +44,28 @@
             <button type="button" class="backtohome btn btn-danger">Back to home</button>
         </div>
     </div>
+
+
+
+    <button type="button" onClick="add_button()" class="btn btn-danger">
+        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add a test item !
+    </button>
+    <div class="exclude-bar">
+        <div class=bar">
+            <ul name="excludes" class="list-unstyled bar">
+                <li>
+                    <button type="button" id="item1" onClick="delete_button(1)" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item 1
+                    </button>
+                </li>
+                <li>
+                    <button type="button" id="item2" onClick="delete_button(2)" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item 2
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 
@@ -52,7 +73,7 @@
 <script src="http://malsup.github.com/jquery.cycle2.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Plugin JavaScript -->
 <script src="js/jquery.easing.min.js"></script>
