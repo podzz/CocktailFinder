@@ -1,7 +1,24 @@
 body {
     height: 100%;
     font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #fff;
+}
+
+@keyframes colorchange
+{
+    0%   {background: red;}
+    25%  {background: yellow;}
+    50%  {background: blue;}
+    75%  {background: green;}
+    100% {background: red;}
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome */
+{
+    0%   {background: red;}
+    25%  {background: yellow;}
+    50%  {background: blue;}
+    75%  {background: green;}
+    100% {background: red;}
 }
 
 html {
@@ -41,7 +58,8 @@ ul li{
 }
 
 .background.background-transition{
-    background-color:#f7e1b5;
+    animation: colorchange 50s infinite;
+    -webkit-animation: colorchange 50s infinite; /* Chrome and Safari */
     transition: background-color 1s ease-in;
 }
 
