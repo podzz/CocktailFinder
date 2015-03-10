@@ -19,34 +19,34 @@ $(function(){
     });
 
     $("body").removeClass("preload");
-
-
-
-
 });
 
-function delete_button(item){
-    var buttonToDelete = "#item" + item;
+function delete_button(item) {
+    var buttonToDelete = "#itemli" + item;
     $(buttonToDelete).hide("slow");
-    setTimeout(function(){
+    var listItemLi = $("li[id*='itemli']");
+    if (listItemLi.length <= 1)
+        $("ul[name='excludes']").hide("slow");
+    setTimeout(function () {
+
         $(buttonToDelete).remove();
     }, 400);
-
-
 }
 
 function add_button(item) {
+    if ($("ul[name='excludes']").css('display') == 'none')
+        $("ul[name='excludes']").toggle("slow");
     var iDiv = document.createElement('li');
-
     var i = 1;
-    var myElem = document.getElementById('item' + i);
+    var myElem = document.getElementById('itemli' + i);
     while (myElem != null) {
         i = i + 1;
-        myElem = document.getElementById('item' + i)
+        myElem = document.getElementById('itemli' + i);
     }
-        iDiv.id = '';
+
+    iDiv.id = '';
     iDiv.className = '';
-    iDiv.innerHTML = '<li> \
+    iDiv.innerHTML = '<li id="itemli'+ i + '"> \
                         <button type="button" style="display:none;" id="item' + i + '" onClick="delete_button(' + i + ')" class="btn btn-default"> \
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item ' + i + ' \
                         </button> \

@@ -58,6 +58,11 @@ ul li{
 
 .bar {
     background-color: rgba(255,255,255,0.4);
+    border: 2px solid black;
+    border-radius:20px;
+    padding-left: 2% !important;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 #runapp {
