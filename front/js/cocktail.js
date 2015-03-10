@@ -17,7 +17,6 @@ $(function () {
         $(".background").removeClass("background-transition");
 
     });
-
     $("body").removeClass("preload");
 
 });
@@ -43,20 +42,19 @@ function delete_button(id) {
 function add_button(item) {
     if ($("ul[name='excludes']").css('display') == 'none')
         $("ul[name='excludes']").toggle("slow");
-    var iDiv = document.createElement('li');
+
     var i = 1;
     var myElem = document.getElementById('itemli' + i);
     while (myElem != null) {
         i = i + 1;
         myElem = document.getElementById('itemli' + i);
     }
-    iDiv.id = '';
+    var iDiv = document.createElement('li');
+    iDiv.id = 'itemli' + i;
     iDiv.className = '';
-    iDiv.innerHTML = '<li id="itemli' + i + '"> \
-                        <button type="button" style="display:none;" id="item' + i + '" onClick="delete_button(' + i + ')" class="btn btn-default"> \
+    iDiv.innerHTML = '<button type="button" style="display:none;" id="item' + i + '" onClick="delete_button(' + i + ')" class="btn btn-default"> \
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item ' + i + ' \
-                        </button> \
-                      </li>';
+                        </button>';
     document.getElementsByTagName("ul")[0].appendChild(iDiv);
     var buttonCreated = jQuery('#item' + i + ':first');
     buttonCreated.toggle("slow");

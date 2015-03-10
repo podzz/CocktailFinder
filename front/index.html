@@ -27,6 +27,13 @@
 <body class="preload">
 
 <div class="background background-intro">
+    <button type="button" onClick="add_button()" class="btn btn-default">
+        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="false"></span> Add a test item !
+    </button>
+    <button type="button" onClick="delete_all_button()" class="btn btn-default">
+        <span class="glyphicon glyphicon-screenshot" aria-hidden="false"></span>Delete all button
+    </button>
+
     <div id="runapp">
         <div class="intro">
             <div class="row">
@@ -41,34 +48,26 @@
             </div>
         </div>
         <div class="intro">
-            <button type="button" class="backtohome btn btn-danger">Back to home</button>
+            <div class="exclude-bar">
+                <div class=bar">
+                    <ul name="excludes" class="list-unstyled bar">
+                        <li id="itemli1">
+                            <button type="button" onClick="delete_button(1)" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item 1
+                            </button>
+                        </li>
+                        <li id="itemli2">
+                            <button type="button" onClick="delete_button(2)" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item 2
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
 
-
-    <button type="button" onClick="add_button()" class="btn btn-danger">
-        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Add a test item !
-    </button>
-    <button type="button" onClick="delete_all_button()" class="btn btn-warning">
-        <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> Delete all button
-    </button>
-    <div class="exclude-bar">
-        <div class=bar">
-            <ul name="excludes" class="list-unstyled bar">
-                <li id="itemli1">
-                    <button type="button" onClick="delete_button(1)" class="btn btn-default">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item 1
-                    </button>
-                </li>
-                <li id="itemli2">
-                    <button type="button" onClick="delete_button(2)" class="btn btn-default">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item 2
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>
 
 
