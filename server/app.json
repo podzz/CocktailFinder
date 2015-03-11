@@ -1,6 +1,0 @@
-{
-  "name": "cocktail-finder",
-  "description": "An app using Neo4j from Node.js, using the node-neo4j driver. Deployment using GrapheneDB.",
-  "website": "https://github.com/Flasheur111/CocktailFinder",
-  "keywords": ["node", "neo4j", "cocktail", "finder", "epita"],
-}
