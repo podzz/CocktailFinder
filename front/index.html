@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cocktail Finder</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/cocktail.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="preload">
+
+<div class="background background-intro">
+
+
+    <div id="runapp">
+        <div class="intro">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img class="img-responsive center-block" src="img/artist-sidebar.png"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="gotoapp btn btn-success">Need a drink ?</button>
+                </div>
+            </div>
+        </div>
+        <div class="onepage">
+            <div class="panel-debug">
+                <button type="button" onClick="add_button()" class="btn btn-default">
+                    <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="false"></span> Add a test item!
+                </button>
+
+                <button type="button" onClick="delete_all_button()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-screenshot" aria-hidden="false"></span>Delete all button
+                </button>
+            </div>
+            <div class="panel">
+                <div class="col-sm-6" style="height:100%;">
+                    <div class="fluid">
+                        <img class="img-responsive center-block" src="img/artist-sidebar.png"/>
+                    </div>
+                </div>
+                <div class="col-sm-6" style="height:100%;">
+                    <div class="fluid">
+                        <h1>
+                            /* Panel Items */
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="exclude-bar">
+                <div class=bar">
+                    <ul name="excludes" class="list-unstyled bar">
+                        <li id="itemli1">
+                            <button type="button" onClick="delete_button(1)" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item 1
+                            </button>
+                        </li>
+                        <li id="itemli2">
+                            <button type="button" onClick="delete_button(2)" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Item 2
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.cycle2.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Plugin JavaScript -->
+<script src="js/jquery.easing.min.js"></script>
+
+<!-- jQuery -->
+<script src="js/cocktail.js"></script>
+
+</body>
+
+</html>

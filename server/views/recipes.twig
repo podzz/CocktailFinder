@@ -4,6 +4,7 @@
     <h1>Recipes</h1>
 
     {% if recipes.length %}
+        <p>Current recipe number : {{ recipes.length }} </p>
         <p>Here are the current recipes:</p>
         <ul class='recipes'>
         {% for recipe in recipes %}
