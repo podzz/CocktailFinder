@@ -9,8 +9,10 @@
 </head>
 <body class="container" ng-controller="recipeController as recipeCtrl">
 
-<input type="button" name="button1" value="Prev" ng-click="recipeCtrl.decreaseIndex()" />
-<input type="button" name="button1" value="Next" ng-click="recipeCtrl.increaseIndex()" />
+	<h1>Cocktail Finder</h1>
+
+	<input type="button" name="button1" value="Prev" ng-click="recipeCtrl.decreaseIndex()" />
+	<input type="button" name="button1" value="Next" ng-click="recipeCtrl.increaseIndex()" />
 
 	<h1>{{ recipeCtrl.currentCocktail.name }}</h1>
 	<ul>
@@ -19,7 +21,8 @@
 		{{ ingr.quantity }} {{ ingr.unity }} {{ ingr.name }}
 		</li>
 	</ul>
-<h2>Missing Ingredients</h2>
+	<hr>
+	<h2>Missing Ingredients</h2>
 	<ul>
 		<li ng-repeat="ingr in recipeCtrl.missing">
 		<input type="button" name="button1" value="Finally I have it" ng-click="recipeCtrl.removeMissing(ingr)" />
