@@ -34,15 +34,17 @@ Basic API request that returns a list of recipes with the ingredients.
 {
   "cocktails": [
     {
-      "name": "MyCoktail",
+      "name": "Une recette aléatoire",
       "ingredients": [
         {
+          "id": 392
           "name": "jus de carote",
           "quantity": 4,
           "unity": "cl"
         },
         {
-          "name": "ju carote",
+          "id": 1298
+          "name": "vodka",
           "quantity": 12,
           "unity": "cl"
         }
@@ -50,14 +52,16 @@ Basic API request that returns a list of recipes with the ingredients.
       "glass_path": "http://..."
     },
     {
-      "name": "MyCoktail",
+      "name": "MyCocktail",
       "ingredients": [
         {
+          "id": 121,
           "name": "jus de carote",
           "quantity": 4,
           "unity": "cl"
         },
         {
+          "id": 898
           "name": "ju carote",
           "quantity": 12,
           "unity": "cl"
