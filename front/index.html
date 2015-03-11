@@ -27,12 +27,7 @@
 <body class="preload">
 
 <div class="background background-intro">
-    <button type="button" onClick="add_button()" class="btn btn-default">
-        <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="false"></span> Add a test item !
-    </button>
-    <button type="button" onClick="delete_all_button()" class="btn btn-default">
-        <span class="glyphicon glyphicon-screenshot" aria-hidden="false"></span>Delete all button
-    </button>
+
 
     <div id="runapp">
         <div class="intro">
@@ -47,7 +42,30 @@
                 </div>
             </div>
         </div>
-        <div class="intro">
+        <div class="onepage">
+            <div class="panel-debug">
+                <button type="button" onClick="add_button()" class="btn btn-default">
+                    <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="false"></span> Add a test item!
+                </button>
+
+                <button type="button" onClick="delete_all_button()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-screenshot" aria-hidden="false"></span>Delete all button
+                </button>
+            </div>
+            <div class="panel">
+                <div class="col-sm-6" style="height:100%;">
+                    <div class="fluid">
+                        <img class="img-responsive center-block" src="img/artist-sidebar.png"/>
+                    </div>
+                </div>
+                <div class="col-sm-6" style="height:100%;">
+                    <div class="fluid">
+                        <h1>
+                            /* Panel Items */
+                        </h1>
+                    </div>
+                </div>
+            </div>
             <div class="exclude-bar">
                 <div class=bar">
                     <ul name="excludes" class="list-unstyled bar">
@@ -64,6 +82,7 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
 
