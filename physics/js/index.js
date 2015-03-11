@@ -15,8 +15,10 @@ var initialize = function(){
 		canvas = document.createElement('canvas');
 	}
 	
-	canvas.width = window.innerWidth / 1.1;
-	canvas.height = window.innerHeight / 1.3;
+	//canvas.width = window.innerWidth / 3;
+	//canvas.height = window.innerHeight / 3;
+    canvas.width = 400;
+    canvas.height = 200;
 	document.body.appendChild(canvas);
 
 
@@ -40,10 +42,15 @@ var initialize = function(){
 
     //LOOP
     function frame(e) {
-
         if (press)
-            Water.pour();
+            Water.pourPress();
+
+        Water.pourLeft();
+        Water.pourRight();
+        Water.pourMid();
         Water.move();
+        if (Water.numParticles > 1000)
+            Water.clear();
         draw();
         window.requestAnimationFrame(frame);
         //window.setTimeout(frame, 1000/60);

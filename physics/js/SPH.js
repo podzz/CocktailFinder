@@ -45,38 +45,56 @@ var SPH = function(canvas){
     this.touches = [{x:140,y:00,down:false}]; //needs obj type of {x:10,y:10,down:true}
     this.touchradius = 1000;
     this.touchradius2 = this.touchradius*this.touchradius;
-
-
 }
 
 
 //add more water at mouse position
-SPH.prototype.pour = function() {
+SPH.prototype.pourPress = function() {
     //if (1)
-        for (var i = -4; i <= 4; i++) {
-            var p = new Particle(this.mouseX + i * 8, this.mouseY, this);
-            p.vy = 10;
-            this.particles[this.numParticles++] = p;
-            //alert(mouseX);
-        }
-        /*for (var i = -1; i <= 1; i++) {
-            var p = new Particle(this.mouseX + i, this.mouseY, this);
-            p.vy = 3;
-            this.particles[this.numParticles++] = p;
-            //alert(mouseX);
-        }*/
-        /*for (var i = -1; i <= 1; i++) {
-            var p = new Particle(this.mouseX + i, this.mouseY, this);
-            p.vy = 3;
-            this.particles[this.numParticles++] = p;
-            //alert(mouseX);
-        }*/
-	/*for (var i = -10; i <= 10; i++) {
-            var p = new Particle(this.mouseX + i * 2, this.mouseY, this);
-            p.vy = 1;
-            this.particles[this.numParticles++] = p;
-            //alert(mouseX);
-        }*/
+    for (var i = 0; i <= 0; i++) {
+        var p = new Particle(this.mouseX + i * 8, this.mouseY, this);
+        p.vy = 10;
+        this.particles[this.numParticles++] = p;
+        //alert(mouseX);
+    }
+}
+SPH.prototype.pourLeft = function() {
+    //if (1)
+    for (var i = 0; i <= 1; i++) {
+        var p = new Particle(0 + i * 8, 0, this);
+        p.vy = 0;
+        p.vx = -1;
+        this.particles[this.numParticles++] = p;
+        //alert(mouseX);
+    }
+}
+SPH.prototype.pourRight = function() {
+    //if (1)
+    for (var i = 0; i <= 1; i++) {
+        var p = new Particle(400 - i * 8, 0, this);
+        p.vy = 0;
+        p.vx = 1;
+        this.particles[this.numParticles++] = p;
+        //alert(mouseX);
+    }
+}
+
+SPH.prototype.pourMid = function() {
+    //if (1)
+    for (var i = 0; i <= 0; i++) {
+        var p = new Particle(200 - i * 8, 200, this);
+        p.vy = -20;
+        p.vx = 1;
+        this.particles[this.numParticles++] = p;
+        //alert(mouseX);
+    }
+}
+
+SPH.prototype.clear = function() {
+    this.particles = [];
+    this.numParticles = 0;
+    this.neighbors = [];
+    this.numNeighbors = 0;
 }
 
 //calculations for SPH
