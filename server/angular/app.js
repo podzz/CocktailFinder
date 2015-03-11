@@ -49,10 +49,12 @@
 		// Missing ingredient array, by ID
 		this.missing = [];
 
+		var that = this;
+
 		// Request data on the server
 		this.fetchData = function() {
-		    $http.get('/store-products.json').success(function(data){
-		      store.products = this.data;
+		    $http.get('/cocktails.json').success(function(data){
+		      that.data = this.data;
 		    });
 		};
 		// Decrease the current index 
