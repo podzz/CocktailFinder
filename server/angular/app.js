@@ -40,9 +40,14 @@
 	var app = angular.module('cocktailFinder', []);
 
 	app.controller('recipeController', function() {
+		// Data fetched from server
 		this.data = fetchedData;
+		// Current recipe displayed
 		this.currentCocktail = this.data.cocktails[0];
+		// Index in recipe array (this.data, fetched from server)
 		this.currentIndex = 0;
+		// Missing ingredient array, by ID
+		this.missing = [];
 
 		// Request data on the server
 		this.fetchData = function() {
@@ -57,6 +62,7 @@
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
 			}
 		};
+		// Increase the current index 
 		this.increaseIndex = function() {
 			if (this.currentIndex < Object.keys(this.data.cocktails).length - 1) {
 				this.currentIndex++;
