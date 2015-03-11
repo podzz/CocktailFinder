@@ -69,18 +69,17 @@
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
 			}
 		};
-		// Append an ingredient ID to the missing list
-		this.addMissing = function(id) {
-			this.missing.push(id);
-			console.log("DEBUG: Missing ingredient array : " + this.missing);
+		// Append an ingredient to the missing list
+		this.addMissing = function(ingredient) {
+			this.missing.push(ingredient);
 		}
 		// Remove an ingredient ID from the missing list
-		this.removeMissing = function(id) {
-			var index = this.missing.indexOf(id);
-			if (index > -1) {
- 			   this.missing.splice(index, 1);
-			}
-			console.log("DEBUG: Missing ingredient array : " + this.missing);
+		this.removeMissing = function(ingredient) {
+			for (var i = 0; i < this.missing.length; i++) {
+		        if (this.missing[i]['id'] === ingredient.id) {
+	 			   this.missing.splice(i, 1);
+		        }
+	    	}
 		}
 	});
 })();

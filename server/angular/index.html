@@ -15,8 +15,15 @@
 	<h1>{{ recipeCtrl.currentCocktail.name }}</h1>
 	<ul>
 		<li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredients">
-		<input type="button" name="button1" value="I don't have this" ng-click="recipeCtrl.addMissing(ingr.id)" />
+		<input type="button" name="button1" value="I don't have this" ng-click="recipeCtrl.addMissing(ingr)" />
 		{{ ingr.quantity }} {{ ingr.unity }} {{ ingr.name }}
+		</li>
+	</ul>
+<h2>Missing Ingredients</h2>
+	<ul>
+		<li ng-repeat="ingr in recipeCtrl.missing">
+		<input type="button" name="button1" value="Finally I have it" ng-click="recipeCtrl.removeMissing(ingr)" />
+		{{ ingr.id }} {{ ingr.name }}
 		</li>
 	</ul>
 </body>
