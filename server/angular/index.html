@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr" ng-app="cocktailFinder">
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+  <script type="text/javascript" src="angular.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</head>
+<body class="container" ng-controller="recipeController as recipeCtrl">
+	<h1>{{ recipeCtrl.currentCocktail.name }}</h1>
+	<ul>
+		<li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredients">
+		<input type="button" ng-model="todo.completed">
+		{{ ingr.quantity }} {{ ingr.unity }} {{ ingr.name }}
+		</li>
+	</ul>
+</body>
+</html>
