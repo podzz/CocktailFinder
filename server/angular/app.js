@@ -68,6 +68,19 @@
 				this.currentIndex++;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
 			}
+		};
+		// Append an ingredient ID to the missing list
+		this.addMissing = function(id) {
+			this.missing.push(id);
+			console.log("DEBUG: Missing ingredient array : " + this.missing);
+		}
+		// Remove an ingredient ID from the missing list
+		this.removeMissing = function(id) {
+			var index = this.missing.indexOf(id);
+			if (index > -1) {
+ 			   this.missing.splice(index, 1);
+			}
+			console.log("DEBUG: Missing ingredient array : " + this.missing);
 		}
 	});
 })();
