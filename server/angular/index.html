@@ -8,10 +8,14 @@
   <script type="text/javascript" src="app.js"></script>
 </head>
 <body class="container" ng-controller="recipeController as recipeCtrl">
+
+<input type="button" name="button1" value="Prev" ng-click="recipeCtrl.decreaseIndex()" />
+<input type="button" name="button1" value="Next" ng-click="recipeCtrl.increaseIndex()" />
+
 	<h1>{{ recipeCtrl.currentCocktail.name }}</h1>
 	<ul>
 		<li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredients">
-		<input type="button" ng-model="todo.completed">
+		<input type="button">
 		{{ ingr.quantity }} {{ ingr.unity }} {{ ingr.name }}
 		</li>
 	</ul>

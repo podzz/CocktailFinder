@@ -2,14 +2,16 @@
 	var fetchedData = {
 		"cocktails": [
 		{
-			"name": "MyCoktail",
+			"name": "MyCocktail",
 			"ingredients": [
 			{
+				"id": 1,
 				"name": "jus de carote",
 				"quantity": 4,
 				"unity": "cl"
 			},
 			{
+				"id": 2,
 				"name": "ju carote",
 				"quantity": 12,
 				"unity": "cl"
@@ -17,16 +19,18 @@
 			]
 		},
 		{
-			"name": "MyCoktail",
+			"name": "MyCocktail2",
 			"ingredients": [
 			{
-				"name": "jus de carote",
+				"id": 123,
+				"name": "Concombre",
 				"quantity": 4,
 				"unity": "cl"
 			},
 			{
-				"name": "ju carote",
-				"quantity": 12,
+				"id": 1322,
+				"name": "Tomates",
+				"quantity": 120,
 				"unity": "cl"
 			}
 			]
@@ -50,13 +54,13 @@
 		this.decreaseIndex = function() {
 			if (this.currentIndex != 0) {
 				this.currentIndex--;
-				this.currentCocktail = this.data[this.currentIndex];
+				this.currentCocktail = this.data.cocktails[this.currentIndex];
 			}
 		};
 		this.increaseIndex = function() {
-			if (this.currentIndex < Object.keys(data.cocktails).length - 1) {
+			if (this.currentIndex < Object.keys(this.data.cocktails).length - 1) {
 				this.currentIndex++;
-				this.currentCocktail = this.data[this.currentIndex];
+				this.currentCocktail = this.data.cocktails[this.currentIndex];
 			}
 		}
 	});
