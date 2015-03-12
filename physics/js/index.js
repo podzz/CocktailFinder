@@ -71,7 +71,7 @@ var initialize = function(){
         for (var i = 0; i < Water.numParticles; i++) {
             var p = Water.particles[i];
 
-            tempctx.drawImage(Water.img, p.x, p.y, Water.PARTICLESIZE, Water.PARTICLESIZE);
+            tempctx.drawImage(Water.img, p.x - Water.PARTICLESIZE / 2, p.y - Water.PARTICLESIZE / 2, Water.PARTICLESIZE, Water.PARTICLESIZE);
             
         }
 

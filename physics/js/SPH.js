@@ -64,7 +64,7 @@ SPH.prototype.pourLeft = function() {
         var p = new Particle(0 + i * 8, 0, this);
         p.vy = 0;
         p.vx = -1;
-        this.particles[this.numParticles++] = p;
+        //this.particles[this.numParticles++] = p;
         //alert(mouseX);
     }
 }
@@ -74,7 +74,7 @@ SPH.prototype.pourRight = function() {
         var p = new Particle(400 - i * 8, 0, this);
         p.vy = 0;
         p.vx = 1;
-        this.particles[this.numParticles++] = p;
+        //this.particles[this.numParticles++] = p;
         //alert(mouseX);
     }
 }
