@@ -6,10 +6,16 @@ var ControllerIngredient= require('../controller/controllerIngredient');
 var ControllerRecipe = require('../controller/controllerRecipe');
 
 exports.find = function (req, res, next) {
+    var arr = [];
+    for (var i = 0; i < 5; i++) {
+        arr.push(Math.round(Math.random() * 1000))
+    }
+
     ControllerRecipe.getCocktailsById(function(err, result) {
       res.json(result);
-    }, [22, 44, 28]);
+    }, arr);
 };
+
 
 /**
  * GET /recipes
