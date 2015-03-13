@@ -18,7 +18,11 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 
 app.use(express.favicon());
+
+// Static assets directory path parameter
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Server logging, to replace with morgan.js
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
@@ -42,13 +46,8 @@ app.locals({
 app.get('/', routes.site.index);
 
 // API Routes
-app.get('/cocktails', routes.recipes.find);
-
-//app.get('/recipes', routes.recipes.list);
-//app.get('/recipes/:id', routes.recipes.show);
-//app.del('/recipes/:id', routes.recipes.del);
-//app.get('/ingredients', routes.ingredients.list);
-
+app.get('/cocktails', routes.api.findFiveRandomCocktails);
+app.get('/cocktails/:id', routes.api.findCocktalById);
 
 // ---------------------------------
 // Server deployment
