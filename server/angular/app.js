@@ -39,24 +39,30 @@
 	}
 	var app = angular.module('cocktailFinder', []);
 
-	app.controller('recipeController', function() {
-		// Data fetched from server
-		this.data = fetchedData;
-		// Current recipe displayed
-		this.currentCocktail = this.data.cocktails[0];
+	app.controller('recipeController', ['$scope','$http', function($scope,$http)  {
+
 		// Index in recipe array (this.data, fetched from server)
 		this.currentIndex = 0;
 		// Missing ingredient array, by ID
 		this.missing = [];
 
+		// Current recipe displayed
+		this.currentCocktail = {};
+
 		var that = this;
 
 		// Request data on the server
 		this.fetchData = function() {
-		    $http.get('/cocktails.json').success(function(data){
-		      that.data = this.data;
+		    $http.get('/cocktails').success(function(data){
+				that.currentCocktail = data.cocktails[0];
+		      	return data;
 		    });
+
 		};
+
+		// Data fetched from server
+		this.data = this.fetchData();
+
 		// Decrease the current index 
 		this.decreaseIndex = function() {
 			if (this.currentIndex != 0) {
@@ -83,5 +89,5 @@
 		        }
 	    	}
 		}
-	});
+	}]);
 })();

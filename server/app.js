@@ -20,7 +20,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.favicon());
 
 // Static assets directory path parameter
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'angular')));
 
 // Server logging, to replace with morgan.js
 app.use(express.logger('dev'));
