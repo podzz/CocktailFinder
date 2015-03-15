@@ -100,13 +100,8 @@ html {
 
 }
 
-.onepage ul {
-    display: inline-block;
-}
-
 .onepage li {
     text-align: left;
-    display:block;
 }
 
 .onepage .exclude-bar ul{

@@ -61,8 +61,8 @@
                         <div class="panel-body">
                             <ul>
                                 <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredients">
-                                    {{ ingr.quantity }} {{ ingr.unity }}
-                                    <button type="button" ng-click="recipeCtrl.addMissing(ingr);" class="btn btn-success">
+                                    <label for="{{ 'button' + $index }}"></label> {{ ingr.quantity }} {{ ingr.unity }}</h5>
+                                    <button id="{{ 'button' + $index }}" type="button" ng-click="recipeCtrl.addMissing(ingr);" class="btn btn-success">
                                         {{ ingr.name }}<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </button>
 
