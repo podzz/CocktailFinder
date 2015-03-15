@@ -46,22 +46,19 @@
 		// Missing ingredient array, by ID
 		this.missing = [];
 
+		// Recipe collection
+		this.data = {};
+
 		// Current recipe displayed
 		this.currentCocktail = {};
 
 		var that = this;
 
-		// Request data on the server
-		this.fetchData = function() {
-		    $http.get('/cocktails').success(function(data){
-				that.currentCocktail = data.cocktails[0];
-		      	return data;
-		    });
-
-		};
-
-		// Data fetched from server
-		this.data = this.fetchData();
+		$http.get('/cocktails').success(function(data){
+			that.currentCocktail = data.cocktails[0];
+			// Data fetched from server
+			that.data = data;
+		});
 
 		// Decrease the current index 
 		this.decreaseIndex = function() {
