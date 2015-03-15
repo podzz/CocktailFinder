@@ -63,6 +63,7 @@
 	 			   this.missing.splice(i, 1);
 		        }
 	    	}
+			this.reloadData();
 		}
 		this.reloadData = function() {
 			var route = "/cocktails/missing/";
