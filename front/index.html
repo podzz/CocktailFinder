@@ -60,26 +60,41 @@
                 </div>
                 <div class="col-sm-6" style="height:100%;">
                     <div class="fluid">
-                            <input type="button" name="button1" value="Prev" ng-click="recipeCtrl.decreaseIndex()" />
-                            <input type="button" name="button1" value="Next" ng-click="recipeCtrl.increaseIndex()" />
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{ recipeCtrl.currentCocktail.name }}</h3>
 
-                            <h1>{{ recipeCtrl.currentCocktail.name }}</h1>
-                            <ul>
-                                <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredients">
-                                    <input type="button" name="button1" value="I don't have this" ng-click="recipeCtrl.addMissing(ingr)" />
-                                    {{ ingr.quantity }} {{ ingr.unity }} {{ ingr.name }}
-                                </li>
-                            </ul>
-                        </h1>
+                                <button type="button" ng-click="recipeCtrl.decreaseIndex();" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Previous
+                                </button>
+                                <button type="button" ng-click="recipeCtrl.increaseIndex();" class="btn btn-default">
+                                    Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredients">
+                                        {{ ingr.quantity }} {{ ingr.unity }}
+                                        <button type="button" ng-click="recipeCtrl.addMissing(ingr);"
+                                                class="btn btn-default">
+                                            {{ ingr.name }}<span class="glyphicon glyphicon-remove"
+                                                                 aria-hidden="true"></span>
+                                        </button>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="exclude-bar">
                 <div class=bar">
                     <ul name="excludes" class="list-unstyled bar">
-                        <li ng-repeat="ingr in recipeCtrl.missing" id="{{ 'itemli' + $index }}" >
+                        <li ng-repeat="ingr in recipeCtrl.missing" id="{{ 'itemli' + $index }}">
                             <button type="button" ng-click="recipeCtrl.removeMissing(ingr);" class="btn btn-default">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ ingr.id }} {{ ingr.name }}
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ ingr.id }} {{
+                                ingr.name }}
                             </button>
                             <!--<input type="button" name="button1" value="Finally I have it" ng-click="recipeCtrl.removeMissing(ingr)" />-->
                         </li>
