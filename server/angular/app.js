@@ -38,7 +38,6 @@
 		};
 		// Append an ingredient to the missing list
 		this.addMissing = function(ingredient) {
-			console.log(this.missing);
             if (this.missing.indexOf(ingredient) == -1)
 			    this.missing.push(ingredient);
 			this.reloadData();

@@ -126,50 +126,16 @@ ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) 
             query += ' i.index <> "' + idTab[i] +'" AND';
         }
     }
-    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name LIMIT ' + number;
+    query += 'RETURN re.index LIMIT ' + number;
 
     db.query(query, null, function (err, results) {
-        // ICO Request fail        
-        if (err) {
-          return callback(err);
+        var formatted = [];
+        for (var i = 0; i < results.length; ++i) {
+            formatted.push(results[i]['re.index']);
         }
         
-        var formatted = {
-            cocktails : []
-        };
-
-        var tmp_sequence = [];
-
-        // Formatting ingredients
-        for (var i = 0; i < results.length; ++i) {
-            if (tmp_sequence.indexOf(results[i]['re.index']) == -1) {
-
-                tmp_sequence.push(results[i]['re.index']);
-
-                formatted.cocktails.push({
-                    index : results[i]['re.index'],
-                    name : results[i]['re.name'],
-                    ingredients : [{
-                        id : results[i]['i.index'],
-                        name : results[i]['i.name'],
-                        quantity : results[i]['r.quantity'],
-                        unity : results[i]['r.unity']
-                    }]
-                })
-            } else {
-                    formatted.cocktails[tmp_sequence.indexOf(results[i]['re.index'])].ingredients.push({
-                    id : results[i]['i.index'],
-                    name : results[i]['i.name'],
-                    quantity : results[i]['r.quantity'],
-                    unity : results[i]['r.unity']
-                })
-            }
-        };
-
-        // Async return call
-        callback(null, formatted);
+        ControllerCocktail.getCocktailsById(formatted, callback);
     });
 };
-
 
 module.exports = ControllerCocktail;
