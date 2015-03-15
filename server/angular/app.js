@@ -38,7 +38,14 @@
 		};
 		// Append an ingredient to the missing list
 		this.addMissing = function(ingredient) {
-            if (this.missing.indexOf(ingredient) == -1)
+
+            var needToAdd = true;
+            for (var i = 0; i < this.missing.length; i++) {
+                if (this.missing[i]['id'] === ingredient.id) {
+                    needToAdd = false;
+                }
+            }
+            if (needToAdd)
 			    this.missing.push(ingredient);
 			this.reloadData();
 		}
@@ -67,5 +74,7 @@
    				that.data = data;
 			});
 		}
+
+
 	}]);
 })();
