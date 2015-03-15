@@ -79,6 +79,9 @@ ControllerCocktail.getCocktailById = function(id, callback) {
     'RETURN re.index, re.name,',
     'i.index, r.quantity, r.unity, i.name;'
     ].join('\n');
+
+    console.log(db.query);
+
     db.query(query, null, function (err, results) {
         // ICO Request fail
         if (err) {
