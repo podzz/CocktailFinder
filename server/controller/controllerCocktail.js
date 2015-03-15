@@ -118,12 +118,12 @@ ControllerCocktail.getCocktailById = function(id, callback) {
 // a JSON Object with all its assets
 ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) {
     var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) WHERE';
-
+    console.log(idTab.length);
     for (var i = 0; i < idTab.length; ++i) {
         if (i == idTab.length - 1) {
-            query += ' re.index <> "' + idTab[i] +'" ';
+            query += ' i.index <> "' + idTab[i] +'" ';
         } else {
-            query += ' re.index <> "' + idTab[i] +'" OR';
+            query += ' i.index <> "' + idTab[i] +'" AND';
         }
     }
     query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name LIMIT ' + number;
@@ -153,7 +153,7 @@ ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) 
                         id : results[i]['i.index'],
                         name : results[i]['i.name'],
                         quantity : results[i]['r.quantity'],
-                        unity : results[i]['r.unity'],
+                        unity : results[i]['r.unity']
                     }]
                 })
             } else {
@@ -161,7 +161,7 @@ ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) 
                     id : results[i]['i.index'],
                     name : results[i]['i.name'],
                     quantity : results[i]['r.quantity'],
-                    unity : results[i]['r.unity'],
+                    unity : results[i]['r.unity']
                 })
             }
         };
