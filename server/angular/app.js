@@ -1,42 +1,4 @@
 (function(){
-	var fetchedData = {
-		"cocktails": [
-		{
-			"name": "MyCocktail",
-			"ingredients": [
-			{
-				"id": 1,
-				"name": "jus de carote",
-				"quantity": 4,
-				"unity": "cl"
-			},
-			{
-				"id": 2,
-				"name": "ju carote",
-				"quantity": 12,
-				"unity": "cl"
-			}
-			]
-		},
-		{
-			"name": "MyCocktail2",
-			"ingredients": [
-			{
-				"id": 123,
-				"name": "Concombre",
-				"quantity": 4,
-				"unity": "cl"
-			},
-			{
-				"id": 1322,
-				"name": "Tomates",
-				"quantity": 120,
-				"unity": "cl"
-			}
-			]
-		}
-		]
-	}
 	var app = angular.module('cocktailFinder', []);
 
 	app.controller('recipeController', ['$scope','$http', function($scope,$http)  {
