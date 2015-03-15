@@ -16,7 +16,13 @@
 
 		var that = this;
 
-
+        this.sortByKey = function(array, key) {
+            return array.sort(function (a, b) {
+                var x = a[key];
+                var y = b[key];
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
+        };
 
 		// Decrease the current index
 		this.decreaseIndex = function() {
@@ -41,10 +47,15 @@
                     needToAdd = false;
                 }
             }
-            if (needToAdd)
-			    this.missing.push(ingredient);
+            if (needToAdd) {
+                this.missing.push(ingredient);
+                this.missing = this.sortByKey(this.missing, "name");
+            }
 			this.reloadData();
 		}
+
+
+
 		// Remove an ingredient ID from the missing list
 		this.removeMissing = function(ingredient) {
 			for (var i = 0; i < this.missing.length; i++) {
