@@ -76,7 +76,8 @@
 		};
 		// Append an ingredient to the missing list
 		this.addMissing = function(ingredient) {
-			this.missing.push(ingredient);
+            if (this.missing.indexOf(ingredient) == -1)
+			    this.missing.push(ingredient);
 		}
 		// Remove an ingredient ID from the missing list
 		this.removeMissing = function(ingredient) {
