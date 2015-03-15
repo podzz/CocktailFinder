@@ -82,6 +82,8 @@ html {
     bottom: 2%;
     left: 2%;
     right: 2%;
+    height: 10%;
+    overflow: auto;
 }
 
 .bar {
