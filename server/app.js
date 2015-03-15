@@ -48,6 +48,7 @@ app.get('/', routes.site.index);
 // API Routes
 app.get('/cocktails', routes.api.findFiveRandomCocktails);
 app.get('/cocktails/:id', routes.api.findCocktalById);
+app.get('/cocktails/missing/:array', routes.api.findCocktailsByMissingIds);
 
 // ---------------------------------
 // Server deployment

@@ -18,9 +18,10 @@ exports.findCocktalById = function (req, res, next) {
 };
 
 exports.findCocktailsByMissingIds = function (req, res, next) {
-    var arr = [4, 8, 2];
+    res.json("Hello World" + req.params.array);
+    //var arr = [4, 8, 2];
 
-    ControllerCocktail.getCocktailsByMissingIds(arr, 5, function(err, result) {
-      res.json(result);
-    });
+    //ControllerCocktail.getCocktailsByMissingIds(arr, 5, function(err, result) {
+      //res.json(result);
+    //});
 };
