@@ -16,11 +16,7 @@
 
 		var that = this;
 
-		$http.get('/cocktails').success(function(data){
-			that.currentCocktail = data.cocktails[0];
-			// Data fetched from server
-			that.data = data;
-		});
+
 
 		// Decrease the current index
 		this.decreaseIndex = function() {
@@ -74,7 +70,7 @@
    				that.data = data;
 			});
 		}
-
-
+		// Initiates request at page load up
+		this.reloadData();
 	}]);
 })();

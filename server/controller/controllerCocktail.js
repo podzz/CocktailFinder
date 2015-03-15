@@ -117,9 +117,11 @@ ControllerCocktail.getCocktailById = function(id, callback) {
 // Seeks the recipe with the IDs given in param, and returns
 // a JSON Object with all its assets
 ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) {
-    var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) WHERE';
-    console.log(idTab.length);
+    var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) ';
     for (var i = 0; i < idTab.length; ++i) {
+        if (i == 0) {
+            query += "WHERE";
+        }
         if (i == idTab.length - 1) {
             query += ' i.index <> "' + idTab[i] +'" ';
         } else {
@@ -127,13 +129,12 @@ ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) 
         }
     }
     query += 'RETURN re.index LIMIT ' + number;
-
     db.query(query, null, function (err, results) {
         var formatted = [];
         for (var i = 0; i < results.length; ++i) {
             formatted.push(results[i]['re.index']);
         }
-        
+
         ControllerCocktail.getCocktailsById(formatted, callback);
     });
 };

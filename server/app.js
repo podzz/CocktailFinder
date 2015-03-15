@@ -48,7 +48,8 @@ app.get('/', routes.site.index);
 
 // API Routes
 app.get('/cocktails', routes.api.findFiveRandomCocktails);
-app.get('/cocktails/:id', routes.api.findCocktalById);
+app.get('/cocktails/cocktail/:id', routes.api.findCocktalById);
+app.get('/cocktails/missing/', routes.api.findCocktailsByMissingIds);
 app.get('/cocktails/missing/:array', routes.api.findCocktailsByMissingIds);
 
 // ---------------------------------
