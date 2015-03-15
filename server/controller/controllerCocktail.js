@@ -117,24 +117,31 @@ ControllerCocktail.getCocktailById = function(id, callback) {
 // Seeks the recipe with the IDs given in param, and returns
 // a JSON Object with all its assets
 ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) {
-    var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) ';
-    for (var i = 0; i < idTab.length; ++i) {
-        if (i == 0) {
-            query += "WHERE";
+    var query1 = 'MATCH (r:Recipe)';
+    var query2 = '';
+    if (!idTab) {
+        query1 += ' ';
+    } else { 
+        query1 += ', ';
+        for (var i = 0; i < idTab.length; ++i) {
+            if (i == idTab.length - 1) {
+                query1 += '(i' + i + ':Ingredient { index:"' + idTab[i] + '" }) ';
+                query2 += 'NOT r--i' + i + ' ';
+            } else {
+                query1 += '(i' + i + ':Ingredient { index:"' + idTab[i] + '" }), ';
+                query2 += 'NOT r--i' + i + ' AND ';            
+            }
         }
-        if (i == idTab.length - 1) {
-            query += ' i.index <> "' + idTab[i] +'" ';
-        } else {
-            query += ' i.index <> "' + idTab[i] +'" AND';
-        }
+        query1 += 'WHERE '
     }
-    query += 'RETURN re.index LIMIT ' + number;
-    db.query(query, null, function (err, results) {
+    query2 += 'RETURN r.index LIMIT ' + number;
+        
+    db.query(query1 + query2, null, function (err, results) {
         var formatted = [];
-        for (var i = 0; i < results.length; ++i) {
-            formatted.push(results[i]['re.index']);
-        }
 
+        for (var i = 0; i < results.length; ++i) {
+            formatted.push(results[i]['r.index']);
+        }
         ControllerCocktail.getCocktailsById(formatted, callback);
     });
 };

@@ -18,7 +18,7 @@ exports.findCocktalById = function (req, res, next) {
 };
 
 exports.findCocktailsByMissingIds = function (req, res, next) {
-    var constructArray = [0];
+    var constructArray = null;
     if (req.params.array) {
 		constructArray = req.params.array.split(',');
     }
