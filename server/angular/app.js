@@ -55,7 +55,7 @@
 			var route = "/cocktails/missing/";
 
 	        for (var i = 0; i < this.missing.length; ++i) {
-        		if (i == idTab.length - 1) {
+        		if (i == this.missing.length - 1) {
 					route += this.missing[i].id;
 				} else {
 					route += this.missing[i].id + ',';
