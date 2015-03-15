@@ -66,8 +66,7 @@
 				that.currentCocktail = data.cocktails[0];
 				// Data fetched from server
 				that.data = data;
-			}
-		});
+			});
 		}
 	}]);
 })();
