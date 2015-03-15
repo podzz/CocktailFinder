@@ -22,14 +22,14 @@
 			that.data = data;
 		});
 
-		// Decrease the current index 
+		// Decrease the current index
 		this.decreaseIndex = function() {
 			if (this.currentIndex != 0) {
 				this.currentIndex--;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
 			}
 		};
-		// Increase the current index 
+		// Increase the current index
 		this.increaseIndex = function() {
 			if (this.currentIndex < Object.keys(this.data.cocktails).length - 1) {
 				this.currentIndex++;
@@ -64,7 +64,7 @@
 			$http.get(route).success(function(data){
 				that.currentCocktail = data.cocktails[0];
 				// Data fetched from server
-				that.data = data;
+   				that.data = data;
 			});
 		}
 	}]);

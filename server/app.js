@@ -21,6 +21,7 @@ app.use(express.favicon());
 
 // Static assets directory path parameter
 app.use(express.static(path.join(__dirname, 'angular')));
+app.use(express.static(path.join(__dirname, '../front')));
 
 // Server logging, to replace with morgan.js
 app.use(express.logger('dev'));
@@ -61,3 +62,5 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Server running');
   console.log('Server listening @ http://localhost:%d/', app.get('port'));
 });
+
+
