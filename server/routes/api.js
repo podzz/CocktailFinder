@@ -16,3 +16,11 @@ exports.findCocktalById = function (req, res, next) {
       res.json(result);
     });
 };
+
+exports.findCocktailsByMissingIds = function (req, res, next) {
+    var arr = [4, 8, 2];
+
+    ControllerCocktail.getCocktailsByMissingIds(arr, 5, function(err, result) {
+      res.json(result);
+    });
+};

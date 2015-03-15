@@ -113,4 +113,63 @@ ControllerCocktail.getCocktailById = function(id, callback) {
     });
 };
 
+
+// Seeks the recipe with the IDs given in param, and returns
+// a JSON Object with all its assets
+ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) {
+    var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) WHERE';
+
+    for (var i = 0; i < idTab.length; ++i) {
+        if (i == idTab.length - 1) {
+            query += ' re.index <> "' + idTab[i] +'" ';
+        } else {
+            query += ' re.index <> "' + idTab[i] +'" OR';
+        }
+    }
+    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name LIMIT ' + number;
+
+    db.query(query, null, function (err, results) {
+        // ICO Request fail        
+        if (err) {
+          return callback(err);
+        }
+        
+        var formatted = {
+            cocktails : []
+        };
+
+        var tmp_sequence = [];
+
+        // Formatting ingredients
+        for (var i = 0; i < results.length; ++i) {
+            if (tmp_sequence.indexOf(results[i]['re.index']) == -1) {
+
+                tmp_sequence.push(results[i]['re.index']);
+
+                formatted.cocktails.push({
+                    index : results[i]['re.index'],
+                    name : results[i]['re.name'],
+                    ingredients : [{
+                        id : results[i]['i.index'],
+                        name : results[i]['i.name'],
+                        quantity : results[i]['r.quantity'],
+                        unity : results[i]['r.unity'],
+                    }]
+                })
+            } else {
+                    formatted.cocktails[tmp_sequence.indexOf(results[i]['re.index'])].ingredients.push({
+                    id : results[i]['i.index'],
+                    name : results[i]['i.name'],
+                    quantity : results[i]['r.quantity'],
+                    unity : results[i]['r.unity'],
+                })
+            }
+        };
+
+        // Async return call
+        callback(null, formatted);
+    });
+};
+
+
 module.exports = ControllerCocktail;
