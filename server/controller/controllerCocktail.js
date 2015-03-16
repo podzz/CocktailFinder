@@ -31,13 +31,13 @@ ControllerCocktail.getCocktailsById = function(idTab, callback) {
         // ICO Request fail        
         if (err) {
           return callback(err);
-        }
-        
-        var formatted = {
-            cocktails : []
-        };
+      }
 
-        var tmp_sequence = [];
+      var formatted = {
+        cocktails : []
+    };
+
+    var tmp_sequence = [];
 
         // Formatting ingredients
         for (var i = 0; i < results.length; ++i) {
@@ -56,7 +56,7 @@ ControllerCocktail.getCocktailsById = function(idTab, callback) {
                     }]
                 })
             } else {
-                    formatted.cocktails[tmp_sequence.indexOf(results[i]['re.index'])].ingredients.push({
+                formatted.cocktails[tmp_sequence.indexOf(results[i]['re.index'])].ingredients.push({
                     id : results[i]['i.index'],
                     name : results[i]['i.name'],
                     quantity : results[i]['r.quantity'],
@@ -72,6 +72,7 @@ ControllerCocktail.getCocktailsById = function(idTab, callback) {
 
 // Seeks the recipe with the ID given in param, and returns
 // a JSON Object with all its assets
+// TO FIX
 ControllerCocktail.getCocktailById = function(id, callback) {
     var query = [
     'MATCH (re:Recipe)-[r]-(i:Ingredient)',
@@ -135,7 +136,7 @@ ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) 
         query1 += 'WHERE '
     }
     query2 += 'RETURN r.index LIMIT ' + number;
-        
+
     db.query(query1 + query2, null, function (err, results) {
         var formatted = [];
 

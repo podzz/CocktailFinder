@@ -1,3 +1,3 @@
 runserver:
 	npm install
-	node app.js
+	node-dev app.js

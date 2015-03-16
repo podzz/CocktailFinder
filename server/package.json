@@ -16,6 +16,6 @@
   },
   "scripts":
   {
-    "start": "node-dev app.js"
+    "start": "node-dev server.js"
   }
 }
