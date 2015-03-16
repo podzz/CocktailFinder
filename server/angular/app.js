@@ -23,7 +23,6 @@
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             });
         };
-
 		// Decrease the current index
 		this.decreaseIndex = function() {
 			if (this.currentIndex != 0) {
@@ -66,7 +65,7 @@
 			this.reloadData();
 		}
 		this.reloadData = function() {
-			var route = "/cocktails/missing/";
+			var route = "/api/missing/";
 
 	        for (var i = 0; i < this.missing.length; ++i) {
         		if (i == this.missing.length - 1) {
