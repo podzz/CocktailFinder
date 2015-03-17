@@ -64,6 +64,7 @@ Particle.prototype = {
         this.vy += this.fy;
         this.x += this.vx *time;
         this.y += this.vy *time;
+
         if (this.x < 5)
             this.vx += (5 - this.x) * 0.5 - this.vx * 0.5;
         if (this.y < 5)
@@ -73,5 +74,27 @@ Particle.prototype = {
         if (this.y > this.SPH.CanvasHeight)
             this.vy += (this.SPH.CanvasHeight - this.y) * 0.5 - this.vy * 0.5;
 
+        /*if (this.x + this.SPH.PARTICLESIZE * this.density / 2 > 100 &&
+         this.x - this.SPH.PARTICLESIZE * this.density / 2 < 100 &&
+         this.y + this.SPH.PARTICLESIZE > 0 &&
+         this.y < 0 + 400) {
+            this.vx *= -0.5;
+        }*/
+        if (this.y >= 200/* &&
+         this.x - this.SPH.PARTICLESIZE * this.density / 2 < 100 &&
+         this.y + this.SPH.PARTICLESIZE > 0 &&
+         this.y < 0 + 400*/) {
+            this.vy += (200 - this.y) * 0.5 - this.vy * 0.5;
+        }
+
+        /*if (100 < this.x + this.SPH.PARTICLESIZE &&
+            100 + 100 > this.x &&
+            50 < this.y + this.SPH.PARTICLESIZE &&
+            100 + 50 > this.y) {
+            // collision détectée !
+
+            this.vy *= 0;
+            this.vx *= 0;
+        }*/
     }
 };

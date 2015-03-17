@@ -18,17 +18,15 @@ var initialize = function(){
 	//canvas.width = window.innerWidth / 3;
 	//canvas.height = window.innerHeight / 3;
     canvas.width = 400;
-    canvas.height = 200;
+    canvas.height = 400;
 	document.body.appendChild(canvas);
 
 
     console.log("canvas added");
 
     var ctx = canvas.getContext('2d');
-
     ctx.fillStyle = '#00DD00';
     ctx.fillRect(0,0,canvas.width, canvas.height);
-
 
     //Meta ball variables
     tempcanvas = document.createElement("canvas");
@@ -36,18 +34,28 @@ var initialize = function(){
     tempcanvas.height = canvas.height;
     tempctx = tempcanvas.getContext("2d");
 
+    rectcanvas = document.createElement("canvas");
+    rectcanvas.width = canvas.width;
+    rectcanvas.height = canvas.height;
+    rectctx = rectcanvas.getContext("2d");
+
+    rectctx.fillStyle = '#00DD00';
+    rectctx.fillRect(100,50, 200, 100);
+
     var Water = new SPH(canvas);
     var press=0;
 
 
     //LOOP
     function frame(e) {
-        if (press)
-            Water.pourPress();
+        //if (press)
+            //Water.createLauncher(this.mouseX, this.mouseY);
 
+        Water.pourLaunchers();
         Water.pourLeft();
-        Water.pourRight();
-        Water.pourMid();
+        //Water.pourRight();
+        //Water.pourMid();
+        //Water.pourGlass();
         Water.move();
         if (Water.numParticles > 1000)
             Water.clear();
@@ -72,7 +80,6 @@ var initialize = function(){
             var p = Water.particles[i];
 
             tempctx.drawImage(Water.img, p.x - Water.PARTICLESIZE / 2, p.y - Water.PARTICLESIZE / 2, Water.PARTICLESIZE, Water.PARTICLESIZE);
-            
         }
 
 
@@ -90,6 +97,11 @@ var initialize = function(){
         }
         /**/
         ctx.putImageData(imageData, 0, 0);
+        ctx.moveTo(200, 0);
+        ctx.lineTo(200, 400);
+        ctx.moveTo(0, 200);
+        ctx.lineTo(400, 200);
+        ctx.stroke()
 
     }
 

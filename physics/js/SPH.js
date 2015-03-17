@@ -21,6 +21,8 @@ var SPH = function(canvas){
 
     this.particles = [];
     this.numParticles = 0;
+    this.launchers = [];
+    this.numLaunchers = 0;
     this.neighbors = [];
     this.numNeighbors = 0;
     this.count = 0;
@@ -47,6 +49,21 @@ var SPH = function(canvas){
     this.touchradius2 = this.touchradius*this.touchradius;
 }
 
+SPH.prototype.createLauncher = function() {
+    this.launchers[this.numLaunchers++] = new Launcher(this.mouseX, this.mouseY);
+    //this.launchers[this.numLaunchers++] = new Launcher(200, 100);
+}
+
+SPH.prototype.pourLaunchers = function() {
+    for (var i = 0; i < this.numLaunchers; i++) {
+        var l = this.launchers[i];
+        for (var j = 0; j < l.particleNumber; j++) {
+            var p = new Particle(l.x + j * 8, l.y, this);
+            p.vy = 10;
+            this.particles[this.numParticles++] = p;
+        }
+    }
+}
 
 //add more water at mouse position
 SPH.prototype.pourPress = function() {
@@ -60,21 +77,21 @@ SPH.prototype.pourPress = function() {
 }
 SPH.prototype.pourLeft = function() {
     //if (1)
-    for (var i = 0; i <= 1; i++) {
-        var p = new Particle(0 + i * 8, 0, this);
-        p.vy = 0;
-        p.vx = -1;
-        //this.particles[this.numParticles++] = p;
+    for (var i = 0; i <= 0; i++) {
+        var p = new Particle(10, 100, this);
+        p.vy = -2;
+        p.vx = 5;
+        this.particles[this.numParticles++] = p;
         //alert(mouseX);
     }
 }
 SPH.prototype.pourRight = function() {
     //if (1)
-    for (var i = 0; i <= 1; i++) {
-        var p = new Particle(400 - i * 8, 0, this);
-        p.vy = 0;
-        p.vx = 1;
-        //this.particles[this.numParticles++] = p;
+    for (var i = 0; i <= 0; i++) {
+        var p = new Particle(200, 0, this);
+        p.vy = -2;
+        p.vx = -6;
+        this.particles[this.numParticles++] = p;
         //alert(mouseX);
     }
 }
@@ -85,6 +102,25 @@ SPH.prototype.pourMid = function() {
         var p = new Particle(200 - i * 8, 200, this);
         p.vy = -20;
         p.vx = 1;
+        this.particles[this.numParticles++] = p;
+        //alert(mouseX);
+    }
+}
+
+SPH.prototype.pourGlass = function() {
+    //if (1)
+    for (var i = 0; i <= 0; i++) {
+        var p = new Particle(199, 0, this);
+        p.vy = -1;
+        p.vx = 1;
+        this.particles[this.numParticles++] = p;
+        //alert(mouseX);
+    }
+
+    for (var i = 0; i <= 0; i++) {
+        var p = new Particle(201, 0, this);
+        p.vy = -1;
+        p.vx = -1;
         this.particles[this.numParticles++] = p;
         //alert(mouseX);
     }
@@ -141,6 +177,7 @@ SPH.prototype.updateGrids = function() {
             p.gy = this.NUM_GRIDS - 1;
 
         //add particle to grids
+        //Console.writeln("gx and gy :" + p.gx + "|" + p.gy);
         this.grids[p.gx][p.gy].add(p);
     }
 }
