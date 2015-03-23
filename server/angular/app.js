@@ -5,7 +5,9 @@
 
 		// Index in recipe array (this.data, fetched from server)
 		this.currentIndex = 0;
+
 		// Missing ingredient array, by ID
+		// Gets the cookie value at page load up
 		this.missing = [];
 
 		// Recipe collection
@@ -15,6 +17,19 @@
 		this.currentCocktail = {};
 
 		var that = this;
+
+		// Load the exclude list from cookie array
+		this.loadMissingFromCookie = function() {
+			var dataFetched = $.cookie('cocktailFinder'); 
+			if (dataFetched) {
+				this.missing = JSON.parse(dataFetched);
+			}
+		};
+
+		this.saveExcludeList = function() {
+			// Updates the missing array cookie
+			$.cookie('cocktailFinder', JSON.stringify(this.missing), { expires: 30 });
+		};
 
         this.sortByKey = function(array, key) {
             return array.sort(function (a, b) {
@@ -50,10 +65,14 @@
                 this.missing.push(ingredient);
                 this.missing = this.sortByKey(this.missing, "name");
             }
+            this.saveExcludeList();
 			this.reloadData();
 		}
 
-
+		// For Dev purpose
+		this.removeCookie = function () {
+			$.removeCookie('cocktailFinder');
+		}
 
 		// Remove an ingredient ID from the missing list
 		this.removeMissing = function(ingredient) {
@@ -62,8 +81,11 @@
 	 			   this.missing.splice(i, 1);
 		        }
 	    	}
+            this.saveExcludeList();
 			this.reloadData();
 		}
+
+		// Fetch data from API with the exclude list in param
 		this.reloadData = function() {
 			var route = "/api/missing/";
 
@@ -84,5 +106,6 @@
 		}
 		// Initiates request at page load up
 		this.reloadData();
+		this.loadMissingFromCookie();
 	}]);
 })();
