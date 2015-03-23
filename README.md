@@ -43,9 +43,14 @@ GET:/api/cocktails
 
 Basic API request that returns a list of 5 random recipes with the ingredients.
 
-GET:/api/cocktail/id
+GET:/api/cocktail/id/:id
 
 Basic API request that returns the JSON data associated to the id in param.
+
+
+GET:/api/cocktail/name/:name
+
+Basic API request that returns the JSON data associated to the name in param.
 
 GET:/api/missing/:array
 
