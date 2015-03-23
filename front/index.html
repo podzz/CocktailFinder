@@ -51,6 +51,10 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">{{ recipeCtrl.currentCocktail.name }}</h3>
                             <br/>
+                            <button type="button" ng-click="recipeCtrl.removeCookie();" class="btn btn-warning">
+                                <span class="glyphicon glyphicons-remove" aria-hidden="true"></span> Delete Cookies
+                            </button>
+                            <hr/>
                             <button type="button" ng-click="recipeCtrl.decreaseIndex();" class="btn btn-warning">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Previous
                             </button>
