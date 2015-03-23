@@ -79,7 +79,7 @@
 				that.currentCocktail = data.cocktails[0];
 				// Data fetched from server
    				that.data = data;
-                this.currentIndex = 0;
+                that.currentIndex = 0;
 			});
 		}
 		// Initiates request at page load up
