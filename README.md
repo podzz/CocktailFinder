@@ -23,6 +23,19 @@ To get the exported
 > - Enjoy with cocktail.csv
 
 
+Database
+========
+
+TODO : explain the CSV import requests
+
+Bootstraping the data imported :
+
+Launch the node server, and access the following URLs (by order) :
+
+- /bdd/rank/ingredients
+- /bdd/rank/recipes
+
+
 Cocktail Finder API
 ===================
 
