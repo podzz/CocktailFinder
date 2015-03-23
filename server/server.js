@@ -44,17 +44,18 @@ app.locals({
 // ---------------------------------
 
 // App routes
-app.get('/',				 	routes.site.index);
+app.get('/',				 		routes.site.index);
 
 // Bootstrap/Install routes
-app.get('/bdd/rank/ingredients',routes.bdd.rankIngredients);
-app.get('/bdd/rank/recipes',	routes.bdd.rankRecipes);
+app.get('/bdd/rank/ingredients',	routes.bdd.rankIngredients);
+app.get('/bdd/rank/recipes',		routes.bdd.rankRecipes);
 
 // API routes
-app.get('/api/cocktails', 		routes.api.findFiveRandomCocktails);
-app.get('/api/cocktail/:id', 	routes.api.findCocktalById);
-app.get('/api/missing/', 		routes.api.findCocktailsByMissingIds);
-app.get('/api/missing/:array',  routes.api.findCocktailsByMissingIds);
+app.get('/api/cocktails', 			routes.api.findFiveRandomCocktails);
+app.get('/api/cocktail/id/:id', 	routes.api.findCocktalById);
+app.get('/api/cocktail/name/:name', routes.api.findCocktalByName);
+app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);
+app.get('/api/missing/:array',  	routes.api.findCocktailsByMissingIds);
 
 // ---------------------------------
 // Server deployment

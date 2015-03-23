@@ -73,42 +73,100 @@ ControllerCocktail.getCocktailsById = function(idTab, callback) {
 // Seeks the recipe with the ID given in param, and returns
 // a JSON Object with all its assets
 // TO FIX
-ControllerCocktail.getCocktailById = function(id, callback) {
-    var query = [
-    'MATCH (re:Recipe)-[r]-(i:Ingredient)',
-    'WHERE re.index = "' + id +'"',
-    'RETURN re.index, re.name,',
-    'i.index, r.quantity, r.unity, i.name;'
-    ].join('\n');
-
-    console.log(db.query);
+ControllerCocktail.getCocktailById = function(index, callback) {
+    var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) WHERE';
+    query += ' re.index = "' + index +'" ';
+    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name';
 
     db.query(query, null, function (err, results) {
-        // ICO Request fail
+        // ICO Request fail        
         if (err) {
-            console.log("ERROR : " + err);
-            console.log("QUERY FAILED : " + query);
-            console.log("Error in DB call");
-            return callback(err);
+          return callback(err);
         }
-        // Iteration through results to get the proper JSON structure
+
         var formatted = {
-            cocktails: [{
-                index : results[0]['re.index'],
-                name : results[0]['re.name'],
-                ingredients: []
-            }]
+            cocktails : []
         };
+
+        var tmp_sequence = [];
 
         // Formatting ingredients
         for (var i = 0; i < results.length; ++i) {
-            formatted.cocktails.ingredients.push({
-                id : results[i]['i.index'],
-                name : results[i]['i.name'],
-                quantity : results[i]['r.quantity'],
-                unity : results[i]['r.unity'],
-            })
+            if (tmp_sequence.indexOf(results[i]['re.index']) == -1) {
+
+                tmp_sequence.push(results[i]['re.index']);
+
+                formatted.cocktails.push({
+                    index : results[i]['re.index'],
+                    name : results[i]['re.name'],
+                    ingredients : [{
+                        id : results[i]['i.index'],
+                        name : results[i]['i.name'],
+                        quantity : results[i]['r.quantity'],
+                        unity : results[i]['r.unity'],
+                    }]
+                })
+            } else {
+                formatted.cocktails[tmp_sequence.indexOf(results[i]['re.index'])].ingredients.push({
+                    id : results[i]['i.index'],
+                    name : results[i]['i.name'],
+                    quantity : results[i]['r.quantity'],
+                    unity : results[i]['r.unity'],
+                })
+            }
         };
+
+        // Async return call
+        callback(null, formatted);
+    });
+};
+
+// Seeks the recipe with the ID given in param, and returns
+// a JSON Object with all its assets
+// TO FIX
+ControllerCocktail.getCocktailByName = function(name, callback) {
+    var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) WHERE';
+    query += ' re.name = "' + name +'" ';
+    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name';
+
+    db.query(query, null, function (err, results) {
+        // ICO Request fail        
+        if (err) {
+          return callback(err);
+        }
+
+        var formatted = {
+            cocktails : []
+        };
+
+        var tmp_sequence = [];
+
+        // Formatting ingredients
+        for (var i = 0; i < results.length; ++i) {
+            if (tmp_sequence.indexOf(results[i]['re.index']) == -1) {
+
+                tmp_sequence.push(results[i]['re.index']);
+
+                formatted.cocktails.push({
+                    index : results[i]['re.index'],
+                    name : results[i]['re.name'],
+                    ingredients : [{
+                        id : results[i]['i.index'],
+                        name : results[i]['i.name'],
+                        quantity : results[i]['r.quantity'],
+                        unity : results[i]['r.unity'],
+                    }]
+                })
+            } else {
+                formatted.cocktails[tmp_sequence.indexOf(results[i]['re.index'])].ingredients.push({
+                    id : results[i]['i.index'],
+                    name : results[i]['i.name'],
+                    quantity : results[i]['r.quantity'],
+                    unity : results[i]['r.unity'],
+                })
+            }
+        };
+
         // Async return call
         callback(null, formatted);
     });

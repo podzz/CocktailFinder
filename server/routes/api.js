@@ -12,7 +12,13 @@ exports.findFiveRandomCocktails = function (req, res, next) {
 };
 
 exports.findCocktalById = function (req, res, next) {
-    ControllerCocktail.getCocktailsById([req.params.id], function(err, result) {
+    ControllerCocktail.getCocktailById(req.params.id, function(err, result) {
+      res.json(result);
+    });
+};
+
+exports.findCocktalByName = function (req, res, next) {
+    ControllerCocktail.getCocktailByName(req.params.name, function(err, result) {
       res.json(result);
     });
 };
