@@ -39,9 +39,23 @@ Launch the node server, and access the following URLs (by order) :
 Cocktail Finder API
 ===================
 
-GET:/cocktail
+GET:/api/cocktails
 
-Basic API request that returns a list of recipes with the ingredients.
+Basic API request that returns a list of 5 random recipes with the ingredients.
+
+GET:/api/cocktail/id
+
+Basic API request that returns the JSON data associated to the id in param.
+
+GET:/api/missing/:array
+
+Request that returns a list of 5 classic recipes with the ingredients if the array is not specified.
+
+You can specify a list of comma separated integer values to specify which ingredient to exclude.
+
+Example : /api/missing/1,2,34
+
+JSON Structure :
 
 ```
 {
