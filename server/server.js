@@ -44,13 +44,14 @@ app.locals({
 // ---------------------------------
 
 // App routes
-app.get('/', routes.site.index);
+app.get('/',				 	routes.site.index);
+app.get('/bdd/rank/ingredients',routes.bdd.rankIngredients);
+app.get('/bdd/rank/recipes',	routes.bdd.rankRecipes);
 
-// API Routes
-app.get('/cocktails', routes.api.findFiveRandomCocktails);
-app.get('/api/cocktail/:id', routes.api.findCocktalById);
-app.get('/api/missing/', routes.api.findCocktailsByMissingIds);
-app.get('/api/missing/:array', routes.api.findCocktailsByMissingIds);
+app.get('/api/cocktails', 		routes.api.findFiveRandomCocktails);
+app.get('/api/cocktail/:id', 	routes.api.findCocktalById);
+app.get('/api/missing/', 		routes.api.findCocktailsByMissingIds);
+app.get('/api/missing/:array',  routes.api.findCocktailsByMissingIds);
 
 // ---------------------------------
 // Server deployment

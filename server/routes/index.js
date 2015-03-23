@@ -2,6 +2,7 @@
 exports.site = require('./site');
 
 exports.api = require('./api');
+exports.bdd = require('./bdd');
 
 exports.recipes = require('./recipes');
 exports.ingredients = require('./ingredients');
