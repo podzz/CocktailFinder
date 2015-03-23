@@ -135,7 +135,7 @@ ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) 
         }
         query1 += 'WHERE '
     }
-    query2 += 'RETURN r.index LIMIT ' + number;
+    query2 += 'RETURN r.index ORDER BY r.recipeScore DESC LIMIT ' + number;
 
     db.query(query1 + query2, null, function (err, results) {
         var formatted = [];
