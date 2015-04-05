@@ -57,12 +57,15 @@ function init(obj) {
     stage.addChild(pondContainer);
 
     //Filter
+
+
+
     blurFilter = new PIXI.BlurFilter();
-    blurFilter.blur = 10;
+    blurFilter.blur = 18;
 
     var thresoldfilter = new PIXI.TresholdFilter();
 
-    pondContainer.filters = [blurFilter, thresoldfilter];
+    pondContainer.filters = [ blurFilter, thresoldfilter];
 
     // create a renderer instance
 
@@ -82,8 +85,10 @@ function init(obj) {
     for (var i = 0; i < _len; i++) {
 
         var graphics = new PIXI.Graphics();
-        graphics.beginFill(0x00b8ff);
         graphics.drawCircle(0,0,10,10);
+
+        var colormixer = new PIXI.ColorMixerFilter();
+        graphics.filters =  [ colormixer ];
 
         stage.addChild(graphics);
         circleArr.push(graphics);
@@ -109,9 +114,19 @@ function animate() {
         var posX = particles[i * 2] * METER + OFFSET_X;
         var posY = particles[(i * 2) + 1] * METER + OFFSET_Y;
 
+        var r = colorsBuffer[i * 4];
+        var g = colorsBuffer[(i * 4) + 1];
+        var b = colorsBuffer[(i * 4) + 2];
+        var a = colorsBuffer[(i * 4) + 3];
+
+        circleArr[i].filters[0].r = r;
+        circleArr[i].filters[0].g = g;
+        circleArr[i].filters[0].b = b;
+        circleArr[i].filters[0].a = a;
 
         circleArr[i].x = posX;
         circleArr[i].y = posY;
+
             }
 
     requestAnimFrame(animate);
@@ -168,24 +183,27 @@ function TestWaveMachine() {
     var psd = new b2ParticleSystemDef();
     psd.radius = 0.05;
     psd.dampingStrength = 0.2;
-    psd.flags = b2_colorMixingParticle;
 
     var particleSystem = world.CreateParticleSystem(psd);
+
+
     var box = new b2PolygonShape();
-    box.SetAsBoxXYCenterAngle(1.8, 2, new b2Vec2(windowWidth / 2 / METER, -windowHeight / 4 / METER), 0);
+    box.SetAsBoxXYCenterAngle(0.6, 1, new b2Vec2(4,5), 0);
 
     var particleGroupDef = new b2ParticleGroupDef();
     particleGroupDef.shape = box;
     particleGroupDef.flags = b2_colorMixingParticle;
-    particleGroupDef.color.Set(0,0,255,255);
+    particleGroupDef.color.Set(255,0,0,255);
+
+    var box2 = new b2PolygonShape();
+    box2.SetAsBoxXYCenterAngle(0.6, 1, new b2Vec2(7,5), 0);
 
     var particleGroupDef2 = new b2ParticleGroupDef();
-    particleGroupDef2.shape = box;
+    particleGroupDef2.shape = box2;
     particleGroupDef2.flags = b2_colorMixingParticle;
-    particleGroupDef2.color.Set(127,0,255,255);
+    particleGroupDef2.color.Set(0,0,0,255);
 
     var particleGroup = particleSystem.CreateParticleGroup(particleGroupDef);
-
     var particleGroup2 = particleSystem.CreateParticleGroup(particleGroupDef2);
 
 }
