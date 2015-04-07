@@ -6,16 +6,23 @@
         margin: 0;
         padding: 0;
         border: 0;
-        background-color: red;
     }
 </style>
-<script src="scripts/liquidfun.js"></script>
 <script src="scripts/pixi.js"></script>
-<script src="liquidfun.js"></script>
-<script src="filters/TresholdFilter.js"></script>
-<script src="filters/ColorMixerFilter.js"></script>
+<script src="scripts/jquery-1.11.2.min.js"></script>
+<script src="scripts/liquidfun.js"></script>
+<script src="http://threejs.org/build/three.min.js"></script>
+
+<script src="custom/filters/TresholdFilter.js"></script>
+<script src="custom/filters/ColorMixerFilter.js"></script>
+<script src="custom/liquidfun.js"></script>
+
 
 <body onload="onload()">
+<button onclick="reload()">Refresh</button>
+    <div id="cocktailRenderer">
+
+    </div>
 </body>
 
 </html>

@@ -5,7 +5,7 @@ PIXI.TresholdFilter = function()
     this.passes = [this];
 
     this.uniforms = {
-        thresold: {type: '1f', value: 0.8}
+        thresold: {type: '1f', value: 0.80}
     };
 
     this.fragmentSrc = [
