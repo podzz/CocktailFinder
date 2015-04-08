@@ -4,6 +4,7 @@
 
 var circleArr = [];
 var shapeArr = [];
+var shapeArrInc = 0;
 var world = null;
 
 var blurFilter;
@@ -86,39 +87,15 @@ function init() {
     var that = this;
     LoadAnimation("MixColor");
 
-
-    var graphics = new PIXI.Graphics();
-    graphics.lineStyle(5, 0x77AA77);
-    graphics.moveTo(1 * METER, 1 * METER);
-    graphics.lineTo(2 * METER, 4 * METER);
-
-    graphics.moveTo(3 * METER, 1 * METER);
-    graphics.lineTo(2 * METER, 4 * METER);
-    graphics.lineStyle(7, 0x77AA77);
-    graphics.lineTo(2 * METER, 5 * METER);
-    graphics.moveTo(1 * METER, 5 * METER);
-    graphics.lineTo(3 * METER - 10, 5 * METER - 10);
-
-    graphics.lineStyle(5, 0x7777AA);
-    graphics.moveTo(3 * METER, 1 * METER);
-    graphics.lineTo(4 * METER, 4 * METER);
-
-    graphics.moveTo(5 * METER, 1 * METER);
-    graphics.lineTo(4 * METER, 4 * METER);
-    graphics.lineStyle(7, 0x7777AA);
-    graphics.lineTo(4 * METER, 5 * METER);
-    graphics.moveTo(3 * METER, 5 * METER);
-    graphics.lineTo(5 * METER - 10, 5 * METER - 10);
-
-    stage.addChild(graphics);
-
-
     graphics = new PIXI.Graphics();
     graphics.lineStyle(20, 0x000000);
-    graphics.moveTo(0, 0);
-    graphics.lineTo(0, 5 * METER);
-    graphics.lineTo(5 * METER, 5 * METER);
-    graphics.lineTo(5 * METER, 0);
+    for (var i = 0; i < shapeArr.length; i++) {
+        var vectors = shapeArr[i];
+        graphics.moveTo(vectors[0].x * METER, vectors[0].y * METER);
+        for (var j = 1; j < vectors.length; j++) {
+            graphics.lineTo(vectors[j].x * METER, vectors[j].y * METER);
+        }
+    }
     stage.addChild(graphics);
 
 
@@ -183,29 +160,15 @@ QueryCallback.prototype.ReportFixture = function (fixture) {
 function MixColor() {
     var bdDef = new b2BodyDef();
     var bobo = world.CreateBody(bdDef);
+    getAllShape(bobo, shapeArr);
 
     /// TEST
 
     /// WALL
 
-    var bd = new b2BodyDef();
-    var shape = new b2EdgeShape();
-    shape.Set(new b2Vec2(0, windowHeight / METER), new b2Vec2(windowWidth / METER, windowHeight / METER));
-    bobo.CreateFixtureFromShape(shape, 0.1);
-
-    bd = new b2BodyDef();
-    shape = new b2EdgeShape();
-    shape.Set(new b2Vec2(0, windowHeight / METER), new b2Vec2(0, 0));
-    bobo.CreateFixtureFromShape(shape, 0.1);
-
-    bd = new b2BodyDef();
-    shape = new b2EdgeShape();
-    shape.Set(new b2Vec2(windowWidth / METER, windowHeight / METER), new b2Vec2(windowWidth / METER, 0));
-    bobo.CreateFixtureFromShape(shape, 0.1);
-
     /// GLASS
 
-    bd = new b2BodyDef();
+    /*bd = new b2BodyDef();
     shape = new b2EdgeShape();
     shape.Set(new b2Vec2(1, 1), new b2Vec2(2, 4));
     bobo.CreateFixtureFromShape(shape, 0.1);
@@ -225,7 +188,7 @@ function MixColor() {
     bd = new b2BodyDef();
     shape = new b2EdgeShape();
     shape.Set(new b2Vec2(5, 1), new b2Vec2(4, 4));
-    bobo.CreateFixtureFromShape(shape, 0.1);
+    bobo.CreateFixtureFromShape(shape, 0.1);*/
 
 
     /// END_TEST
@@ -256,7 +219,7 @@ function MixColor() {
     particleSystem = world.CreateParticleSystem(psd);
 
     var box2 = new b2PolygonShape();
-    box2.SetAsBoxXYCenterAngle(0.5, 1, new b2Vec2(2, 1), 0);
+    box2.SetAsBoxXYCenterAngle(0.5, 0.5, new b2Vec2(1.5, 1), 0);
 
     var particleGroupDef2 = new b2ParticleGroupDef();
     particleGroupDef2.shape = box2;
@@ -268,7 +231,7 @@ function MixColor() {
     //particleGroupDef2.color.Set(51, 11, 12, 180);
 
     var box3 = new b2PolygonShape();
-    box3.SetAsBoxXYCenterAngle(0.5, 1, new b2Vec2(4, 1), 0);
+    box3.SetAsBoxXYCenterAngle(0.5, 0.5, new b2Vec2(3, 1), 0);
 
     var particleGroupDef3 = new b2ParticleGroupDef();
     particleGroupDef3.shape = box3;
@@ -277,7 +240,7 @@ function MixColor() {
     particleGroupDef3.color.Set(200,255,100,255);
 
 
-    var box4 = new b2PolygonShape();
+    /*var box4 = new b2PolygonShape();
     box4.SetAsBoxXYCenterAngle(0.5, 0.5, new b2Vec2(3, 0), 0);
 
     var particleGroupDef4 = new b2ParticleGroupDef();
@@ -286,11 +249,11 @@ function MixColor() {
     // orange
     particleGroupDef4.color.Set(220,145,140,255);
     // whisky
-    //particleGroupDef3.color.Set(211, 164, 110, 255);
+    //particleGroupDef3.color.Set(211, 164, 110, 255);*/
 
     var particleGroup2 = particleSystem.CreateParticleGroup(particleGroupDef2);
     var particleGroup3 = particleSystem.CreateParticleGroup(particleGroupDef3);
-    var particleGroup4 = particleSystem.CreateParticleGroup(particleGroupDef4);
+    //var particleGroup4 = particleSystem.CreateParticleGroup(particleGroupDef4);
 }
 
 MixColor.prototype.Step = function () {
