@@ -23,6 +23,7 @@ app.use(express.favicon());
 app.use(express.static(path.join(__dirname, 'angular')));
 app.use(express.static(path.join(__dirname, '../front')));
 
+
 // Server logging, to replace with morgan.js
 app.use(express.logger('dev'));
 app.use(express.bodyParser());

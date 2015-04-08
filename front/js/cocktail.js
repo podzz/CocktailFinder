@@ -18,7 +18,6 @@ $(function () {
 
     });
     $("body").removeClass("preload");
-
 });
 
 function delete_all_button() {

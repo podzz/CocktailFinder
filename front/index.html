@@ -45,6 +45,10 @@
         <div class="onepage">
             <div class="panel">
                 <div class="col-sm-6" style="height:100%;">
+                    <!-- PHYSICS -->
+                    <div id="cocktailRenderer" style="background-color: transparent;">
+
+                    </div>
                 </div>
                 <div class="col-sm-6" style="height:100%;">
                     <div class="panel panel-info">
@@ -64,7 +68,7 @@
                             </button>
                         </div>
                         <div class="panel-body">
-                            <ul>
+                            <ul id="cocktailList">
                                 <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredients">
                                     <label for="{{ 'button' + $index }}"></label> {{ ingr.quantity }} {{ ingr.unity }}</h5>
                                     <button id="{{ 'button' + $index }}" type="button" ng-click="recipeCtrl.addMissing(ingr);" class="btn btn-success">
@@ -108,8 +112,12 @@
 <script src="js/jquery.easing.min.js"></script>
 <script src="js/jquery.cycle2.js"></script>
 <script src="js/jquery.cookie.js"></script>
+<script src="js/pixi.js"></script>
+<script src="js/liquidfun.js"></script>
 
 <script src="js/cocktail.js"></script>
+<script src="js/TresholdFilter.js"></script>
+<script src="js/cocktailRenderer.js"></script>
 
 </body>
 

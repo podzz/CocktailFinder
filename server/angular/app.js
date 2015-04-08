@@ -43,14 +43,20 @@
 			if (this.currentIndex != 0) {
 				this.currentIndex--;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
+                this.randomRendererColor();
+                reloadRenderer();
 			}
+
 		};
 		// Increase the current index
 		this.increaseIndex = function() {
 			if (this.currentIndex < Object.keys(this.data.cocktails).length - 1) {
 				this.currentIndex++;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
+                this.randomRendererColor();
+                reloadRenderer();
 			}
+
 		};
 		// Append an ingredient to the missing list
 		this.addMissing = function(ingredient) {
@@ -73,6 +79,14 @@
 		this.removeCookie = function () {
 			$.removeCookie('cocktailFinder');
 		}
+
+        this.getRandomValue = function() {
+            return Math.floor(Math.random() * 255);
+        }
+
+        this.randomRendererColor = function() {
+            setParticleColorGroup({ r:this.getRandomValue(), g:this.getRandomValue(), b:this.getRandomValue(), a:this.getRandomValue()},{ r:this.getRandomValue(), g:this.getRandomValue(), b:this.getRandomValue(), a:this.getRandomValue()});
+        }
 
 		// Remove an ingredient ID from the missing list
 		this.removeMissing = function(ingredient) {
@@ -105,6 +119,7 @@
 			});
 		}
 		// Initiates request at page load up
+        initRenderer();
 		this.reloadData();
 		this.loadMissingFromCookie();
 	}]);
