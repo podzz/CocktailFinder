@@ -33,8 +33,8 @@ var OFFSET_Y = 0;
 
 var _len = 0;
 
-var color1 = { r: 0, g:0, b:0, a:0};
-var color2 = { r: 0, g:0, b:0, a:0};
+var color1 = { r: 255, g:255, b:255, a:255};
+var color2 = { r: 255, g:153, b:0, a:255};
 
 function setParticleColorGroup(firstColor, secondColor) {
     color1 = firstColor;
