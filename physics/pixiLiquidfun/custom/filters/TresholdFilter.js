@@ -5,20 +5,20 @@ PIXI.TresholdFilter = function()
     this.passes = [this];
 
     this.uniforms = {
-        thresold: {type: '1f', value: 0.80}
+        threshold: {type: '1f', value: 0.80  }
     };
 
     this.fragmentSrc = [
         'precision mediump float;',
         'varying vec2 vTextureCoord;',
         'varying vec4 vColor;',
-        'uniform float thresold;',
+        'uniform float threshold;',
         'uniform sampler2D uSampler;',
         'void main(void) {',
         ' gl_FragColor = texture2D(uSampler, vTextureCoord);',
-
-        ' if (gl_FragColor.a < thresold)',
+        ' if (gl_FragColor.a < threshold)',
         '   gl_FragColor.a = 0. ;',
+
         '}'
     ];
 };
@@ -34,9 +34,9 @@ PIXI.TresholdFilter.prototype.constructor = PIXI.TresholdFilter;
  */
 Object.defineProperty(PIXI.TresholdFilter.prototype, 'size', {
     get: function() {
-        return this.uniforms.thresold.value;
+        return this.uniforms.threshold.value;
     },
     set: function(value) {
-        this.uniforms.thresold.value = value;
+        this.uniforms.threshold.value = value;
     }
 });
