@@ -2,10 +2,14 @@
  * Created by Adrien on 08/04/2015.
  */
 
+function getAndParseJSONFile() {
+    readTextFile("file:///C:/Users/Adrien/Documents/MTI/PLIC/CocktailFinder/physics/pixiLiquidfun/JSONFolder/shooter.txt")
+}
+
 function getAllShape(bobo, shapeArr) {
     var shapeArrInc = 0;
 
-
+    getAndParseJSONFile();
 
     var shape = new b2EdgeShape();
     shape.Set(new b2Vec2(0, windowHeight / METER), new b2Vec2(windowWidth / METER, windowHeight / METER));
