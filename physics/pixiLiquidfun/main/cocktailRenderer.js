@@ -37,7 +37,17 @@ var _len = 0;
 function onload() {
     var gravity = new b2Vec2(0, 10);
     world = new b2World(gravity);
-    init();
+
+
+    /** EXPLICATION
+     * La fonction "init();" est appelé via parser.running car le chargement du JSON se fait de manière
+     * asynchrone. Le problème étant que l'init a besoin des données du JSON *avant* de se lancer
+     * pour générer les formes et les collisions. Si aucun JSON n'est à appeler, il suffit de
+     * décommenter "init();" et commenter "getAndParseJSONFile();"
+     */
+    //init();
+    getAndParseJSONFile();
+
 }
 
 function reload() {
@@ -50,6 +60,9 @@ function reload() {
     pondContainer = new PIXI.DisplayObjectContainer();
     stage.addChild(pondContainer);
     pondContainer.filters = [blurFilter, thresoldFilter];
+
+
+    shapeRender();
 
     _len = world.particleSystems[world.particleSystems.length - 1].GetPositionBuffer().length / 2;
     for (var i = 0; i < _len; i++) {
@@ -87,16 +100,8 @@ function init() {
     var that = this;
     LoadAnimation("MixColor");
 
-    graphics = new PIXI.Graphics();
-    graphics.lineStyle(20, 0x000000);
-    for (var i = 0; i < shapeArr.length; i++) {
-        var vectors = shapeArr[i];
-        graphics.moveTo(vectors[0].x * METER, vectors[0].y * METER);
-        for (var j = 1; j < vectors.length; j++) {
-            graphics.lineTo(vectors[j].x * METER, vectors[j].y * METER);
-        }
-    }
-    stage.addChild(graphics);
+    // "shapeRender();" --> Render all shape except particles and object
+    shapeRender();
 
 
     _len = world.particleSystems[0].GetPositionBuffer().length / 2;
@@ -160,7 +165,7 @@ QueryCallback.prototype.ReportFixture = function (fixture) {
 function MixColor() {
     var bdDef = new b2BodyDef();
     var bobo = world.CreateBody(bdDef);
-    getAllShape(bobo, shapeArr);
+    getAllShape(bobo, shapeArr, shapeArrInc);
     getAllParticle();
 }
 
