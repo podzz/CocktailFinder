@@ -61,7 +61,13 @@ var RGBColor = function(r, g, b) {
 	}
 
 	this.formatCSS = function() {
-		return "(" + r + "," + this.g + "," + this.b + ")";
+		return "rgb  (" + r + "," + this.g + "," + this.b + ")";
+	}
+
+	this.complement = function() {
+		complementHsv = this.toHSV();
+		complementHsv.HueShift(180.0);
+		return complementHsv.toRGB();
 	}
 };
 
@@ -153,8 +159,8 @@ var HSVColor = function(h, s, v) {
 		return rgb;
 	}
 
-	this.HueShift = function () {
-		this.h += this.s;
+	this.HueShift = function(s) {
+		this.h += s;
 		while (this.h >= 360.0) {
 			this.h -= 360.0;
 		}
@@ -187,58 +193,47 @@ function SetColors(rgbColor, a) {
 	colorD.g = Math.round(rgbColor.g * grade4);
 	colorD.b = Math.round(rgbColor.b * grade4);
 
-	for (i = 0; i < a.length; i += 2) {
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'a').style.backgroundColor = 'rgb' + colorA.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'b').style.backgroundColor = 'rgb' + colorB.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'c').style.backgroundColor = 'rgb' + rgbColor.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'd').style.backgroundColor = 'rgb' + colorC.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'e').style.backgroundColor = 'rgb' + colorD.formatCSS();
-		
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'a').innerHTML = '#' + RGB2Hex(ra, ga, ba) + '<br>' + colorA.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'b').innerHTML = '#' + RGB2Hex(rb, gb, bb) + '<br>' + colorB.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'c').innerHTML = '#' + RGB2Hex(r,  g,  b)  + '<br>' + rgbColor.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'd').innerHTML = '#' + RGB2Hex(rc, gc, bc) + '<br>' + colorC.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'e').innerHTML = '#' + RGB2Hex(rd, gd, bd) + '<br>' + colorD.formatCSS();
-	}
+	return [colorA, colorB, rgbColor, colorC, colorD];
 }
 
 function DoKeyUp(rgbColor) {
-	var i;
-	thisid = obj.id;	
-	// Hexadecimal
-	thisval = obj.value;
-	
-	SetColors(rgbColor, Array('m', '1', 'c', '1', 'a', '2', 's', '2', 't', '1'));
-	SetColors(rgbColor, Array('t', '2'));
-	SetColors(rgbColor, Array('t', '3'));
+	gbrColor = new RGBColor(rgbColor.g, rgbColor.b, rgbColor.r);
+	brgColor = new RGBColor(rgbColor.b, rgbColor.r, rgbColor.g);
 	
 	// complement
 	complementHsv = RGB2HSV(rgbColor);
 	complementHsv.hue = HueShift(complementHsv.hue, 180.0);
 	complementRgb = HSV2RGB(complementHsv);
+	SetColors(rgbColor, Array('c', '1'));
 	SetColors(complementRgb, Array('c', '2'));
 	
+	// split complement
+	SetColors(rgbColor, Array('s', '2'));
+	splitHsv = RGB2HSV(rgbColor);
+	splitHsv.hue = HueShift(splitHsv.hue, 180.0 - angle);
+	splitRgb = HSV2RGB(splitHsv);
+	SetColors(splitRgb, Array('s', '1'));
+	temphsv = RGB2HSV(rgbColor);
+	temphsv.hue = HueShift(temphsv.hue, 180.0 + angle);
+	temprgb = HSV2RGB(temphsv);
+	SetColors(temprgb, Array('s', '3'));
+	
+	// Monochrome
+	SetColors(rgbColor, Array('m', '1'));
+
+	// Triadic
+	SetColors(rgbColor, Array('t', '1'));
+	SetColors(gbrColor, Array('t', '2'));
+	SetColors(brgColor, Array('t', '3'));
+
 	// analogous
 	analogousHsv = RGB2HSV(rgbColor);
 	analogousHsv.hue = HueShift(analogousHsv.hue, angle);
 	analogousRgb = HSV2RGB(analogousHsv);
 	SetColors(analogousRgb, Array('a', '1'));
-	
-	// TODO
 	temphsv = RGB2HSV(rgbColor);
 	temphsv.hue = HueShift(temphsv.hue, 0.0 - angle);
 	temprgb = HSV2RGB(temphsv);
 	SetColors(temprgb, Array('a', '3'));
-	
-	// split complementary
-	splitHsv = RGB2HSV(rgbColor);
-	splitHsv.hue = HueShift(splitHsv.hue, 180.0 - angle);
-	splitRgb = HSV2RGB(splitHsv);
-	SetColors(splitRgb, Array('s', '1'));
-	
-	// TODO
-	temphsv = RGB2HSV(rgbColor);
-	temphsv.hue = HueShift(temphsv.hue, 180.0 + angle);
-	temprgb = HSV2RGB(temphsv);
-	SetColors(temprgb, Array('s', '3'));
+	SetColors(rgbColor, Array('a', '2'));
 }
