@@ -1,4 +1,5 @@
 var ControllerCocktail = require('../controller/controllerCocktail');
+var ControllerIngredients = require('../controller/controllerIngredient');
 
 exports.findFiveRandomCocktails = function (req, res, next) {
     var arr = [];
@@ -31,5 +32,11 @@ exports.findCocktailsByMissingIds = function (req, res, next) {
 
     ControllerCocktail.getCocktailsByMissingIds(constructArray, 5, function(err, result) {
       res.json(result);
+    });
+};
+
+exports.allIngredients = function (req, res, next) {
+    ControllerIngredients.getAll(function(err, result) {
+        res.json(result);
     });
 };

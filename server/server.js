@@ -57,6 +57,7 @@ app.get('/api/cocktail/id/:id', 	routes.api.findCocktalById);
 app.get('/api/cocktail/name/:name', routes.api.findCocktalByName);
 app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/:array',  	routes.api.findCocktailsByMissingIds);
+app.get('/api/ingredients',         routes.api.allIngredients);
 
 // ---------------------------------
 // Server deployment
@@ -69,5 +70,4 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Server running');
   console.log('Server listening @ http://localhost:%d/', app.get('port'));
 });
-
 

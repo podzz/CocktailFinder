@@ -7,7 +7,7 @@ var neo4j = require('neo4j');
 var db = new neo4j.GraphDatabase(
     process.env['NEO4J_URL'] ||
     process.env['GRAPHENEDB_URL'] ||
-    'http://localhost:7474'
+    'http://neo4j:admin@localhost:7474'
     );
 
 var ControllerCocktail = function ControllerCocktail(_node) {
@@ -28,7 +28,7 @@ ControllerCocktail.getCocktailsById = function(idTab, callback) {
     query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name';
 
     db.query(query, null, function (err, results) {
-        // ICO Request fail        
+        console.log(query);
         if (err) {
           return callback(err);
       }
@@ -194,7 +194,7 @@ ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) 
         query1 += 'WHERE '
     }
     query2 += 'RETURN r.index ORDER BY r.recipeScore DESC LIMIT ' + number;
-
+    console.log(query1 + query2);
     db.query(query1 + query2, null, function (err, results) {
         var formatted = [];
 

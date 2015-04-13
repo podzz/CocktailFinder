@@ -13,6 +13,8 @@
 		// Recipe collection
 		this.data = {};
 
+		this.ingrdients = [];
+
 		// Current recipe displayed
 		this.currentCocktail = {};
 
@@ -25,6 +27,13 @@
 				this.missing = JSON.parse(dataFetched);
 			}
 		};
+
+		this.getRecipeSize = function() {
+			if (this.ingredients != null) {
+				return this.ingrdients.length;
+			}
+			return 0;
+		}
 
 		this.saveExcludeList = function() {
 			// Updates the missing array cookie
@@ -111,16 +120,29 @@
 				}
 			}
 
+			route_ingredients = "/api/"
+
 			$http.get(route).success(function(data){
 				that.currentCocktail = data.cocktails[0];
 				// Data fetched from server
    				that.data = data;
                 that.currentIndex = 0;
 			});
+
+			$http.get("/api/ingredients").success(function(data){
+				that.ingredients = data.ingredients;
+			});
+
+
 		}
 		// Initiates request at page load up
-        initRenderer();
+		try {
+			initRenderer();
+		}
+		catch(e) {
+
+		}
 		this.reloadData();
-		this.loadMissingFromCookie();
+		//this.loadMissingFromCookie();
 	}]);
 })();
