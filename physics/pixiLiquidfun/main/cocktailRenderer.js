@@ -83,7 +83,7 @@ function init() {
 
     windowWidth = $("#cocktailRenderer").width();
     windowHeight = $("#cocktailRenderer").height();
-    stage = new PIXI.Stage(0xEEEEEE);
+    stage = new PIXI.Stage(displayFillColor);
     pondContainer = new PIXI.DisplayObjectContainer();
     stage.addChild(pondContainer);
 
