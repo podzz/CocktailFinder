@@ -83,7 +83,7 @@ function init() {
 
     windowWidth = $("#cocktailRenderer").width();
     windowHeight = $("#cocktailRenderer").height();
-    stage = new PIXI.Stage(0xFFFFFF);
+    stage = new PIXI.Stage(0xEEEEEE);
     pondContainer = new PIXI.DisplayObjectContainer();
     stage.addChild(pondContainer);
 
@@ -99,6 +99,7 @@ function init() {
 
     var that = this;
     LoadAnimation("MixColor");
+
 
     // "shapeRender();" --> Render all shape except particles and object
     shapeRender();
@@ -134,13 +135,19 @@ function animate() {
     var particles = world.particleSystems[0].GetPositionBuffer();
     var colorsBuffer = world.particleSystems[0].GetColorBuffer();
 
+    var alphaBuffer = [];
+
+    for (var i = 3; i < colorsBuffer.length; i += 4) {
+        alphaBuffer[(i - 3) / 4] = colorsBuffer[i];
+    }
+
     for (var i = 0; i < circleArr.length; i++) {
-        circleArr[i].x = particles[i * 2] * METER + OFFSET_X;
-        circleArr[i].y = particles[(i * 2) + 1] * METER + OFFSET_Y;
+        circleArr[i].x = ((particles[i * 2] /*- particleSize / METER / 2*/) * METER + OFFSET_X);
+        circleArr[i].y = ((particles[(i * 2) + 1] /*- particleSize / METER / 2*/) * METER + OFFSET_Y);
 
         circleArr[i].clear();
-        circleArr[i].beginFill(rgbToHex(colorsBuffer[i * 4], colorsBuffer[(i * 4) + 1],colorsBuffer[(i * 4) + 2]));
-        circleArr[i].drawCircle(0,0, particleSize);
+        circleArr[i].beginFill(rgbToHex(colorsBuffer[i * 4], colorsBuffer[(i * 4) + 1], colorsBuffer[(i * 4) + 2]));
+        circleArr[i].drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
     }
     renderers.render(stage);
 }

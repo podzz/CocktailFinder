@@ -43,15 +43,18 @@ function shapeRender() {
     var graphics = new PIXI.Graphics();
     graphics.lineStyle(20, 0x000000);
     for (var i = 0; i < shapeArr.length; i++) {
-        if (i == 0)
-            graphics.lineStyle(20, 0x555555);
+        if (i == 0) {
+            graphics.lineStyle(3, 0xBBBBBB);
+            graphics.beginFill(0xBBBBBB, 1);
+        }
         else
-            graphics.lineStyle(20, 0x000000);
+            graphics.lineStyle(3, 0x000000);
         var vectors = shapeArr[i];
         graphics.moveTo(vectors[0].x * METER, vectors[0].y * METER);
         for (var j = 1; j < vectors.length; j++) {
             graphics.lineTo(vectors[j].x * METER, vectors[j].y * METER);
         }
+        graphics.endFill();
     }
     stage.addChild(graphics);
 }

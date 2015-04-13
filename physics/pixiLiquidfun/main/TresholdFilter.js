@@ -5,7 +5,7 @@ PIXI.TresholdFilter = function()
     this.passes = [this];
 
     this.uniforms = {
-        threshold: {type: '1f', value: 0.80  }
+        threshold: {type: '1f', value: 0.8}
     };
 
     this.fragmentSrc = [
@@ -17,8 +17,7 @@ PIXI.TresholdFilter = function()
         'void main(void) {',
         ' gl_FragColor = texture2D(uSampler, vTextureCoord);',
         ' if (gl_FragColor.a < threshold)',
-        '   gl_FragColor.a = 0. ;',
-
+        '   discard;',
         '}'
     ];
 };
