@@ -202,224 +202,43 @@ function SetColors(rgbColor, a) {
 	}
 }
 
-// TODO : USER INTERFACE FUNCTION
-// Returns n if l < n < h, l if lower than l, h if upper
-function PutInRange(n, l, h) { 
-	return (n < l) ? l : ((n > h) ? h : n);
-}
-
-function SetHex(objid, val, i) {
-	var ob;
-	var hexval = Dec2Hex(val);
-	eval('save' + objid + '="' + hexval + '"');
-	document.getElementById(objid).value = hexval;
-	if (i) {
-		ob = document.getElementById('hex');
-		ob.value =
-			((i == 1) ? hexval : ob.value.substr(0, 2))
-			+ ((i == 2) ? hexval : ob.value.substr(2, 2))
-			+ ((i == 3) ? hexval : ob.value.substr(4, 2));
-	}
-}
-
-function SetDec(objid, val, i) {
-	var ob;
-	var j;
-	var thisval = Hex2Dec(val);
-	eval('save' + objid + '="' + thisval + '"');
-	document.getElementById(objid).value = thisval;
-	if (val.length > 2) {
-		val = substr(val, 0, 2);
-	} else {
-	 	for (j = val.length; j < 2; j++) {
-	 		val += '0';
-		}	
-	}
-	if (i) {
-		// Get hex input value
-		ob = document.getElementById('hex');
-		ob.value =
-			((i == 1) ? val : ob.value.substr(0, 2))
-			+ ((i == 2) ? val : ob.value.substr(2, 2))
-			+ ((i == 3) ? val : ob.value.substr(4, 2));
-	}
-}
-
-function DoKeyUp(obj) {
+function DoKeyUp(rgbColor) {
 	var i;
-	thisid = obj.id;
+	thisid = obj.id;	
 	// Hexadecimal
 	thisval = obj.value;
-	if (thisval != eval('save' + thisid)) {
-		if (thisid == 'ri') {
-			SetHex('rih', thisval, 1);
-		}
-		else if (thisid == 'gi') {
-			SetHex('gih', thisval, 2);
-		}
-		else if (thisid == 'bi') {
-			SetHex('bih', thisval, 3);
-		}
-		else if (thisid == 'rih') {
-			SetDec('ri', thisval, 1);
-		}
-		else if (thisid == 'gih') {
-			SetDec('gi', thisval, 2);
-		}
-		else if (thisid == 'bih') {
-			SetDec('bi', thisval, 3);
-		}
-		else if (thisid == 'hex') {
-			for (i = thisval.length; i < 6; i++) {
-				thisval += '0';
-			}
-			SetDec('ri', thisval.substr(0, 2), 0);
-			SetDec('gi', thisval.substr(2, 2), 0);
-			SetDec('bi', thisval.substr(4, 2), 0);
-			SetHex('rih', Hex2Dec(thisval.substr(0, 2)), 0);
-			SetHex('gih', Hex2Dec(thisval.substr(2, 2)), 0);
-			SetHex('bih', Hex2Dec(thisval.substr(4, 2)), 0);
-		}
-		eval('save' + thisid + '="' + thisval + '"');
-		if (saveri.length && savegi.length && savebi.length && saveangle.length &&
-			savegrade1.length && savegrade2.length && savegrade3.length && savegrade4.length)
-		{
-			running = running ? 2 : 1;
-			while (running) {
-				r = parseInt(saveri);
-				g = parseInt(savegi);
-				b = parseInt(savebi);
-				angle = parseFloat(saveangle);
-
-				// Data checking on input values
-				grade1 = PutInRange(parseFloat(savegrade1), 0.0, 1.0);
-				grade2 = PutInRange(parseFloat(savegrade2), 0.0, 1.0);
-				grade3 = PutInRange(parseFloat(savegrade3), 0.0, 1.0);
-				grade4 = PutInRange(parseFloat(savegrade4), 0.0, 1.0);
-
-				if (running == 2) { 
-					running = 1;
-					continue;
-				}
-				
-				SetColors(r, g, b, Array('m', '1', 'c', '1', 'a', '2', 's', '2', 't', '1'));
-				if (running == 2) {
-					running = 1;
-					continue;
-				}
-				
-				SetColors(g, b, r, Array('t', '2'));
-				if (running == 2) {
-					running = 1;
-					continue;
-				}
-				
-				SetColors(b, r, g, Array('t', '3'));
-				if (running == 2) {
-					running = 1;
-					continue;
-				}
-				
-				thisrgb = new Object();
-				thisrgb.r = r;
-				thisrgb.g = g;
-				thisrgb.b = b;
-				
-				// complement
-				complementRgb = thisrgb;
-				complementHsv = RGB2HSV(complementRgb);
-				complementHsv.hue = HueShift(complementHsv.hue, 180.0);
-				complementRgb = HSV2RGB(complementHsv);
-				SetColors(complementRgb.r, complementRgb.g, complementRgb.b, Array('c', '2'));
-				if (running == 2) {
-					running = 1;
-					continue;
-				}
-				
-				// analogous
-				analogousRgb = thisrgb;
-				analogousHsv = RGB2HSV(analogousRgb);
-				analogousHsv.hue = HueShift(analogousHsv.hue, angle);
-				analogousRgb = HSV2RGB(analogousHsv);
-				SetColors(analogousRgb.r, analogousRgb.g, analogousRgb.b, Array('a', '1'));
-				if (running == 2) {
-					running = 1;
-					continue;
-				}
-				
-				// TODO
-				temprgb = thisrgb;
-				temphsv = RGB2HSV(temprgb);
-				temphsv.hue = HueShift(temphsv.hue, 0.0 - angle);
-				temprgb = HSV2RGB(temphsv);
-				SetColors(temprgb.r, temprgb.g, temprgb.b, Array('a', '3'));
-				if (running == 2) {
-					running = 1;
-					continue;
-				}
-				
-				// split complementary
-				splitRgb = thisrgb;
-				splitHsv = RGB2HSV(splitRgb);
-				splitHsv.hue = HueShift(splitHsv.hue, 180.0 - angle);
-				splitRgb = HSV2RGB(splitHsv);
-				SetColors(splitRgb.r, splitRgb.g, splitRgb.b, Array('s', '1'));
-				if (running == 2) {
-					running = 1;
-					continue;
-				}
-				
-				// TODO
-				temprgb = thisrgb;
-				temphsv = RGB2HSV(temprgb);
-				temphsv.hue = HueShift(temphsv.hue, 180.0 + angle);
-				temprgb = HSV2RGB(temphsv);
-				SetColors(temprgb.r, temprgb.g, temprgb.b, Array('s', '3'));
-				if (running == 2) {
-					running = 1;
-					continue;
-				}
-				
-				running = 0;
-			}
-		}
-	}
-}
-
-
-
-
-
-saveri = "0";
-savegi = "0";
-savebi = "0";
-saverih = "00";
-savegih = "00";
-savebih = "00";
-savehex = "000000";
-saveangle = "30.0";
-savegrade1 = "0.8";
-savegrade2 = "0.4";
-savegrade3 = "0.6";
-savegrade4 = "0.3";
-running = 0;
-
-function ColorWheelInit() {
-	document.getElementById('ri').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('gi').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('bi').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('rih').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('gih').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('bih').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('hex').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('angle').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('grade1').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('grade2').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('grade3').onkeyup = function() { DoKeyUp(this); }
-	document.getElementById('grade4').onkeyup = function() { DoKeyUp(this); }
-	DoKeyUp(document.getElementById('grade4'));
-}
-
-window.onload = function() {
-	ColorWheelInit();
+	
+	SetColors(rgbColor, Array('m', '1', 'c', '1', 'a', '2', 's', '2', 't', '1'));
+	SetColors(rgbColor, Array('t', '2'));
+	SetColors(rgbColor, Array('t', '3'));
+	
+	// complement
+	complementHsv = RGB2HSV(rgbColor);
+	complementHsv.hue = HueShift(complementHsv.hue, 180.0);
+	complementRgb = HSV2RGB(complementHsv);
+	SetColors(complementRgb, Array('c', '2'));
+	
+	// analogous
+	analogousHsv = RGB2HSV(rgbColor);
+	analogousHsv.hue = HueShift(analogousHsv.hue, angle);
+	analogousRgb = HSV2RGB(analogousHsv);
+	SetColors(analogousRgb, Array('a', '1'));
+	
+	// TODO
+	temphsv = RGB2HSV(rgbColor);
+	temphsv.hue = HueShift(temphsv.hue, 0.0 - angle);
+	temprgb = HSV2RGB(temphsv);
+	SetColors(temprgb, Array('a', '3'));
+	
+	// split complementary
+	splitHsv = RGB2HSV(rgbColor);
+	splitHsv.hue = HueShift(splitHsv.hue, 180.0 - angle);
+	splitRgb = HSV2RGB(splitHsv);
+	SetColors(splitRgb, Array('s', '1'));
+	
+	// TODO
+	temphsv = RGB2HSV(rgbColor);
+	temphsv.hue = HueShift(temphsv.hue, 180.0 + angle);
+	temprgb = HSV2RGB(temphsv);
+	SetColors(temprgb, Array('s', '3'));
 }
