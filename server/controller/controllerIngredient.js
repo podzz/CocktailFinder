@@ -75,7 +75,7 @@ ControllerIngredient.getAll = function (callback) {
             ingredients: []
         };
 
-        var levenshtein = require('fast-levenshtein');
+        //var levenshtein = require('fast-levenshtein');
 
         //for (var k = 0; k < results.length; ++k) {
         //var start = results[k]['ing.name'];

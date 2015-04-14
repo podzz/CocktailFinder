@@ -40,3 +40,9 @@ exports.allIngredients = function (req, res, next) {
         res.json(result);
     });
 };
+
+exports.allCocktails = function (req, res, next) {
+    ControllerCocktail.getAll(function(err, result) {
+        res.json(result);
+    });
+};

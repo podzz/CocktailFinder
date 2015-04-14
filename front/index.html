@@ -21,12 +21,19 @@
     <link href="fonts/lora.css" rel="stylesheet" type="text/css">
     <link href="fonts/montserrat.css" rel="stylesheet" type="text/css">
 
-    <script type="text/javascript" src="angular.min.js"></script>
-    <script type="text/javascript" src="app.js"></script>
+    <script src="pixiLiquidfun/scripts/pixi.js"></script>
+    <script src="pixiLiquidfun/scripts/jquery-1.11.2.min.js"></script>
+    <script src="pixiLiquidfun/scripts/liquidfun.js"></script>
+
+    <script src="pixiLiquidfun/parser/parser.js"></script>
+    <script src="pixiLiquidfun/parser/managerShape.js"></script>
+    <script src="pixiLiquidfun/parser/managerParticle.js"></script>
+    <script src="pixiLiquidfun/main/TresholdFilter.js"></script>
+    <script src="pixiLiquidfun/main/cocktailRenderer.js"></script>
 
 </head>
 
-<body class="preload" ng-controller="recipeController as recipeCtrl">
+<body class="preload" ng-controller="recipeController as recipeCtrl" onload="onload()">
 
 <div class="background background-intro">
     <div id="runapp">
@@ -46,7 +53,7 @@
             <div class="panel">
                 <div class="col-sm-6" style="height:100%;">
                     <!-- PHYSICS -->
-                    <div id="cocktailRenderer" style="background-color: transparent;">
+                <div id="cocktailRenderer" style="background-color: transparent;height: 300px;">
 
                     </div>
                 </div>

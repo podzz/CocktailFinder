@@ -22,6 +22,7 @@ app.use(express.favicon());
 // Static assets directory path parameter
 app.use(express.static(path.join(__dirname, 'angular')));
 app.use(express.static(path.join(__dirname, '../front')));
+app.use(express.static(path.join(__dirname, '../physics')));
 
 
 // Server logging, to replace with morgan.js
@@ -53,6 +54,7 @@ app.get('/bdd/rank/recipes',		routes.bdd.rankRecipes);
 
 // API routes
 app.get('/api/cocktails', 			routes.api.findFiveRandomCocktails);
+app.get('/api/allcocktails',        routes.api.allCocktails);
 app.get('/api/cocktail/id/:id', 	routes.api.findCocktalById);
 app.get('/api/cocktail/name/:name', routes.api.findCocktalByName);
 app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);

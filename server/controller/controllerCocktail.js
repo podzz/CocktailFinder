@@ -205,4 +205,19 @@ ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) 
     });
 };
 
+ControllerCocktail.getAll = function(callback) {
+    var query = 'MATCH (r:Recipe) RETURN r.name, r.index';
+
+    db.query(query, null, function(err, results)
+    {
+        var formatted = [];
+
+        for (var i = 0; i < results.length; ++i) {
+            formatted.push({ index: results[i]['r.index'],
+                             name: results[i]['r.name']});
+        }
+        callback(null,formatted);
+    });
+};
+
 module.exports = ControllerCocktail;
