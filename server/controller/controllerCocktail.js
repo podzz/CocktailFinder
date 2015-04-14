@@ -7,7 +7,7 @@ var neo4j = require('neo4j');
 var db = new neo4j.GraphDatabase(
     process.env['NEO4J_URL'] ||
     process.env['GRAPHENEDB_URL'] ||
-    'http://neo4j:admin@localhost:7474'
+    'http://localhost:7474'
     );
 
 var ControllerCocktail = function ControllerCocktail(_node) {

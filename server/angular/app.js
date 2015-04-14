@@ -43,8 +43,6 @@
 			if (this.currentIndex != 0) {
 				this.currentIndex--;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
-                this.randomRendererColor();
-                reloadRenderer();
 			}
 
 		};
@@ -53,8 +51,6 @@
 			if (this.currentIndex < Object.keys(this.data.cocktails).length - 1) {
 				this.currentIndex++;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
-                this.randomRendererColor();
-                reloadRenderer();
 			}
 
 		};
@@ -84,9 +80,6 @@
             return Math.floor(Math.random() * 255);
         }
 
-        this.randomRendererColor = function() {
-            setParticleColorGroup({ r:this.getRandomValue(), g:this.getRandomValue(), b:this.getRandomValue(), a:this.getRandomValue()},{ r:this.getRandomValue(), g:this.getRandomValue(), b:this.getRandomValue(), a:this.getRandomValue()});
-        }
 
 		// Remove an ingredient ID from the missing list
 		this.removeMissing = function(ingredient) {
@@ -120,6 +113,8 @@
                 that.currentIndex = 0;
 			});
 		}
+
+        //console.log(data.cocktails.length);
 		// Initiates request at page load up
 		try {
 			initRenderer();

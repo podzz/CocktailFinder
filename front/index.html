@@ -21,19 +21,19 @@
     <link href="fonts/lora.css" rel="stylesheet" type="text/css">
     <link href="fonts/montserrat.css" rel="stylesheet" type="text/css">
 
-    <script src="pixiLiquidfun/scripts/pixi.js"></script>
-    <script src="pixiLiquidfun/scripts/jquery-1.11.2.min.js"></script>
-    <script src="pixiLiquidfun/scripts/liquidfun.js"></script>
+    <!-- Load Angular -->
+    <script data-require="angular.js@*" data-semver="1.2.0-rc3-nonmin" src="http://code.angularjs.org/1.2.0-rc.3/angular.js"></script>
+    <script data-require="ng-table@*" data-semver="0.3.0" src="http://bazalt-cms.com/assets/ng-table/0.3.0/ng-table.js"></script>
 
-    <script src="pixiLiquidfun/parser/parser.js"></script>
-    <script src="pixiLiquidfun/parser/managerShape.js"></script>
-    <script src="pixiLiquidfun/parser/managerParticle.js"></script>
-    <script src="pixiLiquidfun/main/TresholdFilter.js"></script>
-    <script src="pixiLiquidfun/main/cocktailRenderer.js"></script>
+    <link data-require="ng-table@*" data-semver="0.3.0" rel="stylesheet" href="http://bazalt-cms.com/assets/ng-table/0.3.0/ng-table.css" />
+    <link data-require="bootstrap-css@*" data-semver="3.0.0" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+
+    <!-- Load App.js -->
+    <script type="text/javascript" src="app.js"></script>
 
 </head>
 
-<body class="preload" ng-controller="recipeController as recipeCtrl" onload="onload()">
+<body class="preload" ng-controller="recipeController as recipeCtrl">
 
 <div class="background background-intro">
     <div id="runapp">
@@ -45,17 +45,17 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <button type="button" class="gotoapp btn btn-success" onclick="reloadRenderer();">Need a drink ?</button>
+                    <button type="button" class="gotoapp btn btn-success">Need a drink ?</button>
                 </div>
             </div>
         </div>
         <div class="onepage">
             <div class="panel">
                 <div class="col-sm-6" style="height:100%;">
-                    <!-- PHYSICS -->
+                    <!-- PHYSICS
                 <div id="cocktailRenderer" style="background-color: transparent;height: 300px;">
 
-                    </div>
+                    </div>-->
                 </div>
                 <div class="col-sm-6" style="height:100%;">
                     <div class="panel panel-info">
@@ -119,14 +119,10 @@
 <script type="text/javascript" src="js/jquery.easing.min.js"></script>
 <script type="text/javascript" src="js/jquery.cycle2.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
-<script type="text/javascript" src="js/pixi.js"></script>
-<script type="text/javascript" src="js/liquidfun.js"></script>
 
 <!-- App core -->
 <script type="text/javascript" src="colorwheel.js"></script>
 <script type="text/javascript" src="js/cocktail.js"></script>
-<script type="text/javascript" src="js/TresholdFilter.js"></script>
-<script type="text/javascript" src="js/cocktailRenderer.js"></script>
 
 </body>
 
