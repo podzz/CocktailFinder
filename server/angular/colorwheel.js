@@ -1,7 +1,15 @@
 var RGBColor = function(r, g, b) {
+	// Default color composites
 	this.r = 0;
 	this.g = 0;
 	this.b = 0;
+
+	// Default Values for shades and HSV operations.
+	this.angle="30.0";
+	this.grade1="0.8";
+	this.grade2="0.4";
+	this.grade3="0.6";
+	this.grade4="0.3";
 
 	if (r !== undefined) {
 		this.r = r;
@@ -33,7 +41,7 @@ var RGBColor = function(r, g, b) {
 		return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 	}
 
-	// Converts the rgb object rgb into hsv object
+	// Converts the rgb object rgb into HSVColor
 	this.toHSV = function() {
 		hsv = new HSVColor();
 		max = max3(this.r, this.g, this.b);
@@ -60,8 +68,73 @@ var RGBColor = function(r, g, b) {
 		return hsv;
 	}
 
+	// Returns the RGBcolor as rgb(r, g, b)
 	this.formatCSS = function() {
-		return "(" + r + "," + this.g + "," + this.b + ")";
+		return "rgb  (" + r + "," + this.g + "," + this.b + ")";
+	}
+
+	// Returns the complementary RGBColor
+	this.complement = function() {
+		complementHsv = this.toHSV();
+		complementHsv.HueShift(180.0);
+		return complementHsv.toRGB();
+	}
+
+	// Returns the two split complementary RGBColor
+	this.splitComplement = function() {
+		splitHsv = this.toHSV();
+		splitHsv.HueShift(180.0 - angle);
+		splitRgb = splitHsv.toHSV2();
+
+		temphsv = this.toHSV();
+		temphsv.HueShift(180.0 + angle);
+		temprgb = temphsv.toRGB();
+
+		return [splitRgb, temprgb];
+	}
+
+	// Returns the two triadic RGBColor
+	this.triadic = function() {
+		return [new RGBColor(this.g, this.b, this.r), new RGBColor(this.b, this.r, this.g)];
+	}
+
+	// Returns the two analogous RGBColor
+	this.analogous = function() {
+		analogousHsv = this.toHSV();
+		analogousHsv.HueShift(angle);
+		analogousRgb = analogousHsv.toRGB();
+
+		temphsv = this.toHSV();
+		temphsv.HueShift(0.0 - angle);
+		temprgb = temphsv.toRGB();
+
+		return [analogousRgb, temprgb];
+	}
+
+	// Returns the four shades RGBColor
+	this.shades = function() {
+		colorA = new RGBColor();
+		colorB = new RGBColor();
+		colorC = new RGBColor();
+		colorD = new RGBColor();
+
+		colorA.r = Math.round(this.r + (255 - this.r) * grade1);
+		colorA.g = Math.round(this.g + (255 - this.g) * grade1);
+		colorA.b = Math.round(this.b + (255 - this.b) * grade1);
+	 
+		colorB.r = Math.round(this.r + (255 - this.r) * grade2);
+		colorB.g = Math.round(this.g + (255 - this.g) * grade2);
+		colorB.b = Math.round(this.b + (255 - this.b) * grade2);
+	 
+		colorC.r = Math.round(this.r * grade3);
+		colorC.g = Math.round(this.g * grade3);
+		colorC.b = Math.round(this.b * grade3);
+	 
+		colorD.r = Math.round(this.r * grade4);
+		colorD.g = Math.round(this.g * grade4);
+		colorD.b = Math.round(this.b * grade4);
+
+		return [colorA, colorB, colorC, colorD];
 	}
 };
 
@@ -153,8 +226,8 @@ var HSVColor = function(h, s, v) {
 		return rgb;
 	}
 
-	this.HueShift = function () {
-		this.h += this.s;
+	this.HueShift = function(s) {
+		this.h += s;
 		while (this.h >= 360.0) {
 			this.h -= 360.0;
 		}
@@ -164,81 +237,3 @@ var HSVColor = function(h, s, v) {
 		return this.h;
 	}
 };
-
-function SetColors(rgbColor, a) {
-	colorA = new RGBColor();
-	colorB = new RGBColor();
-	colorC = new RGBColor();
-	colorD = new RGBColor();
-
-	colorA.r = Math.round(rgbColor.r + (255 - rgbColor.r) * grade1);
-	colorA.g = Math.round(rgbColor.g + (255 - rgbColor.g) * grade1);
-	colorA.b = Math.round(rgbColor.b + (255 - rgbColor.b) * grade1);
- 
-	colorB.r = Math.round(rgbColor.r + (255 - rgbColor.r) * grade2);
-	colorB.g = Math.round(rgbColor.g + (255 - rgbColor.g) * grade2);
-	colorB.b = Math.round(rgbColor.b + (255 - rgbColor.b) * grade2);
- 
-	colorC.r = Math.round(rgbColor.r * grade3);
-	colorC.g = Math.round(rgbColor.g * grade3);
-	colorC.b = Math.round(rgbColor.b * grade3);
- 
-	colorD.r = Math.round(rgbColor.r * grade4);
-	colorD.g = Math.round(rgbColor.g * grade4);
-	colorD.b = Math.round(rgbColor.b * grade4);
-
-	for (i = 0; i < a.length; i += 2) {
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'a').style.backgroundColor = 'rgb' + colorA.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'b').style.backgroundColor = 'rgb' + colorB.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'c').style.backgroundColor = 'rgb' + rgbColor.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'd').style.backgroundColor = 'rgb' + colorC.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'e').style.backgroundColor = 'rgb' + colorD.formatCSS();
-		
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'a').innerHTML = '#' + RGB2Hex(ra, ga, ba) + '<br>' + colorA.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'b').innerHTML = '#' + RGB2Hex(rb, gb, bb) + '<br>' + colorB.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'c').innerHTML = '#' + RGB2Hex(r,  g,  b)  + '<br>' + rgbColor.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'd').innerHTML = '#' + RGB2Hex(rc, gc, bc) + '<br>' + colorC.formatCSS();
-		document.getElementById(a[i] + 'c' + a[i + 1] + 'e').innerHTML = '#' + RGB2Hex(rd, gd, bd) + '<br>' + colorD.formatCSS();
-	}
-}
-
-function DoKeyUp(rgbColor) {
-	var i;
-	thisid = obj.id;	
-	// Hexadecimal
-	thisval = obj.value;
-	
-	SetColors(rgbColor, Array('m', '1', 'c', '1', 'a', '2', 's', '2', 't', '1'));
-	SetColors(rgbColor, Array('t', '2'));
-	SetColors(rgbColor, Array('t', '3'));
-	
-	// complement
-	complementHsv = RGB2HSV(rgbColor);
-	complementHsv.hue = HueShift(complementHsv.hue, 180.0);
-	complementRgb = HSV2RGB(complementHsv);
-	SetColors(complementRgb, Array('c', '2'));
-	
-	// analogous
-	analogousHsv = RGB2HSV(rgbColor);
-	analogousHsv.hue = HueShift(analogousHsv.hue, angle);
-	analogousRgb = HSV2RGB(analogousHsv);
-	SetColors(analogousRgb, Array('a', '1'));
-	
-	// TODO
-	temphsv = RGB2HSV(rgbColor);
-	temphsv.hue = HueShift(temphsv.hue, 0.0 - angle);
-	temprgb = HSV2RGB(temphsv);
-	SetColors(temprgb, Array('a', '3'));
-	
-	// split complementary
-	splitHsv = RGB2HSV(rgbColor);
-	splitHsv.hue = HueShift(splitHsv.hue, 180.0 - angle);
-	splitRgb = HSV2RGB(splitHsv);
-	SetColors(splitRgb, Array('s', '1'));
-	
-	// TODO
-	temphsv = RGB2HSV(rgbColor);
-	temphsv.hue = HueShift(temphsv.hue, 180.0 + angle);
-	temprgb = HSV2RGB(temphsv);
-	SetColors(temprgb, Array('s', '3'));
-}

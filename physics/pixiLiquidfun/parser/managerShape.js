@@ -44,11 +44,11 @@ function shapeRender() {
     graphics.lineStyle(20, 0x000000);
     for (var i = 0; i < shapeArr.length; i++) {
         if (i == 0) {
-            graphics.lineStyle(3, 0xBBBBBB);
-            graphics.beginFill(0xBBBBBB, 1);
+            graphics.lineStyle(glassLineStrength, glassLineColor);
+            graphics.beginFill(glassFillColor, glassAlphaColor);
         }
         else
-            graphics.lineStyle(3, 0x000000);
+            graphics.lineStyle(displayLineStrength, displayLineColor);
         var vectors = shapeArr[i];
         graphics.moveTo(vectors[0].x * METER, vectors[0].y * METER);
         for (var j = 1; j < vectors.length; j++) {
