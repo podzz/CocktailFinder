@@ -1,7 +1,15 @@
 var RGBColor = function(r, g, b) {
+	// Default color composites
 	this.r = 0;
 	this.g = 0;
 	this.b = 0;
+
+	// Default Values for shades and HSV operations.
+	this.angle="30.0";
+	this.grade1="0.8";
+	this.grade2="0.4";
+	this.grade3="0.6";
+	this.grade4="0.3";
 
 	if (r !== undefined) {
 		this.r = r;
@@ -33,7 +41,7 @@ var RGBColor = function(r, g, b) {
 		return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 	}
 
-	// Converts the rgb object rgb into hsv object
+	// Converts the rgb object rgb into HSVColor
 	this.toHSV = function() {
 		hsv = new HSVColor();
 		max = max3(this.r, this.g, this.b);
@@ -60,14 +68,73 @@ var RGBColor = function(r, g, b) {
 		return hsv;
 	}
 
+	// Returns the RGBcolor as rgb(r, g, b)
 	this.formatCSS = function() {
 		return "rgb  (" + r + "," + this.g + "," + this.b + ")";
 	}
 
+	// Returns the complementary RGBColor
 	this.complement = function() {
 		complementHsv = this.toHSV();
 		complementHsv.HueShift(180.0);
 		return complementHsv.toRGB();
+	}
+
+	// Returns the two split complementary RGBColor
+	this.splitComplement = function() {
+		splitHsv = this.toHSV();
+		splitHsv.HueShift(180.0 - angle);
+		splitRgb = splitHsv.toHSV2();
+
+		temphsv = this.toHSV();
+		temphsv.HueShift(180.0 + angle);
+		temprgb = temphsv.toRGB();
+
+		return [splitRgb, temprgb];
+	}
+
+	// Returns the two triadic RGBColor
+	this.triadic = function() {
+		return [new RGBColor(this.g, this.b, this.r), new RGBColor(this.b, this.r, this.g)];
+	}
+
+	// Returns the two analogous RGBColor
+	this.analogous = function() {
+		analogousHsv = this.toHSV();
+		analogousHsv.HueShift(angle);
+		analogousRgb = analogousHsv.toRGB();
+
+		temphsv = this.toHSV();
+		temphsv.HueShift(0.0 - angle);
+		temprgb = temphsv.toRGB();
+
+		return [analogousRgb, temprgb];
+	}
+
+	// Returns the four shades RGBColor
+	this.shades = function() {
+		colorA = new RGBColor();
+		colorB = new RGBColor();
+		colorC = new RGBColor();
+		colorD = new RGBColor();
+
+		colorA.r = Math.round(this.r + (255 - this.r) * grade1);
+		colorA.g = Math.round(this.g + (255 - this.g) * grade1);
+		colorA.b = Math.round(this.b + (255 - this.b) * grade1);
+	 
+		colorB.r = Math.round(this.r + (255 - this.r) * grade2);
+		colorB.g = Math.round(this.g + (255 - this.g) * grade2);
+		colorB.b = Math.round(this.b + (255 - this.b) * grade2);
+	 
+		colorC.r = Math.round(this.r * grade3);
+		colorC.g = Math.round(this.g * grade3);
+		colorC.b = Math.round(this.b * grade3);
+	 
+		colorD.r = Math.round(this.r * grade4);
+		colorD.g = Math.round(this.g * grade4);
+		colorD.b = Math.round(this.b * grade4);
+
+		return [colorA, colorB, colorC, colorD];
 	}
 };
 
@@ -170,70 +237,3 @@ var HSVColor = function(h, s, v) {
 		return this.h;
 	}
 };
-
-function SetColors(rgbColor, a) {
-	colorA = new RGBColor();
-	colorB = new RGBColor();
-	colorC = new RGBColor();
-	colorD = new RGBColor();
-
-	colorA.r = Math.round(rgbColor.r + (255 - rgbColor.r) * grade1);
-	colorA.g = Math.round(rgbColor.g + (255 - rgbColor.g) * grade1);
-	colorA.b = Math.round(rgbColor.b + (255 - rgbColor.b) * grade1);
- 
-	colorB.r = Math.round(rgbColor.r + (255 - rgbColor.r) * grade2);
-	colorB.g = Math.round(rgbColor.g + (255 - rgbColor.g) * grade2);
-	colorB.b = Math.round(rgbColor.b + (255 - rgbColor.b) * grade2);
- 
-	colorC.r = Math.round(rgbColor.r * grade3);
-	colorC.g = Math.round(rgbColor.g * grade3);
-	colorC.b = Math.round(rgbColor.b * grade3);
- 
-	colorD.r = Math.round(rgbColor.r * grade4);
-	colorD.g = Math.round(rgbColor.g * grade4);
-	colorD.b = Math.round(rgbColor.b * grade4);
-
-	return [colorA, colorB, rgbColor, colorC, colorD];
-}
-
-function DoKeyUp(rgbColor) {
-	gbrColor = new RGBColor(rgbColor.g, rgbColor.b, rgbColor.r);
-	brgColor = new RGBColor(rgbColor.b, rgbColor.r, rgbColor.g);
-	
-	// complement
-	complementHsv = RGB2HSV(rgbColor);
-	complementHsv.hue = HueShift(complementHsv.hue, 180.0);
-	complementRgb = HSV2RGB(complementHsv);
-	SetColors(rgbColor, Array('c', '1'));
-	SetColors(complementRgb, Array('c', '2'));
-	
-	// split complement
-	SetColors(rgbColor, Array('s', '2'));
-	splitHsv = RGB2HSV(rgbColor);
-	splitHsv.hue = HueShift(splitHsv.hue, 180.0 - angle);
-	splitRgb = HSV2RGB(splitHsv);
-	SetColors(splitRgb, Array('s', '1'));
-	temphsv = RGB2HSV(rgbColor);
-	temphsv.hue = HueShift(temphsv.hue, 180.0 + angle);
-	temprgb = HSV2RGB(temphsv);
-	SetColors(temprgb, Array('s', '3'));
-	
-	// Monochrome
-	SetColors(rgbColor, Array('m', '1'));
-
-	// Triadic
-	SetColors(rgbColor, Array('t', '1'));
-	SetColors(gbrColor, Array('t', '2'));
-	SetColors(brgColor, Array('t', '3'));
-
-	// analogous
-	analogousHsv = RGB2HSV(rgbColor);
-	analogousHsv.hue = HueShift(analogousHsv.hue, angle);
-	analogousRgb = HSV2RGB(analogousHsv);
-	SetColors(analogousRgb, Array('a', '1'));
-	temphsv = RGB2HSV(rgbColor);
-	temphsv.hue = HueShift(temphsv.hue, 0.0 - angle);
-	temprgb = HSV2RGB(temphsv);
-	SetColors(temprgb, Array('a', '3'));
-	SetColors(rgbColor, Array('a', '2'));
-}
