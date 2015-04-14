@@ -44,8 +44,8 @@ var RGBColor = function(r, g, b) {
 	// Converts the rgb object rgb into HSVColor
 	this.toHSV = function() {
 		hsv = new HSVColor();
-		max = max3(this.r, this.g, this.b);
-		dif = max - min3(this.r, this.g, this.b);
+		max = this.max3(this.r, this.g, this.b);
+		dif = max - this.min3(this.r, this.g, this.b);
 		hsv.s = (max == 0.0) ? 0 : (100 * dif / max);
 		if (hsv.s == 0) {
 			hsv.h = 0;
@@ -83,11 +83,11 @@ var RGBColor = function(r, g, b) {
 	// Returns the two split complementary RGBColor
 	this.splitComplement = function() {
 		splitHsv = this.toHSV();
-		splitHsv.HueShift(180.0 - angle);
-		splitRgb = splitHsv.toHSV2();
+		splitHsv.HueShift(180.0 - this.angle);
+		splitRgb = splitHsv.toRGB();
 
 		temphsv = this.toHSV();
-		temphsv.HueShift(180.0 + angle);
+		temphsv.HueShift(180.0 + this.angle);
 		temprgb = temphsv.toRGB();
 
 		return [splitRgb, temprgb];
@@ -101,11 +101,11 @@ var RGBColor = function(r, g, b) {
 	// Returns the two analogous RGBColor
 	this.analogous = function() {
 		analogousHsv = this.toHSV();
-		analogousHsv.HueShift(angle);
+		analogousHsv.HueShift(this.angle);
 		analogousRgb = analogousHsv.toRGB();
 
 		temphsv = this.toHSV();
-		temphsv.HueShift(0.0 - angle);
+		temphsv.HueShift(0.0 - this.angle);
 		temprgb = temphsv.toRGB();
 
 		return [analogousRgb, temprgb];
@@ -118,21 +118,21 @@ var RGBColor = function(r, g, b) {
 		colorC = new RGBColor();
 		colorD = new RGBColor();
 
-		colorA.r = Math.round(this.r + (255 - this.r) * grade1);
-		colorA.g = Math.round(this.g + (255 - this.g) * grade1);
-		colorA.b = Math.round(this.b + (255 - this.b) * grade1);
+		colorA.r = Math.round(this.r + (255 - this.r) * this.grade1);
+		colorA.g = Math.round(this.g + (255 - this.g) * this.grade1);
+		colorA.b = Math.round(this.b + (255 - this.b) * this.grade1);
 	 
-		colorB.r = Math.round(this.r + (255 - this.r) * grade2);
-		colorB.g = Math.round(this.g + (255 - this.g) * grade2);
-		colorB.b = Math.round(this.b + (255 - this.b) * grade2);
+		colorB.r = Math.round(this.r + (255 - this.r) * this.grade2);
+		colorB.g = Math.round(this.g + (255 - this.g) * this.grade2);
+		colorB.b = Math.round(this.b + (255 - this.b) * this.grade2);
 	 
-		colorC.r = Math.round(this.r * grade3);
-		colorC.g = Math.round(this.g * grade3);
-		colorC.b = Math.round(this.b * grade3);
+		colorC.r = Math.round(this.r * this.grade3);
+		colorC.g = Math.round(this.g * this.grade3);
+		colorC.b = Math.round(this.b * this.grade3);
 	 
-		colorD.r = Math.round(this.r * grade4);
-		colorD.g = Math.round(this.g * grade4);
-		colorD.b = Math.round(this.b * grade4);
+		colorD.r = Math.round(this.r * this.grade4);
+		colorD.g = Math.round(this.g * this.grade4);
+		colorD.b = Math.round(this.b * this.grade4);
 
 		return [colorA, colorB, colorC, colorD];
 	}
