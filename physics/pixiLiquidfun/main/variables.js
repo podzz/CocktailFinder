@@ -9,3 +9,5 @@ var glassLineStrength = 1;
 var displayLineColor = 0x000000;
 var displayFillColor = 0xEEEEEE;
 var displayLineStrength = 3;
+
+var glassScale = 3;

@@ -17,6 +17,12 @@ function getAllShape(bobo, shapeArr, shapeArrInc) {
 
 
     shapeArr[shapeArrInc++] = vectors;
+
+    vectors = [];
+    shape = new b2CircleShape();
+    
+
+
     createCollision(bobo, shapeArr);
 }
 
@@ -27,14 +33,14 @@ function createCollision(bobo, shapeArr) {
         for (var j = 1; j < vectors.length; j++) {
             var shape = new b2EdgeShape();
             shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[j].x, vectors[j].y));
-            bobo.CreateFixtureFromShape(shape, 0.1);
+            bobo.CreateFixtureFromShape(shape, 10);
             vectorStart = vectors[j];
         }
 
         // PART TO LINK LAST AND FIRST VERTEX
         shape = new b2EdgeShape();
         shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[0].x, vectors[0].y));
-        bobo.CreateFixtureFromShape(shape, 0.1);
+        bobo.CreateFixtureFromShape(shape, 10);
         vectors[vectors.length] = shape.vertex2;
     }
 }
