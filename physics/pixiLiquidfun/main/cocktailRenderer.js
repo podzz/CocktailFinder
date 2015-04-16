@@ -4,7 +4,10 @@
 
 var circleArr = [];
 var shapeArr = [];
+var objectDisplayArr = [];
+var objectPhysicsArr = [];
 var shapeArrInc = 0;
+var objectArrInc = 0;
 var world = null;
 
 var blurFilter;
@@ -40,10 +43,10 @@ function onload() {
 
 
     /** EXPLICATION
-     * La fonction "init();" est appelé via parser.running car le chargement du JSON se fait de manière
-     * asynchrone. Le problème étant que l'init a besoin des données du JSON *avant* de se lancer
-     * pour générer les formes et les collisions. Si aucun JSON n'est à appeler, il suffit de
-     * décommenter "init();" et commenter "getAndParseJSONFile();"
+     * La fonction "init();" est appelï¿½ via parser.running car le chargement du JSON se fait de maniï¿½re
+     * asynchrone. Le problï¿½me ï¿½tant que l'init a besoin des donnï¿½es du JSON *avant* de se lancer
+     * pour gï¿½nï¿½rer les formes et les collisions. Si aucun JSON n'est ï¿½ appeler, il suffit de
+     * dï¿½commenter "init();" et commenter "getAndParseJSONFile();"
      */
     //init();
     getAndParseJSONFile();
@@ -94,7 +97,7 @@ function init() {
     pondContainer.filters = [ blurFilter, thresoldFilter];
 
     // Init renderer
-    renderers = PIXI.autoDetectRenderer(windowWidth, windowHeight, null, true, true);  // arguments: width, height, view, transparent, antialias
+    renderers = PIXI.autoDetectRenderer(windowWidth, windowHeight, null, false, true);  // arguments: width, height, view, transparent, antialias
     $("#cocktailRenderer").append(renderers.view);
 
     var that = this;
@@ -149,6 +152,16 @@ function animate() {
         circleArr[i].beginFill(rgbToHex(colorsBuffer[i * 4], colorsBuffer[(i * 4) + 1], colorsBuffer[(i * 4) + 2]));
         circleArr[i].drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
     }
+
+    for (var i = 0; i < objectArrInc; i++) {
+        var currentPosition = objectPhysicsArr[i].GetPosition();
+        var currentAngle = objectPhysicsArr[i].GetAngle();
+
+        objectDisplayArr[i].position.x = (currentPosition.x) * METER;
+        objectDisplayArr[i].position.y = (currentPosition.y) * METER;
+        objectDisplayArr[i].rotation = currentAngle;
+    }
+
     renderers.render(stage);
 }
 
@@ -174,6 +187,7 @@ function MixColor() {
     var bobo = world.CreateBody(bdDef);
     getAllShape(bobo, shapeArr, shapeArrInc);
     getAllParticle();
+    createIceCube();
 }
 
 MixColor.prototype.Step = function () {
