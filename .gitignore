@@ -1,5 +1,7 @@
 *.pyc
 /scraping/webtender/*.csv
+/scraping/export/*
+/data/*
 /scraping/webtender/spiders/*.csv
 *.log
 .DS_Store

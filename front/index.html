@@ -20,6 +20,7 @@
     <!-- Custom Fonts -->
     <link href="fonts/lora.css" rel="stylesheet" type="text/css">
     <link href="fonts/montserrat.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Bubblegum+Sans|Rancho|Pacifico' rel='stylesheet' type='text/css'>
 
     <!-- Load Angular -->
     <script data-require="angular.js@*" data-semver="1.2.0-rc3-nonmin" src="http://code.angularjs.org/1.2.0-rc.3/angular.js"></script>
@@ -58,14 +59,13 @@
                     </div>-->
                 </div>
                 <div class="col-sm-6" style="height:100%;">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{ recipeCtrl.currentCocktail.name }}</h3>
+                    <div class="panel">
+                        <div>
+                            <h1 class="panel-title">{{ recipeCtrl.currentCocktail.name }}</h1>
                             <br/>
                             <button type="button" ng-click="recipeCtrl.removeCookie();" class="btn btn-warning">
                                 <span class="glyphicon glyphicons-remove" aria-hidden="true"></span> Delete Cookies
                             </button>
-                            <hr/>
                             <button type="button" ng-click="recipeCtrl.decreaseIndex();" class="btn btn-warning">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Previous
                             </button>

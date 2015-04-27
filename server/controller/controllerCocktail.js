@@ -16,7 +16,7 @@ var ControllerCocktail = function ControllerCocktail(_node) {
 // Seeks the recipe with the IDs given in param, and returns
 // a JSON Object with all its assets
 ControllerCocktail.getCocktailsById = function(idTab, callback) {
-    var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) WHERE';
+    var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) WHERE';
 
     for (var i = 0; i < idTab.length; ++i) {
         if (i == idTab.length - 1) {
@@ -25,7 +25,7 @@ ControllerCocktail.getCocktailsById = function(idTab, callback) {
             query += ' re.index = "' + idTab[i] +'" OR';
         }
     }
-    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name';
+    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name, rec.index';
 
     db.query(query, null, function (err, results) {
         console.log(query);
@@ -48,6 +48,7 @@ ControllerCocktail.getCocktailsById = function(idTab, callback) {
                 formatted.cocktails.push({
                     index : results[i]['re.index'],
                     name : results[i]['re.name'],
+                    glass: results[i]['rec.index'],
                     ingredients : [{
                         id : results[i]['i.index'],
                         name : results[i]['i.name'],
@@ -74,9 +75,9 @@ ControllerCocktail.getCocktailsById = function(idTab, callback) {
 // a JSON Object with all its assets
 // TO FIX
 ControllerCocktail.getCocktailById = function(index, callback) {
-    var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) WHERE';
+    var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) WHERE';
     query += ' re.index = "' + index +'" ';
-    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name';
+    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name, rec.index';
 
     db.query(query, null, function (err, results) {
         // ICO Request fail        
@@ -99,6 +100,7 @@ ControllerCocktail.getCocktailById = function(index, callback) {
                 formatted.cocktails.push({
                     index : results[i]['re.index'],
                     name : results[i]['re.name'],
+                    glass: results[i]['rec.index'],
                     ingredients : [{
                         id : results[i]['i.index'],
                         name : results[i]['i.name'],
@@ -125,9 +127,9 @@ ControllerCocktail.getCocktailById = function(index, callback) {
 // a JSON Object with all its assets
 // TO FIX
 ControllerCocktail.getCocktailByName = function(name, callback) {
-    var query = 'MATCH (re:Recipe)-[r]-(i:Ingredient) WHERE';
+    var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) WHERE';
     query += ' re.name = "' + name +'" ';
-    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name';
+    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name, rec.index';
 
     db.query(query, null, function (err, results) {
         // ICO Request fail        
@@ -150,6 +152,7 @@ ControllerCocktail.getCocktailByName = function(name, callback) {
                 formatted.cocktails.push({
                     index : results[i]['re.index'],
                     name : results[i]['re.name'],
+                    glass: results[i]['rec.index'],
                     ingredients : [{
                         id : results[i]['i.index'],
                         name : results[i]['i.name'],

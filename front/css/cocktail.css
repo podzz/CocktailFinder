@@ -4,15 +4,6 @@ body {
     font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-@keyframes colorchange
-{
-    0%   {background: red;}
-    25%  {background: yellow;}
-    50%  {background: blue;}
-    75%  {background: green;}
-    100% {background: red;}
-}
-
 html {
     width: 100%;
     height: 100%;
@@ -52,7 +43,7 @@ html {
 .btn {
     border-radius: 0;
     text-transform: uppercase;
-    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Bubblegum Sans', cursive;
     font-weight: 400;
 }
 
@@ -127,4 +118,15 @@ html {
 
 .backtohome {
     margin-top: 20%;
+}
+
+.panel-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 50px !important;
+    color: black !important;
+    text-shadow:
+        -2px -2px 0 white,  
+        2px -2px 0 white,
+        -2px 2px 0 white,
+        2px 2px 0 white;
 }
