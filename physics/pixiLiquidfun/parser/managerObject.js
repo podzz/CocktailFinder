@@ -9,16 +9,16 @@ function createIceCube() {
     bd.type = b2_dynamicBody;
 
     var vertices = shape.vertices;
-    var ve = new b2Vec2(0.0 + 2.5, 0.0 + 1);
+    var ve = new b2Vec2(0.0 + 2.5, 0.0 + 3);
     vertices.push(ve);
 
-    ve = new b2Vec2(1.0 + 2.5, 0.0 + 1);
+    ve = new b2Vec2(1.0 + 2.5, 0.0 + 3);
     vertices.push(ve);
 
-    ve = new b2Vec2(1.0 + 2.5, 1.0 + 1);
+    ve = new b2Vec2(1.0 + 2.5, 1.0 + 3);
     vertices.push(ve);
 
-    ve = new b2Vec2(0.0 + 2.5, 1.0 + 1);
+    ve = new b2Vec2(0.0 + 2.5, 1.0 + 3);
     vertices.push(ve);
 
     var body = world.CreateBody(bd);
@@ -29,7 +29,7 @@ function createIceCube() {
     objectPhysicsArr[objectArrInc] = body;
 
     var image = new Image();
-    image.src = "icecube.png";
+    image.src = "icecube2.png";
     var base = new PIXI.BaseTexture(image);
 
     var texture = new PIXI.Texture(base);

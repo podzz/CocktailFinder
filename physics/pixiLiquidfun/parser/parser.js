@@ -1,8 +1,26 @@
 /**
  * Created by Adrien on 08/04/2015.
  */
-function getAndParseJSONFile() {
-    readTextFile("JSONFolder/shooter.txt")
+function getAndParseJSONFile(glasseId) {
+    switch (glasseId) {
+        case 1 : readTextFile("JSONFolder/champagne.json");
+            break;
+        case 2 : readTextFile("JSONFolder/cocktail.json");
+            break;
+        case 3 : readTextFile("JSONFolder/margarita.json");
+            break;
+        case 4 : readTextFile("JSONFolder/pint.json");
+            break;
+        case 5 : readTextFile("JSONFolder/shooter.json");
+            break;
+        case 6 : readTextFile("JSONFolder/smallwine.json");
+            break;
+        case 7 : readTextFile("JSONFolder/tumblr.json");
+            break;
+        case 8 : readTextFile("JSONFolder/wine.json");
+            break;
+        default : readTextFile("JSONFolder/tumblr.json");
+    }
 }
 
 function readTextFile(path)

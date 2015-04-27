@@ -49,7 +49,7 @@ function onload() {
      * d�commenter "init();" et commenter "getAndParseJSONFile();"
      */
     //init();
-    getAndParseJSONFile();
+    getAndParseJSONFile(1);
 
 }
 
@@ -156,10 +156,11 @@ function animate() {
     for (var i = 0; i < objectArrInc; i++) {
         var currentPosition = objectPhysicsArr[i].GetPosition();
         var currentAngle = objectPhysicsArr[i].GetAngle();
+        console.log("Position : " + currentPosition.x + "  |||  " + currentPosition.y + "  |||  " + currentAngle);
 
-        objectDisplayArr[i].position.x = (currentPosition.x) * METER;
-        objectDisplayArr[i].position.y = (currentPosition.y) * METER;
-        objectDisplayArr[i].rotation = currentAngle;
+        objectDisplayArr[i].position.x = 2.5 * METER + currentPosition.x * METER;
+        objectDisplayArr[i].position.y = 3 * METER + currentPosition.y * METER;
+        ///objectDisplayArr[i].rotation = currentAngle;
     }
 
     renderers.render(stage);
@@ -187,7 +188,7 @@ function MixColor() {
     var bobo = world.CreateBody(bdDef);
     getAllShape(bobo, shapeArr, shapeArrInc);
     getAllParticle();
-    createIceCube();
+    //createIceCube();
 }
 
 MixColor.prototype.Step = function () {
