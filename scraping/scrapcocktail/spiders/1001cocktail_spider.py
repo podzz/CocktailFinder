@@ -47,6 +47,8 @@ class GraalSpider(scrapy.Spider):
         	ingredients_list.append((number,mesure,liquid))
 
         recipient = response.xpath("/html/body/div[1]/div[6]/div[1]/span[3]/a/u//text()").extract()
+        recipient =
+        response.xpath("//a[@href='/magazine/materiel/verres']//u//text()").extract()
         if len(recipient) < 1:
         	item["recipient"] = ""
         else:
