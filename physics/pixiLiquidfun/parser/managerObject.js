@@ -9,16 +9,16 @@ function createIceCube() {
     bd.type = b2_dynamicBody;
 
     var vertices = shape.vertices;
-    var ve = new b2Vec2(0.0 + 2.5, 0.0 + 3);
+    var ve = new b2Vec2(2.0, 2.5);
     vertices.push(ve);
 
-    ve = new b2Vec2(1.0 + 2.5, 0.0 + 3);
+    ve = new b2Vec2(0, 0);
     vertices.push(ve);
 
-    ve = new b2Vec2(1.0 + 2.5, 1.0 + 3);
+    ve = new b2Vec2(0.5,0.5);
     vertices.push(ve);
 
-    ve = new b2Vec2(0.0 + 2.5, 1.0 + 3);
+    ve = new b2Vec2(0.5, 0);
     vertices.push(ve);
 
     var body = world.CreateBody(bd);
@@ -41,8 +41,8 @@ function createIceCube() {
     iceCube.position.x = 2.5 * METER;
     iceCube.position.y = 1 * METER;
 
-    iceCube.width = 1 * METER;
-    iceCube.height = 1 * METER;
+    iceCube.width = 10;
+    iceCube.height = 10;
 
     objectDisplayArr[objectArrInc++] = iceCube;
     stage.addChild(iceCube);
