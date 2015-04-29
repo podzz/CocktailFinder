@@ -3,3 +3,17 @@ MATCH (re:Recipe) WHERE re.index = "107" return re--();
 
 // Count the number of recipe by glass
 MATCH (rec:Recipient)<-[r]-(re:Recipe) return rec, count(DISTINCT re) as ct ORDER BY ct DESC ;
+
+// ------------------------------
+// EXAMPLES
+// ------------------------------
+
+// All glasses
+MATCH (re:Recipe)--(rec:Recipient) RETURN rec.name, count(re) as cnt ORDER BY cnt DESC;
+
+MATCH (re:Recipe) WHERE re.index = "107" OR re.index = "105" OR re.index = "106" return re--();
+
+// Unités
+MATCH (re:Recipe)-[r]-() RETURN DISTINCT r.unity ORDER BY r.unity;
+
+MATCH (re:Recipe) WHERE re.recipeScore < 30 RETURN re--() LIMIT 10;
