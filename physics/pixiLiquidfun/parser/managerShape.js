@@ -53,8 +53,8 @@ function shapeRender() {
             graphics.lineStyle(glassLineStrength, glassLineColor);
             graphics.beginFill(glassFillColor, glassAlphaColor);
         }
-        else
-            graphics.lineStyle(displayLineStrength, displayLineColor);
+        //else
+            //graphics.lineStyle(displayLineStrength, displayLineColor);
         var vectors = shapeArr[i];
         graphics.moveTo(vectors[0].x * METER, vectors[0].y * METER);
         for (var j = 1; j < vectors.length; j++) {

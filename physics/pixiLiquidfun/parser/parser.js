@@ -27,6 +27,7 @@ function readTextFile(path)
 {
     $.ajax({
         url: path,
+        async: false,
         dataType: "text",
         success: function(data) {
             running(data);
@@ -36,8 +37,7 @@ function readTextFile(path)
 
 
 function running(data) {
-    var f = data;
-    f = JSON.parse(data);
+    var f = JSON.parse(data);
     var temp = f.rigidBodies[0].shapes[0].vertices;
 
     var vectors = [];

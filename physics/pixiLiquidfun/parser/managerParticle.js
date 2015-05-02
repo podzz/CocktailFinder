@@ -12,14 +12,14 @@ function getAllParticle() {
     particleSystem = world.CreateParticleSystem(psd);
 
     var box2 = new b2PolygonShape();
-    box2.SetAsBoxXYCenterAngle(0.5, 0.5, new b2Vec2(2.5, 1.0), 0);
+    box2.SetAsBoxXYCenterAngle(0.4, 0.4, new b2Vec2(2.5, 1.0), 0);
     var particleGroupDef2 = new b2ParticleGroupDef();
     particleGroupDef2.shape = box2;
     particleGroupDef2.flags = b2_colorMixingParticle;
     particleGroupDef2.color.Set(255,150,0,255);
 
     var box3 = new b2PolygonShape();
-    box3.SetAsBoxXYCenterAngle(0.5, 0.5, new b2Vec2(2.5, 2.0), 0);
+    box3.SetAsBoxXYCenterAngle(0.4, 0.4, new b2Vec2(2.5, 2.0), 0);
     var particleGroupDef3 = new b2ParticleGroupDef();
     particleGroupDef3.shape = box3;
     particleGroupDef3.flags = b2_colorMixingParticle;
