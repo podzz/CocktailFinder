@@ -15,6 +15,7 @@ function createIceCube(offsetX, offsetY, size) {
     tempWindowHeight /= 2;
 
     var vertices = shape.vertices;
+
     var ve = new b2Vec2(offsetX + tempWindowWidth, offsetY + tempWindowHeight);
     vertices.push(ve);
 
@@ -25,6 +26,7 @@ function createIceCube(offsetX, offsetY, size) {
     vertices.push(ve);
 
     ve = new b2Vec2(offsetX + tempWindowWidth, offsetY + size + tempWindowHeight);
+
     vertices.push(ve);
 
     var body = world.CreateBody(bd);

@@ -7,7 +7,7 @@ var glassLineColor = 0xAAAAAA;
 var glassLineStrength = 2;
 
 var displayLineColor = 0x000000;
-var displayFillColor = 0xEEEEEE;
+var displayFillColor = 0x337ab7;
 var displayLineStrength = 3;
 
-var glassScale = 1.5;
+var glassScale = 1.2;

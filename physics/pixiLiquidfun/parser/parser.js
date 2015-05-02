@@ -3,23 +3,29 @@
  */
 function getAndParseJSONFile(glasseId) {
     switch (glasseId) {
-        case 1 : readTextFile("JSONFolder/champagne.json");
+        case 1 : readTextFile("pixiLiquidFun/JSONFolder/tumblr.json");
             break;
-        case 2 : readTextFile("JSONFolder/cocktail.json");
+        case 2 : readTextFile("pixiLiquidFun/JSONFolder/cocktail.json");
             break;
-        case 3 : readTextFile("JSONFolder/margarita.json");
+        case 3 : readTextFile("pixiLiquidFun/JSONFolder/shooter.json");
             break;
-        case 4 : readTextFile("JSONFolder/pint.json");
+        case 5 : readTextFile("pixiLiquidFun/JSONFolder/pinte.json");
             break;
-        case 5 : readTextFile("JSONFolder/shooter.json");
+        case 6 : readTextFile("pixiLiquidFun/JSONFolder/margarita.json");
             break;
-        case 6 : readTextFile("JSONFolder/smallwine.json");
+        case 7 : readTextFile("pixiLiquidFun/JSONFolder/wine.json");
             break;
-        case 7 : readTextFile("JSONFolder/tumblr.json");
+        case 8 : readTextFile("pixiLiquidFun/JSONFolder/champagne.json");
             break;
-        case 8 : readTextFile("JSONFolder/wine.json");
+        case 9 : readTextFile("pixiLiquidFun/JSONFolder/champagne.json");
             break;
-        default : readTextFile("JSONFolder/tumblr.json");
+        case 10 : readTextFile("pixiLiquidFun/JSONFolder/smallwine.json");
+            break;
+        case 11 : readTextFile("pixiLiquidFun/JSONFolder/margarita.json");
+            break;
+        case 12 : readTextFile("pixiLiquidFun/JSONFolder/champagne.json");
+            break;
+        default : readTextFile("pixiLiquidFun/JSONFolder/tumblr.json");
     }
 }
 
@@ -42,13 +48,17 @@ function running(data) {
 
     var vectors = [];
     var maxWidth = 0;
+    var width = $("#cocktailRenderer").width();
+    var height = $("#cocktailRenderer").height();
     for (var i = 0; i < temp.length; i++) {
         var vector = temp[i];
         // BAD... SO BAD
 
         vector.x *= glassScale;
+        vector.x = (width / METER / 2) - glassScale / 2 + vector.x;
+
         vector.y *= glassScale;
-        vector.y = 5 - vector.y;
+        vector.y = height / METER - vector.y;
 
         if (vector.x > maxWidth)
             maxWidth = vector.x;
@@ -56,10 +66,10 @@ function running(data) {
         // END_BAD... SO BAD
         vectors[i] = vector;
     }
-
-    for (var i = 0; i < vectors.length; i++)
-        vectors[i].x += 5 / 2 - maxWidth / 2;
+    shapeArrInc = 0;
+    shapeArrInc = [];
 
     shapeArr[shapeArrInc++] = vectors;
-    init();
+    if (withrunning == true)
+        init();
 }

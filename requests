@@ -1,9 +1,19 @@
-Set the count of recipes 
+// A recipe and its assets
+MATCH (re:Recipe) WHERE re.index = "107" return re--();
 
-MATCH (r:Recipe)-->(i:Ingredient { index: "2"}) WITH i, count(r) AS cnt SET i.recipeCount = cnt RETURN i;
-MATCH (r:Recipe)-->(i:Ingredient) WITH i, count(r) AS cnt SET i.recipeCount = cnt RETURN i;
+// Count the number of recipe by glass
+MATCH (rec:Recipient)<-[r]-(re:Recipe) return rec, count(DISTINCT re) as ct ORDER BY ct DESC ;
 
-Set recipeScore
-MATCH (r:Recipe)--(i:Ingredient) WITH r, avg(i.recipeCount) AS average SET r.recipeScore = average RETURN r ;
+// ------------------------------
+// EXAMPLES
+// ------------------------------
 
-MATCH (r:Recipe { index: "81"})--(i:Ingredient) WITH r, avg(i.recipeCount) AS average, count(i) as ingrCount SET r.recipeScore = average RETURN r ;
+// All glasses
+MATCH (re:Recipe)--(rec:Recipient) RETURN rec.name, count(re) as cnt ORDER BY cnt DESC;
+
+MATCH (re:Recipe) WHERE re.index = "107" OR re.index = "105" OR re.index = "106" return re--();
+
+// Unités
+MATCH (re:Recipe)-[r]-() RETURN DISTINCT r.unity ORDER BY r.unity;
+
+MATCH (re:Recipe) WHERE re.recipeScore < 30 RETURN re--() LIMIT 10;

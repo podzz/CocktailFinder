@@ -39,7 +39,7 @@ var OFFSET_Y = 0;
 
 var _len = 0;
 
-function onload() {
+function onload(id_recipient) {
     var gravity = new b2Vec2(0, 10);
     world = new b2World(gravity);
 
@@ -58,18 +58,35 @@ function onload() {
 function reload() {
     reloadTime++;
     LoadAnimation("MixColor");
+    if (id_recipient == null)
+        getAndParseJSONFile(Math.floor(Math.random() * 15));
+    else
+    {
+        getAndParseJSONFile(Math.floor(Math.random() * 15));
+    }
+        //getAndParseJSONFile(id_recipient)
 
+}
+
+function reload(glass) {
+    reloadTime++;
     pondContainer.visible = false;
     delete pondContainer;
-
+    delete stage;
+    stage = new PIXI.Stage(displayFillColor);
     pondContainer = new PIXI.DisplayObjectContainer();
     stage.addChild(pondContainer);
     pondContainer.filters = [blurFilter, thresoldFilter];
 
-
+    var gravity = new b2Vec2(0, 10);
+    world = new b2World(gravity);
+    withrunning = false;
+    getAndParseJSONFile(Math.floor(Math.random() * 15));
+    //getAndParseJSONFile(glass);
+    LoadAnimation("MixColor");
     shapeRender();
 
-    _len = world.particleSystems[world.particleSystems.length - 1].GetPositionBuffer().length / 2;
+    _len = world.particleSystems[0].GetPositionBuffer().length / 2;
     for (var i = 0; i < _len; i++) {
         pondContainer.addChild(circleArr[i]);
     }

@@ -43,6 +43,7 @@
 			if (this.currentIndex != 0) {
 				this.currentIndex--;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
+                reload(this.currentCocktail.glass);
 			}
 
 		};
@@ -51,6 +52,7 @@
 			if (this.currentIndex < Object.keys(this.data.cocktails).length - 1) {
 				this.currentIndex++;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
+                reload(this.currentCocktail.glass);
 			}
 
 		};
@@ -111,17 +113,14 @@
 				// Data fetched from server
    				that.data = data;
                 that.currentIndex = 0;
+
 			});
-		}
 
-        //console.log(data.cocktails.length);
-		// Initiates request at page load up
-		try {
-			initRenderer();
-		}
-		catch(e) {
 
 		}
+        withrunning = true;
+        onload(that.currentCocktail.glass);
+
 		this.reloadData();
 		this.loadMissingFromCookie();
 	}]);
