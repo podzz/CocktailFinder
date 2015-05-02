@@ -11,6 +11,7 @@ var objectArrInc = 0;
 var world = null;
 
 var blurFilter;
+var secondBlur;
 var thresoldFilter;
 
 var right;
@@ -36,6 +37,8 @@ var OFFSET_X = 0;
 var OFFSET_Y = 0;
 
 var _len = 0;
+
+var endtime = 0;
 
 function onload(id_recipient) {
     var gravity = new b2Vec2(0, 10);
@@ -106,6 +109,8 @@ function init() {
     blurFilter = new PIXI.BlurFilter();
     blurFilter.blur = 20;
     thresoldFilter = new PIXI.TresholdFilter();
+
+
     pondContainer.filters = [ blurFilter, thresoldFilter];
 
     // Init renderer
@@ -129,7 +134,8 @@ function init() {
         circleArr.push(graphics);
         pondContainer.addChild(graphics);
     }
-
+    endtime = new Date();
+    endtime.setSeconds(endtime.getSeconds() + 15);
     requestAnimFrame(animate);
 }
 
@@ -156,14 +162,17 @@ function animate() {
         alphaBuffer[(i - 3) / 4] = colorsBuffer[i];
     }
 
-    for (var i = 0; i < circleArr.length; i++) {
-        circleArr[i].x = ((particles[i * 2] /*- particleSize / METER / 2*/) * METER + OFFSET_X);
-        circleArr[i].y = ((particles[(i * 2) + 1] /*- particleSize / METER / 2*/) * METER + OFFSET_Y);
+    if (endtime > new Date()) {
+        for (var i = 0; i < circleArr.length; i++) {
+            circleArr[i].x = ((particles[i * 2] ) * METER + OFFSET_X);
+            circleArr[i].y = ((particles[(i * 2) + 1]) * METER + OFFSET_Y);
 
-        circleArr[i].clear();
-        circleArr[i].beginFill(rgbToHex(colorsBuffer[i * 4], colorsBuffer[(i * 4) + 1], colorsBuffer[(i * 4) + 2]));
-        circleArr[i].drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
+            circleArr[i].clear();
+            circleArr[i].beginFill(rgbToHex(colorsBuffer[i * 4], colorsBuffer[(i * 4) + 1], colorsBuffer[(i * 4) + 2]));
+            circleArr[i].drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
+        }
     }
+
 
     for (var i = 0; i < objectArrInc; i++) {
         var currentPosition = objectPhysicsArr[i].GetPosition();
