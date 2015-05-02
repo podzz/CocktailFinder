@@ -2,48 +2,36 @@
  * Created by Adrien on 14/04/2015.
  */
 
-function createIceCube() {
-
+function createIceCube(offsetX, offsetY, size) {
     var bd = new b2BodyDef();
     var shape = new b2PolygonShape();
     bd.type = b2_dynamicBody;
-
+    var tempWindowWidth = 5;  //FIXME : Replace by real windwoWidth;
+    var tempWindowHeight = 6; //FIXME : Replace by real windwoHeight;
+    tempWindowWidth /= 2;
+    tempWindowHeight /= 2;
     var vertices = shape.vertices;
-    var ve = new b2Vec2(2.0, 2.5);
+    var ve = new b2Vec2(offsetX + tempWindowWidth, offsetY + tempWindowHeight);
     vertices.push(ve);
-
-    ve = new b2Vec2(0, 0);
+    ve = new b2Vec2(offsetX + size + tempWindowWidth, offsetY + tempWindowHeight);
     vertices.push(ve);
-
-    ve = new b2Vec2(0.5,0.5);
+    ve = new b2Vec2(offsetX + size + tempWindowWidth, offsetY + size + tempWindowHeight);
     vertices.push(ve);
-
-    ve = new b2Vec2(0.5, 0);
+    ve = new b2Vec2(offsetX + tempWindowWidth, offsetY + size + tempWindowHeight);
     vertices.push(ve);
-
     var body = world.CreateBody(bd);
     //shape.radius = 0.5;
-
-    body.CreateFixtureFromShape(shape, 1);
-
+    body.CreateFixtureFromShape(shape, 0.2);
     objectPhysicsArr[objectArrInc] = body;
-
     var image = new Image();
-    image.src = "icecube2.png";
+    image.src = "icecube.png"; //FIXME : Find another f**king texture !
     var base = new PIXI.BaseTexture(image);
-
     var texture = new PIXI.Texture(base);
     var iceCube = new PIXI.Sprite(texture);
-
     iceCube.anchor.x = 0.5;
     iceCube.anchor.y = 0.5;
-
-    iceCube.position.x = 2.5 * METER;
-    iceCube.position.y = 1 * METER;
-
-    iceCube.width = 10;
-    iceCube.height = 10;
-
+    iceCube.width = size * METER;
+    iceCube.height = size * METER;
     objectDisplayArr[objectArrInc++] = iceCube;
     stage.addChild(iceCube);
 }

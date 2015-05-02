@@ -20,7 +20,7 @@ function getAllShape(bobo, shapeArr, shapeArrInc) {
 
     vectors = [];
     shape = new b2CircleShape();
-    
+
 
 
     createCollision(bobo, shapeArr);
@@ -54,7 +54,7 @@ function shapeRender() {
             graphics.beginFill(glassFillColor, glassAlphaColor);
         }
         //else
-         //   graphics.lineStyle(displayLineStrength, displayLineColor);
+            //graphics.lineStyle(displayLineStrength, displayLineColor);
         var vectors = shapeArr[i];
         graphics.moveTo(vectors[0].x * METER, vectors[0].y * METER);
         for (var j = 1; j < vectors.length; j++) {

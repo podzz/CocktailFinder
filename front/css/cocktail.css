@@ -9,16 +9,7 @@ html {
     height: 100%;
 }
 
-.intro {
-    color: #fff;
-    top: 50% !important;
-    margin-top: -200px;
-    width: 100%;
-    position: relative;
-    text-align:center;
-}
-
-.onepage {
+.screen {
     color: #fff;
     width: 100%;
     height: 100%;
@@ -27,9 +18,16 @@ html {
     background-color: #337ab7;
 }
 
-.panel {
-    margin: 2% 0% 1% 0%;
-    background-color: transparent !important;
+.cocktailPanel {
+    background-color: transparent;
+    height:80%;
+    width: 100%;
+    display:flex;
+}
+
+.titlePanel {
+    position:relative;
+    text-align:center;
 }
 
 
@@ -51,27 +49,40 @@ html {
     transition: background-color 1s ease-in;
 }
 
-.background.background-transition{
-    animation: colorchange 50s infinite;
-    -webkit-animation: colorchange 50s infinite; /* Chrome and Safari */
-    transition: background-color 1s ease-in;
+.renderer {
+    width: 50%;
 }
 
-.preload * {
-    transition: none !important;
+.direction {
+    height:100%;
+    width: 50%;
+    display:block;
+}
+
+.directionData {
+    width:100%;
+    top: 50%;
+    position:relative;
+}
+
+#cocktailRenderer {
+    height: 450px;
+    width: 50%;
+    position:absolute;
+    top:20%;
+
 }
 
 .exclude-bar {
-    position: absolute;
-    bottom: 2%;
-    left: 2%;
-    right: 2%;
-    height: 10%;
+    position: relative;
+    height: 20%;
+    width: 100%;
     overflow: auto;
+    padding-top: 2%;
 }
 
 .bar {
-    background-color: rgba(255,255,255,0.4);
+    background-color: rgba(255,255,255,0.2);
     padding-left: 2% !important;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -85,24 +96,16 @@ html {
 
 }
 
-.onepage li {
+.screen li {
     text-align: left;
 }
 
-.onepage .exclude-bar ul{
+.screen .exclude-bar ul{
     display: block;
 }
 
-.onepage .exclude-bar li{
+.screen .exclude-bar li{
     display: inline;
-}
-
-#startapp {
-    height: 100%;
-    position: absolute !important;
-    width: 100%;
-    overflow: hidden;
-    background-color: #204d74;
 }
 
 .vertical-center {

@@ -43,8 +43,7 @@ function readTextFile(path)
 
 
 function running(data) {
-    var f = data;
-    f = JSON.parse(data);
+    var f = JSON.parse(data);
     var temp = f.rigidBodies[0].shapes[0].vertices;
 
     var vectors = [];

@@ -50,88 +50,64 @@
     <script src="pixiLiquidfun/main/cocktailRenderer.js"></script>
 
 </head>
+<body ng-controller="recipeController as recipeCtrl">
+<div class="screen">
 
-<body class="preload" ng-controller="recipeController as recipeCtrl">
-<!--
-<div class="background background-intro">
-    <div id="runapp">
-        <div class="intro">
-            <div class="row">
-                <div class="col-sm-12">
-                    <img class="img-responsive center-block" src="img/artist-sidebar.png"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <button type="button" class="gotoapp btn btn-success">Need a drink ?</button>
-                </div>
+    <div class="cocktailPanel">
+        <div class="renderer">
+            <div id="cocktailRenderer">
             </div>
         </div>
-        -->
-        <div class="onepage">
-            <div class="panel">
-                <div class="col-sm-6" style="text-align:center">
-
-                    <div id="cocktailRenderer" style="height: 500px;">
-
-
-                    </div>
+        <div class="direction">
+            <div class="directionData">
+                <div>
+                    <h1 class="panel-title">{{ recipeCtrl.currentCocktail.name }}</h1>
+                    <br/>
+                    <button type="button" ng-click="recipeCtrl.removeCookie();" class="btn btn-warning">
+                        <span class="glyphicon glyphicons-remove" aria-hidden="true"></span> Delete Cookies
+                    </button>
+                    <button type="button" ng-click="recipeCtrl.decreaseIndex();" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Previous
+                    </button>
+                    {{ recipeCtrl.currentIndex + 1 }} / 5
+                    <button type="button" ng-click="recipeCtrl.increaseIndex();" class="btn btn-warning">
+                        Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    </button>
                 </div>
-                <div class="col-sm-6">
-                    <div class="panel">
-                        <div>
-                            <h1 class="panel-title">{{ recipeCtrl.currentCocktail.name }}</h1>
-                            <br/>
-                            <button type="button" ng-click="recipeCtrl.removeCookie();" class="btn btn-warning">
-                                <span class="glyphicon glyphicons-remove" aria-hidden="true"></span> Delete Cookies
+                <div class="panel-body">
+                    <ul id="cocktailList">
+                        <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredients">
+                            <label for="{{ 'button' + $index }}"></label> {{ ingr.quantity }} {{ ingr.unity
+                            }}</h5>
+                            <button id="{{ 'button' + $index }}" type="button"
+                                    ng-click="recipeCtrl.addMissing(ingr);" class="btn btn-success">
+                                {{ ingr.name }}<span class="glyphicon glyphicon-remove"
+                                                     aria-hidden="true"></span>
                             </button>
-                            <button type="button" ng-click="recipeCtrl.decreaseIndex();" class="btn btn-warning">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Previous
-                            </button>
-                            {{ recipeCtrl.currentIndex + 1 }} / 5
-                            <button type="button" ng-click="recipeCtrl.increaseIndex();" class="btn btn-warning">
-                                Next<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                        <div class="panel-body">
-                            <ul id="cocktailList">
-                                <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredients">
-                                    <label for="{{ 'button' + $index }}"></label> {{ ingr.quantity }} {{ ingr.unity
-                                    }}</h5>
-                                    <button id="{{ 'button' + $index }}" type="button"
-                                            ng-click="recipeCtrl.addMissing(ingr);" class="btn btn-success">
-                                        {{ ingr.name }}<span class="glyphicon glyphicon-remove"
-                                                             aria-hidden="true"></span>
-                                    </button>
 
-                                </li>
-                            </ul>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="exclude-bar">
-                <div class="bar">
-                    <ul name="excludes" class="list-unstyled bar">
-                        <li ng-repeat="ingr in recipeCtrl.missing" id="{{ 'itemli' + $index }}">
-                            <button type="button" ng-click="recipeCtrl.removeMissing(ingr);" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ ingr.name }}
-                            </button>
-                            <!--<input type="button" name="button1" value="Finally I have it" ng-click="recipeCtrl.removeMissing(ingr)" />-->
                         </li>
-
                     </ul>
                 </div>
             </div>
-
         </div>
-<!--
+    </div>
+    <div class="exclude-bar">
+        <div class="bar">
+            <ul name="excludes" class="list-unstyled bar">
+                <li ng-repeat="ingr in recipeCtrl.missing" id="{{ 'itemli' + $index }}">
+                    <button type="button" ng-click="recipeCtrl.removeMissing(ingr);" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ ingr.name }}
+                    </button>
+                    <!--<input type="button" name="button1" value="Finally I have it" ng-click="recipeCtrl.removeMissing(ingr)" />-->
+                </li>
+            </ul>
+        </div>
     </div>
 
-
-</div>-->
-
+</div>
+<div class="titlePanel">
+    <img src="img/artist-sidebar.png" style="width:400px;"/>
+</div>
 <!-- jQuery -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 

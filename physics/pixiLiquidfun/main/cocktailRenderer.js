@@ -30,6 +30,8 @@ var particleSize = 8.5;
 
 var METER = 100; //Meter per pixel
 
+var reloadTime = 0;
+
 var windowWidth = window.innerWidth;
 var windowHeight = window.innerHeight;
 
@@ -52,6 +54,13 @@ function onload(id_recipient) {
      * d�commenter "init();" et commenter "getAndParseJSONFile();"
      */
     //init();
+    getAndParseJSONFile();
+
+}
+
+function reload() {
+    reloadTime++;
+    LoadAnimation("MixColor");
     if (id_recipient == null)
         getAndParseJSONFile(Math.floor(Math.random() * 15));
     else
@@ -63,9 +72,7 @@ function onload(id_recipient) {
 }
 
 function reload(glass) {
-
-
-
+    reloadTime++;
     pondContainer.visible = false;
     delete pondContainer;
     delete stage;
@@ -175,13 +182,13 @@ function animate() {
 
 
     for (var i = 0; i < objectArrInc; i++) {
-        var currentPosition = objectPhysicsArr[i].GetPosition();
+        var currentPosition = objectPhysicsArr[i].GetWorldCenter();
         var currentAngle = objectPhysicsArr[i].GetAngle();
-        console.log("Position : " + currentPosition.x + "  |||  " + currentPosition.y + "  |||  " + currentAngle);
+        //console.log("Position : " + currentPosition.x + "  |||  " + currentPosition.y + "  |||  " + currentAngle);
 
-        objectDisplayArr[i].position.x = 2.5 * METER + currentPosition.x * METER;
-        objectDisplayArr[i].position.y = 3 * METER + currentPosition.y * METER;
-        ///objectDisplayArr[i].rotation = currentAngle;
+        objectDisplayArr[i].position.x = currentPosition.x * METER;
+        objectDisplayArr[i].position.y = currentPosition.y * METER;
+        objectDisplayArr[i].rotation = currentAngle;
     }
 
     renderers.render(stage);
@@ -209,7 +216,12 @@ function MixColor() {
     var bobo = world.CreateBody(bdDef);
     getAllShape(bobo, shapeArr, shapeArrInc);
     getAllParticle();
-    //createIceCube();
+    if (reloadTime == 0) { // To prevent the add of new icecube when we reload;
+        createIceCube(0, 0, 0.4);  // Xoffset, Yoffset, size; The offset is about the center of the screen
+        //createIceCube(0.2, 0, 0.3);
+        //createIceCube(-0.5, 1, 0.4);
+        //createIceCube(-0.5, 0, 0.3);
+    }
 }
 
 MixColor.prototype.Step = function () {
