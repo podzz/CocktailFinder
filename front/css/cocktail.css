@@ -70,6 +70,7 @@ html {
     width: 50%;
     position:absolute;
     top:20%;
+    background-color:transparent;
 
 }
 
@@ -97,7 +98,8 @@ html {
 }
 
 .screen li {
-    text-align: left;
+    text-align: center;
+    list-style-type:none;
 }
 
 .screen .exclude-bar ul{

@@ -4,21 +4,15 @@
 
 var circleArr = [];
 var shapeArr = [];
+var edgeArr = [];
+var recipeArr = [];
 var objectDisplayArr = [];
 var objectPhysicsArr = [];
 var shapeArrInc = 0;
 var objectArrInc = 0;
-var world = null;
-
-var blurFilter;
-var secondBlur;
-var thresoldFilter;
 
 var right;
 var left;
-var renderers;
-var stage;
-var pondContainer;
 var timeStep = 1.0 / 60.0;
 var particleSystem;
 var velocityIterations = 3;
@@ -32,9 +26,6 @@ var METER = 100; //Meter per pixel
 
 var reloadTime = 0;
 
-var windowWidth = window.innerWidth;
-var windowHeight = window.innerHeight;
-
 var OFFSET_X = 0;
 var OFFSET_Y = 0;
 
@@ -42,37 +33,64 @@ var _len = 0;
 
 var endtime = 0;
 
-function onload(id_recipient) {
-    var gravity = new b2Vec2(0, 10);
+var width = 0;
+var height = 0;
+
+var world = null;
+var parser = null;
+
+var stage = null;
+var pondContainer = null;
+var renderers = null;
+
+var blurFilter = null;
+var thresoldFilter = null;
+
+
+function CocktailRenderer() {
+    width = $("#cocktailRenderer").width();
+    height = $("#cocktailRenderer").height();
+
+    /* Create World */
+    gravity = new b2Vec2(0, 10)
     world = new b2World(gravity);
 
+    /* Parser Init */
+    parser = new Parser();
+    parser.initParser();
 
-    /** EXPLICATION
-     * La fonction "init();" est appel� via parser.running car le chargement du JSON se fait de mani�re
-     * asynchrone. Le probl�me �tant que l'init a besoin des donn�es du JSON *avant* de se lancer
-     * pour g�n�rer les formes et les collisions. Si aucun JSON n'est � appeler, il suffit de
-     * d�commenter "init();" et commenter "getAndParseJSONFile();"
-     */
-    //init();
-    getAndParseJSONFile();
+    /* Graphics Init */
+    stage = new PIXI.Stage(displayFillColor);
+    pondContainer = new PIXI.DisplayObjectContainer();
+    stage.addChild(pondContainer);
+
+    /* - Filter */
+    blurFilter = new PIXI.BlurFilter();
+    thresoldFilter = new PIXI.TresholdFilter();
+    blurFilter.blur = 20;
+    pondContainer.filters = [blurFilter, thresoldFilter];
+
+    /* Init renderer */
 
 }
 
-function reload() {
-    reloadTime++;
+CocktailRenderer.prototype.initRenderer = function () {
+    renderers = PIXI.autoDetectRenderer(width, height, null, true, true);  // arguments: width, height, view, transparent, antialias
+    $("#cocktailRenderer").append(renderers.view);
     LoadAnimation("MixColor");
-    if (id_recipient == null)
-        getAndParseJSONFile(Math.floor(Math.random() * 15));
-    else
-    {
-        getAndParseJSONFile(Math.floor(Math.random() * 15));
-    }
-        //getAndParseJSONFile(id_recipient)
+    _len = world.particleSystems[0].GetPositionBuffer().length / 2;
 
+    for (var i = 0; i < _len; i++) {
+
+        var graphics = new PIXI.Graphics();
+        stage.addChild(graphics);
+        circleArr.push(graphics);
+        pondContainer.addChild(graphics);
+    }
+    requestAnimFrame(animate);
 }
 
-function reload(glass) {
-    reloadTime++;
+CocktailRenderer.prototype.reload = function (glass) {
     pondContainer.visible = false;
     delete pondContainer;
     delete stage;
@@ -83,11 +101,9 @@ function reload(glass) {
 
     var gravity = new b2Vec2(0, 10);
     world = new b2World(gravity);
-    withrunning = false;
-    getAndParseJSONFile(Math.floor(Math.random() * 15));
-    //getAndParseJSONFile(glass);
+
+
     LoadAnimation("MixColor");
-    shapeRender();
 
     _len = world.particleSystems[0].GetPositionBuffer().length / 2;
     for (var i = 0; i < _len; i++) {
@@ -103,49 +119,6 @@ function LoadAnimation(animationName) {
     test = new window[animationName];
 }
 
-function init() {
-    // Init Pixi
-
-    windowWidth = $("#cocktailRenderer").width();
-    windowHeight = $("#cocktailRenderer").height();
-    stage = new PIXI.Stage(displayFillColor);
-    pondContainer = new PIXI.DisplayObjectContainer();
-    stage.addChild(pondContainer);
-
-    //Filter
-    blurFilter = new PIXI.BlurFilter();
-    blurFilter.blur = 20;
-    thresoldFilter = new PIXI.TresholdFilter();
-
-
-    pondContainer.filters = [ blurFilter, thresoldFilter];
-
-    // Init renderer
-    renderers = PIXI.autoDetectRenderer(windowWidth, windowHeight, null, false, true);  // arguments: width, height, view, transparent, antialias
-    $("#cocktailRenderer").append(renderers.view);
-
-    var that = this;
-    LoadAnimation("MixColor");
-
-
-    // "shapeRender();" --> Render all shape except particles and object
-    shapeRender();
-
-
-    _len = world.particleSystems[0].GetPositionBuffer().length / 2;
-
-    for (var i = 0; i < _len; i++) {
-
-        var graphics = new PIXI.Graphics();
-        stage.addChild(graphics);
-        circleArr.push(graphics);
-        pondContainer.addChild(graphics);
-    }
-    endtime = new Date();
-    endtime.setSeconds(endtime.getSeconds() + 15);
-    requestAnimFrame(animate);
-}
-
 function componentToHex(c) {
     var hex = c.toString(16).toUpperCase();
     return hex.length == 1 ? "0" + hex : hex;
@@ -159,7 +132,6 @@ function animate() {
     test.Step();
 
     requestAnimFrame(animate);
-
     var particles = world.particleSystems[0].GetPositionBuffer();
     var colorsBuffer = world.particleSystems[0].GetColorBuffer();
 
@@ -169,22 +141,19 @@ function animate() {
         alphaBuffer[(i - 3) / 4] = colorsBuffer[i];
     }
 
-    if (endtime > new Date()) {
-        for (var i = 0; i < circleArr.length; i++) {
-            circleArr[i].x = ((particles[i * 2] ) * METER + OFFSET_X);
-            circleArr[i].y = ((particles[(i * 2) + 1]) * METER + OFFSET_Y);
+    for (var i = 0; i < circleArr.length; i++) {
+        circleArr[i].x = ((particles[i * 2] ) * METER + OFFSET_X);
+        circleArr[i].y = ((particles[(i * 2) + 1]) * METER + OFFSET_Y);
 
-            circleArr[i].clear();
-            circleArr[i].beginFill(rgbToHex(colorsBuffer[i * 4], colorsBuffer[(i * 4) + 1], colorsBuffer[(i * 4) + 2]));
-            circleArr[i].drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
-        }
+        circleArr[i].clear();
+        circleArr[i].beginFill(rgbToHex(colorsBuffer[i * 4], colorsBuffer[(i * 4) + 1], colorsBuffer[(i * 4) + 2]));
+        circleArr[i].drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
     }
 
 
     for (var i = 0; i < objectArrInc; i++) {
         var currentPosition = objectPhysicsArr[i].GetWorldCenter();
         var currentAngle = objectPhysicsArr[i].GetAngle();
-        //console.log("Position : " + currentPosition.x + "  |||  " + currentPosition.y + "  |||  " + currentAngle);
 
         objectDisplayArr[i].position.x = currentPosition.x * METER;
         objectDisplayArr[i].position.y = currentPosition.y * METER;
@@ -192,6 +161,7 @@ function animate() {
     }
 
     renderers.render(stage);
+
 }
 
 /**@constructor*/
@@ -212,13 +182,19 @@ QueryCallback.prototype.ReportFixture = function (fixture) {
 };
 
 function MixColor() {
+    recipeArr = [];
+    edgeArr = [];
     var bdDef = new b2BodyDef();
-    var bobo = world.CreateBody(bdDef);
-    getAllShape(bobo, shapeArr, shapeArrInc);
+    var body = world.CreateBody(bdDef);
+    parser.getParseResult(Math.floor(Math.random() * 12) + 0);
+    getEdges(body, edgeArr);
+    linkShape(body, recipeArr);
     getAllParticle();
-    createIceCube(0, 0, 0.2);  // Xoffset, Yoffset, size; The offset is about the center of the screen
+    //createIceCube(0, 0, 0.2);  // Xoffset, Yoffset, size; The offset is about the center of the screen
     createIceCube(0, 1, 0.2);
+    createCitron(0.1,-2.4,0.4);
     //createPaille(0,0, 1);
+    recipeRender(recipeArr);
 }
 
 MixColor.prototype.Step = function () {
