@@ -29,7 +29,7 @@ Parser.prototype.initParser = function () {
                     vector.x = (width / METER / 2) - glassScale / 2 + vector.x;
 
                     vector.y *= glassScale;
-                    vector.y = height / METER - vector.y;
+                    vector.y = height / METER - 1.2- vector.y;
 
                     vectors[i] = vector;
                 }

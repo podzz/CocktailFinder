@@ -1,52 +1,121 @@
 /**
  * Created by Adrien on 08/04/2015.
  */
+var eventArray = [];
 
-function getAllParticle() {
+
+function initParticle() {
     var psd = new b2ParticleSystemDef();
     psd.radius = 0.04;
     psd.dampingStrength = 0.4;
 
-    if (particleSystem != null)
-        world.DestroyParticleSystem(particleSystem);
+    if (world.particleSystems[0] != null)
+        world.DestroyParticleSystem(world.particleSystems[0]);
     particleSystem = world.CreateParticleSystem(psd);
+}
 
-    var r_random = Math.floor(Math.random() * 256) + 50;
-    var g_random = Math.floor(Math.random() * 256) + 50;
-    var b_random = Math.floor(Math.random() * 256) + 50;
-    var a_random = Math.floor(Math.random() * 256);
+function resetTimeline() {
+    for (var key in eventArray) {
+        clearInterval(eventArray[key]);
+    }
+    eventArray = [];
+}
 
-    var box2 = new b2PolygonShape();
-    box2.SetAsBoxXYCenterAngle(0.1, 0.8, new b2Vec2($("#cocktailRenderer").width() /METER / 2 - 0.3, 1.0), 0);
-    var particleGroupDef2 = new b2ParticleGroupDef();
-    particleGroupDef2.shape = box2;
-    particleGroupDef2.flags = b2_colorMixingParticle;
-    //particleGroupDef2.color.Set(255,150,0,255);
-    particleGroupDef2.color.Set(r_random, g_random, b_random, a_random);
+function addColorGroup(timeline, width_box, height_box) {
+    var refreshIntervalId = setInterval(function () {
+        clearInterval(refreshIntervalId);
+        var first_record = particleSystem.GetPositionBuffer().length / 2;
+        var r_random = Math.floor(Math.random() * 256) + 50;
+        var g_random = Math.floor(Math.random() * 256) + 50;
+        var b_random = Math.floor(Math.random() * 256) + 50;
+        var a_random = Math.floor(Math.random() * 256);
 
+        var box = new b2PolygonShape();
+        box.SetAsBoxXYCenterAngle(width_box, height_box, spawnPoint, 0);
+        var particleGroupDef = new b2ParticleGroupDef();
+        particleGroupDef.shape = box;
+        particleGroupDef.flags = b2_colorMixingParticle;
 
-    var r_random2 = Math.floor(Math.random() * 255) + 50;
-    var g_random2 = Math.floor(Math.random() * 255) + 50;
-    var b_random2 = Math.floor(Math.random() * 255) + 50;
-    var a_random2 = Math.floor(Math.random() * 255);
+        particleGroupDef.color.Set(r_random, g_random, b_random, a_random);
+        particleSystem.CreateParticleGroup(particleGroupDef);
+        var second_record = particleSystem.GetPositionBuffer().length / 2;
+        for (var i = 0; i < second_record - first_record; i++) {
+            var graphics = new PIXI.Graphics();
+            stage.addChild(graphics);
+            circleArr.push(graphics);
+            pondContainer.addChild(graphics);
 
-    var box3 = new b2PolygonShape();
-    box3.SetAsBoxXYCenterAngle(0.1, 0.8, new b2Vec2($("#cocktailRenderer").width() /METER / 2 + 0.3, 1.0), 0);
-    var particleGroupDef3 = new b2ParticleGroupDef();
-    particleGroupDef3.shape = box3;
-    particleGroupDef3.flags = b2_colorMixingParticle;
-    //particleGroupDef3.color.Set(255,255,255,20);
-    particleGroupDef3.color.Set(r_random2, g_random2, b_random2, a_random2);
+        }
 
-    var box4 = new b2PolygonShape();
-    box4.SetAsBoxXYCenterAngle(0.5, 0.5, new b2Vec2(2.5, 2.5), 0);
-    var particleGroupDef4 = new b2ParticleGroupDef();
-    particleGroupDef4.shape = box4;
-    particleGroupDef4.flags = b2_colorMixingParticle;
-    particleGroupDef4.color.Set(0,0,0,200);
+    }, timeline);
+    eventArray.push(refreshIntervalId);
+}
 
-    particleSystem.CreateParticleGroup(particleGroupDef2);
-    //particleSystem.CreateParticleGroup(particleGroupDef2);
-    particleSystem.CreateParticleGroup(particleGroupDef3);
-    //particleSystem.CreateParticleGroup(particleGroupDef4);
+function addFlowBottle(reset, totalSecond, radius) {
+    var calqueList = [];
+    for (var i = 1; i <= 11; i++)
+        calqueList.push('RecipesImage/calque' + i + '.png');
+
+    var image = new Image();
+    image.src = calqueList[Math.floor(Math.random() * 11)];
+    var base = new PIXI.BaseTexture(image);
+    var texture = new PIXI.Texture(base);
+    iceCube = new PIXI.Sprite(texture);
+
+    iceCube.width = 150;
+    iceCube.height = 300;
+    iceCube.anchor.x = 0.5;
+    iceCube.anchor.y = 0.5;
+    iceCube.rotation = 0;
+    iceCube.x = width / 2 - 110;
+    iceCube.y = height / 2 - 400;
+    var rotationInterval = setInterval(function () {
+        if (iceCube.rotation < 2.2) {
+            iceCube.rotation += 0.02;
+        }
+        else {
+            var spawnPoint = new b2Vec2(width / METER / 2 + 0.05, 0.6);
+            var t = new Date();
+            t.setSeconds(t.getSeconds() + totalSecond);
+            var r_random = Math.floor(Math.random() * 256) + 50;
+            var g_random = Math.floor(Math.random() * 256) + 50;
+            var b_random = Math.floor(Math.random() * 256) + 50;
+            var a_random = Math.floor(Math.random() * 256);
+            var box = new b2CircleShape();
+            box.position.Set(spawnPoint.x, spawnPoint.y);
+            box.radius = radius;
+            var particleGroupDef = new b2ParticleGroupDef();
+            particleGroupDef.shape = box;
+            particleGroupDef.flags = b2_colorMixingParticle;
+            particleGroupDef.color.Set(r_random, g_random, b_random, a_random);
+
+            var refreshIntervalId = setInterval(function () {
+                var first_record = particleSystem.GetPositionBuffer().length / 2;
+
+                particleSystem.CreateParticleGroup(particleGroupDef);
+                var second_record = particleSystem.GetPositionBuffer().length / 2;
+                for (var i = 0; i < second_record - first_record; i++) {
+                    var graphics = new PIXI.Graphics();
+                    stage.addChild(graphics);
+                    circleArr.push(graphics);
+                    pondContainer.addChild(graphics);
+                }
+                if (t < new Date()) {
+                    var upBottle = setInterval(function () {
+                        iceCube.rotation -= 0.01;
+                        iceCube.y -= 0.9;
+                        setTimeout(function() { clearInterval(upBottle);}, 1000);
+                    }, 10);
+                    eventArray.push(upBottle);
+                    clearInterval(refreshIntervalId);
+                }
+
+            }, reset);
+            eventArray.push(refreshIntervalId);
+            clearInterval(rotationInterval);
+        }
+    }, 10);
+
+    stage.addChild(iceCube);
+    eventArray.push(rotationInterval);
 }

@@ -16,6 +16,9 @@
 		// Current recipe displayed
 		this.currentCocktail = {};
 
+        this.cocktailRenderer = new CocktailRenderer();
+        this.cocktailRenderer.initRenderer();
+
 		var that = this;
 
 		// Load the exclude list from cookie array
@@ -43,7 +46,7 @@
 			if (this.currentIndex != 0) {
 				this.currentIndex--;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
-                reload(this.currentCocktail.glass);
+                this.cocktailRenderer.reload();
 			}
 
 		};
@@ -52,7 +55,7 @@
 			if (this.currentIndex < Object.keys(this.data.cocktails).length - 1) {
 				this.currentIndex++;
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
-                reload(this.currentCocktail.glass);
+                this.cocktailRenderer.reload();
 			}
 
 		};
@@ -118,9 +121,6 @@
 
 
 		}
-        withrunning = true;
-        onload(that.currentCocktail.glass);
-
 		this.reloadData();
 		this.loadMissingFromCookie();
 	}]);
