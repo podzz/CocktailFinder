@@ -46,6 +46,8 @@ function getAllParticle() {
     particleGroupDef4.color.Set(0,0,0,200);
 
     particleSystem.CreateParticleGroup(particleGroupDef2);
-    particleSystem.CreateParticleGroup(particleGroupDef3);
+    setInterval(function () {
+        particleSystem.CreateParticleGroup(particleGroupDef3);
+    },3000);
     //particleSystem.CreateParticleGroup(particleGroupDef4);
 }

@@ -216,9 +216,9 @@ function MixColor() {
     var bobo = world.CreateBody(bdDef);
     getAllShape(bobo, shapeArr, shapeArrInc);
     getAllParticle();
-    if (reloadTime == 0) { // To prevent the add of new icecube when we reload;
-        createIceCube(0, 0, 0.4);  // Xoffset, Yoffset, size; The offset is about the center of the screen
-    }
+    createIceCube(0, 0, 0.2);  // Xoffset, Yoffset, size; The offset is about the center of the screen
+    createIceCube(0, 1, 0.2);
+    //createPaille(0,0, 1);
 }
 
 MixColor.prototype.Step = function () {

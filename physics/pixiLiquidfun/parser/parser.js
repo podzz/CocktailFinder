@@ -1,6 +1,8 @@
 /**
  * Created by Adrien on 08/04/2015.
  */
+
+
 function getAndParseJSONFile(glasseId) {
     switch (glasseId) {
         case 1 : readTextFile("pixiLiquidFun/JSONFolder/tumblr.json");
