@@ -21,6 +21,25 @@
 
 		var that = this;
 
+        this.createIceCubeOnRenderer = function() {
+            createIceCube(0, -2, 0.5);
+        }
+
+        this.createCitronOnRenderer = function() {
+            createCitron(0.1, -2.4, 0.6);
+        }
+
+        this.createFlow = function() {
+            addFlowBottle(50, 3, 0.1);
+        }
+
+        this.hideMenu = function() {
+            $("#main-menu").toggle("slow");
+        }
+
+       //
+
+
 		// Load the exclude list from cookie array
 		this.loadMissingFromCookie = function() {
 			var dataFetched = $.cookie('cocktailFinder'); 
