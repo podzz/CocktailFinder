@@ -2,6 +2,7 @@
  * Created by Adrien on 08/04/2015.
  */
 var eventArray = [];
+var spriteArray = [];
 
 
 function initParticle() {
@@ -60,21 +61,21 @@ function addFlowBottle(reset, totalSecond, radius) {
     image.src = calqueList[Math.floor(Math.random() * 11)];
     var base = new PIXI.BaseTexture(image);
     var texture = new PIXI.Texture(base);
-    iceCube = new PIXI.Sprite(texture);
+    var bottle = new PIXI.Sprite(texture);
 
-    iceCube.width = 150;
-    iceCube.height = 300;
-    iceCube.anchor.x = 0.5;
-    iceCube.anchor.y = 0.5;
-    iceCube.rotation = 0;
-    iceCube.x = width / 2 - 110;
-    iceCube.y = height / 2 - 400;
+    bottle.width = 150;
+    bottle.height = 300;
+    bottle.anchor.x = 0.5;
+    bottle.anchor.y = 0.5;
+    bottle.x = width / 2 - 110;
+    bottle.y = height / 2 - 400;
+    spriteArray.push(bottle);
     var rotationInterval = setInterval(function () {
-        if (iceCube.rotation < 2.2) {
-            iceCube.rotation += 0.02;
+        if (bottle.rotation < 2.2) {
+            bottle.rotation += 0.02;
         }
         else {
-            var spawnPoint = new b2Vec2(width / METER / 2 + 0.05, 0.6);
+            var spawnPoint = new b2Vec2(width / 2 / METER, 1);
             var t = new Date();
             t.setSeconds(t.getSeconds() + totalSecond);
             var r_random = Math.floor(Math.random() * 256) + 50;
@@ -83,7 +84,8 @@ function addFlowBottle(reset, totalSecond, radius) {
             var a_random = Math.floor(Math.random() * 256);
             var box = new b2CircleShape();
             box.position.Set(spawnPoint.x, spawnPoint.y);
-            box.radius = radius;
+            box.radius = 0.05;
+
             var particleGroupDef = new b2ParticleGroupDef();
             particleGroupDef.shape = box;
             particleGroupDef.flags = b2_colorMixingParticle;
@@ -100,22 +102,26 @@ function addFlowBottle(reset, totalSecond, radius) {
                     circleArr.push(graphics);
                     pondContainer.addChild(graphics);
                 }
+
                 if (t < new Date()) {
                     var upBottle = setInterval(function () {
-                        iceCube.rotation -= 0.01;
-                        iceCube.y -= 0.9;
-                        setTimeout(function() { clearInterval(upBottle);}, 1000);
+                        bottle.rotation -= 0.01;
+                        bottle.y -= 1;
                     }, 10);
+                    setTimeout(function () {
+                        clearInterval(upBottle);
+                    }, 5000);
                     eventArray.push(upBottle);
                     clearInterval(refreshIntervalId);
                 }
 
             }, reset);
             eventArray.push(refreshIntervalId);
+
             clearInterval(rotationInterval);
         }
     }, 10);
 
-    stage.addChild(iceCube);
+    stage.addChild(bottle);
     eventArray.push(rotationInterval);
 }

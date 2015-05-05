@@ -72,24 +72,16 @@ function createPaille(offsetX, offsetY, size) {
 
 function createCitron(offsetX, offsetY, size) {
     var bd = new b2BodyDef();
-    var shape = new b2PolygonShape();
+    var shape = new b2CircleShape();
     bd.type = b2_dynamicBody;
     var tempWindowWidth = $("#cocktailRenderer").width() / METER;
     var tempWindowHeight = $("#cocktailRenderer").height() / METER;
-    tempWindowWidth /= 2;
-    tempWindowHeight /= 2;
-    var vertices = shape.vertices;
-    var ve = new b2Vec2(offsetX + tempWindowWidth, offsetY + tempWindowHeight);
-    vertices.push(ve);
-    ve = new b2Vec2(offsetX + size + tempWindowWidth, offsetY + tempWindowHeight);
-    vertices.push(ve);
-    ve = new b2Vec2(offsetX + size + tempWindowWidth, offsetY + size + tempWindowHeight);
-    vertices.push(ve);
-    ve = new b2Vec2(offsetX + tempWindowWidth, offsetY + size + tempWindowHeight);
-    vertices.push(ve);
+
+    shape.radius = 0.3;
+    shape.position.Set(width / METER / 2, height / METER / 2);
     var body = world.CreateBody(bd);
-    //shape.radius = 0.5;
-    body.CreateFixtureFromShape(shape, 0.9);
+
+    body.CreateFixtureFromShape(shape, 0.6);
     objectPhysicsArr[objectArrInc] = body;
     var image = new Image();
     image.src = "citron.png";
@@ -100,6 +92,7 @@ function createCitron(offsetX, offsetY, size) {
     iceCube.anchor.y = 0.5;
     iceCube.width = size * METER + 8;
     iceCube.height = size * METER + 8;
+
     objectDisplayArr[objectArrInc++] = iceCube;
     stage.addChild(iceCube);
 }

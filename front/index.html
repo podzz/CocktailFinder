@@ -16,6 +16,7 @@
 
     <!-- Custom CSS -->
     <link href="css/cocktail.css" rel="stylesheet">
+    <link href="css/custom-styles.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="fonts/lora.css" rel="stylesheet" type="text/css">
@@ -55,7 +56,30 @@
 </head>
 <body ng-controller="recipeController as recipeCtrl">
 <div class="screen">
+    <div id="wrapper">
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <button class="btn btn-primary" ng-click="recipeCtrl.hideMenu();"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
+            <ul class="nav" id="main-menu">
 
+                <li>
+                    <a ng-click="recipeCtrl.createIceCubeOnRenderer();"><i class="fa fa-dashboard"></i> Add an IceCube !</a>
+                </li>
+                <li>
+                    <a ng-click="recipeCtrl.createCitronOnRenderer();"><i class="fa fa-desktop"></i> Add a Citron !</a>
+                </li>
+                <li>
+                    <a ng-click="recipeCtrl.createFlow();"><i class="fa fa-desktop"></i> Add some liquid !</a>
+                </li>
+                <li>
+                    <a ng-click="recipeCtrl.removeCookie();"><i class="fa fa-desktop"></i> Delete cookies</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </nav>
+    </div>
     <div class="cocktailPanel">
         <div class="renderer">
             <div id="cocktailRenderer">
@@ -66,9 +90,6 @@
                 <div>
                     <h1 class="panel-title">{{ recipeCtrl.currentCocktail.name }}</h1>
                     <br/>
-                    <button type="button" ng-click="recipeCtrl.removeCookie();" class="btn btn-warning">
-                        <span class="glyphicon glyphicons-remove" aria-hidden="true"></span> Delete Cookies
-                    </button>
                     <button type="button" ng-click="recipeCtrl.decreaseIndex();" class="btn btn-warning">
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Previous
                     </button>

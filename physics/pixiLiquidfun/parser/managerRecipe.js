@@ -4,11 +4,6 @@
 
 function recipeRender(recipeArr) {
     var graphics = new PIXI.Graphics();
-    var blur = new PIXI.BlurFilter();
-    var thresold = new PIXI.TresholdFilter();
-    blur.blur = 7;
-    graphics.filters = [blur, thresold];
-    graphics.lineStyle(20, 0x000000);
 
     for (var i = 0; i <= recipeArr.length; i++) {
         if (i == 0) {
