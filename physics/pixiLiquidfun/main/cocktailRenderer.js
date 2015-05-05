@@ -3,6 +3,8 @@
  */
 
 var circleArr = [];
+var circleIndex = [];
+var dictionnary = {};
 var shapeArr = [];
 var edgeArr = [];
 var recipeArr = [];
@@ -76,7 +78,8 @@ CocktailRenderer.prototype.initRenderer = function () {
     $("#cocktailRenderer").append(renderers.view);
     animated = true;
     LoadAnimation("MixColor");
-
+    // world.particleSystems[0].destroyByAge = true;
+    // world.particleSystems[0]
     requestAnimFrame(animate);
 }
 
@@ -90,11 +93,12 @@ CocktailRenderer.prototype.reload = function (glass) {
     stage.addChild(pondContainer);
     pondContainer.filters = [blurFilter, thresoldFilter];
     world.DestroyParticleSystem(world.particleSystems[0]);
-
+    //world.particleSystems[0].destroyByAge = true;
     /* Create World */
     gravity = new b2Vec2(0, 10)
     world = new b2World(gravity);
 
+    circleIndex = [];
     recipeArr = [];
     edgeArr = [];
     shapeArr = [];
@@ -121,26 +125,40 @@ function animate() {
     function rgbToHex(r, g, b) {
         return "0x" + componentToHex(r) + componentToHex(g) + componentToHex(b);
     }
+
     test.Step();
 
     requestAnimFrame(animate);
     var particles = world.particleSystems[world.particleSystems.length - 1].GetPositionBuffer();
     var colorsBuffer = world.particleSystems[world.particleSystems.length - 1].GetColorBuffer();
 
-    var alphaBuffer = [];
-
-    for (var i = 3; i < colorsBuffer.length; i += 4) {
-        alphaBuffer[(i - 3) / 4] = colorsBuffer[i];
+    var dropable_index = [];
+    for (var key in circleIndex) {
+        var index = circleIndex[key];
+        var circle = circleArr[index];
+        if (circle.y < height) {
+            circle.x = ((particles[index * 2] ) * METER + OFFSET_X);
+            circle.y = ((particles[(index * 2) + 1]) * METER + OFFSET_Y);
+            circle.clear();
+            circle.beginFill(rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]));
+            circle.drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
+        }
+        else {
+            circle.clear();
+            dropable_index.push(circleIndex[key]);
+        }
     }
 
-    for (var i = 0; i < circleArr.length; i++) {
-        circleArr[i].x = ((particles[i * 2] ) * METER + OFFSET_X);
-        circleArr[i].y = ((particles[(i * 2) + 1]) * METER + OFFSET_Y);
-
-        circleArr[i].clear();
-
-        circleArr[i].beginFill(rgbToHex(colorsBuffer[i * 4], colorsBuffer[(i * 4) + 1], colorsBuffer[(i * 4) + 2]));
-        circleArr[i].drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
+    if (dropable_index.length > 20) {
+        for (var key in dropable_index) {
+            var index = circleIndex.indexOf(dropable_index[key]);
+            if (index > -1) {
+                circleIndex.splice(index, 1);
+            }
+            else {
+                console.log('not found');
+            }
+        }
     }
 
 

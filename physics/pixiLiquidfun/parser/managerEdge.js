@@ -18,36 +18,38 @@ function getEdges(body, shapeArr) {
      shapeArr.push(vectors);
      linkShape(body, shapeArr);
      */
-/*
+
     var x_center = (width / METER / 2) - 1;
     var y_center = 0.2;
 
-    var width_rampe = 2;
-    var height_rampe = 0.1;
+    var width_rampe = 0.5;
+    var height_rampe = 0.2;
     var mid_width_rampe = width_rampe / 2;
     var mid_height_rampe = height_rampe / 2;
 
-    shapeFlow = new b2EdgeShape();
-    var origin = new
-    shapeFlow.Set(, new b2Vec2(x_center + mid_width_rampe, y_center + 3));
-    shapeArr.push(new b2Vec2(x_center - mid_width_rampe, y_center + 0.1));
-    shapeArr.push(new b2Vec2(x_center + mid_width_rampe, y_center + 3));
+    var shapeFlow = new b2EdgeShape();
+    //var origin = new
+    shapeFlow.Set(new b2Vec2(x_center - mid_width_rampe, y_center) , new b2Vec2(x_center + mid_width_rampe, y_center + 2));
+    //shapeFlow.SetTransform(0, 30);
+    vectors.push(shapeFlow.vertex1);
+    vectors.push(shapeFlow.vertex2);
     shapeArr.push(vectors);
-    body.CreateFixtureFromShape(shapeFlow, 10);*/
+    body.CreateFixtureFromShape(shapeFlow, 10);
 
 }
 
 function edgerender(recipeArr) {
-    /*
+
     var graphics = new PIXI.Graphics();
 
     graphics.lineStyle(glassLineStrength, glassLineColor);
-    var vectorStart = recipeArr[0];
-    var vectorEnd = recipeArr[1];
+    var vectorStart = recipeArr[0][0];
+    var vectorEnd = recipeArr[0][1];
     graphics.moveTo(vectorStart.x * METER, vectorStart.y * METER);
     graphics.lineTo(vectorEnd.x * METER, vectorEnd.y * METER);
     graphics.endFill();
 
     stage.addChild(graphics);
-    */
+
+
 }
