@@ -42,18 +42,18 @@ Parser.prototype.initParser = function () {
 }
 
 function Parser() {
-    associateArray["1"] = "pixiLiquidFun/JSONFolder/tumblr.json";
-    associateArray["2"] = "pixiLiquidFun/JSONFolder/tumblr.json";
-    associateArray["3"] = "pixiLiquidFun/JSONFolder/shooter.json";
-    associateArray["4"] = "pixiLiquidFun/JSONFolder/shooter.json";
-    associateArray["5"] = "pixiLiquidFun/JSONFolder/pinte.json";
-    associateArray["6"] = "pixiLiquidFun/JSONFolder/margarita.json";
-    associateArray["7"] = "pixiLiquidFun/JSONFolder/wine.json";
-    associateArray["8"] = "pixiLiquidFun/JSONFolder/champagne.json";
-    associateArray["9"] = "pixiLiquidFun/JSONFolder/champagne.json";
-    associateArray["10"] = "pixiLiquidFun/JSONFolder/smallwine.json";
-    associateArray["11"] = "pixiLiquidFun/JSONFolder/margarita.json";
-    associateArray["12"] = "pixiLiquidFun/JSONFolder/champagne.json";
+    associateArray["1"] = "pixiLiquidfun/JSONFolder/tumblr.json";
+    associateArray["2"] = "pixiLiquidfun/JSONFolder/tumblr.json";
+    associateArray["3"] = "pixiLiquidfun/JSONFolder/shooter.json";
+    associateArray["4"] = "pixiLiquidfun/JSONFolder/shooter.json";
+    associateArray["5"] = "pixiLiquidfun/JSONFolder/pinte.json";
+    associateArray["6"] = "pixiLiquidfun/JSONFolder/margarita.json";
+    associateArray["7"] = "pixiLiquidfun/JSONFolder/wine.json";
+    associateArray["8"] = "pixiLiquidfun/JSONFolder/champagne.json";
+    associateArray["9"] = "pixiLiquidfun/JSONFolder/champagne.json";
+    associateArray["10"] = "pixiLiquidfun/JSONFolder/smallwine.json";
+    associateArray["11"] = "pixiLiquidfun/JSONFolder/margarita.json";
+    associateArray["12"] = "pixiLiquidfun/JSONFolder/champagne.json";
     console.log("Parser created");
 }
 

@@ -30,14 +30,14 @@
         }
 
         this.createFlow = function() {
-            addFlowBottle(50, 3, 0.1);
+            addFlowBottle(200, 3, 0.1);
         }
 
         this.hideMenu = function() {
             $("#main-menu").toggle("slow");
         }
 
-       //
+
 
 
 		// Load the exclude list from cookie array
