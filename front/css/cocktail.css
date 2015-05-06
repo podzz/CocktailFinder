@@ -15,7 +15,7 @@ html {
     height: 100%;
     position: absolute;
     text-align:center;
-    background-color: #337ab7;
+    background-color: #00b7e2;
 }
 
 .cocktailPanel {
@@ -44,7 +44,7 @@ html {
 }
 
 .background.background-intro {
-    background-color: #337ab7;
+    background-color: #00b7e2;
     transition: background-color 1s ease-in;
 }
 
@@ -56,14 +56,13 @@ html {
     width: 100%;
     position:absolute;
     text-align:center;
-    top: 40%;
-    left:20%;
+    top: 10%;
 }
 
 
 #cocktailRenderer {
     height: 100%;
-    width: 50%;
+    width: 100%;
     position:absolute;
     background-color:transparent;
 
@@ -75,6 +74,12 @@ html {
     width: 100%;
     overflow: auto;
     padding-top: 2%;
+}
+
+#cocktailList
+{
+    position: absolute;
+    left: 39%;
 }
 
 .bar {
@@ -92,8 +97,10 @@ html {
 
 }
 
+
+
 .screen li {
-    text-align: center;
+    text-align: left;
     list-style-type:none;
 }
 

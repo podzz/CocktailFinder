@@ -54,11 +54,11 @@ function addColorGroup(timeline, width_box, height_box) {
 
 function addFlowBottle(reset, totalSecond, radius) {
     var calqueList = [];
-    for (var i = 1; i <= 11; i++)
-        calqueList.push('RecipesImage/calque' + i + '.png');
+    var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
+    var calqueSelected = 'RecipesImage/calque' + index_calqueSelected + '.png';
 
     var image = new Image();
-    //image.src = calqueList[Math.floor(Math.random() * 11)];
+    image.src = calqueSelected;
     var base = new PIXI.BaseTexture(image);
     var texture = new PIXI.Texture(base);
     var bottle = new PIXI.Sprite(texture);

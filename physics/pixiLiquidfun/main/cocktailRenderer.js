@@ -4,10 +4,10 @@
 
 var circleArr = [];
 var circleIndex = [];
-var dictionnary = {};
 var shapeArr = [];
 var edgeArr = [];
 var recipeArr = [];
+var rotorArr = [];
 var objectDisplayArr = [];
 var objectPhysicsArr = [];
 var objectArrInc = 0;
@@ -78,8 +78,7 @@ CocktailRenderer.prototype.initRenderer = function () {
     $("#cocktailRenderer").append(renderers.view);
     animated = true;
     LoadAnimation("MixColor");
-    // world.particleSystems[0].destroyByAge = true;
-    // world.particleSystems[0]
+
     requestAnimFrame(animate);
 }
 
@@ -93,7 +92,6 @@ CocktailRenderer.prototype.reload = function (glass) {
     stage.addChild(pondContainer);
     pondContainer.filters = [blurFilter, thresoldFilter];
     world.DestroyParticleSystem(world.particleSystems[0]);
-    //world.particleSystems[0].destroyByAge = true;
     /* Create World */
     gravity = new b2Vec2(0, 10)
     world = new b2World(gravity);
@@ -103,6 +101,7 @@ CocktailRenderer.prototype.reload = function (glass) {
     edgeArr = [];
     shapeArr = [];
     circleArr = [];
+    rotorArr = [];
 
     LoadAnimation("MixColor");
 }
@@ -196,12 +195,19 @@ function MixColor() {
 
     var bdDef = new b2BodyDef();
     var body = world.CreateBody(bdDef);
+    var recipeId = Math.floor(Math.random() * 12) + 1;
     initParticle();
-    parser.getParseResult(Math.floor(Math.random() * 12) + 1);
+
+    //parser.getParseRotor();
+    parser.getParseResult(recipeId);
+
     getEdges(body, edgeArr);
-    edgerender(edgeArr);
+    //edgerender(edgeArr);
     linkShape(body, recipeArr);
-    recipeRender(recipeArr);
+    //linkShape(body, rotorArr);
+    var image = parser.getImageFile(recipeId);
+    recipeRender(image);
+    //rotorRender(rotorArr);
     //addColorGroup(1000, 0.1, 0.8);
     //resetTimeline();
     //addColorGroup(1000, 0.1, 0.8);
