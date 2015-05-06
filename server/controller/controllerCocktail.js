@@ -179,22 +179,26 @@ ControllerCocktail.getCocktailByName = function(name, callback) {
 // Seeks the recipe with the IDs given in param, and returns
 // a JSON Object with all its assets
 ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) {
-    var query1 = 'MATCH (r:Recipe)--(i:Ingredient)';
+    var query1 = 'MATCH (r:Recipe)';
+    var query2 = '';
     if (!idTab) {
         query1 += ' ';
     } else { 
-        query1 += ' WHERE ';
+        query1 += ', ';
         for (var i = 0; i < idTab.length; ++i) {
             if (i == idTab.length - 1) {
-                query1 += 'i.index <> "' + idTab[i] + '"';
+                query1 += '(i' + i + ':Ingredient { index:"' + idTab[i] + '" }) ';
+                query2 += 'NOT r--i' + i + ' ';
             } else {
-                query1 += 'i.index <> "' + idTab[i] + '" AND ';
+                query1 += '(i' + i + ':Ingredient { index:"' + idTab[i] + '" }), ';
+                query2 += 'NOT r--i' + i + ' AND ';            
             }
         }
+        query1 += 'WHERE '
     }
-    query1 += 'RETURN r.index ORDER BY r.recipeScore DESC LIMIT ' + number;
-    console.log(query1);
-    db.query(query1, null, function (err, results) {
+    query2 += 'RETURN r.index LIMIT ' + number;
+    console.log(query1 + query2);
+    db.query(query1 + query2, null, function (err, results) {
         var formatted = [];
 
         for (var i = 0; i < results.length; ++i) {

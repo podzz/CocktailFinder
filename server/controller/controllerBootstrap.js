@@ -39,4 +39,16 @@ ControllerBootstrap.rankRecipes = function(callback) {
     });
 };
 
+ControllerBootstrap.clean = function(callback) {
+    var query = 'MATCH (r:Recipe)-[re]-() WHERE r.recipeScore <400 DELETE r, re';
+    db.query(query, null, function (err, results) {
+        // ICO Request fail        
+        if (err) {
+          return callback(err);
+        }
+        // Async return call
+        callback(null, "Recipes deleted");
+    });
+};
+
 module.exports = ControllerBootstrap;

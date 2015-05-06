@@ -51,6 +51,7 @@ app.get('/',				 		routes.site.index);
 // Bootstrap/Install routes
 app.get('/bdd/rank/ingredients',	routes.bdd.rankIngredients);
 app.get('/bdd/rank/recipes',		routes.bdd.rankRecipes);
+app.get('/bdd/clean/',				routes.bdd.clean);
 
 // API routes
 app.get('/api/cocktails', 			routes.api.findFiveRandomCocktails);
