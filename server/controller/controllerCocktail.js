@@ -179,9 +179,6 @@ ControllerCocktail.getCocktailByName = function(name, callback) {
 // Seeks the recipe with the IDs given in param, and returns
 // a JSON Object with all its assets
 ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) {
-    var d = new Date();
-    console.log(d.getSeconds() + ':' + d.getMilliseconds());
-
     var query1 = 'MATCH (r:Recipe)--(i:Ingredient)';
     if (!idTab) {
         query1 += ' ';
@@ -203,8 +200,6 @@ ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) 
         for (var i = 0; i < results.length; ++i) {
             formatted.push(results[i]['r.index']);
         }
-        var d = new Date();
-    console.log(d.getSeconds() + ':' + d.getMilliseconds());
         ControllerCocktail.getCocktailsById(formatted, callback);
     });
 };
