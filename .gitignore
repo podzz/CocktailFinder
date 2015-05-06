@@ -9,4 +9,5 @@ node_modules/
 npm-debug.log
 /neo4j-*
 /neo4j
+.strong-pm/
 
