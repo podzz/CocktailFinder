@@ -21,6 +21,7 @@ function recipeRender(image_url) {
     bottle.y = real_dimensions.max_y * METER - bottle.height;
 
     stage.addChild(bottle);
+    //recipe_graphics.clear();
 }
 
 function rotorRender(arr)

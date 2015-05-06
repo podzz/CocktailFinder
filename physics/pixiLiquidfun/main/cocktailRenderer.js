@@ -12,6 +12,8 @@ var objectDisplayArr = [];
 var objectPhysicsArr = [];
 var objectArrInc = 0;
 
+var recipe_graphics;
+
 var right;
 var left;
 var timeStep = 1.0 / 60.0;
@@ -194,19 +196,22 @@ QueryCallback.prototype.ReportFixture = function (fixture) {
 function MixColor() {
 
     var bdDef = new b2BodyDef();
+    bdDef.type = b2_dynamicBody;
+    bdDef.allowSleep = false;
     var body = world.CreateBody(bdDef);
+
     var recipeId = Math.floor(Math.random() * 12) + 1;
     initParticle();
 
-    //parser.getParseRotor();
+    parser.getParseRotor();
     parser.getParseResult(recipeId);
 
     getEdges(body, edgeArr);
     //edgerender(edgeArr);
     linkShape(body, recipeArr);
-    //linkShape(body, rotorArr);
-    var image = parser.getImageFile(recipeId);
-    recipeRender(image);
+    //linkPolygonShape(body, rotorArr);
+    var image_recipe = parser.getImageFile(recipeId);
+    recipeRender(image_recipe);
     //rotorRender(rotorArr);
     //addColorGroup(1000, 0.1, 0.8);
     //resetTimeline();

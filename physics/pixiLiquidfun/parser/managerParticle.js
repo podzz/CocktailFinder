@@ -71,7 +71,7 @@ function addFlowBottle(reset, totalSecond, radius) {
     bottle.y = height / 2 - 400;
     spriteArray.push(bottle);
     var rotationInterval = setInterval(function () {
-        if (bottle.rotation < 2.2) {
+        if (bottle.rotation < 2.7) {
             bottle.rotation += 0.02;
         }
         else {

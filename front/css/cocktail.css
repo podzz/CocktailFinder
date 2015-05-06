@@ -14,7 +14,6 @@ html {
     width: 100%;
     height: 100%;
     position: absolute;
-    text-align:center;
     background-color: #00b7e2;
 }
 
@@ -26,7 +25,6 @@ html {
 
 .titlePanel {
     position:relative;
-    text-align:center;
 }
 
 
@@ -55,8 +53,8 @@ html {
 .direction {
     width: 100%;
     position:absolute;
-    text-align:center;
-    top: 10%;
+    top: 30%;
+    left: 10%;
 }
 
 
@@ -79,7 +77,6 @@ html {
 #cocktailList
 {
     position: absolute;
-    left: 39%;
 }
 
 .bar {

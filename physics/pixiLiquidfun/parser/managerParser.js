@@ -39,7 +39,7 @@ function parse_recipe(array) {
                     vector.x = (width / METER / 2) - glassScale / 2 + vector.x;
 
                     vector.y *= glassScale;
-                    vector.y = height / METER - 1.25 - vector.y;
+                    vector.y = height / METER - 1.5 - vector.y;
 
                     vectors[i] = vector;
                 }
@@ -64,7 +64,7 @@ function parse_rotor(array) {
                     var vector = temp[i];
                     vector.x = (width / METER / 2)+ vector.x;
 
-                    vector.y = height / METER - 1.25 - vector.y;
+                    vector.y = height / METER - 1.5 - vector.y;
 
                     vectors[i] = vector;
                 }
@@ -108,7 +108,7 @@ function Parser() {
     associateArrayImage["11"] = "pixiLiquidfun/JSONFolder/sprite_0001_Calque-3.png";
     associateArrayImage["12"] = "pixiLiquidfun/JSONFolder/sprite_0002_Calque-4.png";
 
-    rotor["12"] = "pixiLiquidfun/JSONFolder/bottle.json";
+    rotor["13"] = "pixiLiquidfun/JSONFolder/bottle.json";
     console.log("Parser created");
 }
 

@@ -22,14 +22,14 @@ function getEdges(body, shapeArr) {
     var x_center = (width / METER / 2) - 1;
     var y_center = 0.2;
 
-    var width_rampe = 0.5;
-    var height_rampe = 0.2;
+    var width_rampe = 0.9;
+    var height_rampe = 0.4;
     var mid_width_rampe = width_rampe / 2;
     var mid_height_rampe = height_rampe / 2;
 
     var shapeFlow = new b2EdgeShape();
     //var origin = new
-    shapeFlow.Set(new b2Vec2(x_center - mid_width_rampe, y_center) , new b2Vec2(x_center + mid_width_rampe, y_center + 2));
+    shapeFlow.Set(new b2Vec2(x_center - mid_width_rampe - 0.5, y_center - 2) , new b2Vec2(x_center + mid_width_rampe, y_center + 2));
     //shapeFlow.SetTransform(0, 30);
     vectors.push(shapeFlow.vertex1);
     vectors.push(shapeFlow.vertex2);

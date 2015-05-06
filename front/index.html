@@ -116,7 +116,7 @@
     <div class="exclude-bar">
         <div class="bar">
             <ul name="excludes" class="list-unstyled bar">
-                <li ng-repeat="ingr in recipeCtrl.missing" id="{{ 'itemli' + $index }}">
+                <li ng-repeat="ingr in recipeCtrl.missing track by $index" id="{{ 'itemli' + $index }}">
                     <button type="button" ng-click="recipeCtrl.removeMissing(ingr);" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ ingr.name }}
                     </button>

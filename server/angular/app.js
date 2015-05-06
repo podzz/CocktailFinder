@@ -93,6 +93,7 @@
             }
             this.saveExcludeList();
 			this.reloadData();
+            this.cocktailRenderer.reload();
 		}
 
 		// For Dev purpose
