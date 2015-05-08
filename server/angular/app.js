@@ -17,7 +17,6 @@
 		this.currentCocktail = {};
 
         this.cocktailRenderer = new CocktailRenderer();
-        this.cocktailRenderer.initRenderer();
 
 		var that = this;
 
@@ -67,8 +66,8 @@
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
                 this.cocktailRenderer.reload();
 			}
-
 		};
+
 		// Increase the current index
 		this.increaseIndex = function() {
 			if (this.currentIndex < Object.keys(this.data.cocktails).length - 1) {
@@ -76,7 +75,6 @@
 				this.currentCocktail = this.data.cocktails[this.currentIndex];
                 this.cocktailRenderer.reload();
 			}
-
 		};
 		// Append an ingredient to the missing list
 		this.addMissing = function(ingredient) {
@@ -105,7 +103,6 @@
             return Math.floor(Math.random() * 255);
         }
 
-
 		// Remove an ingredient ID from the missing list
 		this.removeMissing = function(ingredient) {
 			for (var i = 0; i < this.missing.length; i++) {
@@ -115,6 +112,7 @@
 	    	}
             this.saveExcludeList();
 			this.reloadData();
+            this.cocktailRenderer.reload();
 		}
 
 		// Fetch data from API with the exclude list in param
@@ -136,13 +134,14 @@
 				// Data fetched from server
    				that.data = data;
                 that.currentIndex = 0;
-
 			});
 
 
 		}
 		this.reloadData();
 		this.loadMissingFromCookie();
+        this.cocktailRenderer.initRenderer();
+
 	}]);
 
 	app.controller('adminCongtroller',['$scope','$http', function($scope,$http){

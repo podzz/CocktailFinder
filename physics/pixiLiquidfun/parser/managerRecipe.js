@@ -20,7 +20,9 @@ function recipeRender(image_url) {
     bottle.x = width / 2;
     bottle.y = real_dimensions.max_y * METER - bottle.height;
 
+    recipeArr.push(bottle);
     stage.addChild(bottle);
+    //bottle = null;
     //recipe_graphics.clear();
 }
 

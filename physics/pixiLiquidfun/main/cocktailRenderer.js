@@ -10,9 +10,11 @@ var recipeArr = [];
 var rotorArr = [];
 var objectDisplayArr = [];
 var objectPhysicsArr = [];
+var bottleArr = [];
 var objectArrInc = 0;
+var countActualIngredients = 0;
 
-var recipe_graphics;
+var bottle_graphics;
 
 var right;
 var left;
@@ -98,6 +100,7 @@ CocktailRenderer.prototype.reload = function (glass) {
     gravity = new b2Vec2(0, 10)
     world = new b2World(gravity);
 
+    recipeArr = [];
     circleIndex = [];
     recipeArr = [];
     edgeArr = [];
@@ -212,14 +215,15 @@ function MixColor() {
     //linkPolygonShape(body, rotorArr);
     var image_recipe = parser.getImageFile(recipeId);
     recipeRender(image_recipe);
+
     //rotorRender(rotorArr);
     //addColorGroup(1000, 0.1, 0.8);
     //resetTimeline();
     //addColorGroup(1000, 0.1, 0.8);
     //addColorGroup(5000, 0.1, 0.8);
     //addFlowBottle(100, 2, 0.06);
-    //var bottle1 = setTimeout(function() { addFlowBottle(100, 2, 0.06);}, 5000);
-    //var bottle2 = setTimeout(function() { addFlowBottle(100, 2, 0.06);}, 10000);
+    //addFlowBottle(100, 2, 0.06);
+    //var bottle2 = setTimeout(function() { addFlowBottle(100, 2, 0.06);}, 5000);
 
     //eventArray.push(bottle1);
     //eventArray.push(bottle2);

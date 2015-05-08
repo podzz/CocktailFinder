@@ -95,6 +95,8 @@ function createCitron(offsetX, offsetY, size) {
 
     objectDisplayArr[objectArrInc++] = iceCube;
     stage.addChild(iceCube);
+
+    //stage.addChild(bottleArr[bottleArr.length - 1]);
 }
 
 function createBanner(offsetX, offsetY, size) {
