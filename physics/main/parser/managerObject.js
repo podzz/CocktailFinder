@@ -24,7 +24,7 @@ function createIceCube(offsetX, offsetY, size) {
     body.CreateFixtureFromShape(shape, 0.9);
     objectPhysicsArr[objectArrInc] = body;
     var image = new Image();
-    image.src = "icecube2.png";
+    image.src = "Assets/ObjectsImage/icecube2.png";
     var base = new PIXI.BaseTexture(image);
     var texture = new PIXI.Texture(base);
     var iceCube = new PIXI.Sprite(texture);
@@ -84,7 +84,7 @@ function createCitron(offsetX, offsetY, size) {
     body.CreateFixtureFromShape(shape, 0.6);
     objectPhysicsArr[objectArrInc] = body;
     var image = new Image();
-    image.src = "citron.png";
+    image.src = "Assets/ObjectsImage/citron.png";
     var base = new PIXI.BaseTexture(image);
     var texture = new PIXI.Texture(base);
     var iceCube = new PIXI.Sprite(texture);

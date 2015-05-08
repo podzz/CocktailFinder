@@ -225,7 +225,7 @@ function MixColor() {
     //addFlowBottle(100, 2, 0.06);
     //var bottle2 = setTimeout(function() { addFlowBottle(100, 2, 0.06);}, 5000);
 
-    //eventArray.push(bottle1); 
+    //eventArray.push(bottle1);
     //eventArray.push(bottle2);
     //addFlowBottle(50, 2, 0.04);
     //addColorGroup(10000, 0.1, 0.8);

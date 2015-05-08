@@ -82,33 +82,33 @@ Parser.prototype.initParser = function () {
 }
 
 function Parser() {
-    associateArray["1"] = "pixiLiquidfun/JSONFolder/sprite_0000_Calque-2.json";
-    associateArray["2"] = "pixiLiquidfun/JSONFolder/sprite_0001_Calque-3.json";
-    associateArray["3"] = "pixiLiquidfun/JSONFolder/sprite_0002_Calque-4.json";
-    associateArray["4"] = "pixiLiquidfun/JSONFolder/sprite_0003_Calque-5.json";
-    associateArray["5"] = "pixiLiquidfun/JSONFolder/sprite_0004_Calque-6.json";
-    associateArray["6"] = "pixiLiquidfun/JSONFolder/sprite_0005_Calque-7.json";
-    associateArray["7"] = "pixiLiquidfun/JSONFolder/sprite_0006_Calque-8.json";
-    associateArray["8"] = "pixiLiquidfun/JSONFolder/sprite_0007_Calque-9.json";
-    associateArray["9"] = "pixiLiquidfun/JSONFolder/sprite_0008_Calque-1.json";
-    associateArray["10"] = "pixiLiquidfun/JSONFolder/sprite_0000_Calque-2.json";
-    associateArray["11"] = "pixiLiquidfun/JSONFolder/sprite_0001_Calque-3.json";
-    associateArray["12"] = "pixiLiquidfun/JSONFolder/sprite_0002_Calque-4.json";
+    associateArray["1"] = "Assets/DrinkJSON/sprite_0000_Calque-2.json";
+    associateArray["2"] = "Assets/DrinkJSON/sprite_0001_Calque-3.json";
+    associateArray["3"] = "Assets/DrinkJSON/sprite_0002_Calque-4.json";
+    associateArray["4"] = "Assets/DrinkJSON/sprite_0003_Calque-5.json";
+    associateArray["5"] = "Assets/DrinkJSON/sprite_0004_Calque-6.json";
+    associateArray["6"] = "Assets/DrinkJSON/sprite_0005_Calque-7.json";
+    associateArray["7"] = "Assets/DrinkJSON/sprite_0006_Calque-8.json";
+    associateArray["8"] = "Assets/DrinkJSON/sprite_0007_Calque-9.json";
+    associateArray["9"] = "Assets/DrinkJSON/sprite_0008_Calque-1.json";
+    associateArray["10"] = "Assets/DrinkJSON/sprite_0000_Calque-2.json";
+    associateArray["11"] = "Assets/DrinkJSON/sprite_0001_Calque-3.json";
+    associateArray["12"] = "Assets/DrinkJSON/sprite_0002_Calque-4.json";
 
-    associateArrayImage["1"] = "pixiLiquidfun/JSONFolder/sprite_0000_Calque-2.png";
-    associateArrayImage["2"] = "pixiLiquidfun/JSONFolder/sprite_0001_Calque-3.png";
-    associateArrayImage["3"] = "pixiLiquidfun/JSONFolder/sprite_0002_Calque-4.png";
-    associateArrayImage["4"] = "pixiLiquidfun/JSONFolder/sprite_0003_Calque-5.png";
-    associateArrayImage["5"] = "pixiLiquidfun/JSONFolder/sprite_0004_Calque-6.png";
-    associateArrayImage["6"] = "pixiLiquidfun/JSONFolder/sprite_0005_Calque-7.png";
-    associateArrayImage["7"] = "pixiLiquidfun/JSONFolder/sprite_0006_Calque-8.png";
-    associateArrayImage["8"] = "pixiLiquidfun/JSONFolder/sprite_0007_Calque-9.png";
-    associateArrayImage["9"] = "pixiLiquidfun/JSONFolder/sprite_0008_Calque-1.png";
-    associateArrayImage["10"] = "pixiLiquidfun/JSONFolder/sprite_0000_Calque-2.png";
-    associateArrayImage["11"] = "pixiLiquidfun/JSONFolder/sprite_0001_Calque-3.png";
-    associateArrayImage["12"] = "pixiLiquidfun/JSONFolder/sprite_0002_Calque-4.png";
+    associateArrayImage["1"] = "Assets/DrinkImage/sprite_0000_Calque-2.png";
+    associateArrayImage["2"] = "Assets/DrinkImage/sprite_0001_Calque-3.png";
+    associateArrayImage["3"] = "Assets/DrinkImage/sprite_0002_Calque-4.png";
+    associateArrayImage["4"] = "Assets/DrinkImage/sprite_0003_Calque-5.png";
+    associateArrayImage["5"] = "Assets/DrinkImage/sprite_0004_Calque-6.png";
+    associateArrayImage["6"] = "Assets/DrinkImage/sprite_0005_Calque-7.png";
+    associateArrayImage["7"] = "Assets/DrinkImage/sprite_0006_Calque-8.png";
+    associateArrayImage["8"] = "Assets/DrinkImage/sprite_0007_Calque-9.png";
+    associateArrayImage["9"] = "Assets/DrinkImage/sprite_0008_Calque-1.png";
+    associateArrayImage["10"] = "Assets/DrinkImage/sprite_0000_Calque-2.png";
+    associateArrayImage["11"] = "Assets/DrinkImage/sprite_0001_Calque-3.png";
+    associateArrayImage["12"] = "Assets/DrinkImage/sprite_0002_Calque-4.png";
 
-    rotor["13"] = "pixiLiquidfun/JSONFolder/bottle.json";
+    rotor["13"] = "Assets/DrinkImage/bottle.json";
     console.log("Parser created");
 }
 
