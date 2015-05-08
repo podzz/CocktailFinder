@@ -10,11 +10,7 @@ var recipeArr = [];
 var rotorArr = [];
 var objectDisplayArr = [];
 var objectPhysicsArr = [];
-var bottleArr = [];
 var objectArrInc = 0;
-var countActualIngredients = 0;
-
-var bottle_graphics;
 
 var right;
 var left;
@@ -39,6 +35,7 @@ var height = 0;
 
 var world = null;
 var parser = null;
+var collisionManager = null;
 
 var stage = null;
 var pondContainer = null;
@@ -61,6 +58,8 @@ function CocktailRenderer() {
     /* Parser Init */
     parser = new Parser();
     parser.initParser();
+
+    collisionManager = new CollisionManager();
 
     /* Graphics Init */
     stage = new PIXI.Stage(displayFillColor);
@@ -199,8 +198,6 @@ QueryCallback.prototype.ReportFixture = function (fixture) {
 function MixColor() {
 
     var bdDef = new b2BodyDef();
-    bdDef.type = b2_dynamicBody;
-    bdDef.allowSleep = false;
     var body = world.CreateBody(bdDef);
 
     var recipeId = Math.floor(Math.random() * 12) + 1;
@@ -211,7 +208,7 @@ function MixColor() {
 
     getEdges(body, edgeArr);
     //edgerender(edgeArr);
-    linkShape(body, recipeArr);
+    collisionManager.linkShape(body, recipeArr);
     //linkPolygonShape(body, rotorArr);
     var image_recipe = parser.getImageFile(recipeId);
     recipeRender(image_recipe);

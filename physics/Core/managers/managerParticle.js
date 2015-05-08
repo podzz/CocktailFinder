@@ -55,7 +55,7 @@ function addColorGroup(timeline, width_box, height_box) {
 function addFlowBottle(reset, totalSecond, radius) {
     var calqueList = [];
     var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
-    var calqueSelected = 'RecipesImage/calque' + index_calqueSelected + '.png';
+    var calqueSelected = 'Assets/RecipesImage/calque' + index_calqueSelected + '.png';
 
     var image = new Image();
     image.src = calqueSelected;

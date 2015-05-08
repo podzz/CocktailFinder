@@ -108,7 +108,7 @@ function Parser() {
     associateArrayImage["11"] = "Assets/DrinkImage/sprite_0001_Calque-3.png";
     associateArrayImage["12"] = "Assets/DrinkImage/sprite_0002_Calque-4.png";
 
-    rotor["13"] = "Assets/DrinkImage/bottle.json";
+    rotor["13"] = "Assets/DrinkJSON/bottle.json";
     console.log("Parser created");
 }
 
