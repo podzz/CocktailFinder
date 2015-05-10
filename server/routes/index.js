@@ -1,6 +1,8 @@
 // convenience wrapper around all other files:
 exports.site = require('./site');
 
+exports.bing = require('./bing');
+
 exports.api = require('./api');
 exports.bdd = require('./bdd');
 

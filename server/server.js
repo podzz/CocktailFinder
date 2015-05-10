@@ -54,6 +54,9 @@ app.get('/bdd/rank/recipes',		routes.bdd.rankRecipes);
 app.get('/bdd/clean/',				routes.bdd.clean);
 app.get('/bdd/bootstrap/',			routes.bdd.bootstrap);
 
+// Bing routes
+app.get('/bing/search/:search',    routes.bing.downloadPicturesIngredients);
+
 // API routes
 app.get('/api/cocktails', 			routes.api.findFiveRandomCocktails);
 app.get('/api/allcocktails',        routes.api.allCocktails);
@@ -62,6 +65,7 @@ app.get('/api/cocktail/name/:name', routes.api.findCocktalByName);
 app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/:array',  	routes.api.findCocktailsByMissingIds);
 app.get('/api/ingredients',         routes.api.allIngredients);
+
 
 // ---------------------------------
 // Server deployment
@@ -75,3 +79,5 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Server listening @ http://localhost:%d/', app.get('port'));
 });
 
+
+var Bing = require('node-bing-api')({ accKey: "ofiH66W+uTTX65ME7FKhtd2XtgAHxNEljh+700JzqFs" });

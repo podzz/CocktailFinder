@@ -1,6 +1,11 @@
 /**
  * Created by Francois on 03/05/15.
  */
+function RecipeManager()
+{
+    var RecipeObject = this;
+}
+
 
 function recipeRender(image_url) {
 
@@ -22,8 +27,6 @@ function recipeRender(image_url) {
 
     recipeArr.push(bottle);
     stage.addChild(bottle);
-    //bottle = null;
-    //recipe_graphics.clear();
 }
 
 function rotorRender(arr)

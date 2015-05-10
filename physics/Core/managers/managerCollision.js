@@ -4,7 +4,7 @@
 
 function CollisionManager()
 {
-    var CollisioNObject = this;
+    var CollisionObject = this;
 }
 
 /**
