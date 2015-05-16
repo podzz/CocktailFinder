@@ -78,7 +78,7 @@
         this.addMissing = function (ingredient) {
             var needToAdd = true;
             for (var i = 0; i < this.missing.length; i++) {
-                if (this.missing[i]['id'] === ingredient.index) {
+                if (this.missing[i].index === ingredient.index) {
                     needToAdd = false;
                 }
             }
@@ -103,7 +103,7 @@
         // Remove an ingredient ID from the missing list
         this.removeMissing = function (ingredient) {
             for (var i = 0; i < this.missing.length; i++) {
-                if (this.missing[i]['id'] === ingredient.id) {
+                if (this.missing[i].index === ingredient.index) {
                     this.missing.splice(i, 1);
                 }
             }
