@@ -1,18 +1,4 @@
-Ingredient = require('../models/ingredient.js');
-
-// Getting neo4j object
-var neo4j = require('neo4j');
-
-// Connection do DB
-var db = new neo4j.GraphDatabase(
-    process.env['NEO4J_URL'] ||
-    process.env['GRAPHENEDB_URL'] ||
-    'http://neo4j:admin@localhost:7474'
-);
-
-// ----------------------------------------
-// Constructor
-// ----------------------------------------
+var request = require("request");
 
 var ControllerIngredient = module.exports = function ControllerIngredient(_node) {
 }
@@ -65,7 +51,7 @@ ControllerIngredient.getIngredients = function (id, callback) {
 ControllerIngredient.getAll = function (callback) {
     var query = [
         'MATCH (ing:Ingredient)',
-        'RETURN ing.index,ing.name',
+        'RETURN ing.index,ing.name, ing.colors',
     ].join('\n');
 
     db.query(query, null, function (err, results) {
@@ -75,32 +61,14 @@ ControllerIngredient.getAll = function (callback) {
             ingredients: []
         };
 
-        //var levenshtein = require('fast-levenshtein');
-
-        //for (var k = 0; k < results.length; ++k) {
-        //var start = results[k]['ing.name'];
-
-
         // Formatting ingredients
         for (var i = 0; i < results.length; ++i) {
-            // var fastL = levenshtein.get(start, results[i]['ing.name']);
-            //if (fastL <= 1 && i != k) {
             formatted.ingredients.push({
                 index: results[i]['ing.index'],
-                name: results[i]['ing.name']
-                // levenshtein: fastL,
-                // levenshtein_with: start
+                name: results[i]['ing.name'],
+                colors: results[i]['ing.colors']
             });
         }
-        //}
-        //}
-
-        /*formatted.ingredients = formatted.ingredients.sort(function (a, b) {
-         var x = a['levenshtein'];
-         var y = b['levenshtein'];
-         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-         });
-         console.log(formatted.ingredients.length);*/
         // Async return call
         callback(null, formatted);
     });

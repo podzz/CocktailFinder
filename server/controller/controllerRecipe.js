@@ -1,5 +1,3 @@
-Recipe = require('../models/recipe.js');
-
 // Getting neo4j object
 var neo4j = require('neo4j');
 

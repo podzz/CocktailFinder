@@ -1,226 +1,132 @@
-// Cocktail API
+var request = require("request");
 
-// Getting neo4j object
-var neo4j = require('neo4j');
-
-// Connection do DB
-var db = new neo4j.GraphDatabase(
-    process.env['NEO4J_URL'] ||
-    process.env['GRAPHENEDB_URL'] ||
-    'http://localhost:7474'
-    );
-
-var ControllerCocktail = function ControllerCocktail(_node) {
+var ControllerCocktail = module.exports = function ControllerCocktail(_node) {
 };
 
-// Seeks the recipe with the IDs given in param, and returns
-// a JSON Object with all its assets
-ControllerCocktail.getCocktailsById = function(idTab, callback) {
-    var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) WHERE';
+function cypher(query, cb) {
+    var txUrl = "http://localhost:7474/db/data/transaction/commit";
+    request.post({
+            uri: txUrl,
+            json: {statements: [{statement: query}]}
+        },
+        function (err, res) {
+            cb(err, res.body)
+        })
+}
 
-    for (var i = 0; i < idTab.length; ++i) {
-        if (i == idTab.length - 1) {
-            query += ' re.index = "' + idTab[i] +'" ';
-        } else {
-            query += ' re.index = "' + idTab[i] +'" OR';
+ControllerCocktail.getCocktail = function (ids, callback) {
+    var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) ' +
+        'WHERE re.index="' + ids + '" ' +
+        'RETURN re.index, ' + // 0
+        '       re.name, ' + // 1
+        '       i.index, ' + // 2
+        '       i.name, ' + // 3
+        '       i.colors, ' + // 4
+        '       r.quantity, ' + // 5
+        '       r.unity, ' + // 6
+        '       rec.index'; // 7
+    var cb = function (err, data) {
+        var data_formatted = {cocktails: []};
+        if (data.results[0].data.length > 0) {
+            var row_array = data.results[0].data[0].row;
+            var cocktail = {index: row_array[0], name: row_array[1], recipe_index: row_array[7], ingredient: []};
+            for (var i = 0; i < data.results[0].data.length; i++) {
+                row_array = data.results[0].data[i].row;
+                var ingredient = {index: row_array[2], name: row_array[3], colors: row_array[4]};
+                cocktail.ingredient.push(ingredient);
+            }
+            data_formatted.cocktails.push(cocktail);
+        }
+        callback(null, data_formatted);
+    };
+    cypher(query, cb);
+}
+
+ControllerCocktail.getCocktails = function (ids, callback) {
+    var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) ';
+    if (ids) {
+        query += "WHERE ";
+        for (var id_index = 0; id_index < ids.length; id_index++) {
+            if (id_index < ids.length - 1)
+                query += 're.index="' + ids[id_index] + '" OR ';
+            else
+                query += 're.index="' + ids[id_index] + '" ';
+
         }
     }
-    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name, rec.index';
+    query += 'RETURN re.index, ' + // 0
+    '       re.name, ' + // 1
+    '       i.index, ' + // 2
+    '       i.name, ' + // 3
+    '       i.colors, ' + // 4
+    '       r.quantity, ' + // 5
+    '       r.unity, ' + // 6
+    '       rec.index'; // 7
+    var cb = function (err, data) {
+        if (err)
+            return callback(err,null);
+        var data_formatted = {cocktails: []};
+        var current_cocktail = null;
+        if (data && data.results[0] && data.results[0].data) {
+            if (data.results[0].data.length > 0) {
+                for (var i = 0; i < data.results[0].data.length; i++) {
+                    var row_array = data.results[0].data[i].row;
+                    if (current_cocktail != null && row_array[1] != current_cocktail.name) {
+                        data_formatted.cocktails.push(current_cocktail);
+                        current_cocktail = null;
+                    }
+                    if (current_cocktail == null) {
+                        current_cocktail = {
+                            index: row_array[0],
+                            name: row_array[1],
+                            recipe_index: row_array[7],
+                            ingredient: []
+                        };
+                    }
 
-    db.query(query, null, function (err, results) {
-        console.log(query);
-        if (err) {
-          return callback(err);
-      }
-
-      var formatted = {
-        cocktails : []
+                    current_cocktail.ingredient.push({
+                        index: row_array[2],
+                        quantity: row_array[5],
+                        unity: row_array[6],
+                        name: row_array[3],
+                        colors: row_array[4]
+                    });
+                }
+                data_formatted.cocktails.push(current_cocktail);
+            }
+        }
+        callback(null, data_formatted);
     };
+    cypher(query, cb);
+}
 
-    var tmp_sequence = [];
-
-        // Formatting ingredients
-        for (var i = 0; i < results.length; ++i) {
-            if (tmp_sequence.indexOf(results[i]['re.index']) == -1) {
-
-                tmp_sequence.push(results[i]['re.index']);
-
-                formatted.cocktails.push({
-                    index : results[i]['re.index'],
-                    name : results[i]['re.name'],
-                    glass: results[i]['rec.index'],
-                    ingredients : [{
-                        id : results[i]['i.index'],
-                        name : results[i]['i.name'],
-                        quantity : results[i]['r.quantity'],
-                        unity : results[i]['r.unity'],
-                    }]
-                })
-            } else {
-                formatted.cocktails[tmp_sequence.indexOf(results[i]['re.index'])].ingredients.push({
-                    id : results[i]['i.index'],
-                    name : results[i]['i.name'],
-                    quantity : results[i]['r.quantity'],
-                    unity : results[i]['r.unity'],
-                })
-            }
-        };
-
-        // Async return call
-        callback(null, formatted);
-    });
-};
-
-// Seeks the recipe with the ID given in param, and returns
-// a JSON Object with all its assets
-// TO FIX
-ControllerCocktail.getCocktailById = function(index, callback) {
-    var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) WHERE';
-    query += ' re.index = "' + index +'" ';
-    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name, rec.index';
-
-    db.query(query, null, function (err, results) {
-        // ICO Request fail        
-        if (err) {
-          return callback(err);
-        }
-
-        var formatted = {
-            cocktails : []
-        };
-
-        var tmp_sequence = [];
-
-        // Formatting ingredients
-        for (var i = 0; i < results.length; ++i) {
-            if (tmp_sequence.indexOf(results[i]['re.index']) == -1) {
-
-                tmp_sequence.push(results[i]['re.index']);
-
-                formatted.cocktails.push({
-                    index : results[i]['re.index'],
-                    name : results[i]['re.name'],
-                    glass: results[i]['rec.index'],
-                    ingredients : [{
-                        id : results[i]['i.index'],
-                        name : results[i]['i.name'],
-                        quantity : results[i]['r.quantity'],
-                        unity : results[i]['r.unity'],
-                    }]
-                })
-            } else {
-                formatted.cocktails[tmp_sequence.indexOf(results[i]['re.index'])].ingredients.push({
-                    id : results[i]['i.index'],
-                    name : results[i]['i.name'],
-                    quantity : results[i]['r.quantity'],
-                    unity : results[i]['r.unity'],
-                })
-            }
-        };
-
-        // Async return call
-        callback(null, formatted);
-    });
-};
-
-// Seeks the recipe with the ID given in param, and returns
-// a JSON Object with all its assets
-// TO FIX
-ControllerCocktail.getCocktailByName = function(name, callback) {
-    var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) WHERE';
-    query += ' re.name = "' + name +'" ';
-    query += 'RETURN re.index, re.name, i.index, r.quantity, r.unity, i.name, rec.index';
-
-    db.query(query, null, function (err, results) {
-        // ICO Request fail        
-        if (err) {
-          return callback(err);
-        }
-
-        var formatted = {
-            cocktails : []
-        };
-
-        var tmp_sequence = [];
-
-        // Formatting ingredients
-        for (var i = 0; i < results.length; ++i) {
-            if (tmp_sequence.indexOf(results[i]['re.index']) == -1) {
-
-                tmp_sequence.push(results[i]['re.index']);
-
-                formatted.cocktails.push({
-                    index : results[i]['re.index'],
-                    name : results[i]['re.name'],
-                    glass: results[i]['rec.index'],
-                    ingredients : [{
-                        id : results[i]['i.index'],
-                        name : results[i]['i.name'],
-                        quantity : results[i]['r.quantity'],
-                        unity : results[i]['r.unity'],
-                    }]
-                })
-            } else {
-                formatted.cocktails[tmp_sequence.indexOf(results[i]['re.index'])].ingredients.push({
-                    id : results[i]['i.index'],
-                    name : results[i]['i.name'],
-                    quantity : results[i]['r.quantity'],
-                    unity : results[i]['r.unity'],
-                })
-            }
-        };
-
-        // Async return call
-        callback(null, formatted);
-    });
-};
-
-
-// Seeks the recipe with the IDs given in param, and returns
-// a JSON Object with all its assets
-ControllerCocktail.getCocktailsByMissingIds = function(idTab, number, callback) {
+ControllerCocktail.getCocktailByExcludeIngredients = function (idIngredients, callback) {
     var query1 = 'MATCH (r:Recipe)';
     var query2 = '';
-    if (!idTab) {
+    if (!idIngredients) {
         query1 += ' ';
-    } else { 
+    } else {
         query1 += ', ';
-        for (var i = 0; i < idTab.length; ++i) {
-            if (i == idTab.length - 1) {
-                query1 += '(i' + i + ':Ingredient { index:"' + idTab[i] + '" }) ';
+        for (var i = 0; i < idIngredients.length; ++i) {
+            if (i == idIngredients.length - 1) {
+                query1 += '(i' + i + ':Ingredient { index:"' + idIngredients[i] + '" }) ';
                 query2 += 'NOT r--i' + i + ' ';
             } else {
-                query1 += '(i' + i + ':Ingredient { index:"' + idTab[i] + '" }), ';
-                query2 += 'NOT r--i' + i + ' AND ';            
+                query1 += '(i' + i + ':Ingredient { index:"' + idIngredients[i] + '" }), ';
+                query2 += 'NOT r--i' + i + ' AND ';
             }
         }
         query1 += 'WHERE '
     }
-    query2 += 'RETURN r.index LIMIT ' + number;
-    console.log(query1 + query2);
-    db.query(query1 + query2, null, function (err, results) {
-        var formatted = [];
-
-        for (var i = 0; i < results.length; ++i) {
-            formatted.push(results[i]['r.index']);
+    query2 += 'RETURN r.index, r.name LIMIT 5';
+    var query = query1 + query2;
+    var cb = function (err, data) {
+        var index_list = [];
+        for (var i = 0; i < data.results[0].data.length; i++) {
+            var row_array = data.results[0].data[i].row;
+            index_list.push(row_array[0]);
         }
-        ControllerCocktail.getCocktailsById(formatted, callback);
-    });
-};
-
-ControllerCocktail.getAll = function(callback) {
-    var query = 'MATCH (r:Recipe) RETURN r.name, r.index';
-
-    db.query(query, null, function(err, results)
-    {
-        var formatted = [];
-
-        for (var i = 0; i < results.length; ++i) {
-            formatted.push({ index: results[i]['r.index'],
-                             name: results[i]['r.name']});
-        }
-        callback(null,formatted);
-    });
-};
-
-module.exports = ControllerCocktail;
+        ControllerCocktail.getCocktails(index_list, callback);
+    };
+    cypher(query, cb);
+}

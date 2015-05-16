@@ -1,0 +1,3 @@
+{
+	"query":"MATCH (in:Ingredient) RETURN in.name;"
+}

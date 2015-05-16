@@ -128,3 +128,13 @@ html {
         -2px 2px 0 white,
         2px 2px 0 white;
 }
+
+.colorsBlock {
+    display:inline;
+    width: 300px;
+    height: 50px;
+    background: lightgrey;
+    border-radius: 3px;
+    border: 2px black solid;
+    position: absolute;
+ }

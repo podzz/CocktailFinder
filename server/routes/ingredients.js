@@ -1,4 +1,3 @@
-var Ingredient  = require('../models/ingredient');
 var ControllerIngredient = require('../controller/controllerIngredient');
 
 /**

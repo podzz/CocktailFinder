@@ -9,16 +9,23 @@ var ControllerBing = module.exports = function ControllerBing() {
 };
 
 ControllerBing.dlBingIngredient = function (search, callback) {
-    var ingredient = {images: []};
+    var ingredient = {};
+    var count_results = 5;
     Bing.images(search, function (error, res, body) {
-        for (var i = 0; i < body.d.results.length; i++) {
-            ingredient.images.push({url: body.d.results[i].MediaUrl});
-        }
-        console.log(ingredient.images.length);
+        ingredient[search] = [];
 
-        callback(null, ingredient);
+        if (body != null && body.d != null) {
+            if (body.d.results.length < count_results)
+                count_results = body.d.results.length;
+
+            for (var i = 0; i < count_results; i++) {
+                ingredient[search].push(body.d.results[i].MediaUrl);
+            }
+            console.log(ingredient[search].length);
+
+            callback(null, ingredient);
+        }
     }, {
         skip: 0
     });
-
 }
