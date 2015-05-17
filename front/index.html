@@ -90,9 +90,9 @@
         </div>
         <div class="direction">
             <div class="directionData">
-                <h1 class="panel-title">{{ recipeCtrl.currentCocktail.name }} - {{ recipeCtrl.currentIndex + 1 }} / 5</h1>
+                <h1 class="panel-title">{{ recipeCtrl.currentCocktail.name }} - {{ recipeCtrl.currentIndex + 1 }} /
+                    5</h1>
                 <br/>
-
             </div>
             <div class="panel-direction">
                 <div class="previousButton">
@@ -104,7 +104,7 @@
                     <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient">
 
                         <button type="button" class="btn btn-quantity btn-b">
-                                {{ ingr.quantity }}
+                            {{ ingr.quantity }}
                         </button>
 
                         <button type="button" class="btn btn-unity btn-b">
@@ -113,11 +113,26 @@
                         <button id="{{ 'button' + $index }}" type="button"
                                 ng-click="recipeCtrl.addMissing(ingr);" class="btn btn-luxe btn-b">
                             {{ ingr.name | limitTo : 15 }}<span class="glyphicon glyphicon-remove"
-                                                 aria-hidden="true"></span>
+                                                                aria-hidden="true"></span>
                         </button>
-                        <button id="{{ 'color' + $index }}" class="btn btn-blue btn-b" ng-mouseover="show = true" ng-mouseleave="show = false"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></button>
-                        <div id="{{ 'colorBlock' + $index }}" class="colorsBlock" ng-mouseover="show = true" ng-mouseleave="show = false" ng-show="show">
+                        <button id="{{ 'color' + $index }}" class="btn btn-blue btn-b" ng-mouseover="show = true"
+                                ng-mouseleave="show = false"><span class="glyphicon glyphicon-tint"
+                                                                   aria-hidden="true"></span></button>
+                        <div id="{{ 'colorBlock' + $index }}" class="colorsBlock" ng-mouseover="show = true"
+                             ng-mouseleave="show = false" ng-show="show">
+                            <ul>
+                                <li ng-repeat="color in ingr.colors track by $index" ng-if="ingr.selectedColor == color"
+                                    ng-click="recipeCtrl.setSelectedColor(ingr, color)"
+                                    class="btn btn-quantity btn-b colorView"
+                                    style="{{ 'background:' + color + ';border: 2px solid yellow;'}}">
+                                </li>
+                                <li ng-repeat="color in ingr.colors track by $index"
+                                    ng-if="!(ingr.selectedColor == color)"
+                                    ng-click="recipeCtrl.setSelectedColor(ingr, color)"
+                                    class="btn btn-quantity btn-b colorView" style="{{ 'background:' + color}}">
+                                </li>
 
+                            </ul>
                         </div>
 
                     </li>
@@ -137,7 +152,6 @@
                     <button type="button" ng-click="recipeCtrl.removeMissing(ingr);" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ ingr.name }}
                     </button>
-                    <!--<input type="button" name="button1" value="Finally I have it" ng-click="recipeCtrl.removeMissing(ingr)" />-->
                 </li>
             </ul>
         </div>

@@ -61,6 +61,7 @@ app.get('/bing/search/:search',    routes.bing.downloadPicturesIngredients);
 app.get('/api/cocktails',           routes.api.findCocktails);
 app.get('/api/cocktails/',          routes.api.findCocktails)
 app.get('/api/cocktails/:ids', 		routes.api.findCocktails);
+app.get('/api/ingredients/setColor/:ingredient/:color', routes.api.setColor);
 app.get('/api/missing', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/:array',  	routes.api.findCocktailsByMissingIds);

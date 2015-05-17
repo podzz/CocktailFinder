@@ -14,34 +14,6 @@ function cypher(query, cb) {
         })
 }
 
-ControllerCocktail.getCocktail = function (ids, callback) {
-    var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) ' +
-        'WHERE re.index="' + ids + '" ' +
-        'RETURN re.index, ' + // 0
-        '       re.name, ' + // 1
-        '       i.index, ' + // 2
-        '       i.name, ' + // 3
-        '       i.colors, ' + // 4
-        '       r.quantity, ' + // 5
-        '       r.unity, ' + // 6
-        '       rec.index'; // 7
-    var cb = function (err, data) {
-        var data_formatted = {cocktails: []};
-        if (data.results[0].data.length > 0) {
-            var row_array = data.results[0].data[0].row;
-            var cocktail = {index: row_array[0], name: row_array[1], recipe_index: row_array[7], ingredient: []};
-            for (var i = 0; i < data.results[0].data.length; i++) {
-                row_array = data.results[0].data[i].row;
-                var ingredient = {index: row_array[2], name: row_array[3], colors: row_array[4]};
-                cocktail.ingredient.push(ingredient);
-            }
-            data_formatted.cocktails.push(cocktail);
-        }
-        callback(null, data_formatted);
-    };
-    cypher(query, cb);
-}
-
 ControllerCocktail.getCocktails = function (ids, callback) {
     var query = 'MATCH (rec:Recipient)-[]-(re:Recipe)-[r]-(i:Ingredient) ';
     if (ids) {
@@ -61,7 +33,8 @@ ControllerCocktail.getCocktails = function (ids, callback) {
     '       i.colors, ' + // 4
     '       r.quantity, ' + // 5
     '       r.unity, ' + // 6
-    '       rec.index'; // 7
+    '       rec.index,' + // 7
+    '       i.selectedColor'; // 8
     var cb = function (err, data) {
         if (err)
             return callback(err,null);
@@ -89,7 +62,8 @@ ControllerCocktail.getCocktails = function (ids, callback) {
                         quantity: row_array[5],
                         unity: row_array[6],
                         name: row_array[3],
-                        colors: row_array[4]
+                        colors: row_array[4],
+                        selectedColor: '#' + row_array[8]
                     });
                 }
                 data_formatted.cocktails.push(current_cocktail);

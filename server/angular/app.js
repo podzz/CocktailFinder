@@ -36,12 +36,12 @@
             $("#main-menu").toggle("slow");
         }
 
-
         // Load the exclude list from cookie array
         this.loadMissingFromCookie = function () {
             var dataFetched = $.cookie('cocktailFinder');
             if (dataFetched) {
                 this.missing = JSON.parse(dataFetched);
+                console.log(this.missing);
             }
         };
 
@@ -65,7 +65,6 @@
                 this.cocktailRenderer.reload();
             }
         };
-
         // Increase the current index
         this.increaseIndex = function () {
             if (this.currentIndex < Object.keys(that.data.cocktails).length - 1) {
@@ -94,10 +93,8 @@
         // For Dev purpose
         this.removeCookie = function () {
             $.removeCookie('cocktailFinder');
-        }
-
-        this.getRandomValue = function () {
-            return Math.floor(Math.random() * 255);
+            this.missing = [];
+            this.reloadData();
         }
 
         // Remove an ingredient ID from the missing list
@@ -110,6 +107,16 @@
             this.saveExcludeList();
             this.reloadData();
             this.cocktailRenderer.reload();
+        }
+
+        this.setSelectedColor = function(ingr, color)
+        {
+            ingr.selectedColor = color;
+            var route = ingr.index + '/' + color.substring(1);
+            console.log(route);
+            $http.get("/api/ingredients/setColor/" + route).success(function (data) {
+
+            })
         }
 
         // Fetch data from API with the exclude list in param
@@ -126,7 +133,6 @@
 
             $http.get(route).success(function (data) {
                 that.currentCocktail = data.cocktails[0];
-                console.log(JSON.stringify(data.cocktails[0]));
                 // Data fetched from server
                 that.data = data;
                 that.currentIndex = 0;
@@ -137,7 +143,6 @@
         this.reloadData();
         this.loadMissingFromCookie();
         this.cocktailRenderer.initRenderer();
-
     }]);
 
     app.controller('adminCongtroller', ['$scope', '$http', function ($scope, $http) {

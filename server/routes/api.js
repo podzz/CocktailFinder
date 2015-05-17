@@ -1,4 +1,5 @@
 var ControllerCocktail = require('../controller/controllerCocktail');
+var ControllerIngredients = require('../controller/controllerIngredient');
 
 exports.findCocktails = function (req, res, next) {
     var param = req.params.id;
@@ -19,5 +20,13 @@ exports.findCocktailsByMissingIds = function (req, res, next) {
     ControllerCocktail.getCocktailByExcludeIngredients(constructArray, function (err, result) {
         res.json(result);
     });
+};
+
+exports.setColor = function(req, res, next) {
+    if (req.params.ingredient && req.params.color)
+        ControllerIngredients.setColor(req.params.ingredient, req.params.color, function(err, result) {
+           res.json(result);
+        });
+
 };
 
