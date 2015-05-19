@@ -20,15 +20,12 @@ function AnimationManager() {
     //linkPolygonShape(body, rotorArr);
     var image_recipe = parser.getImageFile(recipeId);
     recipeRender(image_recipe);
-    var ingr_pop = 0;
+    var ingr_pop = 1000;
     if (currentIngredients) {
         for (var i = 0; i < currentIngredients.length; i++) {
             var ingr = currentIngredients[i];
             if (ingr.selectedColor && ingr.selectedColor != "#null") {
-                console.log(ingr.selectedColor);
-
                 addFlowBottle(ingr_pop, ingr.selectedColor);
-
                 ingr_pop += 3000;
             }
         }

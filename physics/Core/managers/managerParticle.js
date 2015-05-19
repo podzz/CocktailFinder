@@ -51,7 +51,7 @@ function addFlowBottle(pop, color) {
         anim(bottle).to({y: height / 2 - 400}, 1);
         anim(bottle).to({rotation: 2.9}, 1);
         anim(bottle).to(2, {y: -200}, 5);
-        var timeout = setTimeout(function () {
+        var timeout2 = setTimeout(function () {
             var spawnPoint = new b2Vec2(width / METER / 2 - 1, 0.2);
 
             var box = new b2PolygonShape();
@@ -75,6 +75,8 @@ function addFlowBottle(pop, color) {
                 pondContainer.addChild(graphics);
             }
         }, 2000);
+        eventArray.push(timeout2);
         stage.addChild(bottle);
     }, pop);
+    eventArray.push(timeout);
 }
