@@ -62,7 +62,7 @@
             if (this.currentIndex != 0) {
                 this.currentIndex--;
                 this.currentCocktail = this.data.cocktails[this.currentIndex];
-                this.cocktailRenderer.reload();
+                this.cocktailRenderer.reload(this.currentCocktail.ingredient);
             }
         };
         // Increase the current index
@@ -70,7 +70,7 @@
             if (this.currentIndex < Object.keys(that.data.cocktails).length - 1) {
                 this.currentIndex++;
                 this.currentCocktail = that.data.cocktails[this.currentIndex];
-                this.cocktailRenderer.reload();
+                this.cocktailRenderer.reload(that.currentCocktail.ingredient);
             }
         };
         // Append an ingredient to the missing list
@@ -87,7 +87,6 @@
             }
             this.saveExcludeList();
             this.reloadData();
-            this.cocktailRenderer.reload();
         }
 
         // For Dev purpose
@@ -136,13 +135,16 @@
                 // Data fetched from server
                 that.data = data;
                 that.currentIndex = 0;
+                that.cocktailRenderer.reload(that.currentCocktail.ingredient);
             });
 
 
         }
-        this.reloadData();
+
         this.loadMissingFromCookie();
         this.cocktailRenderer.initRenderer();
+        this.reloadData();
+
         $("#main-menu").toggle("slow");
     }]);
 

@@ -10,6 +10,7 @@ var recipeArr = [];
 var rotorArr = [];
 var objectDisplayArr = [];
 var objectPhysicsArr = [];
+var currentIngredients = null;
 var objectArrInc = 0;
 
 var right;
@@ -84,7 +85,7 @@ CocktailRenderer.prototype.initRenderer = function () {
     requestAnimFrame(animate);
 }
 
-CocktailRenderer.prototype.reload = function (glass) {
+CocktailRenderer.prototype.reload = function (ingredients) {
     resetTimeline();
     pondContainer.visible = false;
     delete pondContainer;
@@ -104,7 +105,7 @@ CocktailRenderer.prototype.reload = function (glass) {
     shapeArr = [];
     circleArr = [];
     rotorArr = [];
-
+    currentIngredients = ingredients;
     this.LoadAnimation("AnimationManager");
 }
 

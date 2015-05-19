@@ -2,8 +2,7 @@
  * Created by Francois on 08/05/15.
  */
 
-function AnimationManager()
-{
+function AnimationManager() {
     var AnimationManagerObject = this;
 
     var bdDef = new b2BodyDef();
@@ -21,7 +20,19 @@ function AnimationManager()
     //linkPolygonShape(body, rotorArr);
     var image_recipe = parser.getImageFile(recipeId);
     recipeRender(image_recipe);
+    var ingr_pop = 0;
+    if (currentIngredients) {
+        for (var i = 0; i < currentIngredients.length; i++) {
+            var ingr = currentIngredients[i];
+            if (ingr.selectedColor && ingr.selectedColor != "#null") {
+                console.log(ingr.selectedColor);
 
+                addFlowBottle(ingr_pop, ingr.selectedColor);
+
+                ingr_pop += 3000;
+            }
+        }
+    }
     //rotorRender(rotorArr);
     //addColorGroup(1000, 0.1, 0.8);
     //resetTimeline();
