@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('cocktailFinder', ['ngTable']);
+    var app = angular.module('cocktailFinder', []);
 
     app.controller('recipeController', ['$scope', '$http', function ($scope, $http) {
 
