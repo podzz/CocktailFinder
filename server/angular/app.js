@@ -143,6 +143,7 @@
         this.reloadData();
         this.loadMissingFromCookie();
         this.cocktailRenderer.initRenderer();
+        $("#main-menu").toggle("slow");
     }]);
 
     app.controller('adminCongtroller', ['$scope', '$http', function ($scope, $http) {

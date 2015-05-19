@@ -12,6 +12,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
 
     <!-- Custom CSS -->
     <link href="css/cocktail.css" rel="stylesheet">
@@ -47,9 +48,13 @@
 </head>
 <body ng-controller="recipeController as recipeCtrl">
 
-<nav class="navbar-default navbar-side" role="navigation">
+<div class="renderer">
+    <div id="cocktailRenderer">
+    </div>
+</div>
+<nav class="navbar-side" role="navigation">
     <div class="sidebar-collapse">
-        <button class="btn btn-primary" ng-click="recipeCtrl.hideMenu();"><span
+        <button class="btn bt-lg" ng-click="recipeCtrl.hideMenu();"><span
                 class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
         <ul class="nav" id="main-menu">
             <li>
@@ -69,11 +74,6 @@
         </ul>
     </div>
 </nav>
-
-<div class="renderer">
-    <div id="cocktailRenderer">
-    </div>
-</div>
 <div class="direction">
     <div class="directionData">
         <h1 class="panel-title2">{{ recipeCtrl.currentCocktail.name }}</h1>

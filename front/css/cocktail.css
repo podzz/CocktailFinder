@@ -10,30 +10,20 @@ html {
     height: 100%;
 }
 
-
-.titlePanel {
-    position:relative;
-}
-
-.background {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-}
-
-.background.background-intro {
-    background-color: #00b7e2;
-    transition: background-color 1s ease-in;
-}
-
 .renderer {
     width: 100%;
 }
 
+#main-menu li {
+    width:50%;
+    text-align:center;
+}
+
+
 .direction {
     position:absolute;
     width: 50%;
-    margin-top:20%;
+    margin-top:10%;
     text-align:center;
 }
 
