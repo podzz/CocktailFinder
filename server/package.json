@@ -8,8 +8,8 @@
   {
     "express": "~3.2.0",
     "neo4j": "~1.1",
-    "strongloop": ""
-    "node-bing-api":""
+    "strongloop": "",
+    "node-bing-api":"",
     "request":""
   },
   "engines":
