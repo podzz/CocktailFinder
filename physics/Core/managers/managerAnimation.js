@@ -1,12 +1,22 @@
 /**
  * Created by Francois on 08/05/15.
  */
+var joint = null;
+var time = 0;
+
+var rotorDef;
 
 function AnimationManager() {
     var AnimationManagerObject = this;
 
     var bdDef = new b2BodyDef();
     var body = world.CreateBody(bdDef);
+
+    rotorDef = new b2BodyDef();
+    var rotor = world.CreateBody(rotorDef);
+    rotorDef.type = b2_dynamicBody;
+    rotorDef.allowSleep = false;
+
 
     var recipeId = Math.floor(Math.random() * 12) + 1;
     initParticle();
@@ -15,11 +25,14 @@ function AnimationManager() {
     parser.getParseResult(recipeId);
 
     getEdges(body, edgeArr);
-    //edgerender(edgeArr);
+
     collisionManager.linkShape(body, recipeArr);
+//    collisionManager.linkRotor(rotor, rotorArr);
+
     //linkPolygonShape(body, rotorArr);
     var image_recipe = parser.getImageFile(recipeId);
     recipeRender(image_recipe);
+//    rotorRender(rotorArr);
     var ingr_pop = 1000;
     if (currentIngredients) {
         for (var i = 0; i < currentIngredients.length; i++) {
@@ -59,10 +72,11 @@ function AnimationManager() {
 
 step = function () {
     world.Step(timeStep, velocityIterations, positionIterations);
-    this.time += 1 / 60;
+    time += 1 / 60;
 }
 
 function animate() {
+
     function componentToHex(c) {
         var hex = c.toString(16).toUpperCase();
         return hex.length == 1 ? "0" + hex : hex;
@@ -83,8 +97,8 @@ function animate() {
         var index = circleIndex[key];
         var circle = circleArr[index];
         if (circle.y < height) {
-            circle.x = ((particles[index * 2] ) * METER + OFFSET_X);
-            circle.y = ((particles[(index * 2) + 1]) * METER + OFFSET_Y);
+            circle.x = ((particles[index * 2] ) * METER);
+            circle.y = ((particles[(index * 2) + 1]) * METER);
             circle.clear();
             circle.beginFill(rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]));
             circle.drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);

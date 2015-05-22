@@ -1,34 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="cocktailFinder">
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="François Boiteux; Edouard Durieux; Adrien Fenech">
 
     <title>Cocktail Finder</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
-
+    <link rel="shortcut icon"
+          href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
     <!-- Custom CSS -->
     <link href="css/cocktail.css" rel="stylesheet">
-    <link href="css/custom-styles.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
-    <link href="fonts/lora.css" rel="stylesheet" type="text/css">
-    <link href="fonts/montserrat.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Raleway:800,400' rel='stylesheet' type='text/css'>
-    <!-- Load Angular -->
-    <script data-require="angular.js@*" data-semver="1.2.0-rc3-nonmin"
-            src="js/angular.js"></script>
-
-    <!-- Load App.js -->
-    <script type="text/javascript" src="app.js"></script>
-
     <!-- Physics Script -->
     <script src="Core/scripts/pixi.js"></script>
     <script src="Core/scripts/jquery-1.11.2.min.js"></script>
@@ -44,7 +31,19 @@
     <script src="Core/managers/managerAnimation.js"></script>
     <script src="Core/main/TresholdFilter.js"></script>
     <script src="Core/main/cocktailRenderer.js"></script>
-
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Plugin JavaScript -->
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/timeline.js"></script>
+    <!-- App core -->
+    <script type="text/javascript" src="js/cocktail.js"></script>
+    <!-- Load Angular -->
+    <script type="text/javascript" src="js/angular.js"></script>
+    <!-- Load App.js -->
+    <script type="text/javascript" src="app.js"></script>
 </head>
 <body ng-controller="recipeController as recipeCtrl">
 
@@ -54,13 +53,14 @@
 </div>
 <nav class="navbar-side" role="navigation">
     <div class="sidebar-collapse">
-        <button class="btn bt-lg" ng-click="recipeCtrl.hideMenu();"><span
-                class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
+        <button class="btn bt-lg" ng-click="recipeCtrl.hideMenu();">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true">
+
+            </span>
+        </button>
         <ul class="nav" id="main-menu">
             <li>
-                <a ng-click="recipeCtrl.createIceCubeOnRenderer();"><i class="fa fa-dashboard"></i> Add an
-                    IceCube !
-                </a>
+                <a ng-click="recipeCtrl.createIceCubeOnRenderer();"><i class="fa fa-dashboard"></i> Add an IceCube !</a>
             </li>
             <li>
                 <a ng-click="recipeCtrl.createCitronOnRenderer();"><i class="fa fa-desktop"></i> Add a Citron !</a>
@@ -87,15 +87,15 @@
         <div class="panel-direction">
             <ul id="cocktailList">
                 <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient">
-                    <button id="{{ 'button' + $index }}" type="button"
-                            ng-click="recipeCtrl.addMissing(ingr);" class="btn btn-luxe btn-b">
-                        {{ ingr.quantity }} {{ ingr.unity }} {{ ingr.name | limitTo : 15 }} <span
-                            class="glyphicon glyphicon-remove"
-                            aria-hidden="true"></span>
+                    <button id="{{ 'button' + $index }}" type="button" ng-click="recipeCtrl.addMissing(ingr);"
+                            class="btn btn-luxe btn-b">
+                        {{ ingr.quantity }} {{ ingr.unity }} {{ ingr.name | limitTo : 15 }}
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                     <button id="{{ 'color' + $index }}" class="btn btn-blue btn-b" ng-mouseover="show = true"
-                            ng-mouseleave="show = false"><span class="glyphicon glyphicon-tint"
-                                                               aria-hidden="true"></span></button>
+                            ng-mouseleave="show = false">
+                        <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
+                    </button>
                     <div id="{{ 'colorBlock' + $index }}" class="colorsBlock" ng-mouseover="show = true"
                          ng-mouseleave="show = false" ng-show="show">
                         <div ng-if="!(ingr.selectedColor == '#null')" class="colorView"
@@ -130,20 +130,6 @@
         </ul>
     </div>
 </div>
-<!-- jQuery -->
-<script type="text/javascript" src="js/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Plugin JavaScript -->
-<script type="text/javascript" src="js/jquery.cookie.js"></script>
-<script type="text/javascript" src="js/timeline.js"></script>
-
-<!-- App core -->
-<script type="text/javascript" src="colorwheel.js"></script>
-<script type="text/javascript" src="js/cocktail.js"></script>
-
 </body>
 
 </html>

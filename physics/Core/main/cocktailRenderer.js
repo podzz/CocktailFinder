@@ -26,14 +26,6 @@ var particleSize = 8.5;
 
 var METER = 100; //Meter per pixel
 
-
-var OFFSET_X = 0;
-var OFFSET_Y = 0;
-
-var _len = 0;
-var width = 0;
-var height = 0;
-
 var world = null;
 var parser = null;
 var collisionManager = null;

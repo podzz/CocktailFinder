@@ -2,8 +2,7 @@
  * Created by Francois on 03/05/15.
  */
 
-function CollisionManager()
-{
+function CollisionManager() {
     var CollisionObject = this;
 }
 
@@ -20,7 +19,7 @@ function CollisionManager()
  * @param shapeArr
  * @return void
  */
-CollisionManager.prototype.linkShape = function(body, shapeArr) {
+CollisionManager.prototype.linkShape = function (body, shapeArr) {
     for (var i = 0; i < shapeArr.length; i++) {
         var vectors = shapeArr[i];
         if (vectors != null && vectors.length > 0) {
@@ -29,15 +28,25 @@ CollisionManager.prototype.linkShape = function(body, shapeArr) {
                 var shape = new b2EdgeShape();
 
                 shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[j].x, vectors[j].y));
-                body.CreateFixtureFromShape(shape, 10);
+                body.CreateFixtureFromShape(shape, 0.5);
                 vectorStart = vectors[j];
             }
 
             // PART TO LINK LAST AND FIRST VERTEX
             shape = new b2EdgeShape();
             shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[0].x, vectors[0].y));
-            body.CreateFixtureFromShape(shape, 10);
+            body.CreateFixtureFromShape(shape, 0.5);
             vectors[vectors.length] = shape.vertex2;
         }
     }
+}
+
+CollisionManager.prototype.linkRotor = function (body, shapeArr) {
+
+    var vectorStart = shapeArr[0][0];
+
+    var shape = new b2PolygonShape();
+    shape.SetAsBoxXYCenterAngle(50,5, new b2Vec2(10,8), 0);
+    body.CreateFixtureFromShape(shape, 0.5);
+
 }

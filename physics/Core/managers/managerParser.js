@@ -14,8 +14,8 @@ Parser.prototype.getParseResult = function (recipeId) {
 
 Parser.prototype.getParseRotor = function()
 {
-    rotorArr.push(vectorsArray["12"]);
-    return rotor["12"];
+    rotorArr.push(vectorsArray["13"]);
+    return rotor["13"];
 }
 
 Parser.prototype.getImageFile = function (recipeId) {
@@ -95,18 +95,18 @@ function Parser() {
     associateArray["11"] = "Assets/DrinkJSON/sprite_0001_Calque-3.json";
     associateArray["12"] = "Assets/DrinkJSON/sprite_0002_Calque-4.json";
 
-    associateArrayImage["1"] = "Assets/DrinkImage/sprite_0000_Calque-2.png";
-    associateArrayImage["2"] = "Assets/DrinkImage/sprite_0001_Calque-3.png";
-    associateArrayImage["3"] = "Assets/DrinkImage/sprite_0002_Calque-4.png";
-    associateArrayImage["4"] = "Assets/DrinkImage/sprite_0003_Calque-5.png";
-    associateArrayImage["5"] = "Assets/DrinkImage/sprite_0004_Calque-6.png";
-    associateArrayImage["6"] = "Assets/DrinkImage/sprite_0005_Calque-7.png";
-    associateArrayImage["7"] = "Assets/DrinkImage/sprite_0006_Calque-8.png";
-    associateArrayImage["8"] = "Assets/DrinkImage/sprite_0007_Calque-9.png";
-    associateArrayImage["9"] = "Assets/DrinkImage/sprite_0008_Calque-1.png";
-    associateArrayImage["10"] = "Assets/DrinkImage/sprite_0000_Calque-2.png";
-    associateArrayImage["11"] = "Assets/DrinkImage/sprite_0001_Calque-3.png";
-    associateArrayImage["12"] = "Assets/DrinkImage/sprite_0002_Calque-4.png";
+    associateArrayImage["1"] = "Assets/DrinkImage/sprite-low_0000_Calque-2.png";
+    associateArrayImage["2"] = "Assets/DrinkImage/sprite-low_0001_Calque-3.png";
+    associateArrayImage["3"] = "Assets/DrinkImage/sprite-low_0002_Calque-4.png";
+    associateArrayImage["4"] = "Assets/DrinkImage/sprite-low_0003_Calque-5.png";
+    associateArrayImage["5"] = "Assets/DrinkImage/sprite-low_0004_Calque-6.png";
+    associateArrayImage["6"] = "Assets/DrinkImage/sprite-low_0005_Calque-7.png";
+    associateArrayImage["7"] = "Assets/DrinkImage/sprite-low_0006_Calque-8.png";
+    associateArrayImage["8"] = "Assets/DrinkImage/sprite-low_0007_Calque-9.png";
+    associateArrayImage["9"] = "Assets/DrinkImage/sprite-low_0008_Calque-1.png";
+    associateArrayImage["10"] = "Assets/DrinkImage/sprite-low_0000_Calque-2.png";
+    associateArrayImage["11"] = "Assets/DrinkImage/sprite-low_0001_Calque-3.png";
+    associateArrayImage["12"] = "Assets/DrinkImage/sprite-low_0002_Calque-4.png";
 
     rotor["13"] = "Assets/DrinkJSON/bottle.json";
     console.log("Parser created");

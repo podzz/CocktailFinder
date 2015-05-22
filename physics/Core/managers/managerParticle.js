@@ -59,13 +59,19 @@ function addFlowBottle(pop, color) {
 
             var particlegroupDef = new b2ParticleGroupDef();
             particlegroupDef.shape = box;
-
             particlegroupDef.flags = b2_colorMixingParticle;
             particlegroupDef.color.Set(color_process.r, color_process.g, color_process.b, color_process.a);
+
+
+            var bottle_flow = new b2BodyDef();
+            bottle_flow.type = b2_dynamicBody;
+            bottle_flow.position.Set(2,2);
+
 
             var first_record = particleSystem.GetPositionBuffer().length / 2;
 
             particleSystem.CreateParticleGroup(particlegroupDef);
+            world.CreateBody(bottle_flow);
             var second_record = particleSystem.GetPositionBuffer().length / 2;
             for (var i = 0; i < second_record - first_record; i++) {
                 var graphics = new PIXI.Graphics();

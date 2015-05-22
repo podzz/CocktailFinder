@@ -72,16 +72,19 @@ function createPaille(offsetX, offsetY, size) {
 
 function createCitron(offsetX, offsetY, size) {
     var bd = new b2BodyDef();
-    var shape = new b2CircleShape();
     bd.type = b2_dynamicBody;
-    var tempWindowWidth = $("#cocktailRenderer").width() / METER;
-    var tempWindowHeight = $("#cocktailRenderer").height() / METER;
-
-    shape.radius = 0.3;
-    shape.position.Set(width / METER / 2, height / METER / 2);
+    bd.position.Set(width / METER / 2, height / METER / 2);
     var body = world.CreateBody(bd);
 
-    body.CreateFixtureFromShape(shape, 0.6);
+    var shape = new b2CircleShape();
+    shape.radius = 0.3;
+
+    var sd = new b2FixtureDef;
+    sd.density = 1.0;
+    sd.shape = shape;
+    body.CreateFixtureFromDef(sd);
+
+
     objectPhysicsArr[objectArrInc] = body;
     var image = new Image();
     image.src = "Assets/ObjectsImage/citron.png";
