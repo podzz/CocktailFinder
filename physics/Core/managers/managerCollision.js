@@ -40,6 +40,24 @@ CollisionManager.prototype.linkShape = function (body, shapeArr) {
         }
     }
 }
+/*
+CollisionManager.prototype.linkShape = function (body, shapeArr) {
+    for (var i = 0; i < shapeArr.length; i++) {
+        var shape = new b2PolygonShape();
+        var vertices = shape.vertices;
+        var vectors = shapeArr[i];
+        if (vectors != null && vectors.length > 0) {
+            var vectorStart = vectors[0];
+            var ve = new b2Vec2(vectorStart.x, vectorStart.y);
+            vertices.push(ve);
+            for (var j = 1; j < vectors.length; j++) {
+                ve = new b2Vec2(vectors[j].x, vectors[j].y);
+                vertices.push(ve);
+            }
+            body.CreateFixtureFromShape(shape, 20);
+        }
+    }
+}*/
 
 CollisionManager.prototype.linkRotor = function (body, shapeArr) {
 

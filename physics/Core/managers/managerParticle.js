@@ -10,7 +10,7 @@ function initParticle() {
     psd.radius = 0.05;
     psd.dampingStrength = 0.4;
     psd.viscousStrength = 0.1;
-    psd.colorMixingStrength = 0.01;
+    psd.colorMixingStrength = 0.5;
 
     if (world.particleSystems[0] != null)
         world.DestroyParticleSystem(world.particleSystems[0]);
@@ -51,7 +51,7 @@ function addFlowBottle(pop, color) {
         bottle.y = -200;
         spriteArray.push(bottle);
         anim(bottle).to({y: height / 2 - 400}, 1);
-        anim(bottle).to({rotation: 2.9}, 1);
+        anim(bottle).to({rotation: 2.7}, 1);
         anim(bottle).to(2, {y: -200}, 5);
         var timeout2 = setTimeout(function () {
             var spawnPoint = new b2Vec2(width / METER / 2 - 1, 0.2);
@@ -86,6 +86,7 @@ function addFlowBottle(pop, color) {
             particleStage.addChild(groupParticleStage);
         }, 2000);
         eventArray.push(timeout2);
+        stage.addChild(bottle);
     }, pop);
     eventArray.push(timeout);
 }

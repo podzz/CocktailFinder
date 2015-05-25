@@ -112,9 +112,8 @@
         {
             ingr.selectedColor = color;
             var route = ingr.index + '/' + color.substring(1);
-            console.log(route);
             $http.get("/api/ingredients/setColor/" + route).success(function (data) {
-
+                that.cocktailRenderer.reload(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             })
         }
 
@@ -135,7 +134,7 @@
                 // Data fetched from server
                 that.data = data;
                 that.currentIndex = 0;
-                that.cocktailRenderer.reload(that.currentCocktail.ingredient);
+                that.cocktailRenderer.reload(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             });
 
 

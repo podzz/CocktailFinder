@@ -10,7 +10,10 @@ var recipeArr = [];
 var rotorArr = [];
 var objectDisplayArr = [];
 var objectPhysicsArr = [];
+
 var currentIngredients = null;
+var currentRecipe = null;
+
 var objectArrInc = 0;
 
 var right;
@@ -69,7 +72,7 @@ function CocktailRenderer() {
 }
 
 CocktailRenderer.prototype.initRenderer = function () {
-    renderers = PIXI.autoDetectRenderer(width, height, { transparent: true });  // arguments: width, height, view, transparent, antialias
+    renderers = PIXI.autoDetectRenderer(width, height, { transparent: true }, true);  // arguments: width, height, view, transparent, antialias
     $("#cocktailRenderer").append(renderers.view);
 
 
@@ -81,7 +84,7 @@ CocktailRenderer.prototype.initRenderer = function () {
     requestAnimationFrame(animate);
 }
 
-CocktailRenderer.prototype.reload = function (ingredients) {
+CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     resetTimeline();
 
     delete stage;
@@ -104,6 +107,11 @@ CocktailRenderer.prototype.reload = function (ingredients) {
     shapeArr = [];
     circleArr = [];
     rotorArr = [];
+
+    if (recipe_id != null)
+        currentRecipe = recipe_id;
+    else
+        currentRecipe = null;
     currentIngredients = ingredients;
     this.LoadAnimation("AnimationManager");
 }

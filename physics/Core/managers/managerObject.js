@@ -33,7 +33,7 @@ function createIceCube(offsetX, offsetY, size) {
     iceCube.width = size * METER + 5;
     iceCube.height = size * METER + 5;
     objectDisplayArr[objectArrInc++] = iceCube;
-    stage.addChild(iceCube);
+    particleStage.addChild(iceCube);
 }
 
 function createPaille(offsetX, offsetY, size) {
@@ -100,7 +100,7 @@ function createCitron(offsetX, offsetY, size) {
     blurX.blur=20;
     blurY.blur=20;
     iceCube.filters = [blurX, blurY];
-    stage.addChild(iceCube);
+    particleStage.addChild(iceCube);
     objectDisplayArr[objectArrInc++] = iceCube;
 }
 

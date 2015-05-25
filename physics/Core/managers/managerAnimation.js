@@ -16,8 +16,9 @@ function AnimationManager() {
     rotorDef.type = b2_dynamicBody;
     rotorDef.allowSleep = false;
 
-
     var recipeId = Math.floor(Math.random() * 12) + 1;
+    if (currentRecipe != null)
+        recipeId = currentRecipe;
     initParticle();
 
     parser.getParseRotor();
@@ -32,7 +33,7 @@ function AnimationManager() {
     var image_recipe = parser.getImageFile(recipeId);
     recipeRender(image_recipe);
 //    rotorRender(rotorArr);
-    var ingr_pop = 1000;
+    var ingr_pop = 0;
     if (currentIngredients) {
         for (var i = 0; i < currentIngredients.length; i++) {
             var ingr = currentIngredients[i];

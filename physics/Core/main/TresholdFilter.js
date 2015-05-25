@@ -7,7 +7,7 @@ function TresholdFilter() {
         "uniform sampler2D uSampler;\n" +
         "void main(void) {\n" +
         "gl_FragColor = texture2D(uSampler, vTextureCoord);\n" +
-        "if (gl_FragColor.a < 0.1)\n" +
+        "if (gl_FragColor.a < 0.5)\n" +
         "gl_FragColor.a = 0.;\n" +
         "}"
     )
