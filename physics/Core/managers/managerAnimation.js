@@ -1,7 +1,6 @@
 /**
  * Created by Francois on 08/05/15.
  */
-var joint = null;
 var time = 0;
 
 var rotorDef;
@@ -88,7 +87,6 @@ function animate() {
 
     step();
 
-    requestAnimFrame(animate);
     var particles = world.particleSystems[world.particleSystems.length - 1].GetPositionBuffer();
     var colorsBuffer = world.particleSystems[world.particleSystems.length - 1].GetColorBuffer();
 
@@ -100,7 +98,7 @@ function animate() {
             circle.x = ((particles[index * 2] ) * METER);
             circle.y = ((particles[(index * 2) + 1]) * METER);
             circle.clear();
-            circle.beginFill(rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]));
+            circle.beginFill(rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]), 1);
             circle.drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
         }
         else {
@@ -129,5 +127,7 @@ function animate() {
     }
     renderers.render(stage);
 
+
+    requestAnimationFrame(animate);
 
 }

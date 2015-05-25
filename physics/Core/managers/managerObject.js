@@ -66,6 +66,7 @@ function createPaille(offsetX, offsetY, size) {
     iceCube.anchor.y = 0.5;
     iceCube.width = size * METER + 5;
     iceCube.height = size * METER + 5;
+
     objectDisplayArr[objectArrInc++] = iceCube;
     stage.addChild(iceCube);
 }
@@ -86,20 +87,21 @@ function createCitron(offsetX, offsetY, size) {
 
 
     objectPhysicsArr[objectArrInc] = body;
-    var image = new Image();
-    image.src = "Assets/ObjectsImage/citron.png";
-    var base = new PIXI.BaseTexture(image);
-    var texture = new PIXI.Texture(base);
-    var iceCube = new PIXI.Sprite(texture);
+
+    var iceCube = new PIXI.Sprite.fromImage('Assets/ObjectsImage/citron.png');
     iceCube.anchor.x = 0.5;
     iceCube.anchor.y = 0.5;
     iceCube.width = size * METER + 8;
     iceCube.height = size * METER + 8;
 
-    objectDisplayArr[objectArrInc++] = iceCube;
-    stage.addChild(iceCube);
 
-    //stage.addChild(bottleArr[bottleArr.length - 1]);
+    var blurX = new PIXI.filters.BlurXFilter();
+    var blurY = new PIXI.filters.BlurYFilter();
+    blurX.blur=20;
+    blurY.blur=20;
+    iceCube.filters = [blurX, blurY];
+    stage.addChild(iceCube);
+    objectDisplayArr[objectArrInc++] = iceCube;
 }
 
 function createBanner(offsetX, offsetY, size) {

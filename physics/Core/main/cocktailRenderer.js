@@ -22,7 +22,7 @@ var positionIterations = 3;
 var g_groundBody = null;
 var test;
 
-var particleSize = 8.5;
+var particleSize = 6;
 
 var METER = 100; //Meter per pixel
 
@@ -32,10 +32,12 @@ var collisionManager = null;
 var animationManager = null;
 
 var stage = null;
-var pondContainer = null;
+var particleStage = null;
 var renderers = null;
 
-var blurFilter = null;
+var blur = null;
+var blurX = null;
+var blurY = null;
 var thresoldFilter = null;
 
 function CocktailRenderer() {
@@ -52,20 +54,22 @@ function CocktailRenderer() {
     collisionManager = new CollisionManager();
 
     /* Graphics Init */
-    stage = new PIXI.Stage(displayFillColor);
-    pondContainer = new PIXI.DisplayObjectContainer();
-    stage.addChild(pondContainer);
-
+    stage = new PIXI.Container();
+    particleStage = new PIXI.Container();
+    stage.addChild(particleStage);
     /* - Filter */
-    blurFilter = new PIXI.BlurFilter();
-    thresoldFilter = new PIXI.TresholdFilter();
-    blurFilter.blur = 10;
-    pondContainer.filters = [blurFilter, thresoldFilter];
+    blur = new PIXI.filters.BlurFilter();
+
+    blur.blur= 20;
+    blur.passes = 1;
+
+    thresoldFilter = new TresholdFilter();
+
 
 }
 
 CocktailRenderer.prototype.initRenderer = function () {
-    renderers = PIXI.autoDetectRenderer(width, height, null, true, true);  // arguments: width, height, view, transparent, antialias
+    renderers = PIXI.autoDetectRenderer(width, height, { transparent: true });  // arguments: width, height, view, transparent, antialias
     $("#cocktailRenderer").append(renderers.view);
 
 
@@ -74,21 +78,25 @@ CocktailRenderer.prototype.initRenderer = function () {
     g_groundBody = world.CreateBody(bd);
 
     animationManager = AnimationManager();
-    requestAnimFrame(animate);
+    requestAnimationFrame(animate);
 }
 
 CocktailRenderer.prototype.reload = function (ingredients) {
     resetTimeline();
-    pondContainer.visible = false;
-    delete pondContainer;
+
     delete stage;
-    stage = new PIXI.Stage(displayFillColor);
-    pondContainer = new PIXI.DisplayObjectContainer();
-    stage.addChild(pondContainer);
-    pondContainer.filters = [blurFilter, thresoldFilter];
+    delete particleStage;
+    stage = new PIXI.Container();
+    particleStage = new PIXI.Container();
+    stage.addChild(particleStage);
+
+    thresoldFilter = new TresholdFilter();
+
+    particleStage.filters = [thresoldFilter];
+
     world.DestroyParticleSystem(world.particleSystems[0]);
     /* Create World */
-    gravity = new b2Vec2(0, 10)
+    gravity = new b2Vec2(0, 10);
     world = new b2World(gravity);
 
     circleIndex = [];
@@ -101,8 +109,8 @@ CocktailRenderer.prototype.reload = function (ingredients) {
     this.LoadAnimation("AnimationManager");
 }
 
-CocktailRenderer.prototype.LoadAnimation = function(animationName) {
-    world.SetGravity(new b2Vec2(0, 10));
+CocktailRenderer.prototype.LoadAnimation = function (animationName) {
+    world.SetGravity(new b2Vec2(0, 8));
     var bd = new b2BodyDef;
     g_groundBody = world.CreateBody(bd);
 

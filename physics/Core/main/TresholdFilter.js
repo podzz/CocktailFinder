@@ -1,29 +1,23 @@
-PIXI.TresholdFilter = function()
-{
-    PIXI.AbstractFilter.call( this );
+function TresholdFilter() {
 
-    this.passes = [this];
+    PIXI.AbstractFilter.call(this,"",
+        "precision lowp float;\n" +
+        "varying vec2 vTextureCoord;\n" +
+        "varying vec4 vColor;\n" +
+        "uniform sampler2D uSampler;\n" +
+        "void main(void) {\n" +
+        "gl_FragColor = texture2D(uSampler, vTextureCoord);\n" +
+        "if (gl_FragColor.a < 0.1)\n" +
+        "gl_FragColor.a = 0.;\n" +
+        "}"
+    )
 
-    this.uniforms = {
-        threshold: {type: '1f', value: 0.8}
-    };
 
-    this.fragmentSrc = [
-        'precision mediump float;',
-        'varying vec2 vTextureCoord;',
-        'varying vec4 vColor;',
-        'uniform float threshold;',
-        'uniform sampler2D uSampler;',
-        'void main(void) {',
-        ' gl_FragColor = texture2D(uSampler, vTextureCoord);',
-        ' if (gl_FragColor.a < threshold)',
-        '   discard;',
-        '}'
-    ];
+    this.passes = 1;
 };
 
-PIXI.TresholdFilter.prototype = Object.create( PIXI.AbstractFilter.prototype );
-PIXI.TresholdFilter.prototype.constructor = PIXI.TresholdFilter;
+TresholdFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
+TresholdFilter.prototype.constructor = TresholdFilter;
 
 /**
  * The pixel size used by the filter.
@@ -31,11 +25,14 @@ PIXI.TresholdFilter.prototype.constructor = PIXI.TresholdFilter;
  * @property size
  * @type Number
  */
-Object.defineProperty(PIXI.TresholdFilter.prototype, 'size', {
-    get: function() {
-        return this.uniforms.threshold.value;
-    },
-    set: function(value) {
-        this.uniforms.threshold.value = value;
-    }
-});
+Object.defineProperties(TresholdFilter.prototype,
+    {
+        thresold: {
+            get: function () {
+                return this.uniforms.thresold.value;
+            },
+            set: function (value) {
+                this.uniforms.thresold.value = value;
+            }
+        }
+    });

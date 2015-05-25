@@ -75,14 +75,14 @@ function addFlowBottle(pop, color) {
             var second_record = particleSystem.GetPositionBuffer().length / 2;
             for (var i = 0; i < second_record - first_record; i++) {
                 var graphics = new PIXI.Graphics();
-                stage.addChild(graphics);
+                graphics.filter = [blur, thresoldFilter];
+                particleStage.addChild(graphics);
                 circleArr.push(graphics);
                 circleIndex.push(circleArr.length - 1);
-                pondContainer.addChild(graphics);
             }
         }, 2000);
         eventArray.push(timeout2);
-        stage.addChild(bottle);
+        //stage.addChild(bottle);
     }, pop);
     eventArray.push(timeout);
 }
