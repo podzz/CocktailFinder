@@ -14,6 +14,7 @@
           href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
     <!-- Custom CSS -->
     <link href="css/cocktail.css" rel="stylesheet">
+    <link href="css/slider.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Raleway:800,400' rel='stylesheet' type='text/css'>
     <!-- Physics Script -->
@@ -100,6 +101,9 @@
                          ng-mouseleave="show = false" ng-show="show">
                         <div ng-if="!(ingr.selectedColor == '#null')" class="colorView"
                              style="{{ 'background:' + ingr.selectedColor}}">
+                        </div>
+                        <div id="slider">
+                            <input class="barslider" type="range" id="rangeinput" min="0" max="255" value="255"/>
                         </div>
                         <ul id="listColors">
                             <li ng-repeat="color in ingr.colors track by $index"

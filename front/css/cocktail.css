@@ -187,6 +187,11 @@ html {
     margin-bottom: 5px;
 }
 
+ul#listColors, li#listColors {
+    list-style-type: none;
+    padding-left: 0;
+}
+
 ul#listColors {
     border: 2px solid black;
     border-radius: 4px;
