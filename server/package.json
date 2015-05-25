@@ -15,7 +15,7 @@
   "engines":
   {
     "node": "0.10.x",
-    "node-dev": "",
+    "node-dev": "2.6.2",
     "npm": "1.2.x"
   },
   "scripts":
