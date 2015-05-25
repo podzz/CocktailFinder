@@ -75,7 +75,6 @@ step = function () {
 }
 
 function animate() {
-
     function componentToHex(c) {
         var hex = c.toString(16).toUpperCase();
         return hex.length == 1 ? "0" + hex : hex;
@@ -98,7 +97,7 @@ function animate() {
             circle.x = ((particles[index * 2] ) * METER);
             circle.y = ((particles[(index * 2) + 1]) * METER);
             circle.clear();
-            circle.beginFill(rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]), 1);
+            circle.beginFill(rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]));
             circle.drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
         }
         else {

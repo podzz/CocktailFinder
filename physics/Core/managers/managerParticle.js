@@ -7,8 +7,10 @@ var spriteArray = [];
 
 function initParticle() {
     var psd = new b2ParticleSystemDef();
-    psd.radius = 0.04;
+    psd.radius = 0.05;
     psd.dampingStrength = 0.4;
+    psd.viscousStrength = 0.1;
+    psd.colorMixingStrength = 0.01;
 
     if (world.particleSystems[0] != null)
         world.DestroyParticleSystem(world.particleSystems[0]);
@@ -59,7 +61,7 @@ function addFlowBottle(pop, color) {
 
             var particlegroupDef = new b2ParticleGroupDef();
             particlegroupDef.shape = box;
-            particlegroupDef.flags = b2_colorMixingParticle;
+            particlegroupDef.flags = b2_colorMixingParticle | b2_viscousParticle;
             particlegroupDef.color.Set(color_process.r, color_process.g, color_process.b, color_process.a);
 
 
@@ -73,16 +75,17 @@ function addFlowBottle(pop, color) {
             particleSystem.CreateParticleGroup(particlegroupDef);
             world.CreateBody(bottle_flow);
             var second_record = particleSystem.GetPositionBuffer().length / 2;
+            var groupParticleStage = new PIXI.Container();
+            groupParticleStage.filters = [blur];
             for (var i = 0; i < second_record - first_record; i++) {
                 var graphics = new PIXI.Graphics();
-                graphics.filter = [blur, thresoldFilter];
-                particleStage.addChild(graphics);
+                groupParticleStage.addChild(graphics);
                 circleArr.push(graphics);
                 circleIndex.push(circleArr.length - 1);
             }
+            particleStage.addChild(groupParticleStage);
         }, 2000);
         eventArray.push(timeout2);
-        //stage.addChild(bottle);
     }, pop);
     eventArray.push(timeout);
 }

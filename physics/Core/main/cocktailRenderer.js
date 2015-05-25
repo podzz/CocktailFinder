@@ -22,7 +22,7 @@ var positionIterations = 3;
 var g_groundBody = null;
 var test;
 
-var particleSize = 6;
+var particleSize = 7;
 
 var METER = 100; //Meter per pixel
 
@@ -60,8 +60,8 @@ function CocktailRenderer() {
     /* - Filter */
     blur = new PIXI.filters.BlurFilter();
 
-    blur.blur= 20;
-    blur.passes = 1;
+    blur.blur= 5;
+    blur.passes = 2;
 
     thresoldFilter = new TresholdFilter();
 
@@ -91,12 +91,11 @@ CocktailRenderer.prototype.reload = function (ingredients) {
     stage.addChild(particleStage);
 
     thresoldFilter = new TresholdFilter();
-
     particleStage.filters = [thresoldFilter];
 
     world.DestroyParticleSystem(world.particleSystems[0]);
     /* Create World */
-    gravity = new b2Vec2(0, 10);
+    gravity = new b2Vec2(0, 8);
     world = new b2World(gravity);
 
     circleIndex = [];
@@ -110,7 +109,6 @@ CocktailRenderer.prototype.reload = function (ingredients) {
 }
 
 CocktailRenderer.prototype.LoadAnimation = function (animationName) {
-    world.SetGravity(new b2Vec2(0, 8));
     var bd = new b2BodyDef;
     g_groundBody = world.CreateBody(bd);
 

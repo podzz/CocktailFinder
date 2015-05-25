@@ -28,14 +28,14 @@ CollisionManager.prototype.linkShape = function (body, shapeArr) {
                 var shape = new b2EdgeShape();
 
                 shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[j].x, vectors[j].y));
-                body.CreateFixtureFromShape(shape, 0.5);
+                body.CreateFixtureFromShape(shape, 20);
                 vectorStart = vectors[j];
             }
 
             // PART TO LINK LAST AND FIRST VERTEX
             shape = new b2EdgeShape();
             shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[0].x, vectors[0].y));
-            body.CreateFixtureFromShape(shape, 0.5);
+            body.CreateFixtureFromShape(shape, 20);
             vectors[vectors.length] = shape.vertex2;
         }
     }
