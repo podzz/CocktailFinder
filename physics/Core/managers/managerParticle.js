@@ -9,7 +9,7 @@ function initParticle() {
     var psd = new b2ParticleSystemDef();
     psd.radius = 0.05;
     psd.dampingStrength = 0.4;
-    psd.viscousStrength = 0.01;
+    psd.viscousStrength = 0.1;
     psd.colorMixingStrength = 0.8;
 
     if (world.particleSystems[0] != null)

@@ -25,7 +25,7 @@ var positionIterations = 3;
 var g_groundBody = null;
 var test;
 
-var particleSize = 7;
+var particleSize = 10;
 
 var METER = 100; //Meter per pixel
 
@@ -65,8 +65,8 @@ function CocktailRenderer() {
     blur = new PIXI.filters.BlurFilter();
     custom = new PIXI.filters.NoiseFilter();
 
-    blur.blur= 5;
-    blur.passes = 2;
+    blur.blur=300;
+    blur.passes =1;
 
     thresoldFilter = new TresholdFilter();
 
@@ -96,7 +96,7 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     stage.addChild(particleStage);
 
     thresoldFilter = new TresholdFilter();
-    particleStage.filters = [];
+    particleStage.filters = [blur];
 
     world.DestroyParticleSystem(world.particleSystems[0]);
     /* Create World */

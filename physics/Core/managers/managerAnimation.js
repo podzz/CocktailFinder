@@ -95,11 +95,12 @@ function animate() {
         var index = circleIndex[key];
         var circle = circleArr[index];
         if (circle.y < height) {
-            circle.x = ((particles[index * 2] ) * METER);
-            circle.y = ((particles[(index * 2) + 1]) * METER);
+            circle.position.x = ((particles[index * 2] ) * METER);
+            circle.position.y = ((particles[(index * 2) + 1]) * METER);
             circle.clear();
+
             circle.beginFill(rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]), colorsBuffer[(index * 4) + 3] / 255);
-            circle.drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
+            circle.drawCircle(0,0, particleSize);
         }
         else {
             circle.clear();
