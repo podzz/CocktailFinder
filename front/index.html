@@ -99,11 +99,9 @@
                     </button>
                     <div id="{{ 'colorBlock' + $index }}" class="colorsBlock" ng-mouseover="show = true"
                          ng-mouseleave="show = false" ng-show="show">
-                        <div ng-if="!(ingr.selectedColor == '#null')" class="colorView"
-                             style="{{ 'background:' + ingr.selectedColor}}">
-                        </div>
-                        <div id="slider">
-                            <input class="barslider" type="range" id="rangeinput" min="0" max="255" value="255"/>
+                        <div ng-if="!(ingr.selectedColor == '#null')" class="colorSelected"
+                             style="{{ 'background:' + ingr.selectedColor + '; opacity:' + ingr.opacity / 255 }}">
+
                         </div>
                         <ul id="listColors">
                             <li ng-repeat="color in ingr.colors track by $index"
@@ -112,6 +110,12 @@
                                 class="btn btn-quantity btn-b colorView" style="{{ 'background:' + color}}">
                             </li>
                         </ul>
+                        <div ng-if="!(ingr.selectedColor == '#null')" id="slider" style="{{ 'background-image:-webkit-linear-gradient(left, white, ' + ingr.selectedColor + ');' }}">
+                            <input class="barslider" type="range" id="rangeinput" ng-mouseup="recipeCtrl.setOpacity(ingr)" ng-model="ingr.opacity" min="0"
+                                   max="255" value="{{ recipeCtrl.opacity }}" step="25.5"/>
+                        </div>
+
+
                     </div>
                 </li>
             </ul>

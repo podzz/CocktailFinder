@@ -28,6 +28,18 @@ ControllerIngredient.setColor = function(ingredient_id, color, callback)
     cypher(query, cb);
 }
 
+ControllerIngredient.setOpacity = function(ingredient_id, opacity, callback)
+{
+    var query = 'MATCH (i:Ingredient) WHERE i.index="' + ingredient_id + '" SET i.opacity="' + opacity + '";';
+    var cb = function (err, data) {
+        if (err)
+            return callback(err,null);
+        var data_formatted = {response: data};
+
+        callback(null, data_formatted);
+    };
+    cypher(query, cb);
+}
 
 // Get the Ingredients list for a recipe
 ControllerIngredient.getIngredientsOfRecipe = function (recipe_id, callback) {

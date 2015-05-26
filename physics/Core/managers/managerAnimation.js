@@ -38,7 +38,7 @@ function AnimationManager() {
         for (var i = 0; i < currentIngredients.length; i++) {
             var ingr = currentIngredients[i];
             if (ingr.selectedColor && ingr.selectedColor != "#null") {
-                addFlowBottle(ingr_pop, ingr.selectedColor);
+                addFlowBottle(ingr_pop, ingr.selectedColor, ingr.opacity);
                 ingr_pop += 3000;
             }
         }
@@ -98,7 +98,7 @@ function animate() {
             circle.x = ((particles[index * 2] ) * METER);
             circle.y = ((particles[(index * 2) + 1]) * METER);
             circle.clear();
-            circle.beginFill(rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]));
+            circle.beginFill(rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]), colorsBuffer[(index * 4) + 3] / 255);
             circle.drawCircle(0 - particleSize / METER / 2, 0 - particleSize / METER / 2, particleSize);
         }
         else {

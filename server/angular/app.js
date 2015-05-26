@@ -16,6 +16,8 @@
         // Current recipe displayed
         this.currentCocktail = {};
 
+        this.opacity = 0;
+
         this.cocktailRenderer = new CocktailRenderer();
 
         var that = this;
@@ -113,6 +115,13 @@
             ingr.selectedColor = color;
             var route = ingr.index + '/' + color.substring(1);
             $http.get("/api/ingredients/setColor/" + route).success(function (data) {
+                that.cocktailRenderer.reload(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+            })
+        }
+
+        this.setOpacity = function(ingr) {
+            var route = ingr.index + '/' + ingr.opacity;
+            $http.get("/api/ingredients/setOpacity/" + route).success(function (data) {
                 that.cocktailRenderer.reload(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             })
         }

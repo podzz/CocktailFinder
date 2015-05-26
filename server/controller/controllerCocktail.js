@@ -34,7 +34,8 @@ ControllerCocktail.getCocktails = function (ids, callback) {
     '       r.quantity, ' + // 5
     '       r.unity, ' + // 6
     '       rec.index,' + // 7
-    '       i.selectedColor'; // 8
+    '       i.selectedColor,' + // 8
+    '       i.opacity'; //9
     var cb = function (err, data) {
         if (err)
             return callback(err,null);
@@ -63,6 +64,7 @@ ControllerCocktail.getCocktails = function (ids, callback) {
                         unity: row_array[6],
                         name: row_array[3],
                         colors: row_array[4],
+                        opacity: row_array[9],
                         selectedColor: '#' + row_array[8]
                     });
                 }

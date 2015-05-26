@@ -165,10 +165,8 @@ html {
     background: #fffbf9;
     position: absolute;
     z-index:1;
-    padding: 10px 10px 10px 10px;
     color:black;
     display:inline;
-    border-radius: 10px;
     text-transform: uppercase;
     font-family: 'Helvetica Neue', cursive;
     font-weight: 400;
@@ -181,10 +179,13 @@ html {
 }
 
 .colorView {
-    height:30px;
-    border-radius: 4px;
-    border: 2px solid black;
-    margin-bottom: 5px;
+    height:40px;
+    width:40px;
+}
+
+
+.colorSelected {
+    height: 50px;
 }
 
 ul#listColors, li#listColors {
@@ -192,10 +193,10 @@ ul#listColors, li#listColors {
     padding-left: 0;
 }
 
-ul#listColors {
-    border: 2px solid black;
-    border-radius: 4px;
-    padding-bottom: 10px;
+#listColors {
+    background:lightgray;
+    padding-bottom:10px;
+    margin: auto;
 }
 
 .circleShow {
@@ -203,6 +204,7 @@ ul#listColors {
     width: 100px;
     height: 100px;
     position:relative;
+    border: 1px solid black;
 }
 
 .circleShow:hover {

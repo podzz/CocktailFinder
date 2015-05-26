@@ -9,8 +9,8 @@ function initParticle() {
     var psd = new b2ParticleSystemDef();
     psd.radius = 0.05;
     psd.dampingStrength = 0.4;
-    psd.viscousStrength = 0.1;
-    psd.colorMixingStrength = 0.5;
+    psd.viscousStrength = 0.01;
+    psd.colorMixingStrength = 0.8;
 
     if (world.particleSystems[0] != null)
         world.DestroyParticleSystem(world.particleSystems[0]);
@@ -25,14 +25,18 @@ function resetTimeline() {
 }
 
 
-function addFlowBottle(pop, color) {
+function addFlowBottle(pop, color, opacity) {
     function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
     function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
     function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
     function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
 
     var timeout = setTimeout(function() {
-        var color_process = {r: hexToR(color), g: hexToG(color), b: hexToB(color)};
+        var color_process = null;
+        if (opacity == null)
+            color_process = {r: hexToR(color), g: hexToG(color), b: hexToB(color), a: 255};
+        else
+            color_process = {r: hexToR(color), g: hexToG(color), b: hexToB(color), a: opacity};
         var calqueList = [];
         var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
         var calqueSelected = 'Assets/RecipesImage/calque' + index_calqueSelected + '.png';
@@ -62,6 +66,7 @@ function addFlowBottle(pop, color) {
             var particlegroupDef = new b2ParticleGroupDef();
             particlegroupDef.shape = box;
             particlegroupDef.flags = b2_colorMixingParticle | b2_viscousParticle;
+
             particlegroupDef.color.Set(color_process.r, color_process.g, color_process.b, color_process.a);
 
 
@@ -76,7 +81,7 @@ function addFlowBottle(pop, color) {
             world.CreateBody(bottle_flow);
             var second_record = particleSystem.GetPositionBuffer().length / 2;
             var groupParticleStage = new PIXI.Container();
-            groupParticleStage.filters = [blur];
+            groupParticleStage.filters = [new PIXI.filters.DropShadowFilter()];
             for (var i = 0; i < second_record - first_record; i++) {
                 var graphics = new PIXI.Graphics();
                 groupParticleStage.addChild(graphics);

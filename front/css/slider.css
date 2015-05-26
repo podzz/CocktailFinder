@@ -1,37 +1,13 @@
 #slider {
-    width: 400px;
-    height: 17px;
+    width: 300px;
+    height: 40px;
     position: relative;
-    margin-bottom: 5px;
-    background: #10171D;
-
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
-    border-radius: 40px;
-
-    -webkit-box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
-    -moz-box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
-    box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
 }
 
 #slider .barslider {
-    width: 388px;
-    height: 5px;
+    width: 280px;
     background: #333;
     position: relative;
-    top: -4px;
+    top:12px;
     left: 4px;
-
-    background: #1d2e38;
-    background: -moz-linear-gradient(left, #1d2e38 0%, #2b4254 50%, #2b4254 100%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#1d2e38), color-stop(50%,#2b4254), color-stop(100%,#2b4254));
-    background: -webkit-linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
-    background: -o-linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
-    background: -ms-linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
-    background: linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1d2e38', endColorstr='#2b4254',GradientType=1 );
-
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
-    border-radius: 40px;
 }
