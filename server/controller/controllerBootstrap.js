@@ -23,20 +23,18 @@ ControllerBootstrap.rankIngredients = function (callback) {
     };
     cypher(query, cb);
 }
-/*
+
 // Foreach recipe, set a value named "recipeStore"
 ControllerBootstrap.rankRecipes = function (callback) {
     var query = 'MATCH (r:Recipe)--(i:Ingredient) WITH r, avg(i.recipeCount) AS average, count(i) as ingrCount SET r.recipeScore = average;';
-    db.query(query, null, function (err, results) {
-        // ICO Request fail        
-        if (err) {
-            return callback(err);
-        }
-        // Async return call
-        callback(null, "Recipe Boostrap Successful");
-    });
+    var cb = function (err, data) {
+        if (err)
+            callback(err,data);
+        callback(null, data);
+    };
+    cypher(query, cb);
 };
-*/
+
 ControllerBootstrap.clean = function (callback) {
     var query = 'MATCH (r:Recipe)-[re]-() WHERE r.recipeScore <300 DELETE r, re';
     db.query(query, null, function (err, results) {
