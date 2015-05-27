@@ -41,14 +41,14 @@ function AnimationManager() {
 
     recipeRender(image_recipe);
 
-    rotorRender(rotorArr);
+    //rotorRender(rotorArr);
     var ingr_pop = 0;
     if (currentIngredients) {
         for (var i = 0; i < currentIngredients.length; i++) {
             var ingr = currentIngredients[i];
             if (ingr.selectedColor && ingr.selectedColor != "#null") {
                 addFlowBottle(ingr_pop, ingr.selectedColor, ingr.opacity);
-                ingr_pop += 3000;
+                ingr_pop += 6000;
             }
         }
     }
