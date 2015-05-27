@@ -55,6 +55,7 @@ function addFlowBottle(pop, color, opacity) {
         bottle.anchor.y = 0.5;
         bottle.x = width / 2 - 115;
         bottle.y = -200;
+        bottle.alpha = 0.6;
         spriteArray.push(bottle);
         //anim(bottle).to({y: 30}, 1);
         anim(bottle).to({y: height / 3 - rotorBodyHeight * METER / 1.8}, 1);
@@ -69,7 +70,7 @@ function addFlowBottle(pop, color, opacity) {
 
             var particlegroupDef = new b2ParticleGroupDef();
             particlegroupDef.shape = box;
-            particlegroupDef.flags = b2_colorMixingParticle | b2_viscousParticle;
+            particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle;
 
             particlegroupDef.color.Set(color_process.r, color_process.g, color_process.b, color_process.a);
 
@@ -85,9 +86,10 @@ function addFlowBottle(pop, color, opacity) {
             world.CreateBody(bottle_flow);
             var second_record = particleSystem.GetPositionBuffer().length / 2;
             var groupParticleStage = new PIXI.Container();
-            groupParticleStage.filters = [new PIXI.filters.DropShadowFilter()];
+            groupParticleStage.filters = [blur];
             for (var i = 0; i < second_record - first_record; i++) {
                 var graphics = new PIXI.Graphics();
+
                 groupParticleStage.addChild(graphics);
                 circleArr.push(graphics);
                 circleIndex.push(circleArr.length - 1);

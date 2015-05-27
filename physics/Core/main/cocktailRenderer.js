@@ -69,11 +69,11 @@ function CocktailRenderer() {
     particleStage = new PIXI.Container();
     stage.addChild(particleStage);
     /* - Filter */
-    blur = new PIXI.filters.BlurFilter();
+    blur = new PIXI.filters.BlurDirFilter();
     custom = new PIXI.filters.NoiseFilter();
 
-    blur.blur=300;
-    blur.passes =1;
+    blur.blurX=300;
+    blur.passes=10;
 
     thresoldFilter = new TresholdFilter();
 
@@ -98,18 +98,25 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
 
     delete stage;
     delete particleStage;
+
+    blur = new PIXI.filters.BlurDirFilter();
+    custom = new PIXI.filters.NoiseFilter();
+
+    blur.blur=300;
+    blur.passes=2;
+
     stage = new PIXI.Container();
     particleStage = new PIXI.Container();
-    particleStage.interactive = true;
     stage.addChild(particleStage);
 
     thresoldFilter = new TresholdFilter();
-    particleStage.filters = [blur];
+
 
     world.DestroyParticleSystem(world.particleSystems[0]);
     /* Create World */
     gravity = new b2Vec2(0, 8);
     world = new b2World(gravity);
+
 
     circleIndex = [];
     recipeArr = [];
@@ -117,6 +124,7 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     shapeArr = [];
     circleArr = [];
     rotorArr = [];
+
 
     if (recipe_id != null)
         currentRecipe = recipe_id;
