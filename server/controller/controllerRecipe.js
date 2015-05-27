@@ -1,62 +1,89 @@
-// Getting neo4j object
-var neo4j = require('neo4j');
+var request = require("request");
 
-// Connection do DB
-var db = new neo4j.GraphDatabase(
-    process.env['NEO4J_URL'] ||
-    process.env['GRAPHENEDB_URL'] ||
-    'http://localhost:7474'
-    );
-
-var ControllerRecipe = function ControllerRecipe(_node) {
+var ControllerRecipe = module.exports = function ControllerRecipe(_node) {
 };
+
+function cypher(query, cb) {
+    console.log(query)
+    var txUrl = "http://localhost:7474/db/data/transaction/commit";
+    request.post({
+            uri: txUrl,
+            json: {statements: [{statement: query}]}
+        },
+        function (err, res) {
+            console.log(res);
+            if (cb) {
+                cb(err, res.body)
+            }
+        })
+}
+
 // use a Cypher query to delete both this Recipe and the links on it.
-ControllerRecipe.prototype.del = function(callback) {
-    var query = [
-    'MATCH (recipe:Recipe)',
-    'WHERE ID(recipe) = {recipeId}',
-    'DELETE recipe',
-    'WITH recipe',
-    'MATCH (recipe)-[rel]-()',
-    'DELETE rel',
-    ].join('\n')
-
-    var params = {
-        recipeId: this.id
+ControllerRecipe.del = function(index, callback) {
+    var query = 'MATCH (r:Recipe)-[re]-() WHERE r.index = "'+ index + '" DELETE r, re';
+    var cb = function (err, data) {
+        if (err) {
+            return callback(err,null);
+        }
+        callback(null, "Deleted.");
     };
-
-    db.query(query, params, function(err) {
-        callback(err);
-    });
+    cypher(query, cb);
 };
 
-// Get the Recipe by ID
-ControllerRecipe.getId = function(id, callback) {
-    var query = [
-    'MATCH (re:Recipe { index:\'' + id + '\'})',
-    'RETURN re'
-    ].join(' ');
-    db.query(query, null, function (err, results) {
-        if (err) return callback(err);
-        var recipes = new Recipe(results[0]['re']);
-        callback(null, recipes);
-    });
+// use a Cypher query to delete both this Recipe and the links on it.
+ControllerRecipe.get = function(index, callback) {
+    var query = 'MATCH (r:Recipe) WHERE r.index = "'+ index + '" RETURN r';
+    var cb = function (err, data) {
+        if (err) {
+            return callback(err,null);
+        }
+        
+        var data_formatted = {cocktails: []};
+        var current_cocktail = null;
+ne
+        if (data && data.results[0] && data.results[0].data) {
+            if (data.results[0].data.length > 0) {
+                for (var i = 0; i < data.results[0].data.length; i++) {
+                    var row_array = data.results[0].data[i].row[0];
+                    data_formatted.cocktails.push(row_array);
+                }
+            }
+        }
+        //callback(null, data);
+        callback(null, data_formatted);
+    }
+    cypher(query, cb);
 };
 
-// Get all Recipes
-ControllerRecipe.getAll = function(callback) {
-    var query = [
-    'MATCH (recipe:Recipe)',
-    'RETURN recipe',
-    ].join('\n');
+// Get the all recipes
+ControllerRecipe.getAll = function(length, offset, callback) {
+    var query = 'MATCH (re:Recipe) RETURN re ORDER BY re.name';
+    if (offset) {
+        query += ' SKIP ' + (length * offset);
+    }
+    if (length) {
+        query += ' LIMIT ' + length;
+    }
+    var cb = function (err, data) {
+        if (err) {
+            return callback(err,null);
+        }
+        
+        var data_formatted = {cocktails: []};
+        var current_cocktail = null;
 
-    db.query(query, null, function (err, results) {
-        if (err) return callback(err);
-        var recipes = results.map(function (result) {
-            return new Recipe(result['recipe']);
-        });
-        callback(null, recipes);
-    });
+        if (data && data.results[0] && data.results[0].data) {
+            if (data.results[0].data.length > 0) {
+                for (var i = 0; i < data.results[0].data.length; i++) {
+                    var row_array = data.results[0].data[i].row[0];
+                    data_formatted.cocktails.push(row_array);
+                }
+            }
+        }
+        //callback(null, data);
+        callback(null, data_formatted);
+    }
+    cypher(query, cb);
 };
 
 module.exports = ControllerRecipe;

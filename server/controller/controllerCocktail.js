@@ -4,6 +4,7 @@ var ControllerCocktail = module.exports = function ControllerCocktail(_node) {
 };
 
 function cypher(query, cb) {
+    console.log(query)
     var txUrl = "http://localhost:7474/db/data/transaction/commit";
     request.post({
             uri: txUrl,
@@ -94,7 +95,7 @@ ControllerCocktail.getCocktailByExcludeIngredients = function (idIngredients, ca
         }
         query1 += 'WHERE '
     }
-    query2 += 'RETURN r.index, r.name LIMIT 5';
+    query2 += 'RETURN r.index, r.name ORDER BY r.recipeScore DESC LIMIT 5';
     var query = query1 + query2;
     var cb = function (err, data) {
         var index_list = [];

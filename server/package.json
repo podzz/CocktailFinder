@@ -7,7 +7,7 @@
   "dependencies":
   {
     "express": "~3.2.0",
-    "neo4j": "~1.1",
+    "neo4j": "~2.2.1",
     "strongloop": "",
     "node-bing-api":"",
     "request":""
