@@ -39,6 +39,8 @@ function addFlowBottle(pop, color, opacity) {
             color_process = {r: hexToR(color), g: hexToG(color), b: hexToB(color), a: opacity};
         var calqueList = [];
         var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
+        if (index_calqueSelected == 8)
+            index_calqueSelected = 1;
         var calqueSelected = 'Assets/RecipesImage/calque' + index_calqueSelected + '.png';
 
         var image = new Image();
@@ -54,12 +56,13 @@ function addFlowBottle(pop, color, opacity) {
         bottle.x = width / 2 - 115;
         bottle.y = -200;
         spriteArray.push(bottle);
-        anim(bottle).to({y: 30}, 1);
-        anim(bottle).to({x: 200}, 1);
+        //anim(bottle).to({y: 30}, 1);
+        anim(bottle).to({y: height / 3 - rotorBodyHeight * METER / 1.8}, 1);
+        anim(bottle).to({x: (width / 5) - glassScale / 2 + rotorBodyWidth * METER / 5}, 1);
         anim(bottle).to({rotation: 2.2}, 1);
-        anim(bottle).to(4, {y: -200}, 0.5);
+        anim(bottle).to(8, {y: -200}, 0.5);
         var timeout2 = setTimeout(function () {
-            var spawnPoint = new b2Vec2((width / METER / 4) - glassScale / 2 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
+            var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 2 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
 
             var box = new b2PolygonShape();
             box.SetAsBoxXYCenterAngle(0.7, 0.1, spawnPoint, 0.7);
@@ -90,7 +93,7 @@ function addFlowBottle(pop, color, opacity) {
                 circleIndex.push(circleArr.length - 1);
             }
             particleStage.addChild(groupParticleStage);
-        }, 2000);
+        }, 1000);
         eventArray.push(timeout2);
         stage.addChild(bottle);
     }, pop);

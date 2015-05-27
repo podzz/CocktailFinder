@@ -66,7 +66,7 @@ function parse_rotor(array) {
                 for (var i = 0; i < temp.length; i++) {
                     var vector = temp[i];
                     vector.x *= 3;
-                    vector.x = (width / METER / 4) - glassScale / 2 + vector.x;
+                    vector.x = (width / METER / 5) - glassScale / 2 + vector.x;
 
                     vector.y *= 3;
                     vector.y = height / METER / 3 - vector.y;
