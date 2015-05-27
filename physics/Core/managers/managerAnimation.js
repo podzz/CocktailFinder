@@ -71,7 +71,7 @@ function AnimationManager() {
         if (queryCallback.fixture) {
             var body_query = queryCallback.fixture.body;
             var md = new b2MouseJointDef();
-            md.bodyA = g_groundBody;
+            md.bodyA = body;
             md.bodyB = body_query;
             md.target = p;
             md.maxForce = 1000;
