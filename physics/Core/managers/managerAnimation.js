@@ -22,8 +22,9 @@ function AnimationManager() {
     rotorBody.fixedRotation = true;
 
     var recipeId = Math.floor(Math.random() * 12) + 1;
-    if (currentRecipe != null)
+    if (currentRecipe != null) {
         recipeId = currentRecipe;
+    }
     initParticle();
 
     rotorArr.push(parser.getParseRotor());

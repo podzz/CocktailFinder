@@ -64,7 +64,7 @@
             if (this.currentIndex != 0) {
                 this.currentIndex--;
                 this.currentCocktail = this.data.cocktails[this.currentIndex];
-                this.cocktailRenderer.reload(this.currentCocktail.ingredient);
+                this.cocktailRenderer.reload(this.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             }
         };
         // Increase the current index
@@ -72,7 +72,7 @@
             if (this.currentIndex < Object.keys(that.data.cocktails).length - 1) {
                 this.currentIndex++;
                 this.currentCocktail = that.data.cocktails[this.currentIndex];
-                this.cocktailRenderer.reload(that.currentCocktail.ingredient);
+                this.cocktailRenderer.reload(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             }
         };
         // Append an ingredient to the missing list
