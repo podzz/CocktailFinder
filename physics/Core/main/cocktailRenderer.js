@@ -33,16 +33,20 @@ var world = null;
 var parser = null;
 var collisionManager = null;
 var animationManager = null;
+var shapeManager = null;
 
 var stage = null;
 var particleStage = null;
 var renderers = null;
+
+var recipeRotor = null;
 
 var blur = null;
 var blurX = null;
 var blurY = null;
 var thresoldFilter = null;
 var custom = null;
+
 
 function CocktailRenderer() {
     width = $("#cocktailRenderer").width();
@@ -56,6 +60,7 @@ function CocktailRenderer() {
     parser.initParser();
 
     collisionManager = new CollisionManager();
+    shapeManager = new ShapeManager();
 
     /* Graphics Init */
     stage = new PIXI.Container();
@@ -93,6 +98,7 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     delete particleStage;
     stage = new PIXI.Container();
     particleStage = new PIXI.Container();
+    particleStage.interactive = true;
     stage.addChild(particleStage);
 
     thresoldFilter = new TresholdFilter();
@@ -117,6 +123,8 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     currentIngredients = ingredients;
     this.LoadAnimation("AnimationManager");
 }
+
+
 
 CocktailRenderer.prototype.LoadAnimation = function (animationName) {
     var bd = new b2BodyDef;

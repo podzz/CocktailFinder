@@ -8,14 +8,9 @@ function RecipeManager()
 
 
 function recipeRender(image_url) {
-
-    var image = new Image();
-    image.src = image_url;
-    var base = new PIXI.BaseTexture(image);
-    var texture = new PIXI.Texture(base);
-    var bottle = new PIXI.Sprite(texture);
+    var bottle = new PIXI.Sprite.fromImage(image_url);
     bottle.alpha = 0.9;
-
+    bottle.interactive = true;
     var real_dimensions = findWidthRecipe();
 
     bottle.width  = real_dimensions.width;
@@ -24,8 +19,9 @@ function recipeRender(image_url) {
     bottle.anchor.x = 0.5;
     bottle.x = width / 2;
     bottle.y = real_dimensions.max_y * METER - bottle.height;
-
     recipeArr.push(bottle);
+
+
     stage.addChild(bottle);
 }
 

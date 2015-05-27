@@ -8,14 +8,12 @@ var vectorsArray = {};
 var rotor = {};
 
 Parser.prototype.getParseResult = function (recipeId) {
-    recipeArr.push(vectorsArray[recipeId.toString()]);
     return vectorsArray[recipeId.toString()];
 };
 
 Parser.prototype.getParseRotor = function()
 {
-    rotorArr.push(vectorsArray["13"]);
-    return rotor["13"];
+    return vectorsArray["13"];
 }
 
 Parser.prototype.getImageFile = function (recipeId) {
@@ -30,20 +28,20 @@ function parse_recipe(array) {
             dataType: "text",
             success: function (data) {
                 var f = JSON.parse(data);
-                var temp = f.rigidBodies[0].shapes[0].vertices;
-                var vectors = [];
+                var parse = f.rigidBodies[0].shapes[0].vertices;
+                var listPoint = [];
 
-                for (var i = 0; i < temp.length; i++) {
-                    var vector = temp[i];
+                for (var i = 0; i < parse.length; i++) {
+                    var vector = parse[i];
                     vector.x *= glassScale;
                     vector.x = (width / METER / 2) - glassScale / 2 + vector.x;
 
                     vector.y *= glassScale;
                     vector.y = height / METER - 1.5 - vector.y;
 
-                    vectors[i] = vector;
+                    listPoint.push(vector);
                 }
-                vectorsArray[item] = vectors;
+                vectorsArray[item] = listPoint;
             }
         });
     }
@@ -62,9 +60,11 @@ function parse_rotor(array) {
 
                 for (var i = 0; i < temp.length; i++) {
                     var vector = temp[i];
-                    vector.x = (width / METER / 2)+ vector.x;
+                    vector.x *= 3;
+                    vector.x = (width / METER / 2) - glassScale / 2 + vector.x - 2.3;
 
-                    vector.y = height / METER - 1.5 - vector.y;
+                    vector.y *= 3;
+                    vector.y = height / METER - 1.5 - vector.y -4;
 
                     vectors[i] = vector;
                 }

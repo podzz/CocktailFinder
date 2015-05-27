@@ -19,7 +19,7 @@ function CollisionManager() {
  * @param shapeArr
  * @return void
  */
-CollisionManager.prototype.linkShape = function (body, shapeArr) {
+CollisionManager.prototype.LinkShape = function (body, shapeArr) {
     for (var i = 0; i < shapeArr.length; i++) {
         var vectors = shapeArr[i];
         if (vectors != null && vectors.length > 0) {

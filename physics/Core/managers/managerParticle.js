@@ -9,7 +9,7 @@ function initParticle() {
     var psd = new b2ParticleSystemDef();
     psd.radius = 0.05;
     psd.dampingStrength = 0.4;
-    psd.viscousStrength = 0.1;
+    psd.viscousStrength = 0.05;
     psd.colorMixingStrength = 0.8;
 
     if (world.particleSystems[0] != null)
@@ -54,14 +54,15 @@ function addFlowBottle(pop, color, opacity) {
         bottle.x = width / 2 - 115;
         bottle.y = -200;
         spriteArray.push(bottle);
-        anim(bottle).to({y: height / 2 - 400}, 1);
-        anim(bottle).to({rotation: 2.7}, 1);
-        anim(bottle).to(2, {y: -200}, 5);
+        anim(bottle).to({y: 30}, 1);
+        anim(bottle).to({x: 200}, 1);
+        anim(bottle).to({rotation: 2.2}, 1);
+        anim(bottle).to(4, {y: -200}, 0.5);
         var timeout2 = setTimeout(function () {
-            var spawnPoint = new b2Vec2(width / METER / 2 - 1, 0.2);
+            var spawnPoint = new b2Vec2(width / METER / 2 - 1.7, 0.3);
 
             var box = new b2PolygonShape();
-            box.SetAsBoxXYCenterAngle(0.1, 0.8, spawnPoint, -0.3);
+            box.SetAsBoxXYCenterAngle(0.7, 0.1, spawnPoint, 0.7);
 
             var particlegroupDef = new b2ParticleGroupDef();
             particlegroupDef.shape = box;

@@ -76,14 +76,13 @@ function createCitron(offsetX, offsetY, size) {
     bd.type = b2_dynamicBody;
     bd.position.Set(width / METER / 2, height / METER / 2);
     var body = world.CreateBody(bd);
-
     var shape = new b2CircleShape();
     shape.radius = 0.3;
 
     var sd = new b2FixtureDef;
     sd.density = 1.0;
     sd.shape = shape;
-    body.CreateFixtureFromDef(sd);
+    body.CreateFixtureFromDef(sd, 0.1);
 
 
     objectPhysicsArr[objectArrInc] = body;
