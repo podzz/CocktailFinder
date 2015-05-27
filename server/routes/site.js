@@ -3,6 +3,6 @@
  * GET home page.
  */
 
-exports.index = function(req, res){
-	res.sendFile('./index2.html');
+exports.logger = function(req, res){
+	res.sendFile('./recipes.html');
 };

@@ -47,7 +47,9 @@ app.locals({
 // ---------------------------------
 
 // App routes
-app.get('/',				 		routes.site.index);
+
+// Logger
+app.get('/logger',				 	routes.site.logger);
 
 // Bootstrap/Install routes
 app.get('/bdd/rank/ingredients',	routes.bdd.rankIngredients);
@@ -58,7 +60,7 @@ app.get('/bdd/bootstrap',			routes.bdd.bootstrap);
 // Bing routes
 app.get('/bing/search/:search',    routes.bing.downloadPicturesIngredients);
 
-// API routes
+// Production API routes
 app.get('/api/cocktails',           routes.api.findCocktails);
 app.get('/api/cocktails/',          routes.api.findCocktails)
 app.get('/api/cocktails/:ids', 		routes.api.findCocktails);
@@ -67,6 +69,12 @@ app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.api.setOpacit
 app.get('/api/missing', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/:array',  	routes.api.findCocktailsByMissingIds);
+
+
+// Logger
+app.get('/api/recipes/', 			routes.recipes.list);
+app.get('/api/recipes/:id', 		routes.recipes.find);
+app.delete('/api/recipes/:id', 		routes.recipes.del);
 
 
 // ---------------------------------

@@ -1,35 +1,23 @@
-var ControllerIngredient= require('../controller/controllerIngredient');
 var ControllerRecipe = require('../controller/controllerRecipe');
 
 /**
  * GET /recipes
  */
 exports.list = function (req, res, next) {
-    ControllerRecipe.getAll(function (err, recipes) {
-        if (err) return next(err);
-        res.render('recipes', {
-            recipes: recipes
-        });
+    ControllerRecipe.getAll(null, null, function (err, result) {
+        res.json(result);
     });
 };
 
 /**
  * GET /recipe/:id
  */
-exports.show = function (req, res, next) {
-    ControllerRecipe.getId(req.params.id, function (err, recipe_out) {
-        if (err) return next(err);
-        ControllerIngredient.getIngredientsOfRecipe(req.params.id, function (err, ingredients) {
-            if (err) return next(err);
-            ControllerCompose.getComposeOfRecipe(req.params.id, function (err, composed_list) {
-                if (err) return next(err);
-                res.render('recipe', {
-                    recipe: recipe_out,
-                    ingredients: ingredients,
-                    composed : composed_list
-                });
-            });
-        });
+exports.find = function (req, res, next) {
+	console.log("Coucou");
+    var param = req.params.id;
+
+    ControllerRecipe.get(param, function (err, result) {
+        res.json(result);
     });
 };
 
@@ -37,11 +25,9 @@ exports.show = function (req, res, next) {
  * DELETE /recipe/:id
  */
 exports.del = function (req, res, next) {
-    ControllerRecipe.get(req.params.id, function (err, recipe) {
-        if (err) return next(err);
-        ControllerRecipe.del(function (err) {
-            if (err) return next(err);
-            res.redirect('/recipes');
-        });
+    var param = req.params.id;
+
+    ControllerRecipe.del(param, function (err, result) {
+        res.json(result);
     });
 };
