@@ -87,10 +87,10 @@ ControllerCocktail.getCocktailByExcludeIngredients = function (idIngredients, ca
         for (var i = 0; i < idIngredients.length; ++i) {
             if (i == idIngredients.length - 1) {
                 query1 += '(i' + i + ':Ingredient { index:"' + idIngredients[i] + '" }) ';
-                query2 += 'NOT r--i' + i + ' ';
+                query2 += 'NOT EXISTS((r)--(i' + i + ')) ';
             } else {
                 query1 += '(i' + i + ':Ingredient { index:"' + idIngredients[i] + '" }), ';
-                query2 += 'NOT r--i' + i + ' AND ';
+                query2 += 'NOT EXISTS((r)--(i' + i + ')) AND ';
             }
         }
         query1 += 'WHERE '
