@@ -58,16 +58,34 @@ function parse_rotor(array) {
                 var temp = f.rigidBodies[0].shapes[0].vertices;
                 var vectors = [];
 
+                var minX = 100;
+                var minY = 100;
+                var maxX = -100;
+                var maxY = -100;
+
                 for (var i = 0; i < temp.length; i++) {
                     var vector = temp[i];
                     vector.x *= 3;
-                    vector.x = (width / METER / 2) - glassScale / 2 + vector.x - 2.3;
+                    vector.x = (width / METER / 4) - glassScale / 2 + vector.x;
 
                     vector.y *= 3;
-                    vector.y = height / METER - 1.5 - vector.y -4;
+                    vector.y = height / METER / 3 - vector.y;
+
+                    if (vector.x < minX)
+                        minX = vector.x;
+                    if (vector.y < minY)
+                        minY = vector.y;
+
+                    if (vector.x > maxX)
+                        maxX = vector.x;
+                    if (vector.y > maxY)
+                        maxY = vector.y;
 
                     vectors[i] = vector;
                 }
+
+                rotorBodyWidth = maxX - minX;
+                rotorBodyHeight = maxY - minY;
                 vectorsArray[item] = vectors;
             }
         });

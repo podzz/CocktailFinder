@@ -13,6 +13,8 @@ var objectPhysicsArr = [];
 
 var currentIngredients = null;
 var currentRecipe = null;
+var rotorBodyWidth = 0;
+var rotorBodyHeight = 0;
 
 var objectArrInc = 0;
 

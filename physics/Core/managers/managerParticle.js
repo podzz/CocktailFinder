@@ -59,7 +59,7 @@ function addFlowBottle(pop, color, opacity) {
         anim(bottle).to({rotation: 2.2}, 1);
         anim(bottle).to(4, {y: -200}, 0.5);
         var timeout2 = setTimeout(function () {
-            var spawnPoint = new b2Vec2(width / METER / 2 - 1.7, 0.3);
+            var spawnPoint = new b2Vec2((width / METER / 4) - glassScale / 2 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
 
             var box = new b2PolygonShape();
             box.SetAsBoxXYCenterAngle(0.7, 0.1, spawnPoint, 0.7);
