@@ -7,6 +7,12 @@ var http = require('http');
 var path = require('path');
 var fs = require('fs');
 
+// Middlewares
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+var methodOverride = require('method-override');
+var errorhandler = require('errorhandler');
+
 // CocktailFd Route module
 var routes = require('./routes');
 
@@ -18,8 +24,6 @@ var app = express();
 
 app.set('port', process.env.PORT || 3000);
 
-app.use(express.favicon());
-
 // Static assets directory path parameter
 app.use(express.static(path.join(__dirname, 'angular')));
 app.use(express.static(path.join(__dirname, '../front')));
@@ -27,20 +31,16 @@ app.use(express.static(path.join(__dirname, '../physics')));
 
 
 // Server logging, to replace with morgan.js
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
+app.use(bodyParser.json());
+app.use(morgan('combined'));
+app.use(methodOverride('X-HTTP-Method-Override'));
 
-app.use(app.router);
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+	app.use(errorhandler());
 }
 
-app.locals({
-    title: 'Cocktail Finder'    // default title
-});
 
 // ---------------------------------
 // Routes

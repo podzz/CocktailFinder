@@ -4,22 +4,22 @@
   "version": "0.0.1",
   "author": "Edouard Durieux <edouard.durieux@gmail.com>",
   "private": true,
-  "dependencies":
-  {
-    "express": "~3.2.0",
-    "neo4j": "~2.2.1",
-    "strongloop": "",
-    "node-bing-api":"",
-    "request":""
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "errorhandler": "^1.3.6",
+    "express": "~4.8.0",
+    "method-override": "^2.3.3",
+    "morgan": "^1.5.3",
+    "node-bing-api": "",
+    "node-dev": "^2.6.2",
+    "request": ""
   },
-  "engines":
-  {
+  "engines": {
     "node": "0.10.x",
     "node-dev": "2.6.2",
     "npm": "1.2.x"
   },
-  "scripts":
-  {
+  "scripts": {
     "start": "node-dev server.js"
   }
 }
