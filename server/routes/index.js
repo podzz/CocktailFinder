@@ -1,10 +1,10 @@
-// convenience wrapper around all other files:
-exports.site = require('./site');
+//exports.logger 			= require('./logger');
 
-exports.bing = require('./bing');
+exports.bing 			= require('./bing');
 
-exports.api = require('./api');
-exports.bdd = require('./bdd');
+exports.api            	= require('./api');
+exports.api.ingredient 	= require('./api/ingredient');
+//exports.api.recipe     	= require('./api/recipe');
+//exports.api.glass      	= require('./api/glass');
 
-exports.recipes = require('./recipes');
-exports.ingredients = require('./ingredients');
+exports.bdd 			= require('./bdd');

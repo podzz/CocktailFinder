@@ -49,7 +49,7 @@ if ('development' == app.get('env')) {
 // App routes
 
 // Logger
-app.get('/logger',				 	routes.site.logger);
+//app.get('/logger',				 	routes.logger);
 
 // Bootstrap/Install routes
 app.get('/bdd/rank/ingredients',	routes.bdd.rankIngredients);
@@ -60,7 +60,39 @@ app.get('/bdd/bootstrap',			routes.bdd.bootstrap);
 // Bing routes
 app.get('/bing/search/:search',    routes.bing.downloadPicturesIngredients);
 
+// --------------------------------
 // Production API routes
+// --------------------------------
+app.get('/api/',           			routes.api.getRoot);
+
+// --------------------------------
+// Ingredients
+// --------------------------------
+app.get('/api/ingredients',         routes.api.ingredient.getIngredients);
+app.post('/api/ingredients',        routes.api.ingredient.addIngredient);
+app.get('/api/ingredients/:id',     routes.api.ingredient.getIngredientById);
+app.put('/api/ingredients/:id',     routes.api.ingredient.putIngredientById);
+app.delete('/api/ingredients/:id',  routes.api.ingredient.deleteIngredientById);
+
+	// --------------------------------
+	// Recipe
+	// --------------------------------
+//	app.get('/api/recipes',             routes.api.recipe.getRecipes);
+//	app.post('/api/recipes',            routes.api.recipe.addRecipe);
+//	app.get('/api/recipes/:id',         routes.api.recipe.getRecipeById);
+//	app.put('/api/recipes/:id',         routes.api.recipe.putRecipeById);
+//	app.delete('/api/recipes/:id',      routes.api.recipe.deleteRecipesById);
+//
+//	// --------------------------------
+//	// Glass
+//	// --------------------------------
+//	app.get('/api/glass',               routes.api.glass.getGlasses);
+//	app.post('/api/glass',              routes.api.glass.addGlass);
+//	app.get('/api/glass/:id',           routes.api.glass.getGlassById);
+//	app.put('/api/glass/:id',           routes.api.glass.putGlassById);
+//	app.delete('/api/glass/:id',        routes.api.glass.deleteGlassById);
+
+// Old
 app.get('/api/cocktails',           routes.api.findCocktails);
 app.get('/api/cocktails/',          routes.api.findCocktails)
 app.get('/api/cocktails/:ids', 		routes.api.findCocktails);
@@ -69,13 +101,6 @@ app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.api.setOpacit
 app.get('/api/missing', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/:array',  	routes.api.findCocktailsByMissingIds);
-
-
-// Logger
-app.get('/api/recipes/', 			routes.recipes.list);
-app.get('/api/recipes/:id', 		routes.recipes.find);
-app.delete('/api/recipes/:id', 		routes.recipes.del);
-
 
 // ---------------------------------
 // Server deployment

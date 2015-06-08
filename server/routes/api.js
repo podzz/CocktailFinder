@@ -38,3 +38,7 @@ exports.setOpacity = function(req, res, next) {
 
 };
 
+exports.getRoot = function(req, res, next) {
+
+};
+
