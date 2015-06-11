@@ -1,7 +1,7 @@
-var ControllerIngredient = require('../../controller/controllerIngredient');
+var controllerIngredient = require('../../controller/controllerIngredient');
 
 exports.getIngredients = function (req, res, next) {
-    controllerIngredient.getIngredients(param, function (err, result) {
+    controllerIngredient.getIngredients(function (err, result) {
         res.json(result);
     });
 };
