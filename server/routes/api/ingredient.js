@@ -7,7 +7,7 @@ exports.getIngredients = function (req, res, next) {
 };
 
 exports.addIngredient = function (req, res, next) {
-    controllerIngredient.addIngredient(constructArray, function (err, result) {
+    controllerIngredient.addIngredient(req.body, function (err, result) {
         res.json(result);
     });
 };

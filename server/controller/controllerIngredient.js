@@ -45,7 +45,14 @@ ControllerIngredient.getIngredients = function(callback)
     var cb = function (err, data) {
         if (err)
             return callback(err, null);
-        var data_formatted = {body: data, errors: data['errors']};
+
+        var info = data['results'][0]["data"];
+        var data_final = {ingredients: []};
+
+        for (var i = info.length - 1; i >= 0; i--) {
+            data_final["ingredients"].push(info[i]["row"][0]);
+        }
+        var data_formatted = {body: data_final, errors: data['errors']};
 
         callback(null, data_formatted);
     };
@@ -74,8 +81,11 @@ ControllerIngredient.getIngredientById = function(id, callback)
 
 
 ControllerIngredient.addIngredient = function(ingredient, callback)
-{
-    var query = 'MATCH (i:Ingredient) WHERE i.index="' + id + '" RETURN i;';
+{   
+    var query = 'CREATE (i:Ingredient ' + JSON.stringify(ingredient).replace(/\"([^(\")"]+)\":/g,"$1:") + ');';
+    console.log(ingredient);
+    console.log(query);
+
     var cb = function (err, data) {
         if (err)
             return callback(err, null);
