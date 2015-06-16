@@ -129,3 +129,15 @@ ControllerIngredient.addIngredient = function(ingredient, callback)
     };
     cypher(query, cb);
 }
+
+ControllerIngredient.deleteIngredientById = function(id, callback)
+{   
+    var query = 'MATCH (i:Ingredient { index : "' + id + '"})-[r]-() DELETE i, r';
+
+    var cb = function (err, data) {
+        if (err)
+            return callback(err, null);
+        callback(null, data);
+    };
+    cypher(query, cb);
+}

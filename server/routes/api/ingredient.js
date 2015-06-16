@@ -21,7 +21,6 @@ exports.getIngredientById = function(req, res, next) {
 };
 
 exports.putIngredientById = function(req, res, next) {
-    console.log(req.body);
     controllerIngredient.putIngredientById(req.params.id, req.body, function (err, result) {
         res.json(result);
     });
