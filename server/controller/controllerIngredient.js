@@ -45,15 +45,20 @@ ControllerIngredient.getIngredients = function(callback)
     var cb = function (err, data) {
         if (err)
             return callback(err, null);
+        
+        var data_final = "";
 
-        var info = data['results'][0]["data"];
-        var data_final = {ingredients: []};
+        try {
+            var info = data['results'][0]["data"];
+            data_final = {ingredients: []};
 
-        for (var i = info.length - 1; i >= 0; i--) {
-            data_final["ingredients"].push(info[i]["row"][0]);
+            for (var i = info.length - 1; i >= 0; i--) {
+                data_final["ingredients"].push(info[i]["row"][0]);
+            }
+        }
+        catch (e) {
         }
         var data_formatted = {body: data_final, errors: data['errors']};
-
         callback(null, data_formatted);
     };
     cypher(query, cb);
@@ -61,20 +66,51 @@ ControllerIngredient.getIngredients = function(callback)
 
 ControllerIngredient.getIngredientById = function(id, callback)
 {
-    var query = 'MATCH (i:Ingredient) WHERE i.index="' + id + '" OR i.index="2" RETURN i;';
+    var query = 'MATCH (i:Ingredient) WHERE i.index="' + id + '" RETURN i;';
     var cb = function (err, data) {
         if (err)
             return callback(err, null);
+        
+        var data_final = "";
 
-        var info = data['results'][0]["data"];
-        var data_final = {ingredients: []};
+        try {
+            var info = data['results'][0]["data"];
+            data_final = {ingredients: []};
 
-        for (var i = info.length - 1; i >= 0; i--) {
-            data_final["ingredients"].push(info[i]["row"][0]);
+            for (var i = info.length - 1; i >= 0; i--) {
+                data_final["ingredients"].push(info[i]["row"][0]);
+            }
+        }
+        catch (e) {
         }
         var data_formatted = {body: data_final, errors: data['errors']};
-
         callback(null, data_formatted);
+    };
+    cypher(query, cb);
+}
+
+ControllerIngredient.putIngredientById = function(id, ingredient, callback)
+{
+    var query = 'MATCH (i:Ingredient { index : "' + id + '"}) SET i = ' + JSON.stringify(ingredient).replace(/\"([^(\")"]+)\":/g,"$1:") + ' RETURN i;';
+    var cb = function (err, data) {
+        if (err)
+            return callback(err, null);
+        
+        var data_final = "";
+
+        try {
+            var info = data['results'][0]["data"];
+            data_final = {ingredients: []};
+
+            for (var i = info.length - 1; i >= 0; i--) {
+                data_final["ingredients"].push(info[i]["row"][0]);
+            }
+        }
+        catch (e) {
+        }
+        var data_formatted = {body: data_final, errors: data['errors']};
+        callback(null, data_formatted);
+
     };
     cypher(query, cb);
 }
