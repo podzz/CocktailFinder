@@ -1,89 +1,116 @@
 var request = require("request");
 
-var ControllerRecipe = module.exports = function ControllerRecipe(_node) {
-};
+var ControllerRecipe = module.exports = function ControllerGlass(_node) {
+}
 
 function cypher(query, cb) {
-    console.log(query)
     var txUrl = "http://localhost:7474/db/data/transaction/commit";
     request.post({
             uri: txUrl,
             json: {statements: [{statement: query}]}
         },
         function (err, res) {
-            console.log(res);
-            if (cb) {
-                cb(err, res.body)
-            }
+            cb(err, res.body)
         })
 }
 
-// use a Cypher query to delete both this Recipe and the links on it.
-ControllerRecipe.del = function(index, callback) {
-    var query = 'MATCH (r:Recipe)-[re]-() WHERE r.index = "'+ index + '" DELETE r, re';
+ControllerRecipe.getRecipes = function(callback)
+{
+    var query = 'MATCH (r:Recipe) RETURN r;';
     var cb = function (err, data) {
-        if (err) {
-            return callback(err,null);
+        if (err)
+            return callback(err, null);
+        
+        var data_final = "";
+
+        try {
+            var info = data['results'][0]["data"];
+            data_final = {recipes: []};
+
+            for (var i = info.length - 1; i >= 0; i--) {
+                data_final["recipes"].push(info[i]["row"][0]);
+            }
         }
-        callback(null, "Deleted.");
+        catch (e) {
+        }
+        var data_formatted = {body: data_final, errors: data['errors']};
+        callback(null, data_formatted);
     };
     cypher(query, cb);
-};
+}
 
-// use a Cypher query to delete both this Recipe and the links on it.
-ControllerRecipe.get = function(index, callback) {
-    var query = 'MATCH (r:Recipe) WHERE r.index = "'+ index + '" RETURN r';
+ControllerRecipe.getRecipeById = function(id, callback)
+{
+    var query = 'MATCH (i:Recipe) WHERE i.index="' + id + '" RETURN i;';
     var cb = function (err, data) {
-        if (err) {
-            return callback(err,null);
-        }
+        if (err)
+            return callback(err, null);
         
-        var data_formatted = {cocktails: []};
-        var current_cocktail = null;
-ne
-        if (data && data.results[0] && data.results[0].data) {
-            if (data.results[0].data.length > 0) {
-                for (var i = 0; i < data.results[0].data.length; i++) {
-                    var row_array = data.results[0].data[i].row[0];
-                    data_formatted.cocktails.push(row_array);
-                }
+        var data_final = "";
+
+        try {
+            var info = data['results'][0]["data"];
+            data_final = {recipes: []};
+
+            for (var i = info.length - 1; i >= 0; i--) {
+                data_final["recipes"].push(info[i]["row"][0]);
             }
         }
-        //callback(null, data);
-        callback(null, data_formatted);
-    }
-    cypher(query, cb);
-};
-
-// Get the all recipes
-ControllerRecipe.getAll = function(length, offset, callback) {
-    var query = 'MATCH (re:Recipe) RETURN re ORDER BY re.name';
-    if (offset) {
-        query += ' SKIP ' + (length * offset);
-    }
-    if (length) {
-        query += ' LIMIT ' + length;
-    }
-    var cb = function (err, data) {
-        if (err) {
-            return callback(err,null);
+        catch (e) {
         }
-        
-        var data_formatted = {cocktails: []};
-        var current_cocktail = null;
+        var data_formatted = {body: data_final, errors: data['errors']};
+        callback(null, data_formatted);
+    };
+    cypher(query, cb);
+}
 
-        if (data && data.results[0] && data.results[0].data) {
-            if (data.results[0].data.length > 0) {
-                for (var i = 0; i < data.results[0].data.length; i++) {
-                    var row_array = data.results[0].data[i].row[0];
-                    data_formatted.cocktails.push(row_array);
-                }
+ControllerRecipe.putRecipeById = function(id, glass, callback)
+{
+    var query = 'MATCH (i:Recipe { index : "' + id + '"}) SET i = ' + JSON.stringify(glass).replace(/\"([^(\")"]+)\":/g,"$1:") + ' RETURN i;';
+    var cb = function (err, data) {
+        if (err)
+            return callback(err, null);
+        
+        var data_final = "";
+
+        try {
+            var info = data['results'][0]["data"];
+            data_final = {recipes: []};
+
+            for (var i = info.length - 1; i >= 0; i--) {
+                data_final["recipes"].push(info[i]["row"][0]);
             }
         }
-        //callback(null, data);
+        catch (e) {
+        }
+        var data_formatted = {body: data_final, errors: data['errors']};
         callback(null, data_formatted);
-    }
-    cypher(query, cb);
-};
 
-module.exports = ControllerRecipe;
+    };
+    cypher(query, cb);
+}
+
+
+ControllerRecipe.addRecipe = function(ingredient, callback)
+{   
+    var query = 'CREATE (i:Recipe ' + JSON.stringify(ingredient).replace(/\"([^(\")"]+)\":/g,"$1:") + ');';
+
+    var cb = function (err, data) {
+        if (err)
+            return callback(err, null);
+        callback(null, data);
+    };
+    cypher(query, cb);
+}
+
+ControllerRecipe.deleteRecipeById = function(id, callback)
+{   
+    var query = 'MATCH (i:Recipe { index : "' + id + '"})-[r]-() DELETE i, r';
+
+    var cb = function (err, data) {
+        if (err)
+            return callback(err, null);
+        callback(null, data);
+    };
+    cypher(query, cb);
+}
