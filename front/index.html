@@ -46,45 +46,20 @@
     <!-- Load App.js -->
     <script type="text/javascript" src="app.js"></script>
 </head>
-<body ng-controller="recipeController as recipeCtrl">
-
-<div class="renderer">
-    <div id="cocktailRenderer" style="background-color:rgb(135,211,243);">
-    </div>
+<body ng-controller="recipeController as recipeCtrl"
+      style="background: url(img/bar.jpg) no-repeat center center fixed; background-size:cover;" class="img-responsive">
+<div id="cocktailRenderer">
 </div>
-<nav class="navbar-side" role="navigation">
-    <div class="sidebar-collapse">
-        <button class="btn bt-lg" ng-click="recipeCtrl.hideMenu();">
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true">
+<div class="artist">
 
-            </span>
-        </button>
-        <ul class="nav" id="main-menu">
-            <li>
-                <a ng-click="recipeCtrl.createIceCubeOnRenderer();"><i class="fa fa-dashboard"></i> Add an Icecube !</a>
-            </li>
-            <li>
-                <a ng-click="recipeCtrl.createCitronOnRenderer();"><i class="fa fa-desktop"></i> Add a Lemon !</a>
-            </li>
-            <li>
-                <a ng-click="recipeCtrl.createFlow();"><i class="fa fa-desktop"></i> Add some liquid !</a>
-            </li>
-            <li>
-                <a ng-click="recipeCtrl.removeCookie();"><i class="fa fa-desktop"></i> Delete cookies</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+</div>
 <div class="direction">
     <div class="directionData">
         <h1 class="panel-title2">{{ recipeCtrl.currentCocktail.name }}</h1>
+        <h1 class="panel-title3">Pour réaliser ce cocktail, vous aurez besoin de :</h1>
+
     </div>
     <div class="wrappercocktails">
-        <div class="previousButton">
-            <button type="button" ng-click="recipeCtrl.decreaseIndex();" class="btn btn-lg">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            </button>
-        </div>
         <div class="panel-direction">
             <ul id="cocktailList">
                 <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient">
@@ -110,23 +85,26 @@
                                 class="btn btn-quantity btn-b colorView" style="{{ 'background:' + color}}">
                             </li>
                         </ul>
-                        <div ng-if="!(ingr.selectedColor == '#null')" id="slider" style="{{ 'background-image:-webkit-linear-gradient(left, white, ' + ingr.selectedColor + ');' }}">
-                            <input class="barslider" type="range" id="rangeinput" ng-mouseup="recipeCtrl.setOpacity(ingr)" ng-model="ingr.opacity" min="0"
+                        <div ng-if="!(ingr.selectedColor == '#null')" id="slider"
+                             style="{{ 'background-image:-webkit-linear-gradient(left, white, ' + ingr.selectedColor + ');' }}">
+                            <input class="barslider" type="range" id="rangeinput"
+                                   ng-mouseup="recipeCtrl.setOpacity(ingr)" ng-model="ingr.opacity" min="0"
                                    max="255" value="{{ recipeCtrl.opacity }}" step="25.5"/>
                         </div>
-
-
                     </div>
                 </li>
             </ul>
         </div>
-        <div class="nextButton">
-            <button type="button" ng-click="recipeCtrl.increaseIndex();" class="btn btn-lg">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            </button>
-        </div>
+
     </div>
 </div>
+<button type="button" ng-click="recipeCtrl.decreaseIndex();" class="previousButton">
+</button>
+    <button type="button" ng-click="recipeCtrl.increaseIndex();" class="nextButton">
+    </button>
+
+<button type="button" ng-click="recipeCtrl.hideMenu();" class="trash-full">
+</button>
 <div class="exclude-bar">
     <div class="bar">
         <ul name="excludes" class="list-unstyled bar">
