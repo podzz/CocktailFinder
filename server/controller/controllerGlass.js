@@ -1,6 +1,6 @@
 var request = require("request");
 
-var ControllerRecipe = module.exports = function ControllerGlass(_node) {
+var ControllerGlass = module.exports = function ControllerGlass(_node) {
 }
 
 function cypher(query, cb) {
@@ -14,9 +14,9 @@ function cypher(query, cb) {
         })
 }
 
-ControllerRecipe.getRecipes = function(callback)
+ControllerGlass.getGlasses = function(callback)
 {
-    var query = 'MATCH (r:Recipe) RETURN r;';
+    var query = 'MATCH (r:Recipient) RETURN r;';
     var cb = function (err, data) {
         if (err)
             return callback(err, null);
@@ -25,10 +25,10 @@ ControllerRecipe.getRecipes = function(callback)
 
         try {
             var info = data['results'][0]["data"];
-            data_final = {recipes: []};
+            data_final = {glasses: []};
 
             for (var i = info.length - 1; i >= 0; i--) {
-                data_final["recipes"].push(info[i]["row"][0]);
+                data_final["glasses"].push(info[i]["row"][0]);
             }
         }
         catch (e) {
@@ -39,9 +39,9 @@ ControllerRecipe.getRecipes = function(callback)
     cypher(query, cb);
 }
 
-ControllerRecipe.getRecipeById = function(id, callback)
+ControllerGlass.getGlassById = function(id, callback)
 {
-    var query = 'MATCH (i:Recipe) WHERE i.index="' + id + '" RETURN i;';
+    var query = 'MATCH (i:Recipient) WHERE i.index="' + id + '" RETURN i;';
     var cb = function (err, data) {
         if (err)
             return callback(err, null);
@@ -50,10 +50,10 @@ ControllerRecipe.getRecipeById = function(id, callback)
 
         try {
             var info = data['results'][0]["data"];
-            data_final = {recipes: []};
+            data_final = {glasses: []};
 
             for (var i = info.length - 1; i >= 0; i--) {
-                data_final["recipes"].push(info[i]["row"][0]);
+                data_final["glasses"].push(info[i]["row"][0]);
             }
         }
         catch (e) {
@@ -64,9 +64,9 @@ ControllerRecipe.getRecipeById = function(id, callback)
     cypher(query, cb);
 }
 
-ControllerRecipe.putRecipeById = function(id, glass, callback)
+ControllerGlass.putGlassById = function(id, glass, callback)
 {
-    var query = 'MATCH (i:Recipe { index : "' + id + '"}) SET i = ' + JSON.stringify(glass).replace(/\"([^(\")"]+)\":/g,"$1:") + ' RETURN i;';
+    var query = 'MATCH (i:Recipient { index : "' + id + '"}) SET i = ' + JSON.stringify(glass).replace(/\"([^(\")"]+)\":/g,"$1:") + ' RETURN i;';
     var cb = function (err, data) {
         if (err)
             return callback(err, null);
@@ -75,10 +75,10 @@ ControllerRecipe.putRecipeById = function(id, glass, callback)
 
         try {
             var info = data['results'][0]["data"];
-            data_final = {recipes: []};
+            data_final = {glasses: []};
 
             for (var i = info.length - 1; i >= 0; i--) {
-                data_final["recipes"].push(info[i]["row"][0]);
+                data_final["glasses"].push(info[i]["row"][0]);
             }
         }
         catch (e) {
@@ -91,9 +91,9 @@ ControllerRecipe.putRecipeById = function(id, glass, callback)
 }
 
 
-ControllerRecipe.addRecipe = function(ingredient, callback)
+ControllerGlass.addGlass = function(ingredient, callback)
 {   
-    var query = 'CREATE (i:Recipe ' + JSON.stringify(ingredient).replace(/\"([^(\")"]+)\":/g,"$1:") + ');';
+    var query = 'CREATE (i:Recipient ' + JSON.stringify(ingredient).replace(/\"([^(\")"]+)\":/g,"$1:") + ');';
 
     var cb = function (err, data) {
         if (err)
@@ -103,9 +103,9 @@ ControllerRecipe.addRecipe = function(ingredient, callback)
     cypher(query, cb);
 }
 
-ControllerRecipe.deleteRecipeById = function(id, callback)
+ControllerGlass.deleteGlassById = function(id, callback)
 {   
-    var query = 'MATCH (i:Recipe { index : "' + id + '"})-[r]-() DELETE i, r';
+    var query = 'MATCH (i:Recipient { index : "' + id + '"})-[r]-() DELETE i, r';
 
     var cb = function (err, data) {
         if (err)

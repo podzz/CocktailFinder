@@ -74,23 +74,23 @@ app.get('/api/ingredients/:id',     routes.api.ingredient.getIngredientById);
 app.put('/api/ingredients/:id',     routes.api.ingredient.putIngredientById);
 app.delete('/api/ingredients/:id',  routes.api.ingredient.deleteIngredientById);
 
-	// --------------------------------
-	// Recipe
-	// --------------------------------
-//	app.get('/api/recipes',             routes.api.recipe.getRecipes);
-//	app.post('/api/recipes',            routes.api.recipe.addRecipe);
-//	app.get('/api/recipes/:id',         routes.api.recipe.getRecipeById);
-//	app.put('/api/recipes/:id',         routes.api.recipe.putRecipeById);
-//	app.delete('/api/recipes/:id',      routes.api.recipe.deleteRecipesById);
-//
-//	// --------------------------------
-//	// Glass
-//	// --------------------------------
-//	app.get('/api/glass',               routes.api.glass.getGlasses);
-//	app.post('/api/glass',              routes.api.glass.addGlass);
-//	app.get('/api/glass/:id',           routes.api.glass.getGlassById);
-//	app.put('/api/glass/:id',           routes.api.glass.putGlassById);
-//	app.delete('/api/glass/:id',        routes.api.glass.deleteGlassById);
+// --------------------------------
+// Recipe
+// --------------------------------
+app.get('/api/recipes',             routes.api.recipe.getRecipes);
+app.post('/api/recipes',            routes.api.recipe.addRecipe);
+app.get('/api/recipes/:id',         routes.api.recipe.getRecipeById);
+app.put('/api/recipes/:id',         routes.api.recipe.putRecipeById);
+app.delete('/api/recipes/:id',      routes.api.recipe.deleteRecipeById);
+
+// --------------------------------
+// Glass
+// --------------------------------
+app.get('/api/glasses',             routes.api.glass.getGlasses);
+app.post('/api/glasses',            routes.api.glass.addGlass);
+app.get('/api/glasses/:id',         routes.api.glass.getGlassById);
+app.put('/api/glasses/:id',         routes.api.glass.putGlassById);
+app.delete('/api/glasses/:id',      routes.api.glass.deleteGlassById);
 
 // Old
 app.get('/api/cocktails',           routes.api.findCocktails);
