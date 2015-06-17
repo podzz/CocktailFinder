@@ -70,7 +70,6 @@ function CocktailRenderer() {
     stage.addChild(particleStage);
     /* - Filter */
     blur = new PIXI.filters.BlurDirFilter();
-    custom = new PIXI.filters.NoiseFilter();
 
     blur.blurX=300;
     blur.passes=10;
@@ -81,7 +80,7 @@ function CocktailRenderer() {
 }
 
 CocktailRenderer.prototype.initRenderer = function () {
-    renderers = PIXI.autoDetectRenderer(width, height, { transparent: true }, true);  // arguments: width, height, view, transparent, antialias
+    renderers = PIXI.autoDetectRenderer(width, height, { transparent: true }, false);  // arguments: width, height, view, transparent, disableWebGL
     $("#cocktailRenderer").append(renderers.view);
 
 
@@ -99,17 +98,18 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     delete stage;
     delete particleStage;
 
-    blur = new PIXI.filters.BlurDirFilter();
-    custom = new PIXI.filters.NoiseFilter();
+    blur = new PIXI.filters.BlurFilter();
 
-    blur.blur=300;
+    blur.blur=5;
     blur.passes=2;
+
+    thresoldFilter = new TresholdFilter();
 
     stage = new PIXI.Container();
     particleStage = new PIXI.Container();
+    particleStage.filters = [blur];
     stage.addChild(particleStage);
 
-    thresoldFilter = new TresholdFilter();
 
 
     world.DestroyParticleSystem(world.particleSystems[0]);

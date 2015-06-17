@@ -53,17 +53,17 @@ function addFlowBottle(pop, color, opacity) {
         bottle.height = 300;
         bottle.anchor.x = 0.5;
         bottle.anchor.y = 0.5;
-        bottle.x = width / 2 - 115;
+        bottle.x = width / 2 - 200;
         bottle.y = -200;
         bottle.alpha = 0.6;
         spriteArray.push(bottle);
         //anim(bottle).to({y: 30}, 1);
         anim(bottle).to({y: height / 3 - rotorBodyHeight * METER / 1.8}, 1);
-        anim(bottle).to({x: (width / 5) - glassScale / 2 + rotorBodyWidth * METER / 5}, 1);
+        anim(bottle).to({x: (width / 5) - 40 + rotorBodyWidth * METER / 5}, 1);
         anim(bottle).to({rotation: 2.2}, 1);
         anim(bottle).to(8, {y: -200}, 0.5);
         var timeout2 = setTimeout(function () {
-            var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 2 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
+            var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
 
             var box = new b2PolygonShape();
             box.SetAsBoxXYCenterAngle(0.7, 0.1, spawnPoint, 0.7);

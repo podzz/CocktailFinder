@@ -2,8 +2,6 @@
     var app = angular.module('cocktailFinder', []);
 
     app.controller('recipeController', ['$scope', '$http', function ($scope, $http) {
-        var element = $(".artist");
-
         // Index in recipe array (this.data, fetched from server)
         this.currentIndex = 0;
 
