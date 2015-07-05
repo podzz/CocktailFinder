@@ -37,6 +37,10 @@
             $(".exclude-bar").toggle("slow");
         }
 
+        this.sound = function () {
+            mute();
+        }
+
         // Load the exclude list from cookie array
         this.loadMissingFromCookie = function () {
             var dataFetched = $.cookie('cocktailFinder');

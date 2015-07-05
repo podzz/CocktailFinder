@@ -24,6 +24,23 @@ function resetTimeline() {
     eventArray = [];
 }
 
+function playSound(value) {
+    var sound = new Howl({
+        urls: ['../Assets/Sound/glou.mp3'],
+        volume: 1 * soundVolume
+    });
+    var soundTimeout = setTimeout(function() {
+        sound.play();
+    }, 1300);
+    var soundTimeout = setTimeout(function() {
+        sound.fade(1, 0, 1000);
+    }, 2300);
+    var soundTimeout = setTimeout(function() {
+        sound.stop();
+    }, 3300);
+
+}
+
 
 function addFlowBottle(pop, color, opacity) {
     function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
@@ -63,6 +80,7 @@ function addFlowBottle(pop, color, opacity) {
         anim(bottle).to({rotation: 2.2}, 1);
         anim(bottle).to(8, {y: -200}, 0.5);
         var timeout2 = setTimeout(function () {
+            playSound(1);
             var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
 
             var box = new b2PolygonShape();

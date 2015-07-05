@@ -10,6 +10,7 @@ var recipeArr = [];
 var rotorArr = [];
 var objectDisplayArr = [];
 var objectPhysicsArr = [];
+var soundMute = false;
 
 var currentIngredients = null;
 var currentRecipe = null;
@@ -51,6 +52,11 @@ var custom = null;
 
 
 function CocktailRenderer() {
+    var sound = new Howl({
+        urls: ['../Assets/Sound/ambiance.mp3'],
+        volume: 0.1 * soundVolume,
+        loop: true
+    }).play();
     width = $("#cocktailRenderer").width();
     height = $("#cocktailRenderer").height();
 
@@ -141,4 +147,14 @@ CocktailRenderer.prototype.LoadAnimation = function (animationName) {
     g_groundBody = world.CreateBody(bd);
 
     var animationManager = new window[animationName];
+}
+
+function mute()  {
+    if (soundMute) {
+        Howler.unmute();
+        soundMute = false;
+    } else {
+        Howler.mute();
+        soundMute = true;
+    }
 }
