@@ -2,9 +2,9 @@
  * Created by Sandeep on 01/06/14.
  */
 
-angular.module('adminApp',['ui.router','ngResource','adminApp.controllers','adminApp.services']);
+angular.module('adminApp', ['ui.router', 'ngResource', 'adminApp.controllers', 'adminApp.services']);
 
-angular.module('adminApp').config(function($stateProvider,$httpProvider){
+angular.module('adminApp').config(function($stateProvider, $httpProvider){
     $stateProvider.state('ingredients',{
         url:'/ingredients',
         templateUrl:'partials/ingredients.html',
