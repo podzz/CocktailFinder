@@ -1,0 +1,25 @@
+<table class="table movietable">
+    <tr>
+        <td><h3>Details for {{ingredient.name}}</h3></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Ingredient Name</td>
+        <td>{{ingredient.name}}</td>
+    </tr>
+    <tr>
+        <td>Ingredient index</td>
+        <td>{{ingredient.index}}</td>
+    </tr>
+    <tr>
+        <td>Recipe Count</td>
+        <td>{{ingredient.recipeCount}}</td>
+    </tr>
+    <tr>
+        <td>Colors</td>
+        <td>{{ingredient.colors}}</td>
+    </tr>
+</table>
+<div>
+    <a class="btn btn-primary" ui-sref="editIngredient({id:ingredient.index})">Edit</a>
+</div>

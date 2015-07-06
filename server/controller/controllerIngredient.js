@@ -50,16 +50,16 @@ ControllerIngredient.getIngredients = function(callback)
 
         try {
             var info = data['results'][0]["data"];
-            data_final = {ingredients: []};
+            data_final = [];
 
             for (var i = info.length - 1; i >= 0; i--) {
-                data_final["ingredients"].push(info[i]["row"][0]);
+                data_final.push(info[i]["row"][0]);
             }
         }
         catch (e) {
         }
         var data_formatted = {body: data_final, errors: data['errors']};
-        callback(null, data_formatted);
+        callback(null, data_final);
     };
     cypher(query, cb);
 }
@@ -75,15 +75,15 @@ ControllerIngredient.getIngredientById = function(id, callback)
 
         try {
             var info = data['results'][0]["data"];
-            data_final = {ingredients: []};
+            data_final = [];
 
             for (var i = info.length - 1; i >= 0; i--) {
-                data_final["ingredients"].push(info[i]["row"][0]);
+                data_final.push(info[i]["row"][0]);
             }
         }
         catch (e) {
         }
-        var data_formatted = {body: data_final, errors: data['errors']};
+        var data_formatted = data_final[0];
         callback(null, data_formatted);
     };
     cypher(query, cb);
