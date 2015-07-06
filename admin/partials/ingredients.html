@@ -1,0 +1,14 @@
+<a ui-sref="newIngredient" class="btn-primary btn-lg nodecoration">Add New Ingredient</a>
+<table class="table movietable">
+    <tr>
+        <td><h3>All ingredient</h3></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="ingredient in ingredients">
+        <td>{{ingredient.name}}</td>
+        <td>
+            <a class="btn btn-primary" ui-sref="viewIngredient({id:ingredient.index})">View</a>
+            <a class="btn btn-danger"  ng-click="deleteIngredient(ingredient)">Delete</a>
+        </td>
+    </tr>
+</table>
