@@ -44,10 +44,30 @@ function AnimationManager() {
     //rotorRender(rotorArr);
     var ingr_pop = 0;
     if (currentIngredients) {
+        var totalQuantity = 0;
+
+
         for (var i = 0; i < currentIngredients.length; i++) {
             var ingr = currentIngredients[i];
+            var qua = ingr.quantity;
+            if (qua == null)
+                qua = 1;
+            totalQuantity = totalQuantity + parseFloat(qua);
+        }
+        console.log(totalQuantity);
+
+
+        for (var i = 0; i < currentIngredients.length; i++) {
+            var ingr = currentIngredients[i];
+            var qua = ingr.quantity;
+            if (qua == null)
+                qua = 1;
+            var r = qua / totalQuantity * glassQuantity;
+
+            console.log(ingr);
+            console.log(r);
             if (ingr.selectedColor && ingr.selectedColor != "#null") {
-                addFlowBottle(ingr_pop, ingr.selectedColor, ingr.opacity);
+                addFlowBottle(ingr_pop, ingr.selectedColor, ingr.opacity, r);
                 ingr_pop += 6000;
             }
         }

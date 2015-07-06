@@ -42,7 +42,7 @@ function playSound(value) {
 }
 
 
-function addFlowBottle(pop, color, opacity) {
+function addFlowBottle(pop, color, opacity, quantity) {
     function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
     function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
     function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
@@ -78,13 +78,56 @@ function addFlowBottle(pop, color, opacity) {
         anim(bottle).to({y: height / 3 - rotorBodyHeight * METER / 1.8}, 1);
         anim(bottle).to({x: (width / 5) - 40 + rotorBodyWidth * METER / 5}, 1);
         anim(bottle).to({rotation: 2.2}, 1);
-        anim(bottle).to(8, {y: -200}, 0.5);
+        anim(bottle).to(2 + 5 * quantity, {y: -200}, 0.5);
+        var count = 1;
+        while (quantity > 1) {
+            console.log(quantity + " ---- " + count)
+            var timeout2 = setTimeout(function () {
+                playSound(1);
+                var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
+
+                var box = new b2PolygonShape();
+                box.SetAsBoxXYCenterAngle(0.7, 0.1, spawnPoint, 0.7);
+
+                var particlegroupDef = new b2ParticleGroupDef();
+                particlegroupDef.shape = box;
+                particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle;
+
+                particlegroupDef.color.Set(color_process.r, color_process.g, color_process.b, color_process.a);
+
+
+                var bottle_flow = new b2BodyDef();
+                bottle_flow.type = b2_dynamicBody;
+                bottle_flow.position.Set(2, 2);
+
+
+                var first_record = particleSystem.GetPositionBuffer().length / 2;
+
+                particleSystem.CreateParticleGroup(particlegroupDef);
+                world.CreateBody(bottle_flow);
+                var second_record = particleSystem.GetPositionBuffer().length / 2;
+                var groupParticleStage = new PIXI.Container();
+                groupParticleStage.filters = [blur];
+                for (var i = 0; i < second_record - first_record; i++) {
+                    var graphics = new PIXI.Graphics();
+
+                    groupParticleStage.addChild(graphics);
+                    circleArr.push(graphics);
+                    circleIndex.push(circleArr.length - 1);
+                }
+                particleStage.addChild(groupParticleStage);
+            }, 1000 * count);
+            eventArray.push(timeout2);
+            quantity -= 1;
+            count += 3;
+        }
         var timeout2 = setTimeout(function () {
             playSound(1);
             var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
 
             var box = new b2PolygonShape();
-            box.SetAsBoxXYCenterAngle(0.7, 0.1, spawnPoint, 0.7);
+            console.log(quantity + " <<<---- ")
+            box.SetAsBoxXYCenterAngle(0.7 * quantity, 0.1 * quantity, spawnPoint, 0.7);
 
             var particlegroupDef = new b2ParticleGroupDef();
             particlegroupDef.shape = box;
@@ -95,7 +138,7 @@ function addFlowBottle(pop, color, opacity) {
 
             var bottle_flow = new b2BodyDef();
             bottle_flow.type = b2_dynamicBody;
-            bottle_flow.position.Set(2,2);
+            bottle_flow.position.Set(2, 2);
 
 
             var first_record = particleSystem.GetPositionBuffer().length / 2;
@@ -113,7 +156,7 @@ function addFlowBottle(pop, color, opacity) {
                 circleIndex.push(circleArr.length - 1);
             }
             particleStage.addChild(groupParticleStage);
-        }, 1000);
+        }, 1000 * count);
         eventArray.push(timeout2);
         stage.addChild(bottle);
     }, pop);
