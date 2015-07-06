@@ -42,7 +42,6 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
     $scope.glasses = Glass.query();
 
     $scope.deleteGlass = function(glass) {
-        console.log(glass);
         if (popupService.showPopup('Do you really want to delete this glass ?')) {
             glass.$delete(function(){
                 $window.location.href = '';
@@ -77,4 +76,43 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
     };
 
     $scope.loadGlass();
+}).controller('RecipeListController',function($scope, $state, popupService, $window, Recipe){
+
+    $scope.recipes = Recipe.query();
+
+    $scope.deleteRecipe = function(glass) {
+        if (popupService.showPopup('Do you really want to delete this recipe ?')) {
+            recipe.$delete(function(){
+                $window.location.href = '';
+            });
+        }
+    }
+
+}).controller('RecipeViewController', function($scope, $stateParams, Recipe){
+
+    $scope.recipe = Recipe.get({id: $stateParams.id});
+
+}).controller('RecipeCreateController', function($scope, $state, $stateParams, Recipe){
+
+    $scope.recipe = new Recipe();
+
+    $scope.addRecipe = function(){
+        $scope.recipe.$save(function() {
+            $state.go('recipes');
+        });
+    }
+
+}).controller('RecipeEditController', function($scope, $state, $stateParams, Recipe){
+
+    $scope.updateRecipe = function(){
+        $scope.recipe.$update(function() {
+            $state.go('recipes');
+        });
+    };
+
+    $scope.loadRecipe = function(){
+        $scope.recipe = Recipe.get({id: $stateParams.id});
+    };
+
+    $scope.loadRecipe();
 });

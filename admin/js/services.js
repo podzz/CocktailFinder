@@ -10,6 +10,12 @@ angular.module('adminApp.services',[]).factory('Ingredient', function($resource)
             method: 'PUT'
         }
     });
+}).factory('Recipe', function($resource) {
+    return $resource('http://localhost:3000/api/recipes/:id', {id:'@index'}, {
+        update: {
+            method: 'PUT'
+        }
+    });
 }).service('popupService',function($window) {
     this.showPopup = function(message) {
         return $window.confirm(message);

@@ -37,6 +37,22 @@ angular.module('adminApp').config(function($stateProvider, $httpProvider){
         url:'/glasses/:id/edit',
         templateUrl:'partials/glass-edit.html',
         controller:'GlassEditController'
+    }).state('recipes',{
+        url:'/recipes',
+        templateUrl:'partials/recipes.html',
+        controller:'RecipeListController'
+    }).state('viewRecipe',{
+        url:'/recipes/:id/view',
+        templateUrl:'partials/recipe-view.html',
+        controller:'RecipeViewController'
+    }).state('newRecipe',{
+        url:'/recipes/new',
+        templateUrl:'partials/recipe-add.html',
+        controller:'RecipeCreateController'
+    }).state('editRecipe',{
+        url:'/recipes/:id/edit',
+        templateUrl:'partials/recipe-edit.html',
+        controller:'RecipeEditController'
     });
 }).run(function($state){
    $state.go('ingredients');
