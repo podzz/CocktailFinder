@@ -19,6 +19,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
     $scope.ingredient = new Ingredient();
 
     $scope.addIngredient = function(){
+        console.log("coucou");
         $scope.ingredient.$save(function() {
             $state.go('ingredients');
         });
@@ -53,7 +54,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
 
     $scope.glass = Glass.get({id: $stateParams.id});
 
-}).controller('IngredientCreateController', function($scope, $state, $stateParams, Glass){
+}).controller('GlassCreateController', function($scope, $state, $stateParams, Glass){
 
     $scope.glass = new Glass();
 
