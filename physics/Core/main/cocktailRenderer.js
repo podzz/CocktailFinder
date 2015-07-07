@@ -58,8 +58,8 @@ function CocktailRenderer() {
         volume: 0.1 * soundVolume,
         loop: true
     }).play();
-    width = $("#cocktailRenderer").width();
-    height = $("#cocktailRenderer").height();
+    width = $("#renderer").width();
+    height = $("#renderer").height();
 
     /* Create World */
     world = new b2World(new b2Vec2(0, 10));
@@ -88,7 +88,7 @@ function CocktailRenderer() {
 
 CocktailRenderer.prototype.initRenderer = function () {
     renderers = PIXI.autoDetectRenderer(width, height, { transparent: true }, false);  // arguments: width, height, view, transparent, disableWebGL
-    $("#cocktailRenderer").append(renderers.view);
+    $("#renderer").append(renderers.view);
 
 
     world.SetGravity(new b2Vec2(0, 10));

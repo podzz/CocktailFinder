@@ -1,7 +1,9 @@
 
 body {
     height: 100%;
-    width:100%;
+    width: 100%;
+    background: url('../img/bar.jpg') no-repeat center center fixed;
+    background-size: cover;
 
 }
 
@@ -11,10 +13,10 @@ html {
 }
 
 .direction {
-    background-color: rgba(49,49,44,0.7);
+    background-color: rgba(49, 49, 44, 0.7);
     border-radius: 10px;
     opacity: 0.8;
-    position:absolute;
+    position: absolute;
     width: 50%;
     top: 28%;
     left: 8%;
@@ -23,34 +25,30 @@ html {
     vertical-align: middle;
 }
 
-.direction li {
-    list-style-type: none;
-}
-
 .previousButton {
-    position:absolute;
+    position: absolute;
     height: 80px;
     width: 80px;
     bottom: 50%;
-    font-size:22px;
-    background: rgba(49,49,44,0.7) url(../img/br_prev.png) no-repeat center center;
+    font-size: 22px;
+    background: rgba(49, 49, 44, 0.7) url(../img/br_prev.png) no-repeat center center;
     border-style: none;
     border-radius: 4px;
 }
 
 .nextButton {
-    position:absolute;
+    position: absolute;
     height: 80px;
     width: 80px;
     bottom: 50%;
     right: 0%;
-    background: rgba(49,49,44,0.7) url(../img/br_next_icon.png) no-repeat center center;
+    background: rgba(49, 49, 44, 0.7) url(../img/br_next_icon.png) no-repeat center center;
     border-style: none;
     border-radius: 4px;
 }
 
 .artist {
-    position:absolute;
+    position: absolute;
     height: 200px;
     width: 400px;
     left: 40%;
@@ -62,16 +60,19 @@ html {
 }
 
 .wrappercocktails {
-    display:inline-block;
+    position: relative;
+    display: block;
     width: 100%;
+    height: 80%;
+    margin: auto auto auto auto;
 }
 
-#cocktailRenderer {
+#renderer {
     height: 100%;
     width: 50%;
-    left:50%;
-    position:absolute;
-    background-color:transparent;
+    left: 50%;
+    position: absolute;
+    background-color: transparent;
 
 }
 
@@ -85,20 +86,26 @@ html {
     text-align: center;
 }
 
-#cocktailList
-{
-    display:inline-block;
-    padding-left:0px;
+#cocktailList {
+    padding-left:5%;
+    padding-right:5%;
+    text-align:center;
 }
 
-.panel-direction {
-    display:inline-block;
-    height: 80%;
-    margin-left: 28%;
-    margin-right: 2%;
+.quantityDirection {
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
+    color: #fbf8ff;
+}
+
+.directionLi {
+    display:inline;
 }
 
 .bar {
+    background-color: rgba(49, 49, 44, 0.7);
+    border-radius: 10px;
+    opacity: 0.8;
     position: relative;
     padding-left: 2%;
     padding-right: 2%;
@@ -106,13 +113,13 @@ html {
     padding-bottom: 1%;
 }
 
-.exclude-bar ul{
+.exclude-bar ul {
     display: block;
 }
 
 .trash {
-    position:absolute;
-    background: url('../img/24_empty_trash.png') no-repeat;
+    position: absolute;
+    background: url('../img/trash.png') no-repeat;
     height: 128px;
     width: 128px;
     border-style: none;
@@ -124,8 +131,8 @@ html {
 }
 
 .trash-full {
-    position:absolute;
-    background: url('../img/23_full_trash.png') no-repeat;
+    position: absolute;
+    background: url('../img/trash.png') no-repeat;
     height: 128px;
     width: 128px;
     border-style: none;
@@ -135,17 +142,17 @@ html {
 .trash-full:active {
     outline: none !important;
 }
+
 .trash-full:focus {
     outline: none !important;
 }
 
-.exclude-bar li{
+.exclude-bar li {
     display: inline;
 }
 
-
 .panel-title2 {
-    text-align:center;
+    text-align: center;
     font-family: 'Raleway', sans-serif;
     margin-bottom: 5%;
     font-size: 70px;
@@ -153,7 +160,7 @@ html {
 }
 
 .panel-title3 {
-    text-align:center;
+    text-align: center;
     font-family: 'Raleway', sans-serif;
     margin-bottom: 5%;
     font-size: 30px;
@@ -163,21 +170,20 @@ html {
 /* Basic Button Style*/
 .btn {
     border: none;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: none;
     cursor: pointer;
     padding: 5px 5px;
     display: inline-block;
     margin: 10px 1px;
     letter-spacing: 1px;
-    font-weight:700;
+    font-weight: 700;
     outline: none;
     position: relative;
     -webkit-transition: all 0.1s;
     -moz-transition: all 0.1s;
     transition: all 0.1s;
 }
-
 
 /* Blue Buttons */
 .btn-blue {
@@ -200,6 +206,10 @@ html {
     box-shadow: 0 3px black;
 }
 
+.btn-b {
+    color: black;
+    font-family: 'Raleway', sans-serif;
+}
 
 /* Button b */
 .btn-b:hover {
@@ -207,40 +217,37 @@ html {
     top: -2px;
 }
 
-
 .btn-b:active {
     box-shadow: 0 0 #2a557e;
     top: 6px;
 }
 
 .btn-missing:hover {
-    box-shadow:0 6px red;
+    box-shadow: 0 6px red;
     top: -2px;
 }
-
 
 .colorsBlock {
     background: #fffbf9;
     position: absolute;
-    z-index:1;
-    color:black;
-    display:inline;
+    z-index: 1;
+    color: black;
+    display:inline-block;
+    width: 400px;
     text-transform: uppercase;
     font-family: 'Helvetica Neue', cursive;
     font-weight: 400;
-    text-align:center;
     -moz-box-shadow: 10px 10px 5px 0px #656565;
     -webkit-box-shadow: 10px 10px 5px 0px #656565;
     -o-box-shadow: 10px 10px 5px 0px #656565;
     box-shadow: 10px 10px 5px 0px #656565;
-    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=5);
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=5);
 }
 
 .colorView {
-    height:40px;
-    width:40px;
+    height: 40px;
+    width: 40px;
 }
-
 
 .colorSelected {
     height: 50px;
@@ -252,8 +259,8 @@ ul#listColors, li#listColors {
 }
 
 #listColors {
-    background:lightgray;
-    padding-bottom:10px;
+    background: lightgray;
+    padding-bottom: 10px;
     margin: auto;
 }
 
@@ -261,13 +268,13 @@ ul#listColors, li#listColors {
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    position:relative;
+    position: relative;
     border: 1px solid black;
 }
 
 .circleShow:hover {
     top: -3px;
-    box-shadow:0 8px #003b80;
+    box-shadow: 0 8px #003b80;
 }
 
 /* Create the animation blocks */
@@ -276,5 +283,4 @@ ul#listColors, li#listColors {
 #advanced {
     width: 100px;
     height: 100px;
-
 }

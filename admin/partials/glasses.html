@@ -1,0 +1,14 @@
+<a ui-sref="newGlass" class="btn-primary btn-lg nodecoration">Add New Glass</a>
+<table class="table movietable">
+    <tr>
+        <td><h3>All glasses</h3></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="glass in glasses">
+        <td>{{glass.name}}</td>
+        <td>
+            <a class="btn btn-primary" ui-sref="viewGlass({id:glass.index})">View</a>
+            <a class="btn btn-danger"  ng-click="deleteGlass(glass)">Delete</a>
+        </td>
+    </tr>
+</table>

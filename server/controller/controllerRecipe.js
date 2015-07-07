@@ -25,16 +25,16 @@ ControllerRecipe.getRecipes = function(callback)
 
         try {
             var info = data['results'][0]["data"];
-            data_final = {recipes: []};
+            data_final = [];
 
             for (var i = info.length - 1; i >= 0; i--) {
-                data_final["recipes"].push(info[i]["row"][0]);
+                data_final.push(info[i]["row"][0]);
             }
         }
         catch (e) {
         }
         var data_formatted = {body: data_final, errors: data['errors']};
-        callback(null, data_formatted);
+        callback(null, data_final);
     };
     cypher(query, cb);
 }
@@ -50,16 +50,16 @@ ControllerRecipe.getRecipeById = function(id, callback)
 
         try {
             var info = data['results'][0]["data"];
-            data_final = {recipes: []};
+            data_final = [];
 
             for (var i = info.length - 1; i >= 0; i--) {
-                data_final["recipes"].push(info[i]["row"][0]);
+                data_final.push(info[i]["row"][0]);
             }
         }
         catch (e) {
         }
         var data_formatted = {body: data_final, errors: data['errors']};
-        callback(null, data_formatted);
+        callback(null, data_final[0]);
     };
     cypher(query, cb);
 }
@@ -75,16 +75,16 @@ ControllerRecipe.putRecipeById = function(id, glass, callback)
 
         try {
             var info = data['results'][0]["data"];
-            data_final = {recipes: []};
+            data_final = [];
 
             for (var i = info.length - 1; i >= 0; i--) {
-                data_final["recipes"].push(info[i]["row"][0]);
+                data_final.push(info[i]["row"][0]);
             }
         }
         catch (e) {
         }
         var data_formatted = {body: data_final, errors: data['errors']};
-        callback(null, data_formatted);
+        callback(null, data_final[0]);
 
     };
     cypher(query, cb);
