@@ -27,6 +27,7 @@ app.set('port', process.env.PORT || 3000);
 // Static assets directory path parameter
 app.use(express.static(path.join(__dirname, 'angular')));
 app.use(express.static(path.join(__dirname, '../front')));
+app.use('/admin', express.static(path.join(__dirname, '../admin')));
 app.use(express.static(path.join(__dirname, '../physics')));
 
 
