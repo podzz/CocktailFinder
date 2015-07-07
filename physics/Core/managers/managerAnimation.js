@@ -54,7 +54,7 @@ function AnimationManager() {
                 qua = 1;
             totalQuantity = totalQuantity + parseFloat(qua);
         }
-        console.log(totalQuantity);
+        //console.log(totalQuantity);
 
 
         for (var i = 0; i < currentIngredients.length; i++) {
@@ -64,8 +64,8 @@ function AnimationManager() {
                 qua = 1;
             var r = qua / totalQuantity * glassQuantity;
 
-            console.log(ingr);
-            console.log(r);
+            //console.log(ingr);
+            //console.log(r);
             if (ingr.selectedColor && ingr.selectedColor != "#null") {
                 addFlowBottle(ingr_pop, ingr.selectedColor, ingr.opacity, r);
                 ingr_pop += 6000;

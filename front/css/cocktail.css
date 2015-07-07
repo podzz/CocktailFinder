@@ -47,7 +47,7 @@ html {
     border-radius: 4px;
 }
 
-.artist {
+#artist {
     position: absolute;
     height: 200px;
     width: 400px;
