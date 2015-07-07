@@ -24,21 +24,29 @@ function resetTimeline() {
     eventArray = [];
 }
 
-function playSound(value) {
+function playSound() {
     var sound = new Howl({
-        urls: ['../Assets/Sound/glou.mp3'],
-        volume: 1 * soundVolume
+        urls: ['../Assets/Sound/water.mp3'],
+        volume: 1 * soundVolume,
+        loop: true
     });
     var soundTimeout = setTimeout(function() {
         sound.play();
+        sound.fade(0, 1, 1000);
     }, 1300);
-    var soundTimeout = setTimeout(function() {
-        sound.fade(1, 0, 1000);
-    }, 2300);
-    var soundTimeout = setTimeout(function() {
-        sound.stop();
-    }, 3300);
 
+    soundArray.push(sound);
+    return sound;
+}
+
+function stopSound(sound) {
+    var soundTimeout1 = setTimeout(function() {
+        sound.fade(1, 0, 1700);
+    }, 2300);
+
+    var soundTimeout2 = setTimeout(function() {
+        sound.stop();
+    }, 4000);
 }
 
 
@@ -79,11 +87,13 @@ function addFlowBottle(pop, color, opacity, quantity) {
         anim(bottle).to({x: (width / 5) - 40 + rotorBodyWidth * METER / 5}, 1);
         anim(bottle).to({rotation: 2.2}, 1);
         anim(bottle).to(2 + 5 * quantity, {y: -200}, 0.5);
+        var sound = null;
         var count = 1;
         while (quantity > 1) {
             console.log(quantity + " ---- " + count)
             var timeout2 = setTimeout(function () {
-                playSound(1);
+                if (sound == null)
+                    sound = playSound();
                 var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
 
                 var box = new b2PolygonShape();
@@ -122,7 +132,9 @@ function addFlowBottle(pop, color, opacity, quantity) {
             count += 3;
         }
         var timeout2 = setTimeout(function () {
-            playSound(1);
+            if (sound == null)
+                sound = playSound();
+            stopSound(sound);
             var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
 
             var box = new b2PolygonShape();

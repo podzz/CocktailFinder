@@ -11,6 +11,7 @@ var rotorArr = [];
 var objectDisplayArr = [];
 var objectPhysicsArr = [];
 var soundMute = false;
+var soundArray = [];
 
 var currentIngredients = null;
 var currentRecipe = null;
@@ -123,6 +124,11 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     gravity = new b2Vec2(0, 8);
     world = new b2World(gravity);
 
+    for (var i = 0; i < soundArray.length; i++) {
+        var sound = soundArray[i];
+        sound.stop();
+    }
+
 
     circleIndex = [];
     recipeArr = [];
@@ -130,6 +136,7 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     shapeArr = [];
     circleArr = [];
     rotorArr = [];
+    soundArray = [];
 
 
     if (recipe_id != null)
