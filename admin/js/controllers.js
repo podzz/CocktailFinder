@@ -19,7 +19,6 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
     $scope.ingredient = new Ingredient();
 
     $scope.addIngredient = function(){
-        console.log("coucou");
         $scope.ingredient.$save(function() {
             $state.go('ingredients');
         });
