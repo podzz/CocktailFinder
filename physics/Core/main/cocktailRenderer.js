@@ -12,6 +12,7 @@ var objectDisplayArr = [];
 var objectPhysicsArr = [];
 var soundMute = false;
 var soundArray = [];
+var soundAmbiant = null;
 
 var currentIngredients = null;
 var currentRecipe = null;
@@ -53,7 +54,7 @@ var custom = null;
 
 
 function CocktailRenderer() {
-    var sound = new Howl({
+    soundAmbiant = new Howl({
         urls: ['../Assets/Sound/ambiance.mp3'],
         volume: 0.1 * soundVolume,
         loop: true
@@ -158,10 +159,22 @@ CocktailRenderer.prototype.LoadAnimation = function (animationName) {
 
 function mute()  {
     if (soundMute) {
+        soundAmbiant.fade(0, 0.1, 1000);
+        for (var i = 0; i < soundArray.length; i++) {
+            var sound = soundArray[i];
+            sound.fade(0, 1, 1000);
+        }
         Howler.unmute();
         soundMute = false;
     } else {
-        Howler.mute();
+        soundAmbiant.fade(0.1, 0, 1000);
+        for (var i = 0; i < soundArray.length; i++) {
+            var sound = soundArray[i];
+            sound.fade(1, 0, 1000);
+        }
+        var soundTimeout1 = setTimeout(function() {
+            Howler.mute();
+        }, 1000);
         soundMute = true;
     }
 }
