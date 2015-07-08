@@ -30,7 +30,6 @@
     <script src="Core/managers/managerShape.js"></script>
     <script src="Core/managers/managerParticle.js"></script>
     <script src="Core/managers/managerRecipe.js"></script>
-    <script src="Core/managers/managerBottle.js"></script>
     <script src="Core/main/TresholdFilter.js"></script>
     <script src="Core/main/cocktailRenderer.js"></script>
     <script src="Core/managers/managerAnimation.js"></script>
@@ -44,7 +43,7 @@
     <!-- App core -->
     <script type="text/javascript" src="js/cocktail.js"></script>
     <!-- Load Angular -->
-    <script type="text/javascript" src="js/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
     <script type="text/javascript" src="js/bootstrap-tour-standalone.js"></script>
     <!-- Load App.js -->
@@ -64,7 +63,7 @@
     <ul id="cocktailList">
         <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient" class="directionLi">
 
-            <button id="{{ 'color' + $index }}" type="button" ng-click="recipeCtrl.addMissing(ingr);"
+            <button id="color" type="button" ng-click="recipeCtrl.addMissing(ingr);"
                     class="btn btn-b"ng-mouseover="show = true" ng-mouseleave="show = false">
                 <div class="quantityDirection">{{ ingr.quantity }} {{ ingr.unity }}</div>
                 {{ ingr.name }}<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -101,8 +100,10 @@
 
 <button type="button" ng-click="recipeCtrl.hideMenu();" class="trash-full">
 </button>
-<button type="button" ng-click="recipeCtrl.sound();" class="trash-full">
+
+<button type="button" ng-click="recipeCtrl.sound();" class="sound-off">
 </button>
+
 <div class="exclude-bar">
     <div class="bar">
         <ul name="excludes" class="list-unstyled">

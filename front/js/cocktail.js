@@ -15,6 +15,13 @@ $(function() {
                 content: "Nous vous proposons les cocktails qui correspondent aux ingrédients que vous avez chez vous.",
                 placement: 'top',
                 backdrop: true
+            },
+            {
+                element: "#color",
+                title: "Ingrédient indisponible",
+                content: "Si vous ne diposez pas de cet ingrédient, il suffit de cliquer sur celui-ci pour le supprimer.",
+                placement: 'bottom',
+                backdrop: true
             }
         ]});
 
