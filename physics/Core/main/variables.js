@@ -11,5 +11,5 @@ var displayFillColor = 0x00B7E2;
 var displayLineStrength = 3;
 var glassQuantity = 8;
 
-var glassScale = 2;
+var glassScale = 1.9;
 var soundVolume = 1;

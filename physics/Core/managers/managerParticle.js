@@ -10,7 +10,8 @@ function initParticle() {
     psd.radius = 0.05;
     psd.dampingStrength = 0.4;
     psd.viscousStrength = 0.05;
-    psd.colorMixingStrength = 0.8;
+    //psd.colorMixingStrength = 0.8;
+    psd.colorMixingStrength = 0.01;
 
     if (world.particleSystems[0] != null)
         world.DestroyParticleSystem(world.particleSystems[0]);
