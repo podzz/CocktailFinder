@@ -139,6 +139,16 @@ html {
     bottom: 2%;
 }
 
+.sound-off {
+    position: absolute;
+    background: url('../img/volume47.png') no-repeat;
+    height: 64px;
+    width: 64px;
+    border-style: none;
+    bottom: 2%;
+    right: 2%;
+}
+
 .trash-full:active {
     outline: none !important;
 }
