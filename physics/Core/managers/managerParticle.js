@@ -87,7 +87,7 @@ function addFlowBottle(pop, color, opacity, quantity) {
         anim(bottle).to({y: height / 3 - rotorBodyHeight * METER / 1.8}, 1);
         anim(bottle).to({x: (width / 5) - 40 + rotorBodyWidth * METER / 5}, 1);
         anim(bottle).to({rotation: 2.2}, 1);
-        anim(bottle).to(2 + 5 * quantity, {y: -200}, 0.5);
+        anim(bottle).to(2 + 4 * quantity, {y: -200}, 0.5);
         var sound = null;
         var count = 1;
         while (quantity > 1) {
@@ -95,7 +95,10 @@ function addFlowBottle(pop, color, opacity, quantity) {
             var timeout2 = setTimeout(function () {
                 if (sound == null)
                     sound = playSound();
-                var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
+                var xPoint = (width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2;
+                var yPoint = height / METER / 3 - rotorBodyHeight / 1.5;
+                console.debug(xPoint);
+                var spawnPoint = new b2Vec2(xPoint, yPoint);
 
                 var box = new b2PolygonShape();
                 box.SetAsBoxXYCenterAngle(0.7, 0.1, spawnPoint, 0.7);

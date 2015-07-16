@@ -52,6 +52,8 @@ function AnimationManager() {
             var qua = ingr.quantity;
             if (qua == null)
                 qua = 1;
+            else
+                qua = qua.replace(';', '.');
             totalQuantity = totalQuantity + parseFloat(qua);
         }
         //console.log(totalQuantity);
@@ -62,13 +64,16 @@ function AnimationManager() {
             var qua = ingr.quantity;
             if (qua == null)
                 qua = 1;
-            var r = qua / totalQuantity * glassQuantity;
+            else
+                qua = qua.replace(';', '.');
+            var r = parseFloat(qua) / totalQuantity * glassQuantity;
 
             //console.log(ingr);
             //console.log(r);
             if (ingr.selectedColor && ingr.selectedColor != "#null") {
                 addFlowBottle(ingr_pop, ingr.selectedColor, ingr.opacity, r);
-                ingr_pop += 6000;
+                //ingr_pop += 6000;
+                ingr_pop += r * 4000;
             }
         }
     }
