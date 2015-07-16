@@ -18,7 +18,7 @@ var nodeCache       = require('node-cache');
 var routes          = require('./routes');
 
 var app             = express();
-var myCache         = new nodeCache( {stdTTL: 600, checkperiod: 660});
+var myCache         = new nodeCache({stdTTL: 600, checkperiod: 660});
 
 // ---------------------------------
 // ENV setup
@@ -50,7 +50,13 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
-app.use(morgan('combined'));
+//app.use(morgan('combined'));
+app.use(function(req, res, next) {
+  console.log('Request URL:', req.originalUrl);
+  console.log('Request Type:', req.method);
+
+  next();
+});
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 
@@ -115,7 +121,26 @@ app.get('/api/ingredients/setColor/:ingredient/:color', routes.api.setColor);
 app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.api.setOpacity);
 app.get('/api/missing', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);
-app.get('/api/missing/:array',  	routes.api.findCocktailsByMissingIds);
+app.get('/api/missing/:array', function(req, res, next){
+    value = myCache.get(req.params.array);
+    if (value == undefined){
+      next();
+    } else {
+      console.log("FROM CACHE");
+      res.json(value);
+    }
+},
+routes.api.findCocktailsByMissingIds,
+function(req, res){
+    var constructArray = null;
+    if (req.params.array) {
+        constructArray = req.params.array.split(',');
+    }
+    if (constructArray.length <= 15) {
+        console.log("CACHING");
+        myCache.set(req.params.array, res.locals.result, 10000);
+    }
+});
 
 // ---------------------------------
 // Server deployment
