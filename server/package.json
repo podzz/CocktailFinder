@@ -11,6 +11,7 @@
     "method-override": "^2.3.3",
     "morgan": "^1.5.3",
     "node-bing-api": "",
+    "node-cache": "^3.0.0",
     "node-dev": "^2.6.2",
     "request": ""
   },

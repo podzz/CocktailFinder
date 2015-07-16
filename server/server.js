@@ -12,11 +12,13 @@ var bodyParser      = require('body-parser');
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var errorhandler    = require('errorhandler');
+var nodeCache       = require('node-cache');
 
 // CocktailFd Route module
 var routes          = require('./routes');
 
 var app             = express();
+var myCache         = new nodeCache( {stdTTL: 600, checkperiod: 660});
 
 // ---------------------------------
 // ENV setup
