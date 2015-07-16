@@ -4,7 +4,6 @@ var ControllerCocktail = module.exports = function ControllerCocktail(_node) {
 };
 
 function cypher(query, cb) {
-    console.log(query)
     var txUrl = "http://localhost:7474/db/data/transaction/commit";
     request.post({
             uri: txUrl,
@@ -28,15 +27,15 @@ ControllerCocktail.getCocktails = function (ids, callback) {
         }
     }
     query += 'RETURN re.index, ' + // 0
-    '       re.name, ' + // 1
-    '       i.index, ' + // 2
-    '       i.name, ' + // 3
-    '       i.colors, ' + // 4
-    '       r.quantity, ' + // 5
-    '       r.unity, ' + // 6
-    '       rec.index,' + // 7
-    '       i.selectedColor,' + // 8
-    '       i.opacity'; //9
+    're.name, ' + // 1
+    'i.index, ' + // 2
+    'i.name, ' + // 3
+    'i.colors, ' + // 4
+    'r.quantity, ' + // 5
+    'r.unity, ' + // 6
+    'rec.index,' + // 7
+    'i.selectedColor,' + // 8
+    'i.opacity'; //9
     var cb = function (err, data) {
         if (err)
             return callback(err,null);

@@ -50,14 +50,11 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
-//app.use(morgan('combined'));
-app.use(function(req, res, next) {
-  console.log('Request URL:', req.originalUrl);
-  console.log('Request Type:', req.method);
-
-  next();
-});
 app.use(methodOverride('X-HTTP-Method-Override'));
+morgan.token('cached', function getId(req) {
+  return req.cached;
+})
+app.use(morgan(':method :url :status :response-time ms - :cached'));
 
 
 // development only
@@ -126,7 +123,7 @@ app.get('/api/missing/:array', function(req, res, next){
     if (value == undefined){
       next();
     } else {
-      console.log("FROM CACHE");
+      req.cached = "FROM CACHE";
       res.json(value);
     }
 },
@@ -137,8 +134,10 @@ function(req, res){
         constructArray = req.params.array.split(',');
     }
     if (constructArray.length <= 15) {
-        console.log("CACHING");
+        req.cached = "CACHING";
         myCache.set(req.params.array, res.locals.result, 10000);
+    } else {
+        req.cached = "TOO LONG";
     }
 });
 
