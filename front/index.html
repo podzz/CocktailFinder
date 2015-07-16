@@ -98,11 +98,15 @@
 <button type="button" ng-click="recipeCtrl.increaseIndex();" class="nextButton">
 </button>
 
-<button type="button" ng-click="recipeCtrl.hideMenu();" class="trash-full">
-</button>
-<button type="button" ng-click="recipeCtrl.sound();" class="sound-off">
-</button>
+<!--<button type="button" ng-click="recipeCtrl.sound();" class="sound-off">
+</button>-->
 <div class="exclude-bar">
+    <button type="button" class="btn btn-default" ng-click="recipeCtrl.hideMenu()" aria-label="Left Align" id="hide">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+    </button>
+    <button type="button" class="btn btn-default" ng-click="recipeCtrl.hideMenu()" aria-label="Left Align" id="show" style="display:none;">
+        <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+    </button>
     <div class="bar">
         <ul name="excludes" class="list-unstyled">
             <li ng-repeat="ingr in recipeCtrl.missing track by $index" id="{{ 'itemli' + $index }}">

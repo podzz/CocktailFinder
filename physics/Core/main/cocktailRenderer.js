@@ -115,7 +115,7 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
 
     stage = new PIXI.Container();
     particleStage = new PIXI.Container();
-    //particleStage.filters = [blur, thresoldFilter];
+    particleStage.filters = [blur, thresoldFilter];
     stage.addChild(particleStage);
 
 

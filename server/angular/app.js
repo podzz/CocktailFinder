@@ -34,7 +34,9 @@
         }
 
         this.hideMenu = function () {
-            $(".exclude-bar").toggle("slow");
+            $(".bar").toggle("slow");
+            $("#hide").toggle();
+            $("#show").toggle();
         }
 
         this.sound = function () {

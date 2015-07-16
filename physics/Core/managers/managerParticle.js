@@ -81,7 +81,7 @@ function addFlowBottle(pop, color, opacity, quantity) {
         bottle.anchor.y = 0.5;
         bottle.x = width / 2 - 200;
         bottle.y = -200;
-        bottle.alpha = 0.6;
+        bottle.alpha = 0.9;
         spriteArray.push(bottle);
         //anim(bottle).to({y: 30}, 1);
         anim(bottle).to({y: height / 3 - rotorBodyHeight * METER / 1.8}, 1);
