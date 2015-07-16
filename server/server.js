@@ -2,21 +2,21 @@
 // Module dependencies.
 // ---------------------------------
 
-var express = require('express');
-var http    = require('http');
-var path    = require('path');
-var fs      = require('fs');
+var express         = require('express');
+var http            = require('http');
+var path            = require('path');
+var fs              = require('fs');
 
 // Middlewares
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var methodOverride = require('method-override');
-var errorhandler = require('errorhandler');
+var bodyParser      = require('body-parser');
+var morgan          = require('morgan');
+var methodOverride  = require('method-override');
+var errorhandler    = require('errorhandler');
 
 // CocktailFd Route module
-var routes = require('./routes');
+var routes          = require('./routes');
 
-var app = express();
+var app             = express();
 
 // ---------------------------------
 // ENV setup
@@ -27,12 +27,11 @@ app.set('port', process.env.PORT || 3000);
 // Static assets directory path parameter
 app.use(express.static(path.join(__dirname, 'angular')));
 app.use(express.static(path.join(__dirname, '../front')));
-app.use('/admin', express.static(path.join(__dirname, '../admin')));
 app.use(express.static(path.join(__dirname, '../physics')));
+app.use('/admin', express.static(path.join(__dirname, '../admin')));
 
 
-// Server logging, to replace with morgan.js
-
+// CORS Control for remote API cases
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -64,9 +63,6 @@ if ('development' == app.get('env')) {
 // ---------------------------------
 
 // App routes
-
-// Logger
-//app.get('/logger',				 	routes.logger);
 
 // Bootstrap/Install routes
 app.get('/bdd/rank/ingredients',	routes.bdd.rankIngredients);
