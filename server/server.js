@@ -2,21 +2,23 @@
 // Module dependencies.
 // ---------------------------------
 
-var express = require('express');
-var http    = require('http');
-var path    = require('path');
-var fs      = require('fs');
+var express         = require('express');
+var http            = require('http');
+var path            = require('path');
+var fs              = require('fs');
 
 // Middlewares
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var methodOverride = require('method-override');
-var errorhandler = require('errorhandler');
+var bodyParser      = require('body-parser');
+var morgan          = require('morgan');
+var methodOverride  = require('method-override');
+var errorhandler    = require('errorhandler');
+var nodeCache       = require('node-cache');
 
 // CocktailFd Route module
-var routes = require('./routes');
+var routes          = require('./routes');
 
-var app = express();
+var app             = express();
+var myCache         = new nodeCache({stdTTL: 600, checkperiod: 660});
 
 // ---------------------------------
 // ENV setup
@@ -27,12 +29,11 @@ app.set('port', process.env.PORT || 3000);
 // Static assets directory path parameter
 app.use(express.static(path.join(__dirname, 'angular')));
 app.use(express.static(path.join(__dirname, '../front')));
-app.use('/admin', express.static(path.join(__dirname, '../admin')));
 app.use(express.static(path.join(__dirname, '../physics')));
+app.use('/admin', express.static(path.join(__dirname, '../admin')));
 
 
-// Server logging, to replace with morgan.js
-
+// CORS Control for remote API cases
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -49,8 +50,11 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
-app.use(morgan('combined'));
 app.use(methodOverride('X-HTTP-Method-Override'));
+morgan.token('cached', function getId(req) {
+  return req.cached;
+})
+app.use(morgan(':method :url :status :response-time ms - :cached'));
 
 
 // development only
@@ -64,9 +68,6 @@ if ('development' == app.get('env')) {
 // ---------------------------------
 
 // App routes
-
-// Logger
-//app.get('/logger',				 	routes.logger);
 
 // Bootstrap/Install routes
 app.get('/bdd/rank/ingredients',	routes.bdd.rankIngredients);
@@ -117,7 +118,28 @@ app.get('/api/ingredients/setColor/:ingredient/:color', routes.api.setColor);
 app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.api.setOpacity);
 app.get('/api/missing', 			routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);
-app.get('/api/missing/:array',  	routes.api.findCocktailsByMissingIds);
+app.get('/api/missing/:array', function(req, res, next){
+    value = myCache.get(req.params.array);
+    if (value == undefined){
+      next();
+    } else {
+      req.cached = "FROM CACHE";
+      res.json(value);
+    }
+},
+routes.api.findCocktailsByMissingIds,
+function(req, res){
+    var constructArray = null;
+    if (req.params.array) {
+        constructArray = req.params.array.split(',');
+    }
+    if (constructArray.length <= 15) {
+        req.cached = "CACHING";
+        myCache.set(req.params.array, res.locals.result, 10000);
+    } else {
+        req.cached = "TOO LONG";
+    }
+});
 
 // ---------------------------------
 // Server deployment
