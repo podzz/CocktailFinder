@@ -45,8 +45,14 @@ exports.getRoot = function(req, res, next) {
 
 };
 
-exports.giveUnverifiedRecipe = function (req, res, next) {
-    ControllerCocktail.giveUnverifiedRecipe(function(err, result) {
+exports.giveUnverifiedCocktail = function (req, res, next) {
+    ControllerCocktail.giveUnverifiedCocktail(function(err, result) {
+      res.json(result);
+    });
+};
+
+exports.verifyCocktail = function (req, res, next) {
+    ControllerCocktail.verifyCocktail(req.body, function(err, result) {
       res.json(result);
     });
 };

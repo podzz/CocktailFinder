@@ -10,6 +10,7 @@ function cypher(query, cb) {
             json: {statements: [{statement: query}]}
         },
         function (err, res) {
+            if (cb)
             cb(err, res.body)
         })
 }
@@ -107,7 +108,7 @@ ControllerCocktail.getCocktailByExcludeIngredients = function (idIngredients, ca
     cypher(query, cb);
 }
 
-ControllerCocktail.giveUnverifiedRecipe = function (callback) {
+ControllerCocktail.giveUnverifiedCocktail = function (callback) {
     var query = 'MATCH (r:Recipe) WHERE r.verified = false RETURN r.index LIMIT 1';
     var cb = function (err, data) {
         var index_list = [];
@@ -119,3 +120,30 @@ ControllerCocktail.giveUnverifiedRecipe = function (callback) {
     };
     cypher(query, cb);
 };
+
+ControllerCocktail.verifyCocktail = function (data, callback) {
+    // Array of ingredients
+    var id = data.cocktails[0].index;
+    var ingredients = data.cocktails[0].ingredient;
+    // Update COMPOSED_OF relationships
+    for (var i = 0; i < ingredients.length; i++) {
+        var new_rl = {
+            quantity: ingredients[i].quantity,
+            unity: ingredients[i].unity,
+            genericQuantity: ingredients[i].genericQuantity,
+            genericUnity: ingredients[i].genericUnity
+        };
+        var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) WHERE i.index="';
+        query += ingredients[i].index + '" AND re.index = "' + id;
+        query += '" SET r = '+ JSON.stringify(new_rl).replace(/\"([^(\")"]+)\":/g,"$1:") + ' RETURN i;';
+        console.log(query);
+        cypher(query, function(err, data) {
+
+        });
+    }
+    var query = 'MATCH (re:Recipe) WHERE re.index = "' + id + '" SET re.verified = true RETURN re;';
+    cypher(query, function(err, data) {
+        callback(null, data);
+    });
+}
+
