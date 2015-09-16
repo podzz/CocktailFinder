@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="cocktailFinder">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="François Boiteux; Edouard Durieux; Adrien Fenech">
+
+    <title>Cocktail Finder</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="shortcut icon"
+          href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Load Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+    <!-- Load App.js -->
+    <script type="text/javascript" src="appVerify.js"></script>
+</head>
+<body ng-controller="recipeController as recipeCtrl">
+<div class="direction">
+    <h1>Verify Data</h1>
+    <div class="directionData">
+        <h2 class="panel-title2">{{ recipeCtrl.currentCocktail.name }}</h2>
+    </div>
+    <table id="cocktailList">
+        <tr>
+            <th>Quantity</th>
+            <th>GenericQuantity</th>
+            <th>Unity</th>
+            <th>GenericUnity</th>
+            <th>Name</th>
+        </tr>
+        <tr ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient">
+            <td>
+                <input type="text" ng-model="ingr.quantity"/>
+            </td>
+            <td>
+                <input type="text" ng-model="ingr.genericQuantity"/>
+            </td>
+            <td>
+                <input type="text" ng-model="ingr.unity"/>
+            </td>
+            <td>
+                <select name="singleSelect" ng-model="ingr.genericUnity">
+                    <option value="%">%</option>
+                    <option value="cl">Volume (cl)</option>
+                    <option value="oz">Volume (oz)</option>
+                    <option value="qty">qty</option>
+                </select>
+                </td>
+            <td>
+                <input type="text" ng-model="ingr.name"/>
+            </td>
+        </tr>
+    </table>
+    <button ng-click="recipeCtrl.saveData()">Save cocktail</button>
+</div>
+
+</body>
+
+</html>
