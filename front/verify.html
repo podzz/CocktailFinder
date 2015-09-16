@@ -8,10 +8,6 @@
     <meta name="author" content="François Boiteux; Edouard Durieux; Adrien Fenech">
 
     <title>Cocktail Finder</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="shortcut icon"
-          href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
     <!-- jQuery -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -21,14 +17,18 @@
 
     <!-- Load App.js -->
     <script type="text/javascript" src="appVerify.js"></script>
+    <style>
+        input {display: block !important; border: 0 !important; width: 100% !important; border-radius: 0 !important; line-height: 1 !important;}
+td {margin: 0 !important; padding: 0 !important;}
+    </style>
 </head>
 <body ng-controller="recipeController as recipeCtrl">
-<div class="direction">
+<div class="container">
     <h1>Verify Data</h1>
     <div class="directionData">
-        <h2 class="panel-title2">{{ recipeCtrl.currentCocktail.name }}</h2>
+        <h2 class="panel-title2">Name : {{ recipeCtrl.currentCocktail.name }}</h2>
     </div>
-    <table id="cocktailList">
+    <table class="table table-bordered table-condensed" id="cocktailList">
         <tr>
             <th>Quantity</th>
             <th>GenericQuantity</th>
@@ -38,30 +38,30 @@
         </tr>
         <tr ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient">
             <td>
-                <input type="text" ng-model="ingr.quantity"/>
+                <input type="text" ng-model="ingr.quantity" class="form-control"/>
             </td>
             <td>
-                <input type="text" ng-model="ingr.genericQuantity"/>
+                <input type="text" ng-model="ingr.genericQuantity" class="form-control"/>
             </td>
             <td>
-                <input type="text" ng-model="ingr.unity"/>
+                <input type="text" ng-model="ingr.unity" class="form-control"/>
             </td>
             <td>
-                <select name="singleSelect" ng-model="ingr.genericUnity">
+                <select name="singleSelect" ng-model="ingr.genericUnity" class="form-control">
                     <option value="%">%</option>
                     <option value="cl">Volume (cl)</option>
                     <option value="oz">Volume (oz)</option>
                     <option value="qty">qty</option>
+                    <option value="cplt">Complete with</option>
                 </select>
                 </td>
             <td>
-                <input type="text" ng-model="ingr.name"/>
+                <input type="text" ng-model="ingr.name" class="form-control"/>
             </td>
         </tr>
     </table>
-    <button ng-click="recipeCtrl.saveData()">Save cocktail</button>
+    <button class="btn" ng-click="recipeCtrl.saveData()">Save cocktail</button>
 </div>
-
 </body>
 
 </html>

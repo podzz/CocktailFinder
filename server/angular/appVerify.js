@@ -26,9 +26,7 @@
                 that.reloadData();
             });
         }
-
         this.reloadData();
-
     }]);
 
 })();
