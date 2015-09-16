@@ -106,3 +106,16 @@ ControllerCocktail.getCocktailByExcludeIngredients = function (idIngredients, ca
     };
     cypher(query, cb);
 }
+
+ControllerCocktail.giveUnverifiedRecipe = function (callback) {
+    var query = 'MATCH (r:Recipe) WHERE r.verified = false RETURN r.index LIMIT 1';
+    var cb = function (err, data) {
+        var index_list = [];
+        for (var i = 0; i < data.results[0].data.length; i++) {
+            var row_array = data.results[0].data[i].row;
+            index_list.push(row_array[0]);
+        }
+        ControllerCocktail.getCocktails(index_list, callback);
+    };
+    cypher(query, cb);
+};
