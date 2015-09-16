@@ -1,0 +1,38 @@
+
+    <h1>Verify Data</h1>
+    <div>
+        <h2>Name : {{ currentCocktail.name }}</h2>
+    </div>
+    <table class="table table-bordered table-condensed">
+        <tr>
+            <th>Quantity</th>
+            <th>GenericQuantity</th>
+            <th>Unity</th>
+            <th>GenericUnity</th>
+            <th>Name</th>
+        </tr>
+        <tr ng-repeat="ingr in currentCocktail.ingredient">
+            <td>
+                <input type="text" ng-model="ingr.quantity" class="form-control"/>
+            </td>
+            <td>
+                <input type="text" ng-model="ingr.genericQuantity" class="form-control"/>
+            </td>
+            <td>
+                <input type="text" ng-model="ingr.unity" class="form-control"/>
+            </td>
+            <td>
+                <select ng-model="ingr.genericUnity" class="form-control">
+                    <option value="%">%</option>
+                    <option value="cl">Volume (cl)</option>
+                    <option value="oz">Volume (oz)</option>
+                    <option value="qty">qty</option>
+                    <option value="cplt">Complete with</option>
+                </select>
+                </td>
+            <td>
+                <input type="text" ng-model="ingr.name" class="form-control"/>
+            </td>
+        </tr>
+    </table>
+    <button class="btn" ng-click="saveData()">Save data</button>

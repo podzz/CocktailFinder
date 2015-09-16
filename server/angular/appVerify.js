@@ -1,6 +1,6 @@
 (function () {
     var app = angular.module('cocktailFinder', []);
-
+    
     app.controller('recipeController', ['$scope', '$http', function ($scope, $http) {
         // Current recipe displayed
         this.currentCocktail = {};

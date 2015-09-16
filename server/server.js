@@ -74,8 +74,11 @@ app.get('/bdd/rank/ingredients',	routes.bdd.rankIngredients);
 app.get('/bdd/rank/recipes',		  routes.bdd.rankRecipes);
 app.get('/bdd/clean/',			    	routes.bdd.clean);
 app.get('/bdd/bootstrap',         routes.bdd.bootstrap);
+
 app.get('/bdd/verify',			      routes.api.giveUnverifiedCocktail);
 app.post('/bdd/verifyCocktail',   routes.api.verifyCocktail);
+app.get('/bdd/links',             routes.api.getLinks);
+app.post('/bdd/editLink/',       routes.api.editLink);
 
 // Bing routes
 app.get('/bing/search/:search',    routes.bing.downloadPicturesIngredients);

@@ -1,0 +1,25 @@
+<a ui-sref="newGlass" class="btn-primary btn-lg nodecoration">Add New Glass</a>
+<table class="table movietable">
+    <tr>
+        <td><h3>All unities</h3></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="link in data">
+            <td>
+                <input type="text" ng-model="link[0]" class="form-control"/>
+            </td>
+            <td>
+                <select ng-model="link[1]" class="form-control">
+                    <option value="%">%</option>
+                    <option value="cl">Volume (cl)</option>
+                    <option value="oz">Volume (oz)</option>
+                    <option value="qty">qty</option>
+                    <option value="cplt">Complete with</option>
+                </select>
+            </td>
+            <td>
+                <input type="button" ng-click="saveData(link)" class="btn" value="Save"/>
+            </td>
+    </tr>
+</table>

@@ -115,4 +115,50 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
     };
 
     $scope.loadRecipe();
-});
+}).controller('verifyController', ['$scope', '$http', function ($scope, $http) {
+        // Current recipe displayed
+        $scope.currentCocktail = {};
+        $scope.data = {};
+
+        // Fetch data from API with the exclude list in param
+        $scope.reloadData = function () {
+
+            var route = "bdd/verify/";
+
+            $http.get(route).success(function (data) {
+                $scope.data = data;
+                $scope.currentCocktail = data.cocktails[0];
+            });
+        }
+
+        $scope.saveData = function () {
+            $scope.data.cocktails[0] = $scope.currentCocktail;
+            var route = "bdd/verifyCocktail/";
+
+            $http.post(route, $scope.data).success(function (data) {
+                $scope.reloadData();
+            });
+        }
+        $scope.reloadData();
+    }]).controller('UnitiesController', ['$scope', '$http', function ($scope, $http) {
+        // Current recipe displayed
+        $scope.data = {};
+
+        // Fetch data from API with the exclude list in param
+        $scope.reloadData = function () {
+
+            var route = "bdd/links/";
+
+            $http.get(route).success(function (data) {
+                $scope.data = data;
+            });
+        }
+
+        $scope.saveData = function (id) {
+            var route = "bdd/editLink/";
+
+            $http.post(route, id).success(function (data) {
+            });
+        }
+        $scope.reloadData();
+    }]);

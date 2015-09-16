@@ -36,7 +36,10 @@ ControllerCocktail.getCocktails = function (ids, callback) {
     'r.unity, ' + // 6
     'rec.index,' + // 7
     'i.selectedColor,' + // 8
-    'i.opacity'; //9
+    'i.opacity,' + //9
+    'r.genericUnity, ' + // 10
+    'r.genericQuantity '; // 11
+
     var cb = function (err, data) {
         if (err)
             return callback(err,null);
@@ -63,6 +66,8 @@ ControllerCocktail.getCocktails = function (ids, callback) {
                         index: row_array[2],
                         quantity: row_array[5],
                         unity: row_array[6],
+                        genericUnity: row_array[10],
+                        genericQuantity: row_array[11],
                         name: row_array[3],
                         colors: row_array[4],
                         opacity: row_array[9],
@@ -142,6 +147,26 @@ ControllerCocktail.verifyCocktail = function (data, callback) {
         });
     }
     var query = 'MATCH (re:Recipe) WHERE re.index = "' + id + '" SET re.verified = true RETURN re;';
+    cypher(query, function(err, data) {
+        callback(null, data);
+    });
+};
+
+ControllerCocktail.getLinks = function (data, callback) {
+    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) RETURN DISTINCT r.unity, r.genericUnity;';
+    cypher(query, function(err, data) {
+        var index_list = [];
+        for (var i = 0; i < data.results[0].data.length; i++) {
+            var row_array = data.results[0].data[i].row;
+            index_list.push(row_array);
+        }
+        callback(null, index_list);
+    });
+}
+
+ControllerCocktail.editLink = function (data, callback) {
+    console.log(data);
+    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) WHERE r.unity="'+ data[0] + '" SET r.genericUnity="'+ data[1] + '";';
     cypher(query, function(err, data) {
         callback(null, data);
     });

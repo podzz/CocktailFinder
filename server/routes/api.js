@@ -56,3 +56,15 @@ exports.verifyCocktail = function (req, res, next) {
       res.json(result);
     });
 };
+
+exports.getLinks = function (req, res, next) {
+    ControllerCocktail.getLinks(req.body, function(err, result) {
+      res.json(result);
+    });
+};
+
+exports.editLink = function (req, res, next) {
+    ControllerCocktail.editLink(req.body, function(err, result) {
+      res.json(result);
+    });
+};

@@ -53,6 +53,14 @@ angular.module('adminApp').config(function($stateProvider, $httpProvider){
         url:'/recipes/:id/edit',
         templateUrl:'admin/partials/recipe-edit.html',
         controller:'RecipeEditController'
+    }).state('verify', {
+        url:'/verify',
+        templateUrl: 'admin/partials/verify.html',
+        controller: 'verifyController'
+    }).state('unity',{
+        url:'/unities',
+        templateUrl:'admin/partials/unities.html',
+        controller:'UnitiesController'
     });
 }).run(function($state){
    $state.go('ingredients');
