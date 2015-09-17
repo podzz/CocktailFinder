@@ -51,6 +51,8 @@ app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
+
+// Logging Middleware
 morgan.token('cached', function getId(req) {
   return req.cached;
 })
@@ -75,18 +77,14 @@ app.get('/bdd/rank/recipes',		  routes.bdd.rankRecipes);
 app.get('/bdd/clean/',			    	routes.bdd.clean);
 app.get('/bdd/bootstrap',         routes.bdd.bootstrap);
 
+// Routes for admin panel, that allows to set the genericUnits in DB
 app.get('/bdd/verify',			      routes.api.giveUnverifiedCocktail);
 app.post('/bdd/verifyCocktail',   routes.api.verifyCocktail);
 app.get('/bdd/links',             routes.api.getLinks);
-app.post('/bdd/editLink/',       routes.api.editLink);
+app.post('/bdd/editLink/',        routes.api.editLink);
 
 // Bing routes
 app.get('/bing/search/:search',    routes.bing.downloadPicturesIngredients);
-
-// --------------------------------
-// Production API routes
-// --------------------------------
-app.get('/api/',           			routes.api.getRoot);
 
 // --------------------------------
 // Ingredients
@@ -117,12 +115,11 @@ app.delete('/api/glasses/:id',      routes.api.glass.deleteGlassById);
 
 // Old
 app.get('/api/cocktails',           routes.api.findCocktails);
-app.get('/api/cocktails/',          routes.api.findCocktails)
-app.get('/api/cocktails/:ids', 		routes.api.findCocktails);
+app.get('/api/cocktails/:ids', 		  routes.api.findCocktails);
 app.get('/api/ingredients/setColor/:ingredient/:color', routes.api.setColor);
 app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.api.setOpacity);
-app.get('/api/missing', 			routes.api.findCocktailsByMissingIds);
-app.get('/api/missing/', 			routes.api.findCocktailsByMissingIds);
+app.get('/api/missing', 			      routes.api.findCocktailsByMissingIds);
+app.get('/api/missing/', 			      routes.api.findCocktailsByMissingIds);
 app.get('/api/missing/:array', function(req, res, next){
     value = myCache.get(req.params.array);
     if (value == undefined){

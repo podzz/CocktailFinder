@@ -11,7 +11,7 @@ function cypher(query, cb) {
         },
         function (err, res) {
             if (cb)
-            cb(err, res.body)
+                cb(err, res.body)
         })
 }
 
@@ -165,7 +165,6 @@ ControllerCocktail.getLinks = function (data, callback) {
 }
 
 ControllerCocktail.editLink = function (data, callback) {
-    console.log(data);
     var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) WHERE r.unity="'+ data[0] + '" SET r.genericUnity="'+ data[1] + '";';
     cypher(query, function(err, data) {
         callback(null, data);

@@ -1,7 +1,3 @@
-/**
- * Created by Sandeep on 01/06/14.
- */
-
 angular.module('adminApp', ['ui.router', 'ngResource', 'adminApp.controllers', 'adminApp.services']);
 
 angular.module('adminApp').config(function($stateProvider, $httpProvider){
