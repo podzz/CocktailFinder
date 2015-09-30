@@ -11,7 +11,7 @@ def FormatLine(line):
     return array
 
 
-graph = Graph("http://localhost:7474/db/data/")
+graph = Graph("http://neo4j:secret@127.0.0.1:7474/db/data/")
 
 if os.path.isfile('ColorDataMining.json'):
     with open('ColorDataMining.json') as colorFile:
