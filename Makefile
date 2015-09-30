@@ -17,3 +17,9 @@ runserver:
 
 clean:
 	cd scraping && $(MAKE) clean
+
+DB:
+	cd infra/DBserv;vagrant up;cd -
+
+cleanDB:
+	cd infra/DBserv;vagrant destroy;cd -
