@@ -116,10 +116,10 @@ app.delete('/api/glasses/:id',      routes.api.glass.deleteGlassById);
 // Old
 app.get('/api/cocktails',           routes.api.findCocktails);
 app.get('/api/cocktails/:ids', 		  routes.api.findCocktails);
-app.get('/api/ingredients/setColor/:ingredient/:color', routes.api.setColor);
-app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.api.setOpacity);
-app.get('/api/missing', 			      routes.api.findCocktailsByMissingIds);
-app.get('/api/missing/', 			      routes.api.findCocktailsByMissingIds);
+app.get('/api/ingredients/setColor/:ingredient/:color', routes.api.setColor); // PRODUCTION
+app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.api.setOpacity);  // PRODUCTION
+app.get('/api/missing', 			      routes.api.findCocktailsByMissingIds); // PRODUCTION
+app.get('/api/missing/', 			      routes.api.findCocktailsByMissingIds); // PRODUCTION
 app.get('/api/missing/:array', function(req, res, next){
     value = myCache.get(req.params.array);
     if (value == undefined){

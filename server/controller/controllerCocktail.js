@@ -10,7 +10,7 @@ function cypher(query, cb) {
             json: {statements: [{statement: query}]}
         },
         function (err, res) {
-            if (cb)
+            if (cb && res)
                 cb(err, res.body)
         })
 }

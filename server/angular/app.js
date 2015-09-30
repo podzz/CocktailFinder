@@ -160,16 +160,4 @@
 
         $("#main-menu").toggle("slow");
     }]);
-
-    app.controller('adminCongtroller', ['$scope', '$http', function ($scope, $http) {
-        this.ingredients = [];
-        this.cocktails = [];
-        var that = this;
-        $http.get("/api/ingredients").success(function (data) {
-            that.ingredients = data.ingredients;
-        });
-        $http.get("/api/allcocktails").success(function (data) {
-            that.cocktails = data;
-        });
-    }]);
 })();
