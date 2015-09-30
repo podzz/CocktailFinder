@@ -9,4 +9,4 @@ npm-debug.log
 /neo4j-*
 /neo4j
 .strong-pm/
-
+/infra/DBserv/data
