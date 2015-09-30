@@ -17,3 +17,5 @@ service neo4j-service start
 
 echo "Fill Database ..."
 neo4j-shell -file /vagrant/data/import.cypher
+
+service neo4j-service restart
