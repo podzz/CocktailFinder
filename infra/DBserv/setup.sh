@@ -1,28 +1,19 @@
 #!/bin/bash
 
-echo
-echo "Installing Java..."
-cd /usr/local
-wget -nv -O jre-7u45-linux-x64.gz http://javadl.sun.com/webapps/download/AutoDL?BundleId=81812
-tar -xf jre-7u45-linux-x64.gz
-rm jre-7u45-linux-x64.gz
-ln -s /usr/local/jre1.7.0_45/bin/java /usr/bin/java
+sudo -i
 
-echo
-echo "Installing Neo4j..."
-cd /etc
-wget -nv http://dist.neo4j.org/neo4j-community-2.0.0-M06-unix.tar.gz
-tar -xf neo4j-community-2.0.0-M06-unix.tar.gz
-rm neo4j-community-2.0.0-M06-unix.tar.gz
-ln -s /etc/neo4j-community-2.0.0-M06/bin/neo4j /usr/bin/neo4j
+echo "Installing Neo4j ..."
+wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add -
+echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list
+apt-get update
+apt-get -y install neo4j
+sed -i 's/#org\.neo4j\.server\.webserver\.address=0\.0\.0\.0/org.neo4j.server.webserver.address=0.0.0.0/' /etc/neo4j/neo4j-server.properties
 
-echo
-echo "Updating Neo4j Config..."
-sed -i 's/#org\.neo4j\.server\.webserver\.address=0\.0\.0\.0/org.neo4j.server.webserver.address=0.0.0.0/' /etc/neo4j-community-2.0.0-M06/conf/neo4j-server.properties
+echo "Installing Python ..."
+apt-get -y install python python-pip
 
-echo
 echo "Starting Neo4j..."
-neo4j start
+service neo4j-service start
 
-echo
-echo "TODO populate DB"
+echo "Fill Database ..."
+neo4j-shell -file /vagrant/data/import.cypher

@@ -5,10 +5,10 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.hostname = "neo4j-2M06"
+  config.vm.hostname = "Database"
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.network "forwarded_port", guest: 7474, host: 4242
   config.vm.provision :shell, :path => "setup.sh"
-  config.vm.synced_folder "~/CocktailFinder/data/", "/vagrant/data"
+  config.vm.synced_folder "../../data/", "/vagrant/data"
 end
