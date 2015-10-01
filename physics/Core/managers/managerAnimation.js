@@ -54,7 +54,9 @@ function AnimationManager() {
                 qua = 1;
             else
                 qua = qua.replace(';', '.');
-            totalQuantity = totalQuantity + parseFloat(qua);
+            qua = parseFloat(qua);
+            qua = Math.ceil(qua);
+            totalQuantity = totalQuantity + qua;
         }
         //console.log(totalQuantity);
 
@@ -66,7 +68,9 @@ function AnimationManager() {
                 qua = 1;
             else
                 qua = qua.replace(';', '.');
-            var r = parseFloat(qua) / totalQuantity * glassQuantity;
+            qua = parseFloat(qua);
+            qua = Math.ceil(qua);
+            var r = Math.ceil(qua / totalQuantity * glassQuantity);
 
             //console.log(ingr);
             //console.log(r);
