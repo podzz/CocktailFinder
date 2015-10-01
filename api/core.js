@@ -15,14 +15,20 @@ var nodeCache       = require('node-cache');
 // CocktailFd Route module
 var routes          = require('./routes');
 
+// CocktailFd Config
+var config          = require("./config");
+
 var app             = express();
-var myCache         = new nodeCache({stdTTL: 600, checkperiod: 660});
+var myCache         = new nodeCache({
+  stdTTL:       config.app.cache.TTL,
+  checkperiod:  config.app.cache.checkperiod
+});
 
 // ---------------------------------
 // ENV setup
 // ---------------------------------
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', config.app.port);
 
 // CORS Control for remote API cases
 var allowCrossDomain = function(req, res, next) {
@@ -60,6 +66,9 @@ if ('development' == app.get('env')) {
 // ---------------------------------
 app.get('/api/missing', 			      routes.findCocktailsByMissingIds);
 app.get('/api/missing/:array', function(req, res, next){
+    if (!config.app.cache.enable) {
+      next();
+    }
     value = myCache.get(req.params.array);
     if (value == undefined){
       next();
@@ -70,6 +79,9 @@ app.get('/api/missing/:array', function(req, res, next){
 },
 routes.findCocktailsByMissingIds,
 function(req, res){
+    if (!config.app.cache.enable) {
+      next();
+    }
     var constructArray = null;
     if (req.params.array) {
         constructArray = req.params.array.split(',');
