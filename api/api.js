@@ -1,95 +1,85 @@
-// ---------------------------------
-// Module dependencies.
-// ---------------------------------
+var cluster_restart_on_error 		= true;
+var cluster_restart_on_file_change 	= true;
+var cluster_is_multicore 			= true;
 
-var express         = require('express');
-var http            = require('http');
+var cluster = require('cluster'),
+	// Restart with zero down time
+	restartWorkers = function restartWorkers() {
+		var wid, workerIds = [];
 
-// Middlewares
-var bodyParser      = require('body-parser');
-var morgan          = require('morgan');
-var methodOverride  = require('method-override');
-var errorhandler    = require('errorhandler');
-var nodeCache       = require('node-cache');
+    console.log("Restarting cluster");
 
-// CocktailFd Route module
-var routes          = require('./routes');
+		// create a copy of current running worker ids
+		for(wid in cluster.workers) {
+			workerIds.push(wid);
+		}
 
-var app             = express();
-var myCache         = new nodeCache({stdTTL: 600, checkperiod: 660});
+		workerIds.forEach(function(wid) {
+			cluster.workers[wid].send({
+				text: 'shutdown',
+				from: 'master'
+			});
 
-// ---------------------------------
-// ENV setup
-// ---------------------------------
+			setTimeout(function() {
+				if(cluster.workers[wid]) {
+					cluster.workers[wid].kill('SIGKILL');
+				}
+			}, 5000);
+		});
+	};
 
-app.set('port', process.env.PORT || 3000);
+if (cluster.isMaster) {
+	// Number of CPU cores
+	var numWorkers = cluster_is_multicore ? require('os').cpus().length : 1;
+	
+	// To watch for file changes
+	var fs = require('fs');
 
-// CORS Control for remote API cases
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,POST');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-      
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-      res.status(200).end();
-    }
-    else {
-      next();
-    }
-};
-app.use(allowCrossDomain);
+	console.log('Master cluster setting up ' + numWorkers + ' workers...');
 
-app.use(bodyParser.json());
-app.use(methodOverride('X-HTTP-Method-Override'));
+	var i;
+	var worker;
 
-// Logging Middleware
-morgan.token('cached', function getId(req) {
-  return req.cached;
-})
-app.use(morgan(':method :url :status :response-time ms - :cached'));
+	// Creating workers
+	for (i = 0; i < numWorkers; i++) {
+		worker = cluster.fork();
+		worker.on('message', function() {
+			console.log('arguments', arguments);
+		});
+	}
 
+	// Set up listener of file changes for restarting workers
+	if (cluster_restart_on_file_change) {
+    console.log("Looking for file changes");
+		fs.readdir('.', function(err, files) {
+			files.forEach(function(file) {
+				fs.watch(file, function() {
+					restartWorkers();
+				});
+			});
+		});
+	}
 
-// development only
-if ('development' == app.get('env')) {
-	app.use(errorhandler());
+	// Restart on error
+	cluster.on('exit', function(_worker, code, signal) {
+		console.log('Worker ' + _worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+		if (cluster_restart_on_error) {
+			console.log('Starting a new worker');
+			worker = cluster.fork();
+			worker.on('message', function() {
+				console.log('arguments', arguments);
+			});
+		}
+	});
+} else {
+	process.on('message', function(message) {
+		if (message.type === 'shutdown') {
+			process.exit(0);
+		}
+	});
+
+	console.log('Worker ' + process.pid + ' is running');
+	
+	// Calling main app
+	require("./core");
 }
-
-// ---------------------------------
-// Routes
-// ---------------------------------
-app.get('/api/missing', 			      routes.findCocktailsByMissingIds);
-app.get('/api/missing/:array', function(req, res, next){
-    value = myCache.get(req.params.array);
-    if (value == undefined){
-      next();
-    } else {
-      req.cached = "FROM CACHE";
-      res.json(value);
-    }
-},
-routes.findCocktailsByMissingIds,
-function(req, res){
-    var constructArray = null;
-    if (req.params.array) {
-        constructArray = req.params.array.split(',');
-    }
-    if (constructArray.length <= 15) {
-        req.cached = "CACHING";
-        myCache.set(req.params.array, res.locals.result, 10000);
-    } else {
-        req.cached = "TOO LONG";
-    }
-});
-
-// ---------------------------------
-// Server deployment
-// ---------------------------------
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('-------------------------------------');
-  console.log('Cocktail Finder - Production');
-  console.log('-------------------------------------');
-  console.log('Server running');
-  console.log('Server listening @ http://localhost:%d/', app.get('port'));
-});
