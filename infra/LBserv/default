@@ -6,13 +6,13 @@ server {
   listen 80;
 
   index index.html;
-  root /home/vagrant/CocktailFinder/static/front/html;
+  root /vagrant/static/front/html;
 
   location /api {
     proxy_pass http://project;
   }
 
   location /static {
-    alias /home/vagrant/CocktailFinder/static;
+    alias /vagrant/static;
   }
 }
