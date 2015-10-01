@@ -8,4 +8,6 @@ server {
   location / {
     proxy_pass http://project;
   }
+  location /static {
+  }
 }

@@ -20,7 +20,6 @@ sed -i 's/#org\.neo4j\.server\.webserver\.address=0\.0\.0\.0/org.neo4j.server.we
 
 echo "Installing Python ..."
 apt-get -y install python python-pip vim curl
-pip install py2neo
 
 #==============================#
 
@@ -36,7 +35,5 @@ neo4j-shell -file /vagrant/data/import.cypher
 
 service neo4j-service restart
 
-
-cd /vagrant/data/dataColor; python BootstrapColorDatabase.py
-cd -
+pip install py2neo; cd /vagrant/data/dataColor; python BootstrapColorDatabase.py; cd -
 #==============================#
