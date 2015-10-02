@@ -81,9 +81,7 @@ app.get('/api/missing/:array', function(req, res, next){
 },
 routes.findCocktailsByMissingIds,
 function(req, res){
-    if (!config.app.cache.enable) {
-      next();
-    }
+    if (config.app.cache.enable) {
     var constructArray = null;
     if (req.params.array) {
         constructArray = req.params.array.split(',');
@@ -94,6 +92,7 @@ function(req, res){
     } else {
         req.cached = "TOO LONG";
     }
+  }
 });
 
 // ---------------------------------
