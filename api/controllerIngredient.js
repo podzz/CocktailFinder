@@ -5,7 +5,11 @@ var ControllerIngredient = module.exports = function ControllerIngredient(_node)
 }
 
 function cypher(query, cb) {
-    var txUrl = "http://" + config.app.db.username + ":" + config.app.db.password + "@" + config.app.db.endpoint;
+    var txUrl = "http://";
+    if (config.app.db.username && config.app.db.password) {
+        txUrl += config.app.db.username + ":" + config.app.db.password + "@";
+    }
+    txUrl += config.app.db.endpoint;
     request.post({
             uri: txUrl,
             json: {statements: [{statement: query}]}

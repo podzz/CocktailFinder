@@ -30,7 +30,6 @@ exports.setColor = function(req, res, next) {
         ControllerIngredients.setColor(req.params.ingredient, req.params.color, function(err, result) {
            res.json(result);
         });
-
 };
 
 exports.setOpacity = function(req, res, next) {
@@ -38,5 +37,4 @@ exports.setOpacity = function(req, res, next) {
         ControllerIngredients.setOpacity(req.params.ingredient, req.params.opacity, function(err, result) {
             res.json(result);
         });
-
 };
