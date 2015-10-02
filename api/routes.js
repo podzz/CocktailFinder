@@ -1,5 +1,5 @@
 var ControllerCocktail = require('./controllerCocktail');
-var ControllerIngredients = require('./ControllerIngredient');
+var ControllerIngredients = require('./controllerIngredient');
 
 exports.findCocktails = function (req, res, next) {
     var param = req.params.id;
