@@ -100,33 +100,33 @@ Parser.prototype.initParser = function () {
 }
 
 function Parser() {
-    associateArray["1"] = "Assets/DrinkJSON/sprite_0000_Calque-2.json";
-    associateArray["2"] = "Assets/DrinkJSON/sprite_0001_Calque-3.json";
-    associateArray["3"] = "Assets/DrinkJSON/sprite_0002_Calque-4.json";
-    associateArray["4"] = "Assets/DrinkJSON/sprite_0003_Calque-5.json";
-    associateArray["5"] = "Assets/DrinkJSON/sprite_0004_Calque-6.json";
-    associateArray["6"] = "Assets/DrinkJSON/sprite_0005_Calque-7.json";
-    associateArray["7"] = "Assets/DrinkJSON/sprite_0006_Calque-8.json";
-    associateArray["8"] = "Assets/DrinkJSON/sprite_0007_Calque-9.json";
-    associateArray["9"] = "Assets/DrinkJSON/sprite_0008_Calque-1.json";
-    associateArray["10"] = "Assets/DrinkJSON/sprite_0000_Calque-2.json";
-    associateArray["11"] = "Assets/DrinkJSON/sprite_0001_Calque-3.json";
-    associateArray["12"] = "Assets/DrinkJSON/sprite_0002_Calque-4.json";
+    associateArray["1"] = "static/physics/json/sprite_0000_Calque-2.json";
+    associateArray["2"] = "static/physics/json/sprite_0001_Calque-3.json";
+    associateArray["3"] = "static/physics/json/sprite_0002_Calque-4.json";
+    associateArray["4"] = "static/physics/json/sprite_0003_Calque-5.json";
+    associateArray["5"] = "static/physics/json/sprite_0004_Calque-6.json";
+    associateArray["6"] = "static/physics/json/sprite_0005_Calque-7.json";
+    associateArray["7"] = "static/physics/json/sprite_0006_Calque-8.json";
+    associateArray["8"] = "static/physics/json/sprite_0007_Calque-9.json";
+    associateArray["9"] = "static/physics/json/sprite_0008_Calque-1.json";
+    associateArray["10"] = "static/physics/json/sprite_0000_Calque-2.json";
+    associateArray["11"] = "static/physics/json/sprite_0001_Calque-3.json";
+    associateArray["12"] = "static/physics/json/sprite_0002_Calque-4.json";
 
-    associateArrayImage["1"] = "Assets/DrinkImage/sprite-low_0000_Calque-2.png";
-    associateArrayImage["2"] = "Assets/DrinkImage/sprite-low_0001_Calque-3.png";
-    associateArrayImage["3"] = "Assets/DrinkImage/sprite-low_0002_Calque-4.png";
-    associateArrayImage["4"] = "Assets/DrinkImage/sprite-low_0003_Calque-5.png";
-    associateArrayImage["5"] = "Assets/DrinkImage/sprite-low_0004_Calque-6.png";
-    associateArrayImage["6"] = "Assets/DrinkImage/sprite-low_0005_Calque-7.png";
-    associateArrayImage["7"] = "Assets/DrinkImage/sprite-low_0006_Calque-8.png";
-    associateArrayImage["8"] = "Assets/DrinkImage/sprite-low_0007_Calque-9.png";
-    associateArrayImage["9"] = "Assets/DrinkImage/sprite-low_0008_Calque-1.png";
-    associateArrayImage["10"] = "Assets/DrinkImage/sprite-low_0000_Calque-2.png";
-    associateArrayImage["11"] = "Assets/DrinkImage/sprite-low_0001_Calque-3.png";
-    associateArrayImage["12"] = "Assets/DrinkImage/sprite-low_0002_Calque-4.png";
+    associateArrayImage["1"] = "static/physics/img/sprite-low_0000_Calque-2.png";
+    associateArrayImage["2"] = "static/physics/img/sprite-low_0001_Calque-3.png";
+    associateArrayImage["3"] = "static/physics/img/sprite-low_0002_Calque-4.png";
+    associateArrayImage["4"] = "static/physics/img/sprite-low_0003_Calque-5.png";
+    associateArrayImage["5"] = "static/physics/img/sprite-low_0004_Calque-6.png";
+    associateArrayImage["6"] = "static/physics/img/sprite-low_0005_Calque-7.png";
+    associateArrayImage["7"] = "static/physics/img/sprite-low_0006_Calque-8.png";
+    associateArrayImage["8"] = "static/physics/img/sprite-low_0007_Calque-9.png";
+    associateArrayImage["9"] = "static/physics/img/sprite-low_0008_Calque-1.png";
+    associateArrayImage["10"] = "static/physics/img/sprite-low_0000_Calque-2.png";
+    associateArrayImage["11"] = "static/physics/img/sprite-low_0001_Calque-3.png";
+    associateArrayImage["12"] = "static/physics/img/sprite-low_0002_Calque-4.png";
 
-    rotor["13"] = "Assets/DrinkJSON/bottle.json";
+    rotor["13"] = "static/physics/json/bottle.json";
     console.log("Parser created");
 }
 

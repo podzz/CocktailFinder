@@ -30,5 +30,4 @@ $(function() {
 
 // Start the tour
     tour.start();
-
 });

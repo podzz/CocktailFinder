@@ -49,16 +49,10 @@ var recipeRotor = null;
 var blur = null;
 var blurX = null;
 var blurY = null;
-var thresoldFilter = null;
 var custom = null;
 
 
 function CocktailRenderer() {
-    soundAmbiant = new Howl({
-        urls: ['../Assets/Sound/ambiance.mp3'],
-        volume: 0.1 * soundVolume,
-        loop: true
-    }).play();
     width = $("#renderer").width();
     height = $("#renderer").height();
 
@@ -81,8 +75,6 @@ function CocktailRenderer() {
 
     blur.blurX=300;
     blur.passes=10;
-
-    thresoldFilter = new TresholdFilter();
 
 
 }
@@ -111,11 +103,9 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     blur.blur=5;
     blur.passes=2;
 
-    thresoldFilter = new TresholdFilter();
-
     stage = new PIXI.Container();
     particleStage = new PIXI.Container();
-    particleStage.filters = [blur, thresoldFilter];
+    particleStage.filters = [blur];
     stage.addChild(particleStage);
 
 
