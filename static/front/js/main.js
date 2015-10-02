@@ -19,7 +19,7 @@ requirejs.config({
 // Start loading the main app file. Put all of
 // your application logic in there.
 requirejs([
-    'jquery',
+    'jquery.min',
     'pixi',
     'angular.min',
     'liquidfun',
@@ -37,5 +37,4 @@ requirejs([
     'front/cocktail',
     'bootstrap-tour-standalone',
     'front/app'], function () {
-    console.log('test');
 });
