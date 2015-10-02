@@ -64,6 +64,8 @@ if ('development' == app.get('env')) {
 // ---------------------------------
 // Routes
 // ---------------------------------
+app.get('/api/ingredients/setColor/:ingredient/:color', routes.setColor); // PRODUCTION
+app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.setOpacity);  // PRODUCTION
 app.get('/api/missing', 			      routes.findCocktailsByMissingIds);
 app.get('/api/missing/:array', function(req, res, next){
     if (!config.app.cache.enable) {
