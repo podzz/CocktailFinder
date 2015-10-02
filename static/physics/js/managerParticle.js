@@ -67,7 +67,7 @@ function addFlowBottle(pop, color, opacity, quantity) {
         var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
         if (index_calqueSelected == 8)
             index_calqueSelected = 1;
-        var calqueSelected = 'Assets/RecipesImage/calque' + index_calqueSelected + '.png';
+        var calqueSelected = 'static/physics/img/calque' + index_calqueSelected + '.png';
 
         var image = new Image();
         image.src = calqueSelected;

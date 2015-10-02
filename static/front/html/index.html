@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="cocktailFinder">
+<html lang="en" ng-app="cocktailFinder" ng-cloak>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,16 +13,14 @@
     <link rel="shortcut icon" href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
     <link href="static/front/css/bootstrap-tour-standalone.css" rel="stylesheet">
     <link href="static/front/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="static/front/css/cocktail.css" rel="stylesheet">
     <link href="static/front/css/slider.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Raleway:800,400' rel='stylesheet' type='text/css'>
+
     <!-- Load require JS -->
-    <script data-main="static/front/js/main" src="static/common/js/lib/require.js"></script>
-
-
+    <script data-main="static/front/js/app" src="static/common/js/lib/require.js"></script>
 </head>
 <body ng-controller="recipeController as recipeCtrl">
 <div id="artist">
@@ -72,9 +70,6 @@
 </button>
 <button type="button" ng-click="recipeCtrl.increaseIndex();" class="nextButton">
 </button>
-
-<!--<button type="button" ng-click="recipeCtrl.sound();" class="sound-off">
-</button>-->
 <div class="exclude-bar">
     <button type="button" class="btn btn-default" ng-click="recipeCtrl.hideMenu()" aria-label="Left Align" id="hide">
         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>

@@ -14,7 +14,7 @@ cd CocktailFinder/api && sudo npm install -g npm
 sudo npm install
 
 # Server start
-node api.js
+node api.js &
 # Upstart, not working yet
 #sudo cp cocktailfinder /etc/init/cocktailfinder.conf
 #sudo start cocktailfinder
