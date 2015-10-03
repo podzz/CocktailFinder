@@ -11,10 +11,10 @@ sudo apt-get install -y nodejs
 # CocktailFinder fetching && Installaiton
 git clone https://github.com/Flasheur111/CocktailFinder.git
 cd CocktailFinder/api && sudo npm install -g npm
-sudo npm install
+sudo npm install forever -g
 
 # Server start
-node api.js &
+sudo forever start api.js
 # Upstart, not working yet
 #sudo cp cocktailfinder /etc/init/cocktailfinder.conf
 #sudo start cocktailfinder
