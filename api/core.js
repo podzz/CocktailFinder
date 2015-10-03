@@ -59,7 +59,7 @@ if ('development' == app.get('env')) {
 // Setting cache headers to get caught by downstream
 var setCache = function(time) {
   return setCache[time] || (setCache[time] = function(req, res, next) {
-    res.setHeader("Cache-Control", "public, max-age=" + time);
+    res.set("Cache-Control", "public, max-age=" + time);
     next();
   })
 };
@@ -69,8 +69,8 @@ var setCache = function(time) {
 // ---------------------------------
 app.get('/api/ingredients/setColor/:ingredient/:color', routes.setColor);
 app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.setOpacity);
-app.get('/api/missing', setCache(5 * 60), routes.findCocktailsByMissingIds);
-app.get('/api/missing/:array', setCache(5 * 60), routes.findCocktailsByMissingIds);
+app.get('/api/missing', setCache(600), routes.findCocktailsByMissingIds);
+app.get('/api/missing/:array', setCache(600), routes.findCocktailsByMissingIds);
 
 // ---------------------------------
 // Server deployment

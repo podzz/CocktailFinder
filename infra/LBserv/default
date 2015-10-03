@@ -1,18 +1,23 @@
-upstream project {
-  server 192.168.50.11:3000;
-}
+  proxy_cache_path  /var/cache/nginx levels=1:2 keys_zone=one:8m max_size=3000m inactive=600m;
+  proxy_temp_path /var/tmp;
 
-server {
-  listen 80;
-
-  index index.html;
-  root /vagrant/static/front/html;
-
-  location /api {
-    proxy_pass http://project;
+  upstream project {
+    server 192.168.50.11:3000;
   }
 
-  location /static {
-    alias /vagrant/static;
-  }
-}
+  server {
+    listen 80;
+
+    index index.html;
+    root /vagrant/static/front/html;
+
+    location /api {
+      proxy_cache one;
+      proxy_cache_key sfs$request_uri$scheme;
+      proxy_pass http://project;
+    }
+
+    location /static {
+      alias /vagrant/static;
+    }
+  } 
