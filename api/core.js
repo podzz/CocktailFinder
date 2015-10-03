@@ -48,12 +48,7 @@ app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
-
-// Logging Middleware
-morgan.token('cached', function getId(req) {
-  return req.cached;
-})
-app.use(morgan(':method :url :status :response-time ms - :cached'));
+app.use(morgan('tiny'));
 
 
 // development only
@@ -61,44 +56,25 @@ if ('development' == app.get('env')) {
 	app.use(errorhandler());
 }
 
+// Setting cache headers to get caught by downstream
+var setCache = function(time) {
+  return setCache[time] || (setCache[time] = function(req, res, next) {
+    res.set("Cache-Control", "public, max-age=" + time);
+    next();
+  })
+};
+
 // ---------------------------------
 // Routes
 // ---------------------------------
-app.get('/api/ingredients/setColor/:ingredient/:color', routes.setColor); // PRODUCTION
-app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.setOpacity);  // PRODUCTION
-app.get('/api/missing', 			      routes.findCocktailsByMissingIds);
-app.get('/api/missing/:array', function(req, res, next){
-    if (!config.app.cache.enable) {
-      next();
-    }
-    value = myCache.get(req.params.array);
-    if (value == undefined){
-      next();
-    } else {
-      req.cached = "FROM CACHE";
-      res.json(value);
-    }
-},
-routes.findCocktailsByMissingIds,
-function(req, res){
-    if (config.app.cache.enable) {
-    var constructArray = null;
-    if (req.params.array) {
-        constructArray = req.params.array.split(',');
-    }
-    if (constructArray.length <= 15) {
-        req.cached = "CACHING";
-        myCache.set(req.params.array, res.locals.result, 10000);
-    } else {
-        req.cached = "TOO LONG";
-    }
-  }
-});
+app.get('/api/ingredients/setColor/:ingredient/:color', routes.setColor);
+app.get('/api/ingredients/setOpacity/:ingredient/:opacity', routes.setOpacity);
+app.get('/api/missing', setCache(600), routes.findCocktailsByMissingIds);
+app.get('/api/missing/:array', setCache(600), routes.findCocktailsByMissingIds);
 
 // ---------------------------------
 // Server deployment
 // ---------------------------------
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log('-------------------------------------');
   console.log('Cocktail Finder - Production');
