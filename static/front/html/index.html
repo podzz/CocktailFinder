@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="cocktailFinder" ng-cloak>
+<html lang="en" ng-app="cocktailFinder">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,8 @@
     <title>Cocktail Finder</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="shortcut icon" href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
+    <link rel="shortcut icon"
+          href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
     <link href="static/front/css/bootstrap-tour-standalone.css" rel="stylesheet">
     <link href="static/front/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/front/css/cocktail.css" rel="stylesheet">
@@ -20,20 +21,16 @@
     <link href='http://fonts.googleapis.com/css?family=Raleway:800,400' rel='stylesheet' type='text/css'>
 
     <!-- Load require JS -->
-    <script src="static/common/js/lib/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
-    <script data-main="static/front/js/app" src="static/common/js/lib/require.js"></script>
+    <script data-main="static/front/js/main" src="static/common/js/lib/require.js"></script>
 </head>
 <body ng-controller="recipeController as recipeCtrl">
 <div id="artist">
 </div>
 <div id="renderer">
 </div>
-<div class="direction">
+<div class="direction"  ng-cloak>
     <div class="directionData">
-        <h1 class="panel-title2">{{ recipeCtrl.currentCocktail.name }}</h1>
+        <h1 class="panel-title2" ng-cloak>{{ recipeCtrl.currentCocktail.name }}</h1>
 
         <h1 class="panel-title3">Pour réaliser ce cocktail, vous aurez besoin de :</h1>
     </div>
@@ -41,7 +38,7 @@
         <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient" class="directionLi">
 
             <button id="color" type="button" ng-click="recipeCtrl.addMissing(ingr);"
-                    class="btn btn-b"ng-mouseover="show = true" ng-mouseleave="show = false">
+                    class="btn btn-b" ng-mouseover="show = true" ng-mouseleave="show = false">
                 <div class="quantityDirection">{{ ingr.quantity }} {{ ingr.unity }}</div>
                 {{ ingr.name }}<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </button>
@@ -70,15 +67,16 @@
         </li>
     </ul>
 </div>
-<button type="button" ng-click="recipeCtrl.decreaseIndex();" class="previousButton">
+<button type="button" ng-click="recipeCtrl.decreaseIndex();" class="previousButton" ng-cloak>
 </button>
-<button type="button" ng-click="recipeCtrl.increaseIndex();" class="nextButton">
+<button type="button" ng-click="recipeCtrl.increaseIndex();" class="nextButton" ng-cloak>
 </button>
-<div class="exclude-bar">
+<div class="exclude-bar" ng-cloak>
     <button type="button" class="btn btn-default" ng-click="recipeCtrl.hideMenu()" aria-label="Left Align" id="hide">
         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
     </button>
-    <button type="button" class="btn btn-default" ng-click="recipeCtrl.hideMenu()" aria-label="Left Align" id="show" style="display:none;">
+    <button type="button" class="btn btn-default" ng-click="recipeCtrl.hideMenu()" aria-label="Left Align" id="show"
+            style="display:none;">
         <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
     </button>
     <div class="bar">

@@ -18,6 +18,7 @@
     }
 
     location /static {
+      sendfile off;
       alias /vagrant/static;
     }
   } 
