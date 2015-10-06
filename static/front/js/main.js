@@ -7,13 +7,14 @@
 // except for 'app' ones, which are in a sibling
 // directory.
 requirejs.config({
-    baseUrl: 'static/common/js/lib',
+    baseUrl: 'static/',
     paths: {
-        'physics': '../../../physics/js',
-        'angular': 'angular.min',
-        'app': '../../../front/js/app',
-        'cocktail': '../../../front/js/cocktail',
-        'jquery': 'jquery.min'
+        'app': 'front/js/app',
+        'angular': 'common/js/lib/angular.min',
+        'jquery': 'common/js/lib/jquery.min',
+        'jquery.cookie': 'common/js/lib/jquery.cookie',
+        'physics': 'physics/js',
+        'pixi': 'physics/js/pixi'
     },
     shim: {
         'angular': {
@@ -21,28 +22,29 @@ requirejs.config({
         },
         'jquery': {
             exports: "$"
-        },
-        'underscore': {
-            exports: "_"
-        },
-        'cocktail': ['jquery', 'jquery.cookie', 'angular'],
-        'app':['cocktail'],
-        deps: ['cocktail']
+        }
     }
 });
 
-require(['app']);
-
-/*
- 'jquery', 'jquery.cookie', 'angular','timeline', 'pixi', 'liquidfun',
- 'physics/thresoldFilter',
- 'physics/variables',
- 'physics/managerParser',
- 'physics/managerCollision',
- 'physics/managerObject',
- 'physics/managerShape',
- 'physics/managerParticle',
- 'physics/managerRecipe',
- 'physics/cocktailRenderer',
- 'physics/managerAnimation'],
- */
+require(['angular',
+    'pixi',
+    'physics/liquidfun',
+    'physics/thresoldFilter',
+    'physics/variables',
+    'physics/managerParser',
+    'physics/managerCollision',
+    'physics/managerObject',
+    'physics/managerShape',
+    'physics/managerParticle',
+    'physics/managerRecipe',
+    'physics/cocktailRenderer',
+    'physics/managerAnimation',
+    'physics/timeline',
+    'jquery',
+    'jquery.cookie',
+    'app'],
+ function (app) {
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['cocktailFinder']);
+    });
+});

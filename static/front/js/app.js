@@ -1,14 +1,9 @@
 /**
  * Created by Francois on 02/10/15.
  */
-define('appang', ['angular', 'angular-cookies.min','cocktail'], function (angular) {
-    'use strict'
-    var app = angular.module('cocktailfinder', ['ngCookies']);
-    return app;
-});
+define(['angular'], function () {
+    var app = angular.module("cocktailFinder", []);
 
-require(['appang'], function (app) {
-    'use strict'
     app.controller('recipeController', ['$scope', '$http', function ($scope, $http) {
         // Index in recipe array (this.data, fetched from server)
         this.currentIndex = 0;
@@ -163,4 +158,6 @@ require(['appang'], function (app) {
 
         $("#main-menu").toggle("slow");
     }]);
+
+    return app;
 });
