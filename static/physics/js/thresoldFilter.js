@@ -1,4 +1,4 @@
-require(['pixi'], function (PIXI) {
+require(['physics/pixi'], function (PIXI) {
     PIXI.TresholdFilter = function () {
 
         PIXI.AbstractFilter.call(this,

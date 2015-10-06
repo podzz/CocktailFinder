@@ -14,7 +14,6 @@ requirejs.config({
         'jquery': 'common/js/lib/jquery.min',
         'jquery.cookie': 'common/js/lib/jquery.cookie',
         'physics': 'physics/js',
-        'pixi': 'physics/js/pixi'
     },
     shim: {
         'angular': {
@@ -27,7 +26,7 @@ requirejs.config({
 });
 
 require(['angular',
-    'pixi',
+    'physics/pixi',
     'physics/liquidfun',
     'physics/thresoldFilter',
     'physics/variables',
