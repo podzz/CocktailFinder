@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="cocktailFinder">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,13 +22,14 @@
 
     <!-- Load require JS -->
     <script data-main="static/front/js/main" src="static/common/js/lib/require.js"></script>
+
 </head>
-<body ng-controller="recipeController as recipeCtrl">
+<body ng-app="cocktailfinder" ng-controller="recipeController as recipeCtrl">
 <div id="artist">
 </div>
 <div id="renderer">
 </div>
-<div class="direction"  ng-cloak>
+<div class="direction" ng-cloak>
     <div class="directionData">
         <h1 class="panel-title2" ng-cloak>{{ recipeCtrl.currentCocktail.name }}</h1>
 
@@ -90,5 +91,4 @@
     </div>
 </div>
 </body>
-
 </html>

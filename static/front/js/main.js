@@ -9,54 +9,40 @@
 requirejs.config({
     baseUrl: 'static/common/js/lib',
     paths: {
-        'app': '../../../front/js/app',
         'physics': '../../../physics/js',
         'angular': 'angular.min',
-        'angular.route': 'angular-route',
-        'angular.cookies': 'angular-cookies.min',
-
+        'app': '../../../front/js/app',
         'cocktail': '../../../front/js/cocktail',
-
-        'bootstrap.tour': 'bootstrap-tour-standalone',
-
         'jquery': 'jquery.min'
     },
     shim: {
         'angular': {
-            deps:['jquery'],
             exports: 'angular'
         },
-        'angular.route': ['angular'],
-        'angular.cookies': ['angular'],
-        'bootstrap.tour': ['jquery'],
-        'cocktail': ['jquery']
-    },
-    deps: ['cocktail']
+        'jquery': {
+            exports: "$"
+        },
+        'underscore': {
+            exports: "_"
+        },
+        'cocktail': ['jquery', 'jquery.cookie', 'angular'],
+        'app':['cocktail'],
+        deps: ['cocktail']
+    }
 });
-// Start loading the main app file. Put all of
-// your application logic in there.
-requirejs([
-    'angular',
-    'angular.route',
-    'angular.cookies',
-    'bootstrap.tour',
-    'pixi',
-    'liquidfun',
-    'physics/variables',
-    'physics/managerParser',
-    'physics/managerCollision',
-    'physics/managerObject',
-    'physics/managerShape',
-    'physics/managerParticle',
-    'physics/managerRecipe',
-    'physics/cocktailRenderer',
-    'physics/managerAnimation',
-    'jquery.cookie',
-    'timeline',
-    'cocktail',
-    'app'
-], function(app) {
-    angular.element(document).ready(function() {
-        angular.bootstrap(document, ['cocktailFinder']);
-    })
-});
+
+require(['app']);
+
+/*
+ 'jquery', 'jquery.cookie', 'angular','timeline', 'pixi', 'liquidfun',
+ 'physics/thresoldFilter',
+ 'physics/variables',
+ 'physics/managerParser',
+ 'physics/managerCollision',
+ 'physics/managerObject',
+ 'physics/managerShape',
+ 'physics/managerParticle',
+ 'physics/managerRecipe',
+ 'physics/cocktailRenderer',
+ 'physics/managerAnimation'],
+ */
