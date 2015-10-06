@@ -99,13 +99,14 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     delete particleStage;
 
     blur = new PIXI.filters.BlurFilter();
+    thresold = new PIXI.TresholdFilter();
 
     blur.blur=5;
     blur.passes=2;
 
     stage = new PIXI.Container();
     particleStage = new PIXI.Container();
-    particleStage.filters = [blur];
+    particleStage.filters = [blur, thresold];
     stage.addChild(particleStage);
 
 
@@ -114,12 +115,6 @@ CocktailRenderer.prototype.reload = function (ingredients, recipe_id) {
     /* Create World */
     gravity = new b2Vec2(0, 8);
     world = new b2World(gravity);
-
-    for (var i = 0; i < soundArray.length; i++) {
-        var sound = soundArray[i];
-        sound.stop();
-    }
-
 
     circleIndex = [];
     recipeArr = [];
@@ -145,26 +140,4 @@ CocktailRenderer.prototype.LoadAnimation = function (animationName) {
     g_groundBody = world.CreateBody(bd);
 
     var animationManager = new window[animationName];
-}
-
-function mute()  {
-    if (soundMute) {
-        soundAmbiant.fade(0, 0.1, 1000);
-        for (var i = 0; i < soundArray.length; i++) {
-            var sound = soundArray[i];
-            sound.fade(0, 1, 1000);
-        }
-        Howler.unmute();
-        soundMute = false;
-    } else {
-        soundAmbiant.fade(0.1, 0, 1000);
-        for (var i = 0; i < soundArray.length; i++) {
-            var sound = soundArray[i];
-            sound.fade(1, 0, 1000);
-        }
-        var soundTimeout1 = setTimeout(function() {
-            Howler.mute();
-        }, 1000);
-        soundMute = true;
-    }
 }

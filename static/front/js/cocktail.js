@@ -1,7 +1,6 @@
 $(function () {
     // Instance the tour
-
-    define(['bootstrap.tour'], function () {
+    require(['bootstrap.tour'], function () {
         var tour = new Tour({
             steps: [
                 {
