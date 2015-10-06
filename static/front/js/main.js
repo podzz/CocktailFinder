@@ -9,7 +9,7 @@
 requirejs.config({
     baseUrl: 'static/common/js/lib',
     paths: {
-        'front': '../../../front/js',
+        'app': '../../../front/js/app',
         'physics': '../../../physics/js',
         'angular': 'angular.min',
         'angular.route': 'angular-route',
@@ -54,5 +54,9 @@ requirejs([
     'jquery.cookie',
     'timeline',
     'cocktail',
-    'front/app'
-]);
+    'app'
+], function(app) {
+    angular.element(document).ready(function() {
+        angular.bootstrap(document, ['cocktailFinder']);
+    })
+});

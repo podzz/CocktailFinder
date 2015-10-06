@@ -1,8 +1,6 @@
 /**
  * Created by Francois on 02/10/15.
  */
-'use strict';
-(function () {
     define(['angular'], function() {
         var app = angular.module('cocktailFinder', []);
 
@@ -164,5 +162,5 @@
 
             $("#main-menu").toggle("slow");
         }]);
+        return app;
     });
-})();
