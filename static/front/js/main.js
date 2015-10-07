@@ -14,7 +14,7 @@ requirejs.config({
         'jquery': 'common/js/lib/jquery.min',
         'jquery.cookie': 'common/js/lib/jquery.cookie',
         'physics/lib': 'physics/js/lib',
-        'physics/app': 'physics/js/app',
+        'physics/app': 'physics/js/app'
     },
     shim: {
         'angular': {
@@ -22,6 +22,9 @@ requirejs.config({
         },
         'jquery': {
             exports: "$"
+        },
+        'physics/lib/liquidfun': {
+            exports: 'liquidfun'
         }
     }
 });

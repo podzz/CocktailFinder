@@ -1,30 +1,43 @@
 /**
  * Created by Francois on 03/05/15.
  */
-var Recipe = (function () {
-    function Recipe(width, height, meter, pixi) {
+
+class Recipe {
+    PIXI:any;
+    METER: number;
+    width: number;
+    height: number;
+
+    constructor(width: number, height: number, meter: number, pixi:any) {
         this.PIXI = pixi;
         this.width = width;
         this.height = height;
         this.METER = meter;
     }
-    Recipe.prototype.recipeRender = function (image_url) {
-        var bottle = new this.PIXI.Sprite.fromImage(image_url);
+
+    recipeRender(image_url) {
+        var bottle:any = new this.PIXI.Sprite.fromImage(image_url);
         bottle.alpha = 0.9;
         bottle.interactive = true;
-        var real_dimensions = findWidthRecipe();
+        var real_dimensions:any = findWidthRecipe();
         bottle.width = real_dimensions.width;
+
         bottle.height = real_dimensions.height;
+
         bottle.anchor.x = 0.5;
         bottle.x = this.width / 2;
         bottle.y = real_dimensions.max_y * this.METER - bottle.height;
         recipeArr.push(bottle);
+
+
         stage.addChild(bottle);
-    };
-    return Recipe;
-})();
+    }
+}
+
+
 function rotorRender(arr) {
     var graphics = new this.PIXI.Graphics();
+
     for (var i = 0; i <= arr.length; i++) {
         if (i == 0) {
             graphics.lineStyle(glassLineStrength, glassLineColor);
@@ -43,9 +56,11 @@ function rotorRender(arr) {
     }
     stage.addChild(graphics);
 }
+
 function findWidthRecipe() {
     var min_x = 300;
     var max_x = -300;
+
     var min_y = 300;
     var max_y = -300;
     if (recipeArr[0].length > 0) {
@@ -54,6 +69,7 @@ function findWidthRecipe() {
                 max_x = recipeArr[0][i].x;
             if (recipeArr[0][i].x < min_x)
                 min_x = recipeArr[0][i].x;
+
             if (recipeArr[0][i].y > max_y)
                 max_y = recipeArr[0][i].y;
             if (recipeArr[0][i].y < max_y)
@@ -68,4 +84,3 @@ function findWidthRecipe() {
     dimension.max_y = max_y;
     return dimension;
 }
-//# sourceMappingURL=managerRecipe.js.map

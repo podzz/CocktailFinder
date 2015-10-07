@@ -1,7 +1,8 @@
 /**
  * Created by Francois on 02/10/15.
  */
-define(['angular'], function () {
+
+define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun'], function (angular, pixi, liquidfun) {
     var app = angular.module("cocktailFinder", []);
 
     app.controller('recipeController', ['$scope', '$http', function ($scope, $http) {
@@ -20,7 +21,10 @@ define(['angular'], function () {
 
         this.opacity = 0;
 
-        this.cocktailRenderer = new CocktailRenderer();
+        var width = $("#renderer").width();
+        var height = $("#renderer").height();
+        var METER = 100;
+        this.cocktailRenderer = new Main(width, height, METER);
 
         var that = this;
 
@@ -158,6 +162,5 @@ define(['angular'], function () {
 
         $("#main-menu").toggle("slow");
     }]);
-
     return app;
 });
