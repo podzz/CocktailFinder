@@ -2,11 +2,19 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/static/physics/js/app/managerRecipe.js" />
+        <item url="file://$PROJECT_DIR$/static/physics/js/app/thresoldFilter.js" />
         <item url="file://$PROJECT_DIR$/static/physics/js/app/managerShape.js" />
+        <item url="file://$PROJECT_DIR$/static/physics/js/app/main.js" />
+        <item url="file://$PROJECT_DIR$/static/physics/js/app/graphics.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/static/physics/js/app/thresoldFilter.js" />
+      <root url="file://$PROJECT_DIR$/static/physics/js/app/managerRecipe.js" />
       <root url="file://$PROJECT_DIR$/static/physics/js/app/managerShape.js" />
+      <root url="file://$PROJECT_DIR$/static/physics/js/app/main.js" />
+      <root url="file://$PROJECT_DIR$/static/physics/js/app/graphics.js" />
     </CLASSES>
     <SOURCES />
   </library>

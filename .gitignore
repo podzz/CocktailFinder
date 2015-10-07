@@ -11,3 +11,4 @@ npm-debug.log
 .vagrant/
 .strong-pm/
 /infra/DBserv/data
+*.map
