@@ -1,8 +1,8 @@
 /**
  * Created by Francois on 07/10/15.
  */
-/// <reference path="../lib/pixi.d.ts"/>
-/// <reference path="../lib/jquery.d.ts"/>
+/// <reference path="lib/pixi.d.ts"/>
+/// <reference path="lib/jquery.d.ts"/>
 /// <reference path="Timeline.ts"/>
 class Graphics {
     stage:PIXI.Container;

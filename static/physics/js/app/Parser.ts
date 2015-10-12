@@ -2,7 +2,7 @@
  * Created by Adrien on 08/04/2015.
  */
 
-/// <reference path="../lib/jquery.d.ts"/>
+/// <reference path="lib/jquery.d.ts"/>
 
 class Parser {
     private hashLayerJson:{[path:string]: string; };

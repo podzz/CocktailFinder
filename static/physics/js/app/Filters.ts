@@ -1,4 +1,4 @@
-/// <reference path="../lib/pixi.d.ts"/>
+/// <reference path="lib/pixi.d.ts"/>
 class Filters {
     private thresoldFilter: PIXI.AbstractFilter;
 

@@ -1,5 +1,5 @@
-/// <reference path="../lib/liquidfun.d.ts"/>
-/// <reference path="../lib/pixi.d.ts"/>
+/// <reference path="lib/liquidfun.d.ts"/>
+/// <reference path="lib/pixi.d.ts"/>
 /// <reference path="Shape.ts"/>
 /// <reference path="Filters.ts"/>
 /// <reference path="Graphics.ts"/>

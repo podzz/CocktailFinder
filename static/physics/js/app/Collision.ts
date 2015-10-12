@@ -1,8 +1,8 @@
 /**
  * Created by Francois on 03/05/15.
  */
-/// <reference path="../lib/liquidfun.d.ts"/>
-/// <reference path="../lib/pixi.d.ts"/>
+/// <reference path="lib/liquidfun.d.ts"/>
+/// <reference path="lib/pixi.d.ts"/>
 
 /**
  * This function takes the body created by the current Animation
