@@ -215,6 +215,7 @@ declare class b2Transform
 declare class b2PolygonShape extends b2Shape
 {
     SetAsBoxXY(halfWidth:number,halfHeight:number);
+    SetAsBoxXYCenterAngle(halfWidth:number, halfHeight:number, center:b2Vec2, angle:number);
 }
 
 declare var b2_dynamicBody:any
@@ -349,7 +350,27 @@ declare class b2ParticleDef
 
 declare class b2ParticleSystemDef
 {
-
+    strictContactCheck:boolean;
+    density:number;
+    gravityScale:number;
+    radius:number;
+    maxCount:number;
+    pressureStrenght:number;
+    dampingStrength:number;
+    elasticStrength:number;
+    springStrength:number;
+    viscousStrength:number;
+    surfaceTensionPressureStrength:number;
+    surfaceTensionNormalStrength:number;
+    repulsiveStrength:number;
+    powderStrength:number;
+    ejectionStrength:number;
+    staticPressureStrength:number;
+    staticPressureRelaxation:number;
+    staticPressureIterations:number;
+    colorMixingStrength:number;
+    destroyByAge:boolean;
+    lifetimeGranularity:number;
 }
 
 declare class b2ParticleGroupDef

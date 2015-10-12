@@ -1,10 +1,7 @@
-/**
- * Created by Adrien on 08/04/2015.
- */
 /// <reference path="../lib/liquidfun.d.ts"/>
 /// <reference path="../lib/pixi.d.ts"/>
-class ManagerShape {
-    PIXI: any;
+
+class Shape {
     width:number = 0;
     height:number = 0;
     METER:number = 0;
@@ -37,8 +34,6 @@ class ManagerShape {
 
     edgerender(recipeArr: Object, stage: any,glassLineStrength: number,
                 glassLineColor: number) {
-
-
         var graphics = new PIXI.Graphics();
 
         graphics.lineStyle(glassLineStrength, glassLineColor);

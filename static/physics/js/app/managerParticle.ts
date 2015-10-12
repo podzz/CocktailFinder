@@ -5,25 +5,8 @@ var eventArray = [];
 var spriteArray = [];
 
 
-function initParticle() {
-    var psd = new b2ParticleSystemDef();
-    psd.radius = 0.05;
-    psd.dampingStrength = 0.4;
-    psd.viscousStrength = 0.05;
-    //psd.colorMixingStrength = 0.8;
-    psd.colorMixingStrength = 0.01;
 
-    if (world.particleSystems[0] != null)
-        world.DestroyParticleSystem(world.particleSystems[0]);
-    particleSystem = world.CreateParticleSystem(psd);
-}
 
-function resetTimeline() {
-    for (var key in eventArray) {
-        clearInterval(eventArray[key]);
-    }
-    eventArray = [];
-}
 
 function addFlowBottle(pop, color, opacity, quantity) {
     function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}

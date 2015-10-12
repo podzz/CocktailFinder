@@ -1,10 +1,7 @@
-/**
- * Created by Adrien on 08/04/2015.
- */
 /// <reference path="../lib/liquidfun.d.ts"/>
 /// <reference path="../lib/pixi.d.ts"/>
-var ManagerShape = (function () {
-    function ManagerShape(width, height, METER) {
+var Shape = (function () {
+    function Shape(width, height, METER) {
         this.width = 0;
         this.height = 0;
         this.METER = 0;
@@ -12,7 +9,7 @@ var ManagerShape = (function () {
         this.height = height;
         this.METER = METER;
     }
-    ManagerShape.prototype.loadGround = function (body, arr) {
+    Shape.prototype.loadGround = function (body, arr) {
         var vectors = [];
         var x_center = (this.width / this.METER / 2) - 1;
         var y_center = 0.2;
@@ -27,7 +24,7 @@ var ManagerShape = (function () {
         arr.push(vectors);
         body.CreateFixtureFromShape(shapeFlow, 10);
     };
-    ManagerShape.prototype.edgerender = function (recipeArr, stage, glassLineStrength, glassLineColor) {
+    Shape.prototype.edgerender = function (recipeArr, stage, glassLineStrength, glassLineColor) {
         var graphics = new PIXI.Graphics();
         graphics.lineStyle(glassLineStrength, glassLineColor);
         var vectorStart = recipeArr[0][0];
@@ -37,6 +34,6 @@ var ManagerShape = (function () {
         graphics.endFill();
         stage.addChild(graphics);
     };
-    return ManagerShape;
+    return Shape;
 })();
 //# sourceMappingURL=managerShape.js.map

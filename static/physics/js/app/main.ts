@@ -1,6 +1,9 @@
 /// <reference path="../lib/liquidfun.d.ts"/>
-/// <reference path="managerShape.ts"/>
-
+/// <reference path="../lib/pixi.d.ts"/>
+/// <reference path="Shape.ts"/>
+/// <reference path="Filters.ts"/>
+/// <reference path="Graphics.ts"/>
+/// <reference path="Animation.ts"/>
 
 
 //manager.parser = new Parser();
@@ -18,11 +21,15 @@ class Main {
     renderers:any;
     particleStage:any;
 
+    currentRecipe: number =  0;
+    currentIngredients: any;
+
+
     // BOX2D World
-    world:any;
+    world:b2World;
 
     // Dictionary Managers
-    managers: { [id: string] : any }
+    managers:{ [id: string] : any }
 
     constructor(width:number, height:number, METER:number) {
         this.width = width;
@@ -31,85 +38,48 @@ class Main {
         this.world = new b2World(new b2Vec2(0, 10));
 
         //INIT MANAGERS
+        this.managers['timeline'] = new Timeline();
+        this.managers['graphics'] = new Graphics(width, height, this.managers['timeline']);
+        this.managers['shape'] = new Shape(width, height, METER);
+        this.managers['animation'] = new Animation(width, height, METER);
+
         this.managers['parser'].initParser();
 
     }
 
-    public InitManagers() {
-        this.managers = new ManagerShape(this.width, this.height, this.METER);
-    }
-
-    public InitDisplay(blurX: number, passes: number) {
-        this.stage = new PIXI.Container();
-        this.particleStage = new PIXI.Container();
-        this.stage.addChild(this.particleStage);
-
-        var blur:any = new PIXI.filters.BlurFilter();
-        blur.blurX = blurX;
-        blur.passes = passes;
-
-        this.renderers = PIXI.autoDetectRenderer(this.width, this.height, {transparent: true}, false);  // arguments: width, height, view, transparent, disableWebGL
-
-        this.world.SetGravity(new b2Vec2(0, 10));
-        var bd = new b2BodyDef;
-        var g_groundBody = this.world.CreateBody(bd);
-
+    public InitDisplay() {
+        this.managers['graphics'].appendRenderer();
+        this.world.CreateBody(new b2BodyDef);
         requestAnimationFrame(this.managers['animation'].animate);
     }
 
+    public LoadDisplay(ingredients: any, recipe_id: number) {
+        var graphics:Graphics = this.managers['graphics'];
+        graphics.loadRenderer();
+        this.world.DestroyParticleSystem(this.world.particleSystems[0]);
 
-    private Reload(ingredients, recipe_id) {
-        resetTimeline();
+        this.currentRecipe = recipe_id;
+        this.currentIngredients = ingredients;
+        this.LoadAnimation("AnimationManager");
+    }
 
-        delete stage;
-        delete particleStage;
-
-        blur = new PIXI.filters.BlurFilter();
-        thresold = new PIXI.TresholdFilter();
-
-        blur.blur = 5;
-        blur.passes = 2;
-
-        stage = new PIXI.Container();
-        particleStage = new PIXI.Container();
-        particleStage.filters = [blur, thresold];
-        stage.addChild(particleStage);
-
-
-        world.DestroyParticleSystem(world.particleSystems[0]);
+    public LoadAnimation(animationName) {
+        var bd = new b2BodyDef();
+        this.world.CreateBody(bd);
+        // LOAD ANIMATION
     }
 }
-    /* Create World */
+
 /*
-    gravity = new b2Vec2(0, 8);
-    world = new b2World(gravity);
-
-    circleIndex = [];
-    recipeArr = [];
-    edgeArr = [];
-    shapeArr = [];
-    circleArr = [];
-    rotorArr = [];
-    soundArray = [];
-
-
-    if (recipe_id != null)
-        currentRecipe = recipe_id;
-    else
-        currentRecipe = null;
-    currentIngredients = ingredients;
-    this.LoadAnimation("AnimationManager");
-}
-
-
-
-CocktailRenderer.prototype.LoadAnimation = function (animationName) {
-    var bd = new this.liquidfun.b2BodyDef();
-    g_groundBody = world.CreateBody(bd);
-
-    var animationManager = new window[animationName];
-}
+circleIndex = [];
+recipeArr = [];
+edgeArr = [];
+shapeArr = [];
+circleArr = [];
+rotorArr = [];
+soundArray = [];
 */
+
 /*
  var circleArr = [];
  var circleIndex = [];
