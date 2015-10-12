@@ -1,0 +1,15 @@
+---
+- hosts: all
+  sudo: true
+  tasks:
+    - name: update apt cache
+      apt: update_cache=yes cache_valid_time=3600
+    - name: install git
+      apt: name=git state=present
+    - name: download Node.js install script
+      get_url: url=https://deb.nodesource.com/setup_0.12 dest=nodeInstall.sh mode=0440
+      shell: ./nodeInstall.sh
+    - name: install nodejs
+      apt: name=nodejs
+    - name: clone git repo
+      git: repo=https://github.com/Flasheur111/CocktailFinder.git update=no
