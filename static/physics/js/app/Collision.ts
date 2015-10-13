@@ -41,8 +41,7 @@ class Collision {
         }
     }
 
-    linkRotor(body: b2Body, shapeArr : b2Vec2[][]){
-        var vectorStart = shapeArr[0][0];
+    linkRotor(body: b2Body){
         var shape:b2PolygonShape = new b2PolygonShape();
         shape.SetAsBoxXYCenterAngle(50,5, new b2Vec2(10,8), 0);
         body.CreateFixtureFromShape(shape, 0.5);

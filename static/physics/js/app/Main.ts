@@ -4,6 +4,7 @@
 /// <reference path="Filters.ts"/>
 /// <reference path="Graphics.ts"/>
 /// <reference path="Animation.ts"/>
+/// <reference path="Recipe.ts"/>
 
 
 //manager.parser = new Parser();
@@ -39,9 +40,10 @@ class Main {
 
         //INIT MANAGERS
         this.managers['timeline'] = new Timeline();
+        this.managers['recipe'] = new Recipe();
         this.managers['graphics'] = new Graphics(width, height, this.managers['timeline']);
         this.managers['shape'] = new Shape(width, height, METER);
-        this.managers['animation'] = new Animation(width, height, METER);
+        this.managers['animation'] = new Animation(width, height, METER, this.world, this.managers);
 
         this.managers['parser'].initParser();
 
@@ -60,13 +62,16 @@ class Main {
 
         this.currentRecipe = recipe_id;
         this.currentIngredients = ingredients;
-        this.LoadAnimation("AnimationManager");
+        this.LoadAnimation("AnimationManager", ingredients, recipe_id);
     }
 
-    public LoadAnimation(animationName) {
+    public LoadAnimation(animationName, ingredients: any, recipe_id: number) {
         var bd = new b2BodyDef();
         this.world.CreateBody(bd);
         // LOAD ANIMATION
+        var animation:Animation = this.managers['animation'];
+        animation.loadAnimation(ingredients, recipe_id)
+
     }
 }
 

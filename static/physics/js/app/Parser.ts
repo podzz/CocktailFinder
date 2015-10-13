@@ -3,14 +3,15 @@
  */
 
 /// <reference path="lib/jquery.d.ts"/>
+/// <reference path="lib/liquidfun.d.ts"/>
 
 class Parser {
     private hashLayerJson:{[path:string]: string; };
     private hashLayerPng:{[path:string]: string; };
     private hashRotorJson:{[path:string]: string; };
 
-    private vectorsRecipes: {[path:string]: string; };
-    private vectorsRotor: {[path:string]: string; };
+    private vectorsRecipes: {[path:string]: b2Vec2[]; };
+    private vectorsRotor: {[path:string]: b2Vec2[]; };
 
     private METER: number;
     private width: number;
@@ -130,17 +131,17 @@ class Parser {
         }
     }
 
-    getRecipe(recipeId)
+    public getRecipe(recipeId)
     {
        return this.vectorsRecipes[recipeId.toString()];
     }
 
-    getRotor()
+    public getRotor()
     {
         return  this.vectorsRotor["1"];
     }
 
-    getRecipeImage(recipeId)
+    public getRecipeImagePath(recipeId)
     {
         return this.hashLayerPng[recipeId.toString()];
     }

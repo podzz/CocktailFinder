@@ -4,6 +4,7 @@
 /// <reference path="lib/pixi.d.ts"/>
 /// <reference path="lib/jquery.d.ts"/>
 /// <reference path="Timeline.ts"/>
+/// <reference path="Filters.ts"/>
 class Graphics {
     stage:PIXI.Container;
     particleStage:PIXI.Container;
@@ -12,9 +13,9 @@ class Graphics {
     public width:number;
     public height:number;
 
-    private timeline: Timeline;
+    private timeline:Timeline;
 
-    constructor(width:number, height:number, timeline: Timeline) {
+    constructor(width:number, height:number, timeline:Timeline) {
         this.width = width;
         this.height = height;
 
@@ -22,13 +23,11 @@ class Graphics {
         this.renderers = PIXI.autoDetectRenderer(this.width, this.height, {transparent: true}, false);  // arguments: width, height, view, transparent, disableWebGL
     }
 
-    appendRenderer()
-    {
+    appendRenderer() {
         $("#renderer").append(this.renderers.view);
     }
 
-    loadRenderer()
-    {
+    loadRenderer() {
         this.timeline.resetTimeline();
         this.stage.destroy(true);
         this.particleStage.destroy(true);
@@ -47,7 +46,6 @@ class Graphics {
     }
 
 
-
     renderRecipe(image_url) {
         var bottle:PIXI.Sprite = PIXI.Sprite.fromImage(image_url);
         bottle.alpha = 0.9;
@@ -58,7 +56,7 @@ class Graphics {
         bottle.anchor.x = 0.5;
         bottle.x = this.width / 2;
         bottle.y = 30;
-        recipeArr.push(bottle);
+        //recipeArr.push(bottle);
         this.stage.addChild(bottle);
     }
 }

@@ -2,6 +2,8 @@
 /// <reference path="lib/pixi.d.ts"/>
 /// <reference path="Parser.ts"/>
 /// <reference path="Shape.ts"/>
+/// <reference path="Collision.ts"/>
+/// <reference path="Graphics.ts"/>
 
 class Animation {
     width:number;
@@ -12,6 +14,8 @@ class Animation {
     private parser:Parser;
     private shape:Shape;
     private collision:Collision;
+    private graphics:Graphics;
+    private recipe:Recipe;
 
     private recipeId:number = 0;
 
@@ -20,7 +24,7 @@ class Animation {
 
     moueJoint:any;
 
-    constructor(width:number, height:number, METER:number, world:b2World, managers: any[]) {
+    constructor(width:number, height:number, METER:number, world:b2World, managers: {[id: string] : any}) {
         this.width = width;
         this.height = height;
         this.METER = METER;
@@ -28,9 +32,11 @@ class Animation {
         this.parser = managers['parser'];
         this.shape = managers['shape'];
         this.collision = managers['collision'];
+        this.graphics = managers['graphics'];
+        this.recipe = managers['recipe'];
     }
 
-    loadAnimation() {
+    loadAnimation(ingredients: any, recipe_id: number) {
         var bdDef:b2BodyDef = new b2BodyDef();
         var body:b2Body = this.world.CreateBody(bdDef);
 
@@ -52,58 +58,23 @@ class Animation {
         this.collision.linkShape(body, this.recipeArr);
         this.collision.linkShape(rotorBody, this.rotorArr);
 
-
-        var image_recipe = parser.getImageFile(recipe);
-        recipeRender(image_recipe);
+        var image_recipe = this.parser.getRecipeImagePath(recipe_id);
+        this.graphics.renderRecipe(image_recipe);
 
         //rotorRender(rotorArr);
-        var ingr_pop = 0;
-        if (currentIngredients) {
-            var totalQuantity = 0;
-
-
-            for (var i = 0; i < currentIngredients.length; i++) {
-                var ingr = currentIngredients[i];
-                var qua = ingr.quantity;
-                if (qua == null)
-                    qua = 1;
-                else
-                    qua = qua.replace(';', '.');
-                qua = parseFloat(qua);
-                qua = Math.ceil(qua);
-                totalQuantity = totalQuantity + qua;
-            }
-            //console.log(totalQuantity);
-
-
-            for (var i = 0; i < currentIngredients.length; i++) {
-                var ingr = currentIngredients[i];
-                var qua = ingr.quantity;
-                if (qua == null)
-                    qua = 1;
-                else
-                    qua = qua.replace(';', '.');
-                qua = parseFloat(qua);
-                qua = Math.ceil(qua);
-                var r = Math.ceil(qua / totalQuantity * glassQuantity);
-
-                //console.log(ingr);
-                //console.log(r);
-                if (ingr.selectedColor && ingr.selectedColor != "#null") {
-                    addFlowBottle(ingr_pop, ingr.selectedColor, ingr.opacity, r);
-                    //ingr_pop += 6000;
-                    ingr_pop += r * 4000;
-                }
-
-            }
+        var distributions = this.recipe.generateDistribution(ingredients);
+        for (var distribution in distributions)
+        {
+            addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity);
         }
+
     }
 
-    setRecipeId(recipeId:number) {
+    public setRecipeId(recipeId:number) {
         this.recipeId = recipeId;
     }
 
-    initParticle() {
+    private initParticle() {
         var psd = new b2ParticleSystemDef();
         psd.radius = 0.05;
         psd.dampingStrength = 0.4;
@@ -118,7 +89,7 @@ class Animation {
     }
 
 
-    getCurrentParticleSystem() {
+    public getCurrentParticleSystem() {
         if (this.world && this.world.particleSystems && this.world.particleSystems.length > 0)
             return this.world.particleSystems[0];
         return null;
@@ -175,7 +146,7 @@ class Animation {
  function QueryCallback(point) {
  this.point = point;
  this.fixture = null;
- }*/
+ }
 
 QueryCallback.prototype.ReportFixture = function (fixture) {
     var body = fixture.body;
@@ -187,7 +158,7 @@ QueryCallback.prototype.ReportFixture = function (fixture) {
         }
     }
     return false;
-};
+};*/
 
 step = function () {
     world.Step(timeStep, velocityIterations, positionIterations);
