@@ -1,11 +1,3 @@
-/**
- * Created by Francois on 02/10/15.
- */
-// For any third party dependencies, like jQuery, place them in the lib folder.
-
-// Configure loading modules from the lib directory,
-// except for 'app' ones, which are in a sibling
-// directory.
 requirejs.config({
     baseUrl: 'static/',
     paths: {
@@ -22,9 +14,6 @@ requirejs.config({
         },
         'jquery': {
             exports: "$"
-        },
-        'physics/lib/liquidfun': {
-            exports: 'liquidfun'
         }
     }
 });
@@ -32,21 +21,23 @@ requirejs.config({
 require(['angular',
     'physics/lib/pixi',
     'physics/lib/liquidfun',
-    'physics/app/thresoldFilter',
-    'physics/app/variables',
-    'physics/app/managerParser',
-    'physics/app/managerCollision',
-    'physics/app/managerObject',
-    'physics/app/managerShape',
-    'physics/app/managerParticle',
-    'physics/app/managerRecipe',
-    'physics/app/cocktailRenderer',
-    'physics/app/managerAnimation',
     'physics/lib/timeline',
+    'physics/app/Filters',
+    'physics/app/Parser',
+    'physics/app/Collision',
+    'physics/app/managerObject',
+    'physics/app/Shape',
+    'physics/app/Particle',
+    'physics/app/Recipe',
+    'physics/app/Tools',
+    'physics/app/Graphics',
+    'physics/app/Animation',
+    'physics/app/Timeline',
+    'physics/app/Main',
     'jquery',
     'jquery.cookie',
     'app'],
- function (app) {
+ function () {
     angular.element(document).ready(function () {
         angular.bootstrap(document, ['cocktailFinder']);
     });

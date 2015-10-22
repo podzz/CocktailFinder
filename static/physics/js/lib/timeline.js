@@ -158,7 +158,32 @@ Timeline.prototype.applyValues = function() {
 
 //--------------------------------------------------------------------
 
-function Anim(name, target, timeline) {
+function Anim(targetName) {
+  var args = [];
+  for(var i=0; i<arguments.length; i++) {
+    args.push(arguments[i]);
+  }
+  var name;
+  var target;
+  var timeline;
+
+  if (typeof(args[0]) == "string") {
+    name = args.shift();
+  }
+
+  if (typeof(args[0]) == "object") {
+    target = args.shift();
+  }
+  else {
+    target = {};
+  }
+
+  if (typeof(args[0]) == "object") {
+    timeline = args.shift();
+  }
+  else {
+    timeline = Timeline.getGlobalInstance();
+  }
   this.startTime = 0;
   this.endTime = 0;
   this.time = 0;
@@ -280,36 +305,6 @@ Anim.prototype.onEnd = function(callback) {
   })
 
   return this;
-}
-
-function anim(targetName, targetObject, parentTimeline) {
-  var args = [];
-  for(var i=0; i<arguments.length; i++) {
-    args.push(arguments[i]);
-  }
-  var name;
-  var target;
-  var timeline;
-
-  if (typeof(args[0]) == "string") {
-    name = args.shift();
-  }
-
-  if (typeof(args[0]) == "object") {
-    target = args.shift();
-  }
-  else {
-    target = {};
-  }
-
-  if (typeof(args[0]) == "object") {
-    timeline = args.shift();
-  }
-  else {
-    timeline = Timeline.getGlobalInstance();
-  }
-
-  return new Anim(name, target, timeline);
 }
 
 //--------------------------------------------------------------------

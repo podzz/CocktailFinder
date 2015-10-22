@@ -6,12 +6,12 @@
 /// <reference path="lib/liquidfun.d.ts"/>
 
 class Parser {
-    private hashLayerJson:{[path:string]: string; };
-    private hashLayerPng:{[path:string]: string; };
-    private hashRotorJson:{[path:string]: string; };
+    private hashLayerJson:{[id:string]: string;}={};
+    private hashLayerPng:any={};
+    private hashRotorJson:any={};
 
-    private vectorsRecipes: {[path:string]: b2Vec2[]; };
-    private vectorsRotor: {[path:string]: b2Vec2[]; };
+    private vectorsRecipes:{[id:string]: b2Vec2[][];}={};
+    private vectorsRotor:{[id:string]: b2Vec2[][];}={};
 
     private METER: number;
     private width: number;
@@ -52,17 +52,17 @@ class Parser {
 
         this.hashRotorJson["1"] = "static/physics/json/bottle.json";
 
-        this.initRecipesVectors(this.hashLayerJson);
-        this.initRotorVectors(this.hashRotorJson)
+        this.initRecipesVectors(this.hashLayerJson, this.vectorsRecipes);
+        this.initRotorVectors(this.hashRotorJson, this.vectorsRotor);
 
         console.log("Parser created");
     }
 
-    private initRecipesVectors(hash)
+    private initRecipesVectors(hash, vectorsRecipes)
     {
         for (var item in hash) {
             $.ajax({
-                url: hash[item.toString()],
+                url: 'http://localhost:8080/' + hash[item.toString()],
                 async: false,
                 dataType: "text",
                 success: function (data) {
@@ -80,13 +80,13 @@ class Parser {
 
                         listPoint.push(vector);
                     }
-                    this.vectorsRecipes[item] = listPoint;
+                    vectorsRecipes[item] = listPoint;
                 }
             });
         }
     }
 
-    private initRotorVectors(hash) {
+    private initRotorVectors(hash, vectorsRotor) {
         for (var item in hash) {
             $.ajax({
                 url: hash[item.toString()],
@@ -125,7 +125,7 @@ class Parser {
 
                    // rotorBodyWidth = maxX - minX;
                   //  rotorBodyHeight = maxY - minY;
-                    this.vectorsRotor[item] = vectors;
+                    vectorsRotor[item] = vectors;
                 }
             });
         }
@@ -138,7 +138,7 @@ class Parser {
 
     public getRotor()
     {
-        return  this.vectorsRotor["1"];
+        return this.vectorsRotor["1"];
     }
 
     public getRecipeImagePath(recipeId)

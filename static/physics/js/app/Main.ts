@@ -1,10 +1,60 @@
 /// <reference path="lib/liquidfun.d.ts"/>
 /// <reference path="lib/pixi.d.ts"/>
+/// <reference path="Timeline.ts"/>
+/// <reference path="Recipe.ts"/>
 /// <reference path="Shape.ts"/>
-/// <reference path="Filters.ts"/>
 /// <reference path="Graphics.ts"/>
 /// <reference path="Animation.ts"/>
-/// <reference path="Recipe.ts"/>
+/// <reference path="Tools.ts"/>
+class Main {
+    width:number = 0;
+    height:number = 0;
+    METER:number = 0;
+    stage:any;
+
+    currentRecipe: number =  0;
+    currentIngredients: any;
+
+    // Dictionary Managers
+    managers:any = {};
+
+    constructor(width:number, height:number, METER:number) {
+        this.width = width;
+        this.height = height;
+        this.METER = METER;
+
+        //INIT MANAGERS
+        this.managers['timeline'] = new Timeline();
+        this.managers['recipe'] = new Recipe();
+        this.managers['graphics'] = new Graphics(width, height, this.managers['timeline']);
+        this.managers['shape'] = new Shape(width, height, METER);
+        this.managers['tools'] = new Tools();
+        this.managers['parser'] = new Parser(width, height, METER);
+        this.managers['collision'] = new Collision();
+        this.managers['animation'] = new Animation(this.width, this.height, this.METER, this.managers);
+    }
+
+    public InitDisplay() {
+        this.managers['graphics'].AppendRenderer();
+
+        //this.world.CreateBody(new b2BodyDef);
+        //requestAnimationFrame(this.managers['animation'].animate);
+    }
+
+    public Load(ingredients: any, recipe_id: number) {
+        this.currentRecipe = recipe_id;
+        this.currentIngredients = ingredients;
+
+        var graphics:Graphics = this.managers['graphics'];
+        graphics.LoadRenderer();
+
+        this.currentRecipe = recipe_id;
+        this.currentIngredients = ingredients;
+
+        var animation:Animation = this.managers['animation'];
+        animation.Load(ingredients, recipe_id)
+    }
+}
 
 
 //manager.parser = new Parser();
@@ -13,67 +63,6 @@
 //manager.animationManager = AnimationManager();
 
 //$("#renderer").append(renderers.view);
-
-class Main {
-    width:number = 0;
-    height:number = 0;
-    METER:number = 0;
-    stage:any;
-    renderers:any;
-    particleStage:any;
-
-    currentRecipe: number =  0;
-    currentIngredients: any;
-
-
-    // BOX2D World
-    world:b2World;
-
-    // Dictionary Managers
-    managers:{ [id: string] : any }
-
-    constructor(width:number, height:number, METER:number) {
-        this.width = width;
-        this.height = height;
-        this.METER = METER;
-        this.world = new b2World(new b2Vec2(0, 10));
-
-        //INIT MANAGERS
-        this.managers['timeline'] = new Timeline();
-        this.managers['recipe'] = new Recipe();
-        this.managers['graphics'] = new Graphics(width, height, this.managers['timeline']);
-        this.managers['shape'] = new Shape(width, height, METER);
-        this.managers['animation'] = new Animation(width, height, METER, this.world, this.managers);
-
-        this.managers['parser'].initParser();
-
-    }
-
-    public InitDisplay() {
-        this.managers['graphics'].appendRenderer();
-        this.world.CreateBody(new b2BodyDef);
-        requestAnimationFrame(this.managers['animation'].animate);
-    }
-
-    public LoadDisplay(ingredients: any, recipe_id: number) {
-        var graphics:Graphics = this.managers['graphics'];
-        graphics.loadRenderer();
-        this.world.DestroyParticleSystem(this.world.particleSystems[0]);
-
-        this.currentRecipe = recipe_id;
-        this.currentIngredients = ingredients;
-        this.LoadAnimation("AnimationManager", ingredients, recipe_id);
-    }
-
-    public LoadAnimation(animationName, ingredients: any, recipe_id: number) {
-        var bd = new b2BodyDef();
-        this.world.CreateBody(bd);
-        // LOAD ANIMATION
-        var animation:Animation = this.managers['animation'];
-        animation.loadAnimation(ingredients, recipe_id)
-
-    }
-}
 
 /*
 circleIndex = [];
@@ -128,3 +117,4 @@ soundArray = [];
 
  var custom = null;
  */
+export=Main

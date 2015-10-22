@@ -2,7 +2,7 @@
  * Created by Francois on 02/10/15.
  */
 
-define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun'], function (angular, pixi, liquidfun) {
+define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Recipe', 'physics/app/Main'], function (angular, PIXI, liquidfun, Recipe,  Main) {
     var app = angular.module("cocktailFinder", []);
 
     app.controller('recipeController', ['$scope', '$http', function ($scope, $http) {
@@ -72,7 +72,7 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun'], function (angul
             if (this.currentIndex != 0) {
                 this.currentIndex--;
                 this.currentCocktail = this.data.cocktails[this.currentIndex];
-                this.cocktailRenderer.reload(this.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                this.cocktailRenderer.Load(this.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             }
         };
         // Increase the current index
@@ -80,7 +80,7 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun'], function (angul
             if (this.currentIndex < Object.keys(that.data.cocktails).length - 1) {
                 this.currentIndex++;
                 this.currentCocktail = that.data.cocktails[this.currentIndex];
-                this.cocktailRenderer.reload(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                this.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             }
         };
         // Append an ingredient to the missing list
@@ -122,14 +122,14 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun'], function (angul
             ingr.selectedColor = color;
             var route = ingr.index + '/' + color.substring(1);
             $http.get("/api/ingredients/setColor/" + route).success(function (data) {
-                that.cocktailRenderer.reload(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             })
         }
 
         this.setOpacity = function (ingr) {
             var route = ingr.index + '/' + ingr.opacity;
             $http.get("/api/ingredients/setOpacity/" + route).success(function (data) {
-                that.cocktailRenderer.reload(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             })
         }
 
@@ -150,14 +150,14 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun'], function (angul
                 // Data fetched from server
                 that.data = data;
                 that.currentIndex = 0;
-                that.cocktailRenderer.reload(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
             });
 
 
         }
 
         this.loadMissingFromCookie();
-        this.cocktailRenderer.initRenderer();
+        this.cocktailRenderer.InitDisplay();
         this.reloadData();
 
         $("#main-menu").toggle("slow");

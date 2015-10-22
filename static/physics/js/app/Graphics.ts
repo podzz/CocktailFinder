@@ -1,10 +1,8 @@
-/**
- * Created by Francois on 07/10/15.
- */
 /// <reference path="lib/pixi.d.ts"/>
 /// <reference path="lib/jquery.d.ts"/>
 /// <reference path="Timeline.ts"/>
 /// <reference path="Filters.ts"/>
+
 class Graphics {
     stage:PIXI.Container;
     particleStage:PIXI.Container;
@@ -23,15 +21,15 @@ class Graphics {
         this.renderers = PIXI.autoDetectRenderer(this.width, this.height, {transparent: true}, false);  // arguments: width, height, view, transparent, disableWebGL
     }
 
-    appendRenderer() {
+    AppendRenderer() {
         $("#renderer").append(this.renderers.view);
     }
 
-    loadRenderer() {
-        this.timeline.resetTimeline();
-        this.stage.destroy(true);
-        this.particleStage.destroy(true);
-
+    LoadRenderer() {
+        if (this.stage != null && this.particleStage != null) {
+            this.stage.destroy(true);
+            this.particleStage.destroy(true);
+        }
         var blur:PIXI.filters.BlurFilter = new PIXI.filters.BlurFilter();
         var filters:Filters = new Filters();
         var threshold:PIXI.AbstractFilter = filters.getThresoldFilter();
@@ -46,11 +44,11 @@ class Graphics {
     }
 
 
-    renderRecipe(image_url) {
+    RenderRecipe(image_url) {
         var bottle:PIXI.Sprite = PIXI.Sprite.fromImage(image_url);
         bottle.alpha = 0.9;
         bottle.interactive = true;
-        bottle.width = 500
+        bottle.width = 500;
         bottle.height = 800;
 
         bottle.anchor.x = 0.5;

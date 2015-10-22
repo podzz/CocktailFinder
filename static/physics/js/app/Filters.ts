@@ -1,9 +1,10 @@
 /// <reference path="lib/pixi.d.ts"/>
+
 class Filters {
-    private thresoldFilter: PIXI.AbstractFilter;
+    private thresoldFilter:PIXI.AbstractFilter;
 
     constructor() {
-        this.thresoldFilter = new CustomFilter([
+        this.thresoldFilter = new PIXI.AbstractFilter(null, [
             'precision mediump float;',
             'varying vec2 vTextureCoord;',
             'uniform float uSize;',
@@ -14,7 +15,7 @@ class Filters {
             '   if (gl_FragColor.a < 0.5)',
             '       gl_FragColor.a = 0.;',
             '}'
-        ]);
+        ], {customUniform: {type: '1f', value: 0}});
     }
 
     public getThresoldFilter() {
@@ -22,9 +23,4 @@ class Filters {
     }
 }
 
-class CustomFilter extends PIXI.AbstractFilter {
-    constructor(fragmentSource:string[]) {
-        super(null, fragmentSource, {customUniform: {type: '1f', value: 0}});
-    }
-}
 

@@ -1,18 +1,28 @@
 /**
  * Created by Adrien on 08/04/2015.
  */
-var eventArray = [];
-var spriteArray = [];
 /// <reference path="lib/liquidfun.d.ts"/>
+/// <reference path="lib/pixi.d.ts"/>
+/// <reference path="lib/timeline.d.ts"/>
 
 class Particle {
+    width:number;
+    height:number;
+    METER:number;
+
+    constructor(width, height, METER) {
+        this.width = width;
+        this.height = height;
+        this.METER = METER;
+    }
+
     public addFlowBottle(pop, color, opacity, quantity) {
         var timeout = setTimeout(function () {
             var color_process = null;
             if (opacity == null)
-                color_process = {r: hexToR(color), g: hexToG(color), b: hexToB(color), a: 255};
+                color_process = {r: this.hexToR(color), g: this.hexToG(color), b: this.hexToB(color), a: 255};
             else
-                color_process = {r: hexToR(color), g: hexToG(color), b: hexToB(color), a: opacity};
+                color_process = {r: this.hexToR(color), g: this.hexToG(color), b: this.hexToB(color), a: opacity};
             var calqueList = [];
             var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
             if (index_calqueSelected == 8)
@@ -29,22 +39,20 @@ class Particle {
             bottle.height = 300;
             bottle.anchor.x = 0.5;
             bottle.anchor.y = 0.5;
-            bottle.x = width / 2 - 200;
+            bottle.x = this.width / 2 - 200;
             bottle.y = -200;
             bottle.alpha = 0.9;
             spriteArray.push(bottle);
-            //anim(bottle).to({y: 30}, 1);
-            anim(bottle).to({y: height / 3 - rotorBodyHeight * METER / 1.8}, 1);
-            anim(bottle).to({x: (width / 5) - 40 + rotorBodyWidth * METER / 5}, 1);
-            anim(bottle).to({rotation: 2.2}, 1);
-            anim(bottle).to(2 + 4 * quantity, {y: -200}, 0.5);
+            new Anim(bottle).to({y: this.height / 3 - rotorBodyHeight * this.METER / 1.8}, 1);
+            new Anim(bottle).to({x: (this.width / 5) - 40 + rotorBodyWidth * this.METER / 5}, 1);
+            new Anim(bottle).to({rotation: 2.2}, 1);
+            new Anim(bottle).to(2 + 4 * quantity, {y: -200}, 0.5);
             var count = 1;
             while (quantity > 1) {
                 console.log(quantity + " ---- " + count)
                 var timeout2 = setTimeout(function () {
-                    var xPoint = (width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2;
-                    var yPoint = height / METER / 3 - rotorBodyHeight / 1.5;
-                    console.debug(xPoint);
+                    var xPoint = (this.width / this.METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2;
+                    var yPoint = this.height / this.METER / 3 - rotorBodyHeight / 1.5;
                     var spawnPoint = new b2Vec2(xPoint, yPoint);
 
                     var box = new b2PolygonShape();
@@ -83,7 +91,7 @@ class Particle {
                 count += 3;
             }
             var timeout2 = setTimeout(function () {
-                var spawnPoint = new b2Vec2((width / METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, height / METER / 3 - rotorBodyHeight / 1.5);
+                var spawnPoint = new b2Vec2((this.width / this.METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, this.height / this.METER / 3 - rotorBodyHeight / 1.5);
 
                 var box = new b2PolygonShape();
                 console.log(quantity + " <<<---- ")
@@ -123,19 +131,5 @@ class Particle {
         eventArray.push(timeout);
     }
 
-    private hexToR(h) {
-        return parseInt((this.cutHex(h)).substring(0, 2), 16)
-    }
 
-    private hexToG(h) {
-        return parseInt((this.cutHex(h)).substring(2, 4), 16)
-    }
-
-    private hexToB(h) {
-        return parseInt((this.cutHex(h)).substring(4, 6), 16)
-    }
-
-    private cutHex(h) {
-        return (h.charAt(0) == "#") ? h.substring(1, 7) : h
-    }
 }

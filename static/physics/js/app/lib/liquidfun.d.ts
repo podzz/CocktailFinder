@@ -15,6 +15,16 @@ declare class b2Vec2
     y:number
 }
 
+declare class b2Color
+{
+    constructor(r:number, g:number, b:number);
+    Set(ri: number, gi: number, bi: number);
+
+    r:number;
+    g:number;
+    b:number;
+}
+
 declare class b2Filter
 {
     categoryBits:number
@@ -157,6 +167,8 @@ declare class b2World
     constructor(gravity:b2Vec2);
 
     CreateBody(bodyDefinition:b2BodyDef):b2Body;
+    DestroyBody(bodyDefinition:b2Body):void;
+
     CreateJoint(jointDefinition:b2JointDef):b2Joint;
 
     Step(timeStep:number, velocityIterations:number, positionIterations:number);
@@ -171,6 +183,10 @@ declare class b2World
 
     bodies:b2Body[]
     particleSystems:b2ParticleSystem[]
+}
+
+declare module 'b2World' {
+    export = b2World
 }
 
 interface b2ContactListener
@@ -338,7 +354,11 @@ declare class b2Manifold
 //Particles
 declare class b2ParticleColor
 {
+    constructor(r:number, g:number, b:number, a:number);
+    constructor(color: b2Color);
 
+    Set(r: number, g: number, b: number, a : number);
+    Set(color:b2Color);
 }
 
 declare class b2ParticleDef
@@ -429,5 +449,7 @@ declare var b2_fixtureContactListenerParticle:any;
 declare var b2_particleContactListenerParticle:any;
 declare var b2_fixtureContactFilterParticle:any;
 declare var b2_particleContactFilterParticle:any;
+
+
 
 
