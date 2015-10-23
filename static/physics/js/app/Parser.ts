@@ -1,7 +1,3 @@
-/**
- * Created by Adrien on 08/04/2015.
- */
-
 /// <reference path="lib/jquery.d.ts"/>
 /// <reference path="lib/liquidfun.d.ts"/>
 
@@ -10,8 +6,8 @@ class Parser {
     private hashLayerPng:any={};
     private hashRotorJson:any={};
 
-    private vectorsRecipes:{[id:string]: b2Vec2[][];}={};
-    private vectorsRotor:{[id:string]: b2Vec2[][];}={};
+    private vectorsRecipes:any=[];
+    private vectorsRotor:any=[];
 
     private METER: number;
     private width: number;
@@ -58,18 +54,17 @@ class Parser {
         console.log("Parser created");
     }
 
-    private initRecipesVectors(hash, vectorsRecipes)
+    private initRecipesVectors(hash, vectorsRecipes:any)
     {
         for (var item in hash) {
             $.ajax({
-                url: 'http://localhost:8080/' + hash[item.toString()],
+                url: hash[item.toString()],
                 async: false,
                 dataType: "text",
                 success: function (data) {
                     var f = JSON.parse(data);
                     var parse:any = f.rigidBodies[0].shapes[0].vertices;
                     var listPoint = [];
-
                     for (var i = 0; i < parse.length; i++) {
                         var vector = parse[i];
                         vector.x *= 1.9;

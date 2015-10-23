@@ -1,25 +1,29 @@
 class Tools {
+    constructor()
+    {
+
+    }
     public rgbToHex(r, g, b) {
         return "0x" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
     }
 
-    private hexToR(h) {
+    public hexToR(h):number {
         return parseInt((this.cutHex(h)).substring(0, 2), 16)
     }
 
-    private hexToG(h) {
+    public hexToG(h) {
         return parseInt((this.cutHex(h)).substring(2, 4), 16)
     }
 
-    private hexToB(h) {
+    public hexToB(h) {
         return parseInt((this.cutHex(h)).substring(4, 6), 16)
     }
 
-    private cutHex(h) {
+    public cutHex(h:string) {
         return (h.charAt(0) == "#") ? h.substring(1, 7) : h
     }
 
-    private componentToHex(c) {
+    public componentToHex(c) {
         var hex = c.toString(16).toUpperCase();
         return hex.length == 1 ? "0" + hex : hex;
     }

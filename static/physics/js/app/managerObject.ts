@@ -1,7 +1,3 @@
-/**
- * Created by Adrien on 14/04/2015.
- */
-
 function createIceCube(offsetX, offsetY, size) {
     var bd = new b2BodyDef();
     var shape = new b2PolygonShape();

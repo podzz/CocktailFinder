@@ -67,6 +67,7 @@ declare class b2MassData
 
 declare class b2Body
 {
+
     fixtures:b2Fixture[]
 
     CreateFixtureFromShape(shape:b2Shape, density:number):b2Fixture;

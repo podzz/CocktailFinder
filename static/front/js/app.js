@@ -51,7 +51,6 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
             var dataFetched = $.cookie('cocktailFinder');
             if (dataFetched) {
                 this.missing = JSON.parse(dataFetched);
-                console.log(this.missing);
             }
         };
 
@@ -155,9 +154,7 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
 
 
         }
-
         this.loadMissingFromCookie();
-        this.cocktailRenderer.InitDisplay();
         this.reloadData();
 
         $("#main-menu").toggle("slow");

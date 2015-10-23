@@ -95,6 +95,7 @@ class Animation {
     private velocityIterations:number = 3;
     private positionIterations:number = 3;
     private time:number = 0;
+    private particleSize:number = 10;
 
     constructor(width:number, height:number, METER:number, managers:any) {
         this.width = width;
@@ -107,21 +108,22 @@ class Animation {
         this.collision = managers['collision'];
         this.graphics = managers['graphics'];
         this.recipe = managers['recipe'];
-        this.particle = new Particle(width, height, METER);
-        this.tools = managers['tools'];
         this.timeline = managers['timeline'];
+        this.tools = managers['tools'];
+        this.particle = new Particle(width, height, METER, this.graphics, this.timeline, this.tools);
     }
 
     private WorldReset() {
         this.timeline.resetTimeline();
-        if (this.world != null) {
-            for (var system in this.world.particleSystems) {
-                this.world.DestroyParticleSystem(system);
-            }
-            for (var body in this.world.bodies) {
-                this.world.DestroyBody(body);
-            }
+        while (this.world.particleSystems.length > 0) {
+            var system = this.world.particleSystems[0];
+            this.world.DestroyParticleSystem(system);
         }
+        while (this.world.bodies.length > 0) {
+            var body = this.world.bodies[0];
+            this.world.DestroyBody(body);
+        }
+
         var psd = new b2ParticleSystemDef();
         psd.radius = 0.05;
         psd.dampingStrength = 0.4;
@@ -133,33 +135,38 @@ class Animation {
 
     public Load(ingredients:any, recipe_id:number) {
         this.WorldReset();
-
         var bdDef:b2BodyDef = new b2BodyDef();
         var body:b2Body = this.world.CreateBody(bdDef);
 
         var rotorDef:b2BodyDef = new b2BodyDef();
         var rotorBody:b2Body = this.world.CreateBody(rotorDef);
-        rotorBody.SetType(b2_staticBody);
         //rotorBody.SetFixedRotation(true);
 
+        var groundDef:b2BodyDef = new b2BodyDef();
+        var groundBody:b2Body = this.world.CreateBody(groundDef);
+        groundBody.SetType(b2_staticBody);
+
+
         var recipe:number = ((this.recipeId == 0) ? Math.floor(Math.random() * 12) + 1 : this.recipeId);
-        var rotorArr:b2Vec2[][] = this.parser.getRotor();
-        var recipeArr:b2Vec2[][] = this.parser.getRecipe(recipe);
+        var rotorArr:any=[];
+        var recipeArr:any=[];
+        rotorArr.push(this.parser.getRotor());
+        recipeArr.push(this.parser.getRecipe(recipe));
 
-
-        //shapeManager.LoadGround(body, recipeArr);
+        this.shape.LoadGround(groundBody, [], this.world);
         //shapeManager.LoadStartLiquid(rotorBody, rotorDef, rotorArr);
-
-        this.collision.LinkShape(body, recipeArr);
-        this.collision.LinkShape(rotorBody, rotorArr);
+        this.collision.LinkShape(body, recipeArr, this.world);
+        this.collision.LinkShape(rotorBody, rotorArr, this.world);
 
         this.graphics.RenderRecipe(this.parser.getRecipeImagePath(recipe_id));
 
         //rotorRender(rotorArr);
         var distributions = this.recipe.generateDistribution(ingredients);
-        for (var distribution in distributions) {
-            this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity);
+        for (var i = 0; i < distributions.length; i++){
+            var distribution = distributions[i];
+            this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity, this.world);
         }
+        requestAnimationFrame(this.animate.bind(this));
     }
 
     private step() {
@@ -169,38 +176,38 @@ class Animation {
 
     public animate() {
         this.step();
-
         var particles = this.world.particleSystems[this.world.particleSystems.length - 1].GetPositionBuffer();
         var colorsBuffer = this.world.particleSystems[this.world.particleSystems.length - 1].GetColorBuffer();
 
         var dropable_index = [];
-        for (var key in circleIndex) {
-            var index = circleIndex[key];
-            var circle = circleArr[index];
+        for (var key in this.particle.circleIndex) {
+            var index = this.particle.circleIndex[key];
+            var circle = this.particle.circleArr[index];
             if (circle.y < this.height) {
                 circle.position.x = ((particles[index * 2] ) * this.METER);
                 circle.position.y = ((particles[(index * 2) + 1]) * this.METER);
                 circle.clear();
 
-                circle.beginFill(this.tools.rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]), colorsBuffer[(index * 4) + 3] / 255);
-                circle.drawCircle(0, 0, particleSize);
+                circle.beginFill(parseInt(this.tools.rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]), 16));
+                circle.drawCircle(0, 0, this.particleSize);
+
             }
             else {
                 circle.clear();
-                dropable_index.push(circleIndex[key]);
+                dropable_index.push(this.particle.circleIndex[key]);
             }
         }
 
         if (dropable_index.length > 20) {
             for (var key in dropable_index) {
-                var index = circleIndex.indexOf(dropable_index[key]);
+                var index = this.particle.circleIndex.indexOf(dropable_index[key]);
                 if (index > -1) {
-                    circleIndex.splice(index, 1);
+                    this.particle.circleIndex.splice(index, 1);
                 }
             }
         }
-        /*
 
+/*
          for (var i = 0; i < objectArrInc; i++) {
          var currentPosition = objectPhysicsArr[i].GetWorldCenter();
          var currentAngle = objectPhysicsArr[i].GetAngle();
@@ -209,10 +216,11 @@ class Animation {
          objectDisplayArr[i].position.y = currentPosition.y * this.METER;
          objectDisplayArr[i].rotation = currentAngle;
          }*/
-        renderers.render(stage);
+
+        this.graphics.GetRenderers().render(this.graphics.GetStage());
 
 
-        requestAnimationFrame(animate);
+        requestAnimationFrame(this.animate.bind(this));
 
     }
 }

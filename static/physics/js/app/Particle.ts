@@ -1,28 +1,44 @@
-/**
- * Created by Adrien on 08/04/2015.
- */
 /// <reference path="lib/liquidfun.d.ts"/>
 /// <reference path="lib/pixi.d.ts"/>
 /// <reference path="lib/timeline.d.ts"/>
+/// <reference path="Graphics.ts"/>
+/// <reference path="Tools.ts"/>
 
 class Particle {
     width:number;
     height:number;
     METER:number;
+    glassScale:number=1.9;
 
-    constructor(width, height, METER) {
+    tools:Tools;
+
+    graphics:Graphics;
+    timeline:Timeline;
+
+    circleArr:PIXI.Graphics[]=[];
+        circleIndex:number[]=[];
+
+    constructor(width, height, METER, graphics, timeline, tools) {
         this.width = width;
         this.height = height;
         this.METER = METER;
+        this.graphics = graphics;
+        this.timeline = timeline;
+        this.tools = tools;
     }
 
-    public addFlowBottle(pop, color, opacity, quantity) {
-        var timeout = setTimeout(function () {
-            var color_process = null;
-            if (opacity == null)
-                color_process = {r: this.hexToR(color), g: this.hexToG(color), b: this.hexToB(color), a: 255};
-            else
-                color_process = {r: this.hexToR(color), g: this.hexToG(color), b: this.hexToB(color), a: opacity};
+    public addFlowBottle(pop, color, opacity, quantity, world:b2World) {
+        var locate = this;
+        var particleSystem:b2ParticleSystem = world.particleSystems[0];
+
+        var color_process = null;
+        if (opacity == null)
+            color_process = {r: locate.tools.hexToR(color), g: locate.tools.hexToG(color), b: locate.tools.hexToB(color), a: 255};
+        else
+            color_process = {r: locate.tools.hexToR(color), g: locate.tools.hexToG(color), b: locate.tools.hexToB(color), a: opacity};
+
+        var timeout = setTimeout(function (color_process, particleSystem) {
+
             var calqueList = [];
             var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
             if (index_calqueSelected == 8)
@@ -42,21 +58,23 @@ class Particle {
             bottle.x = this.width / 2 - 200;
             bottle.y = -200;
             bottle.alpha = 0.9;
-            spriteArray.push(bottle);
-            new Anim(bottle).to({y: this.height / 3 - rotorBodyHeight * this.METER / 1.8}, 1);
-            new Anim(bottle).to({x: (this.width / 5) - 40 + rotorBodyWidth * this.METER / 5}, 1);
+            //spriteArray.push(bottle);
+            /*
+            new Anim(bottle).to({y: this.height / 3}, 1);
+            new Anim(bottle).to({x: (this.width / 5) - 40}, 1);
             new Anim(bottle).to({rotation: 2.2}, 1);
             new Anim(bottle).to(2 + 4 * quantity, {y: -200}, 0.5);
+            */
             var count = 1;
             while (quantity > 1) {
                 console.log(quantity + " ---- " + count)
-                var timeout2 = setTimeout(function () {
-                    var xPoint = (this.width / this.METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2;
-                    var yPoint = this.height / this.METER / 3 - rotorBodyHeight / 1.5;
+                var timeout2 = setTimeout(function (particleSystem) {
+                    var xPoint = (locate.width / locate.METER / 5);
+                    var yPoint = locate.height / locate.METER / 3;
                     var spawnPoint = new b2Vec2(xPoint, yPoint);
 
                     var box = new b2PolygonShape();
-                    box.SetAsBoxXYCenterAngle(0.7, 0.1, spawnPoint, 0.7);
+                    box.SetAsBoxXYCenterAngle(4, 0.1, spawnPoint, 0.7);
 
                     var particlegroupDef = new b2ParticleGroupDef();
                     particlegroupDef.shape = box;
@@ -64,43 +82,43 @@ class Particle {
 
                     particlegroupDef.color.Set(color_process.r, color_process.g, color_process.b, color_process.a);
 
-
                     var bottle_flow = new b2BodyDef();
                     bottle_flow.type = b2_dynamicBody;
                     bottle_flow.position.Set(2, 2);
 
-
                     var first_record = particleSystem.GetPositionBuffer().length / 2;
-
                     particleSystem.CreateParticleGroup(particlegroupDef);
+
                     world.CreateBody(bottle_flow);
+                    console.log(world.particleSystems[0].GetPositionBuffer().length);
                     var second_record = particleSystem.GetPositionBuffer().length / 2;
                     var groupParticleStage = new PIXI.Container();
-                    groupParticleStage.filters = [blur];
+                    groupParticleStage.filters = [locate.graphics.GetBlur()];
+                    console.log(first_record + " " + second_record);
                     for (var i = 0; i < second_record - first_record; i++) {
-                        var graphics = new PIXI.Graphics();
+                        var graphicsC = new PIXI.Graphics();
 
-                        groupParticleStage.addChild(graphics);
-                        circleArr.push(graphics);
-                        circleIndex.push(circleArr.length - 1);
+                        groupParticleStage.addChild(graphicsC);
+                        locate.circleArr.push(graphicsC);
+                        console.log('add graphics');
+                        locate.circleIndex.push(locate.circleArr.length - 1);
                     }
-                    particleStage.addChild(groupParticleStage);
-                }, 1000 * count);
-                eventArray.push(timeout2);
+                    locate.graphics.GetParticleStage().addChild(groupParticleStage);
+                }, 1000 * count, particleSystem);
+                locate.timeline.AddEvent(timeout2);
                 quantity -= 1;
                 count += 3;
             }
-            var timeout2 = setTimeout(function () {
-                var spawnPoint = new b2Vec2((this.width / this.METER / 5) - glassScale / 1.5 + rotorBodyWidth / 2, this.height / this.METER / 3 - rotorBodyHeight / 1.5);
+            var timeout2 = setTimeout(function (color_process) {
+                var spawnPoint = new b2Vec2((this.width / this.METER / 5) - this.glassScale / 1.5 , this.height / this.METER / 3);
 
                 var box = new b2PolygonShape();
                 console.log(quantity + " <<<---- ")
                 box.SetAsBoxXYCenterAngle(0.7 * quantity, 0.1 * quantity, spawnPoint, 0.7);
 
-                var particlegroupDef = new b2ParticleGroupDef();
+                var particlegroupDef:b2ParticleGroupDef = new b2ParticleGroupDef();
                 particlegroupDef.shape = box;
                 particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle;
-
                 particlegroupDef.color.Set(color_process.r, color_process.g, color_process.b, color_process.a);
 
 
@@ -115,20 +133,22 @@ class Particle {
                 world.CreateBody(bottle_flow);
                 var second_record = particleSystem.GetPositionBuffer().length / 2;
                 var groupParticleStage = new PIXI.Container();
-                groupParticleStage.filters = [blur];
+                groupParticleStage.filters = [locate.graphics.GetBlur()];
                 for (var i = 0; i < second_record - first_record; i++) {
-                    var graphics = new PIXI.Graphics();
+                    var graphicsC = new PIXI.Graphics();
 
-                    groupParticleStage.addChild(graphics);
-                    circleArr.push(graphics);
-                    circleIndex.push(circleArr.length - 1);
+                    groupParticleStage.addChild(graphicsC);
+                    locate.circleArr.push(graphicsC);
+
+                    console.log('add graphics');
+                    locate.circleIndex.push(locate.circleArr.length - 1);
                 }
-                particleStage.addChild(groupParticleStage);
-            }, 1000 * count);
-            eventArray.push(timeout2);
-            stage.addChild(bottle);
-        }, pop);
-        eventArray.push(timeout);
+                locate.graphics.GetParticleStage().addChild(groupParticleStage);
+            }, 1000 * count, color_process);
+            locate.timeline.AddEvent(timeout2);
+            locate.graphics.GetStage().addChild(bottle);
+        }, pop, color_process, particleSystem);
+        this.timeline.AddEvent(timeout);
     }
 
 

@@ -6,6 +6,7 @@
 /// <reference path="Graphics.ts"/>
 /// <reference path="Animation.ts"/>
 /// <reference path="Tools.ts"/>
+
 class Main {
     width:number = 0;
     height:number = 0;
@@ -34,12 +35,11 @@ class Main {
         this.managers['animation'] = new Animation(this.width, this.height, this.METER, this.managers);
     }
 
+    /*
     public InitDisplay() {
-        this.managers['graphics'].AppendRenderer();
-
         //this.world.CreateBody(new b2BodyDef);
         //requestAnimationFrame(this.managers['animation'].animate);
-    }
+    }*/
 
     public Load(ingredients: any, recipe_id: number) {
         this.currentRecipe = recipe_id;
@@ -48,11 +48,8 @@ class Main {
         var graphics:Graphics = this.managers['graphics'];
         graphics.LoadRenderer();
 
-        this.currentRecipe = recipe_id;
-        this.currentIngredients = ingredients;
-
         var animation:Animation = this.managers['animation'];
-        animation.Load(ingredients, recipe_id)
+        animation.Load(ingredients, recipe_id);
     }
 }
 

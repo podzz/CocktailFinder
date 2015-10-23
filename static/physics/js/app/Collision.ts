@@ -15,20 +15,20 @@
  * @return void
  */
 
+declare var world:any;
 class Collision {
-    public LinkShape(body:b2Body, shapeArr:b2Vec2[][]) {
+    public LinkShape(body:b2Body, shapeArr:any, world_cpy:b2World) {
+        world = world_cpy;
         for (var i = 0; i < shapeArr.length; i++) {
-            var vectors:b2Vec2[] = shapeArr[i];
+            var vectors:any = shapeArr[i];
             if (vectors != null && vectors.length > 0) {
                 var vectorStart = vectors[0];
                 for (var j = 1; j < vectors.length; j++) {
                     var shape = new b2EdgeShape();
-
                     shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[j].x, vectors[j].y));
                     body.CreateFixtureFromShape(shape, 20);
                     vectorStart = vectors[j];
                 }
-
                 // PART TO LINK LAST AND FIRST VERTEX
                 shape = new b2EdgeShape();
                 shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[0].x, vectors[0].y));
@@ -38,7 +38,7 @@ class Collision {
         }
     }
 
-    linkRotor(body:b2Body) {
+    LinkRotor(body:b2Body) {
         var shape:b2PolygonShape = new b2PolygonShape();
         shape.SetAsBoxXYCenterAngle(50, 5, new b2Vec2(10, 8), 0);
         body.CreateFixtureFromShape(shape, 0.5);

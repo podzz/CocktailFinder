@@ -5,9 +5,9 @@ class Recipe {
         this.glassQuantity = 8.0;
     }
 
-    public generateDistribution(ingredient: any)
+    public generateDistribution(ingredient: any):any
     {
-        var distribution: any[] = null;
+        var distribution:any=[];
         var ingr_pop = 0;
         if (ingredient) {
             var totalQuantity = 0;

@@ -1,6 +1,7 @@
 /// <reference path="lib/liquidfun.d.ts"/>
 /// <reference path="lib/pixi.d.ts"/>
 
+declare var world:any;
 class Shape {
     width:number = 0;
     height:number = 0;
@@ -12,7 +13,8 @@ class Shape {
         this.METER = METER;
     }
 
-    loadGround(body: any, arr) {
+    LoadGround(body:b2Body, arr, world_cpy:b2World) {
+        world = world_cpy
         var vectors = [];
 
         var x_center = (this.width / this.METER / 2) - 1;
@@ -23,8 +25,8 @@ class Shape {
 
         var shapeFlow = new b2EdgeShape();
         //var origin = new
-        shapeFlow.Set(new b2Vec2(x_center - mid_width_rampe - 0.5, y_center - 2),
-                      new b2Vec2(x_center + mid_width_rampe, y_center + 2));
+        shapeFlow.Set(new b2Vec2(0.3,5),
+                      new b2Vec2(this.width / this.METER - 0.3,5));
         //shapeFlow.SetTransform(0, 30);
         vectors.push(shapeFlow.vertex1);
         vectors.push(shapeFlow.vertex2);
