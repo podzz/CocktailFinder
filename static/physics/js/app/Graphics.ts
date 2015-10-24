@@ -24,8 +24,7 @@ class Graphics {
         this.renderers = PIXI.autoDetectRenderer(this.width, this.height, {transparent: true}, false);  // arguments: width, height, view, transparent, disableWebGL
 
         this.blur = new PIXI.filters.BlurFilter();
-        this.blur.blur = 5;
-        this.blur.passes = 2;
+        this.blur.blur = 0;
 
         $("#renderer").append(this.renderers.view);
     }

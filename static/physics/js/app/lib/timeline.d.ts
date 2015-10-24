@@ -1,5 +1,3 @@
-declare class Anim {
-    constructor(targetName);
-
-    to(...arguments:Object[]);
-}
+/**
+ * Created by Francois on 24/10/2015.
+ */

@@ -19,26 +19,26 @@ requirejs.config({
 });
 
 require(['angular',
-    'physics/lib/pixi',
-    'physics/lib/liquidfun',
-    'physics/lib/timeline',
-    'physics/app/Filters',
-    'physics/app/Parser',
-    'physics/app/Collision',
-    'physics/app/managerObject',
-    'physics/app/Shape',
-    'physics/app/Particle',
-    'physics/app/Recipe',
-    'physics/app/Tools',
-    'physics/app/Graphics',
-    'physics/app/Animation',
-    'physics/app/Timeline',
-    'physics/app/Main',
-    'jquery',
-    'jquery.cookie',
-    'app'],
- function () {
-    angular.element(document).ready(function () {
-        angular.bootstrap(document, ['cocktailFinder']);
+        'physics/lib/pixi',
+        'physics/lib/liquidfun',
+        'physics/lib/timeline',
+        'physics/app/Filters',
+        'physics/app/Parser',
+        'physics/app/Collision',
+        'physics/app/managerObject',
+        'physics/app/Shape',
+        'physics/app/Particle',
+        'physics/app/Recipe',
+        'physics/app/Tools',
+        'physics/app/Graphics',
+        'physics/app/Animation',
+        'physics/app/Timeline',
+        'physics/app/Main',
+        'jquery',
+        'jquery.cookie',
+        'app'],
+    function () {
+        angular.element(document).ready(function () {
+            angular.bootstrap(document, ['cocktailFinder']);
+        });
     });
-});

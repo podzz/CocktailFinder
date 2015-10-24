@@ -16,7 +16,7 @@ class Particle {
     timeline:Timeline;
 
     circleArr:PIXI.Graphics[]=[];
-        circleIndex:number[]=[];
+    circleIndex:number[]=[];
 
     constructor(width, height, METER, graphics, timeline, tools) {
         this.width = width;
@@ -27,10 +27,17 @@ class Particle {
         this.tools = tools;
     }
 
+    public Reset()
+    {
+        this.circleArr = [];
+        this.circleIndex = [];
+    }
+
     public addFlowBottle(pop, color, opacity, quantity, world:b2World) {
         var locate = this;
         var particleSystem:b2ParticleSystem = world.particleSystems[0];
 
+        console.log('color : ' + color);
         var color_process = null;
         if (opacity == null)
             color_process = {r: locate.tools.hexToR(color), g: locate.tools.hexToG(color), b: locate.tools.hexToB(color), a: 255};
@@ -59,12 +66,14 @@ class Particle {
             bottle.y = -200;
             bottle.alpha = 0.9;
             //spriteArray.push(bottle);
-            /*
-            new Anim(bottle).to({y: this.height / 3}, 1);
-            new Anim(bottle).to({x: (this.width / 5) - 40}, 1);
-            new Anim(bottle).to({rotation: 2.2}, 1);
-            new Anim(bottle).to(2 + 4 * quantity, {y: -200}, 0.5);
-            */
+/*
+            var n:anim = new Anim(bottle);
+
+            n.to({y: locate.height / 3}, 1);
+            n.to({x: (locate.width / 5) - 40}, 1);
+            n.to({rotation: 2.2}, 1);
+            n.to(2 + 4 * quantity, {y: -200}, 0.5);
+*/
             var count = 1;
             while (quantity > 1) {
                 console.log(quantity + " ---- " + count)
@@ -74,7 +83,7 @@ class Particle {
                     var spawnPoint = new b2Vec2(xPoint, yPoint);
 
                     var box = new b2PolygonShape();
-                    box.SetAsBoxXYCenterAngle(4, 0.1, spawnPoint, 0.7);
+                    box.SetAsBoxXYCenterAngle(0.5, 0.1, spawnPoint, 0.7);
 
                     var particlegroupDef = new b2ParticleGroupDef();
                     particlegroupDef.shape = box;
@@ -90,7 +99,6 @@ class Particle {
                     particleSystem.CreateParticleGroup(particlegroupDef);
 
                     world.CreateBody(bottle_flow);
-                    console.log(world.particleSystems[0].GetPositionBuffer().length);
                     var second_record = particleSystem.GetPositionBuffer().length / 2;
                     var groupParticleStage = new PIXI.Container();
                     groupParticleStage.filters = [locate.graphics.GetBlur()];
@@ -100,7 +108,6 @@ class Particle {
 
                         groupParticleStage.addChild(graphicsC);
                         locate.circleArr.push(graphicsC);
-                        console.log('add graphics');
                         locate.circleIndex.push(locate.circleArr.length - 1);
                     }
                     locate.graphics.GetParticleStage().addChild(groupParticleStage);
@@ -139,8 +146,6 @@ class Particle {
 
                     groupParticleStage.addChild(graphicsC);
                     locate.circleArr.push(graphicsC);
-
-                    console.log('add graphics');
                     locate.circleIndex.push(locate.circleArr.length - 1);
                 }
                 locate.graphics.GetParticleStage().addChild(groupParticleStage);

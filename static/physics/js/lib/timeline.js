@@ -32,7 +32,7 @@ Timeline.getGlobalInstance = function() {
   return Timeline.globalInstance;
 };
 
-//Possible values of n:
+//Possible values of n:f
 //-1 infinite loop
 //0  play forever without looping, continue increasing time even after last animation
 //1  play once and stop at the time the last animation finishes
@@ -158,32 +158,7 @@ Timeline.prototype.applyValues = function() {
 
 //--------------------------------------------------------------------
 
-function Anim(targetName) {
-  var args = [];
-  for(var i=0; i<arguments.length; i++) {
-    args.push(arguments[i]);
-  }
-  var name;
-  var target;
-  var timeline;
-
-  if (typeof(args[0]) == "string") {
-    name = args.shift();
-  }
-
-  if (typeof(args[0]) == "object") {
-    target = args.shift();
-  }
-  else {
-    target = {};
-  }
-
-  if (typeof(args[0]) == "object") {
-    timeline = args.shift();
-  }
-  else {
-    timeline = Timeline.getGlobalInstance();
-  }
+function Anim(name, target, timeline) {
   this.startTime = 0;
   this.endTime = 0;
   this.time = 0;
@@ -284,7 +259,7 @@ Anim.prototype.onStart = function(callback) {
 Anim.prototype.onUpdate = function(callback) {
   var self = this;
   this.onUpdateCallback = function() {
-     callback();
+    callback();
   };
   return this;
 }
@@ -305,6 +280,36 @@ Anim.prototype.onEnd = function(callback) {
   })
 
   return this;
+}
+
+function anim(targetName, targetObject, parentTimeline) {
+  var args = [];
+  for(var i=0; i<arguments.length; i++) {
+    args.push(arguments[i]);
+  }
+  var name;
+  var target;
+  var timeline;
+
+  if (typeof(args[0]) == "string") {
+    name = args.shift();
+  }
+
+  if (typeof(args[0]) == "object") {
+    target = args.shift();
+  }
+  else {
+    target = {};
+  }
+
+  if (typeof(args[0]) == "object") {
+    timeline = args.shift();
+  }
+  else {
+    timeline = Timeline.getGlobalInstance();
+  }
+
+  return new Anim(name, target, timeline);
 }
 
 //--------------------------------------------------------------------

@@ -89,8 +89,6 @@ class Animation {
     private tools:Tools;
     private timeline:Timeline;
 
-    private recipeId:number = 0;
-
     private timeStep:number = 1.0 / 60.0;
     private velocityIterations:number = 3;
     private positionIterations:number = 3;
@@ -100,6 +98,7 @@ class Animation {
     constructor(width:number, height:number, METER:number, managers:any) {
         this.width = width;
         this.height = height;
+
         this.METER = METER;
         this.world = new b2World(new b2Vec2(0, 10));
 
@@ -131,6 +130,7 @@ class Animation {
         //psd.colorMixingStrength = 0.8;
         psd.colorMixingStrength = 0.01;
         this.world.CreateParticleSystem(psd);
+        this.particle.Reset();
     }
 
     public Load(ingredients:any, recipe_id:number) {
@@ -146,14 +146,13 @@ class Animation {
         var groundBody:b2Body = this.world.CreateBody(groundDef);
         groundBody.SetType(b2_staticBody);
 
-
-        var recipe:number = ((this.recipeId == 0) ? Math.floor(Math.random() * 12) + 1 : this.recipeId);
+        var recipe:number = ((recipe_id == 0) ? Math.floor(Math.random() * 12) + 1 : recipe_id);
         var rotorArr:any=[];
         var recipeArr:any=[];
         rotorArr.push(this.parser.getRotor());
         recipeArr.push(this.parser.getRecipe(recipe));
 
-        this.shape.LoadGround(groundBody, [], this.world);
+        //this.shape.LoadGround(groundBody, [], this.world);
         //shapeManager.LoadStartLiquid(rotorBody, rotorDef, rotorArr);
         this.collision.LinkShape(body, recipeArr, this.world);
         this.collision.LinkShape(rotorBody, rotorArr, this.world);
