@@ -1,66 +1,65 @@
 # CocktailFinder
 A web application to easily find available cocktail to mix in your house !
 
-How to install ?
-================
+# Installation
 
-Ensure a full setup of python.
-If you doesn't have pip, run the following :
-> - python get-pip.py
-Then for all :
-> - sudo make install
+This project currently uses 3 Vagrant instances to handle all the workload.
+First make sure you have Vagrant and VirtualBox installed.
 
-Scraping
-========
-
-Export JSON of WebTender cocktails :
+You can then navigate to /infra and in each folder, run :
 ```
-sh$>make scrapy
+sh$>vagrant up
+```
+As soon as the provisioning is done on the three instances, you can access the app through the url localhost:8080
+
+This deployment procedure will soon be replaced with an Ansible environement.
+
+## More deployment info
+
+The 3 vagrant instances uses a private network to communicate. The box used in each VM is a standard Ubuntu 12.04 LTS "precise64".
+
+The first VM (LBserv) holds an Nginx server, handling the load balancing, static content serving, and the API cache. You can easily add more API nodes for load balancing by adding new IPs in the Nginx configuration file.
+
+The APIserv VM handles the calls for the frontoffice single page application.
+It uses an Express.js server. The server uses multithreading to enhance performance, launching one thread per core. It also handles zero down time, with a restart on error and zero down time deployment in case of file change. All this behavior can be changed using the config file :
+
+```
+api/config.js
 ```
 
-To get the exported
-> - Go to scraping/export folder
-> - Enjoy with cocktail.csv
+The last VM hosts the database, Neo4j. The link (routing + auth) with the API is handled directly in the API config.
 
+#Cocktail Finder front-Office API
 
-Database
-========
+All the source code associated with the front-office app is under the directory :
+```
+api/
+```
 
-TODO : explain the CSV import requests
+The running behavior (Multithreading, restart on error and zero down time deployment) is handled in the file :
+```
+api/api.js
+```
 
-Bootstraping the data imported :
+And the application routes are located in :
+```
+api/core.js
+```
 
-Launch the node server, and access the following URLs (by order) :
-
-- /bdd/rank/ingredients
-- /bdd/rank/recipes
-
-
-Cocktail Finder API
-===================
-
-GET:/api/cocktails
-
-Basic API request that returns a list of 5 random recipes with the ingredients.
-
-GET:/api/cocktail/id/:id
-
-Basic API request that returns the JSON data associated to the id in param.
-
-
-GET:/api/cocktail/name/:name
-
-Basic API request that returns the JSON data associated to the name in param.
-
+##API Routes
+```
 GET:/api/missing/:array
+```
 
 Request that returns a list of 5 classic recipes with the ingredients if the array is not specified.
 
 You can specify a list of comma separated integer values to specify which ingredient to exclude.
 
+This request is cached with node-cache.
+
 Example : /api/missing/1,2,34
 
-JSON Structure :
+JSON Output :
 
 ```
 {
@@ -91,4 +90,16 @@ JSON Structure :
         }]
     }]
 }
+```
+#Cocktail Finder back-Office API
+
+By default this API is not ran at infrastructure deployment. You have to run it manually.
+All the source code associated with the front-office app is under the directory :
+```
+backoffice/
+```
+
+And the application routes are located in :
+```
+backoffice/backoffice.js
 ```
