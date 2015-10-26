@@ -74,7 +74,7 @@
  return false;
  };*/
 
-class Animation {
+class AnimationCocktail {
     width:number;
     height:number;
     METER:number;
@@ -87,7 +87,7 @@ class Animation {
     private recipe:Recipe;
     private particle:Particle;
     private tools:Tools;
-    private timeline:Timeline;
+    private events:Events;
 
     private timeStep:number = 1.0 / 60.0;
     private velocityIterations:number = 3;
@@ -107,13 +107,13 @@ class Animation {
         this.collision = managers['collision'];
         this.graphics = managers['graphics'];
         this.recipe = managers['recipe'];
-        this.timeline = managers['timeline'];
+        this.events = managers['events'];
         this.tools = managers['tools'];
-        this.particle = new Particle(width, height, METER, this.graphics, this.timeline, this.tools);
+        this.particle = new Particle(width, height, METER, this.graphics, this.events, this.tools);
     }
 
     private WorldReset() {
-        this.timeline.resetTimeline();
+        this.events.resetTimeline();
         while (this.world.particleSystems.length > 0) {
             var system = this.world.particleSystems[0];
             this.world.DestroyParticleSystem(system);
@@ -155,7 +155,8 @@ class Animation {
         //this.shape.LoadGround(groundBody, [], this.world);
         //shapeManager.LoadStartLiquid(rotorBody, rotorDef, rotorArr);
         this.collision.LinkShape(body, recipeArr, this.world);
-        this.collision.LinkShape(rotorBody, rotorArr, this.world);
+
+        this.collision.LinkRotor(rotorBody, this.world, this.width, this.height, this.METER);
 
         this.graphics.RenderRecipe(this.parser.getRecipeImagePath(recipe_id));
 

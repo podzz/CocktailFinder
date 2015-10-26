@@ -1,6 +1,6 @@
 /// <reference path="lib/liquidfun.d.ts"/>
 /// <reference path="lib/pixi.d.ts"/>
-/// <reference path="lib/timeline.d.ts"/>
+/// <reference path="lib/greensock.d.ts"/>
 /// <reference path="Graphics.ts"/>
 /// <reference path="Tools.ts"/>
 
@@ -13,17 +13,17 @@ class Particle {
     tools:Tools;
 
     graphics:Graphics;
-    timeline:Timeline;
+    events:Events;
 
     circleArr:PIXI.Graphics[]=[];
     circleIndex:number[]=[];
 
-    constructor(width, height, METER, graphics, timeline, tools) {
+    constructor(width, height, METER, graphics, events, tools) {
         this.width = width;
         this.height = height;
         this.METER = METER;
         this.graphics = graphics;
-        this.timeline = timeline;
+        this.events = events;
         this.tools = tools;
     }
 
@@ -62,24 +62,22 @@ class Particle {
             bottle.height = 300;
             bottle.anchor.x = 0.5;
             bottle.anchor.y = 0.5;
-            bottle.x = this.width / 2 - 200;
-            bottle.y = -200;
+            bottle.x = locate.width / 4;
+            bottle.y = -300;
             bottle.alpha = 0.9;
             //spriteArray.push(bottle);
-/*
-            var n:anim = new Anim(bottle);
 
-            n.to({y: locate.height / 3}, 1);
-            n.to({x: (locate.width / 5) - 40}, 1);
-            n.to({rotation: 2.2}, 1);
-            n.to(2 + 4 * quantity, {y: -200}, 0.5);
-*/
-            var count = 1;
+            var tl = new TimelineLite();
+
+            tl.to(bottle, 2, { y: locate.height / 4, rotation: 2.2 });
+            tl.to(bottle, 5, { y: -50, rotation: 0, alpha: 0}, '+=6');
+
+            var count = 2;
             while (quantity > 1) {
                 console.log(quantity + " ---- " + count)
                 var timeout2 = setTimeout(function (particleSystem) {
-                    var xPoint = (locate.width / locate.METER / 5);
-                    var yPoint = locate.height / locate.METER / 3;
+                    var xPoint = (locate.width / locate.METER / 4);
+                    var yPoint = locate.height / locate.METER / 4 - 0.2;
                     var spawnPoint = new b2Vec2(xPoint, yPoint);
 
                     var box = new b2PolygonShape();
@@ -102,7 +100,6 @@ class Particle {
                     var second_record = particleSystem.GetPositionBuffer().length / 2;
                     var groupParticleStage = new PIXI.Container();
                     groupParticleStage.filters = [locate.graphics.GetBlur()];
-                    console.log(first_record + " " + second_record);
                     for (var i = 0; i < second_record - first_record; i++) {
                         var graphicsC = new PIXI.Graphics();
 
@@ -112,9 +109,9 @@ class Particle {
                     }
                     locate.graphics.GetParticleStage().addChild(groupParticleStage);
                 }, 1000 * count, particleSystem);
-                locate.timeline.AddEvent(timeout2);
+                locate.events.AddEvent(timeout2);
                 quantity -= 1;
-                count += 3;
+                count += 1;
             }
             var timeout2 = setTimeout(function (color_process) {
                 var spawnPoint = new b2Vec2((this.width / this.METER / 5) - this.glassScale / 1.5 , this.height / this.METER / 3);
@@ -150,10 +147,10 @@ class Particle {
                 }
                 locate.graphics.GetParticleStage().addChild(groupParticleStage);
             }, 1000 * count, color_process);
-            locate.timeline.AddEvent(timeout2);
+            locate.events.AddEvent(timeout2);
             locate.graphics.GetStage().addChild(bottle);
         }, pop, color_process, particleSystem);
-        this.timeline.AddEvent(timeout);
+        this.events.AddEvent(timeout);
     }
 
 

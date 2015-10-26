@@ -1,6 +1,6 @@
 /// <reference path="lib/liquidfun.d.ts"/>
 /// <reference path="lib/pixi.d.ts"/>
-/// <reference path="Timeline.ts"/>
+/// <reference path="Events.ts"/>
 /// <reference path="Recipe.ts"/>
 /// <reference path="Shape.ts"/>
 /// <reference path="Graphics.ts"/>
@@ -11,7 +11,6 @@ class Main {
     width:number = 0;
     height:number = 0;
     METER:number = 0;
-    stage:any;
 
     currentRecipe: number =  0;
     currentIngredients: any;
@@ -25,14 +24,14 @@ class Main {
         this.METER = METER;
 
         //INIT MANAGERS
-        this.managers['timeline'] = new Timeline();
+        this.managers['events'] = new Events();
         this.managers['recipe'] = new Recipe();
-        this.managers['graphics'] = new Graphics(width, height, this.managers['timeline']);
+        this.managers['graphics'] = new Graphics(width, height, this.managers['events']);
         this.managers['shape'] = new Shape(width, height, METER);
         this.managers['tools'] = new Tools();
         this.managers['parser'] = new Parser(width, height, METER);
         this.managers['collision'] = new Collision();
-        this.managers['animation'] = new Animation(this.width, this.height, this.METER, this.managers);
+        this.managers['animation'] = new AnimationCocktail(this.width, this.height, this.METER, this.managers);
     }
 
     /*
@@ -48,7 +47,7 @@ class Main {
         var graphics:Graphics = this.managers['graphics'];
         graphics.LoadRenderer();
 
-        var animation:Animation = this.managers['animation'];
+        var animation:AnimationCocktail = this.managers['animation'];
         animation.Load(ingredients, recipe_id);
     }
 }

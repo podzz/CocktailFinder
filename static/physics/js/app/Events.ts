@@ -1,7 +1,7 @@
 /**
  * Created by Francois on 12/10/15.
  */
-class Timeline {
+class Events {
     constructor()
     {
 

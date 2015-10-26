@@ -38,9 +38,14 @@ class Collision {
         }
     }
 
-    LinkRotor(body:b2Body) {
-        var shape:b2PolygonShape = new b2PolygonShape();
-        shape.SetAsBoxXYCenterAngle(50, 5, new b2Vec2(10, 8), 0);
-        body.CreateFixtureFromShape(shape, 0.5);
+    LinkRotor(body:b2Body, world_cpy:b2World, width:number, height:number, METER: number) {
+        world = world_cpy;
+        var xPoint = (width / METER / 4) - 0.3;
+        var yPoint = height / METER / 4 + 0.4;
+        var spawnPoint = new b2Vec2(xPoint, yPoint);
+
+        var box = new b2PolygonShape();
+        box.SetAsBoxXYCenterAngle(0.7, 0.5, spawnPoint, 0.7);
+        body.CreateFixtureFromShape(box,20);
     }
 }

@@ -71,7 +71,7 @@ class Parser {
                         vector.x *= 1.9;
                         vector.y *= 1.9;
                         vector.x = (locate.width / 2 / locate.METER) - 1 + vector.x;
-                        vector.y = (locate.height / locate.METER) - 1.1 - vector.y;
+                        vector.y = (locate.height / locate.METER) - 1.1 - vector.y - 1;
 
                         listPoint.push(vector);
                     }
