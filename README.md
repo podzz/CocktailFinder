@@ -64,43 +64,31 @@ JSON Structure :
 
 ```
 {
-  "cocktails": [
-    {
-      "name": "Une recette aléatoire",
-      "ingredients": [
-        {
-          "id": 392
-          "name": "jus de carote",
-          "quantity": 4,
-          "unity": "cl"
-        },
-        {
-          "id": 1298
-          "name": "vodka",
-          "quantity": 12,
-          "unity": "cl"
-        }
-      ],
-      "glass_path": "http://..."
-    },
-    {
-      "name": "MyCocktail",
-      "ingredients": [
-        {
-          "id": 121,
-          "name": "jus de carote",
-          "quantity": 4,
-          "unity": "cl"
-        },
-        {
-          "id": 898
-          "name": "ju carote",
-          "quantity": 12,
-          "unity": "cl"
-        }
-      ],
-      "glass_path": "http://..."
-    }
-  ]
+    "cocktails": [{
+        "index": "4",
+        "name": "Alaska",
+        "recipe_index": "2",
+        "ingredient": [{
+            "index": "13",
+            "quantity": "2",
+            "unity": "cl de",
+            "genericUnity": null,
+            "genericQuantity": null,
+            "name": "chartreuse verte",
+            "colors": ["#547c45", "#000000", "#c6c998", "#2d3929", "#6fad56", "#fbfbfa", "#84bb5d", "#435251", "#fefefe", "#313a22", "#b9b7b5", "#9a9997", "#7e9977", "#3b453f", "#d0d6e4"],
+            "opacity": "255",
+            "selectedColor": "#6fad56"
+        }, {
+            "index": "5",
+            "quantity": "4",
+            "unity": "cl de",
+            "genericUnity": null,
+            "genericQuantity": null,
+            "name": "gin",
+            "colors": ["#964245", "#fcfcfc", "#bfbaba", "#010101", "#e5ebeb", "#4f93af", "#c1d0db", "#435fb5", "#fafcfc", "#35383d", "#59a5d2", "#fafdfc"],
+            "opacity": null,
+            "selectedColor": "#bfbaba"
+        }]
+    }]
 }
 ```
