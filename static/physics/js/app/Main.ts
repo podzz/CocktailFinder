@@ -8,9 +8,7 @@
 /// <reference path="Tools.ts"/>
 
 class Main {
-    width:number = 0;
-    height:number = 0;
-    METER:number = 0;
+    METER:number = 100;
 
     currentRecipe: number =  0;
     currentIngredients: any;
@@ -18,20 +16,27 @@ class Main {
     // Dictionary Managers
     managers:any = {};
 
-    constructor(width:number, height:number, METER:number) {
-        this.width = width;
-        this.height = height;
-        this.METER = METER;
+    constructor() {
 
         //INIT MANAGERS
         this.managers['events'] = new Events();
         this.managers['recipe'] = new Recipe();
-        this.managers['graphics'] = new Graphics(width, height, this.managers['events']);
-        this.managers['shape'] = new Shape(width, height, METER);
+        this.managers['graphics'] = new Graphics(this.managers['events']);
+        this.managers['shape'] = new Shape();
         this.managers['tools'] = new Tools();
-        this.managers['parser'] = new Parser(width, height, METER);
+        this.managers['parser'] = new Parser();
         this.managers['collision'] = new Collision();
-        this.managers['animation'] = new AnimationCocktail(this.width, this.height, this.METER, this.managers);
+        this.managers['animation'] = new AnimationCocktail(this.managers);
+
+        this.initResize();
+    }
+
+    private initResize()
+    {
+        var ref = this;
+        window.addEventListener('resize', function() {
+            ref.Load(ref.currentRecipe, ref.currentIngredients, true);
+        }, false);
     }
 
     /*

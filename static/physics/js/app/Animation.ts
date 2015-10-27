@@ -77,7 +77,6 @@
 class AnimationCocktail {
     width:number;
     height:number;
-    METER:number;
 
     private world:b2World;
     private parser:Parser;
@@ -94,12 +93,9 @@ class AnimationCocktail {
     private positionIterations:number = 3;
     private time:number = 0;
     private particleSize:number = 10;
+    private METER:number = 100;
 
-    constructor(width:number, height:number, METER:number, managers:any) {
-        this.width = width;
-        this.height = height;
-
-        this.METER = METER;
+    constructor(managers:any) {
         this.world = new b2World(new b2Vec2(0, 10));
 
         this.parser = managers['parser'];
@@ -109,7 +105,7 @@ class AnimationCocktail {
         this.recipe = managers['recipe'];
         this.events = managers['events'];
         this.tools = managers['tools'];
-        this.particle = new Particle(width, height, METER, this.graphics, this.events, this.tools);
+        this.particle = new Particle(this.graphics, this.events, this.tools);
     }
 
     private WorldReset() {
@@ -147,8 +143,8 @@ class AnimationCocktail {
         groundBody.SetType(b2_staticBody);
 
         var recipe:number = ((recipe_id == 0) ? Math.floor(Math.random() * 12) + 1 : recipe_id);
-        var rotorArr:any=[];
-        var recipeArr:any=[];
+        var rotorArr:any = [];
+        var recipeArr:any = [];
         rotorArr.push(this.parser.getRotor());
         recipeArr.push(this.parser.getRecipe(recipe));
 
@@ -156,7 +152,7 @@ class AnimationCocktail {
         //shapeManager.LoadStartLiquid(rotorBody, rotorDef, rotorArr);
         this.collision.LinkShape(body, recipeArr, this.world);
 
-        this.collision.LinkRotor(rotorBody, this.world, this.width, this.height, this.METER);
+        this.collision.LinkRotor(rotorBody, this.world, Tools.GetWidth(), Tools.GetHeight(), this.METER);
 
         this.graphics.RenderRecipe(this.parser.getRecipeImagePath(recipe_id));
 
@@ -167,7 +163,7 @@ class AnimationCocktail {
             this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity, this.world);
         }
         if (!reload)
-        requestAnimationFrame(this.animate.bind(this));
+            requestAnimationFrame(this.animate.bind(this));
     }
 
     private step() {
@@ -184,7 +180,7 @@ class AnimationCocktail {
         for (var key in this.particle.circleIndex) {
             var index = this.particle.circleIndex[key];
             var circle = this.particle.circleArr[index];
-            if (circle.y < this.height) {
+            if (circle.y < Tools.GetHeight()) {
                 circle.position.x = ((particles[index * 2] ) * this.METER);
                 circle.position.y = ((particles[(index * 2) + 1]) * this.METER);
                 circle.clear();
@@ -208,7 +204,7 @@ class AnimationCocktail {
             }
         }
 
-/*
+        /*
          for (var i = 0; i < objectArrInc; i++) {
          var currentPosition = objectPhysicsArr[i].GetWorldCenter();
          var currentAngle = objectPhysicsArr[i].GetAngle();

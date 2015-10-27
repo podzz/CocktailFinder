@@ -1,3 +1,5 @@
+/// <reference path="lib/jquery.d.ts"/>
+
 class Tools {
     constructor()
     {
@@ -27,4 +29,15 @@ class Tools {
         var hex = c.toString(16).toUpperCase();
         return hex.length == 1 ? "0" + hex : hex;
     }
+
+    static GetWidth():number
+    {
+        return $("#viewer").width();
+    }
+
+    static GetHeight():number
+    {
+        return $("#viewer").height();
+    }
 }
+

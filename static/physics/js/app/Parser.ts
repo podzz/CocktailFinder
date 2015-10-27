@@ -1,5 +1,6 @@
 /// <reference path="lib/jquery.d.ts"/>
 /// <reference path="lib/liquidfun.d.ts"/>
+/// <reference path="Tools.ts"/>
 
 class Parser {
     private hashLayerJson:{[id:string]: string;}={};
@@ -9,17 +10,11 @@ class Parser {
     private vectorsRecipes:any=[];
     private vectorsRotor:any=[];
 
-    private METER: number;
-    private width: number;
-    private height: number;
+    private METER: number = 100;
 
     private glassScale: number = 1.9;
 
-    constructor(width: number, height: number, METER: number){
-        this.METER = METER;
-        this.width = width;
-        this.height = height;
-
+    constructor(){
         this.hashLayerJson["1"] = "static/physics/json/sprite_0000_Calque-2.json";
         this.hashLayerJson["2"] = "static/physics/json/sprite_0001_Calque-3.json";
         this.hashLayerJson["3"] = "static/physics/json/sprite_0002_Calque-4.json";
@@ -70,8 +65,8 @@ class Parser {
                         var vector = parse[i];
                         vector.x *= 1.9;
                         vector.y *= 1.9;
-                        vector.x = (locate.width / 2 / locate.METER) - 1 + vector.x;
-                        vector.y = (locate.height / locate.METER) - 1.1 - vector.y - 1;
+                        vector.x = (Tools.GetWidth() / 2 / locate.METER) - 1 + vector.x;
+                        vector.y = (Tools.GetHeight() / locate.METER) - 1.1 - vector.y - 1;
 
                         listPoint.push(vector);
                     }
@@ -100,10 +95,10 @@ class Parser {
                     for (var i = 0; i < temp.length; i++) {
                         var vector = temp[i];
                         vector.x *= 3;
-                        vector.x = (this.width / this.METER / 5) - this.glassScale / 1.5 + vector.x;
+                        vector.x = (Tools.GetWidth() / this.METER / 5) - this.glassScale / 1.5 + vector.x;
 
                         vector.y *= 3;
-                        vector.y = this.height / this.METER / 3 - vector.y;
+                        vector.y = Tools.GetHeight() / this.METER / 3 - vector.y;
 
                         if (vector.x < minX)
                             minX = vector.x;

@@ -2,53 +2,28 @@
 /// <reference path="lib/jquery.d.ts"/>
 /// <reference path="Events.ts"/>
 /// <reference path="Filters.ts"/>
+/// <reference path="Tools.ts"/>
 
 class Graphics {
     stage:PIXI.Container;
     particleStage:PIXI.Container;
     renderers:PIXI.CanvasRenderer | PIXI.WebGLRenderer;
 
-    public width:number;
-    public height:number;
-
-    public innerWidth:number;
-    public innerHeight:number;
-
     private events:Events;
-    private sprites:any={};
+    private sprites:any=[];
 
     private blur:PIXI.filters.BlurFilter;
 
-    constructor(width:number, height:number, events:Events) {
-        this.width = width;
-        this.height = height;
+    constructor(events:Events) {
 
         this.events = events;
-        this.renderers = PIXI.autoDetectRenderer(this.width, this.height, {transparent: true}, false);  // arguments: width, height, view, transparent, disableWebGL
+        this.renderers = PIXI.autoDetectRenderer($("#renderer").width(), $("#renderer").height(), {transparent: true}, false);  // arguments: width, height, view, transparent, disableWebGL
 
         this.blur = new PIXI.filters.BlurFilter();
         this.blur.blur = 0;
 
-        this.innerWidth = window.innerWidth;
-        this.innerHeight = window.innerHeight;
+        this.renderers.view.id = "viewer";
         $("#renderer").append(this.renderers.view);
-
-        var ref = this;
-        window.addEventListener('resize', function() {
-            console.log(10 / (window.innerWidth - ref.innerWidth));
-            if (ref.innerWidth < window.innerWidth)
-                ref.stage.scale.x += (window.innerWidth - ref.innerWidth) / 3000;
-            else if (ref.innerWidth > window.innerWidth)
-                ref.stage.scale.x -= (ref.innerWidth - window.innerWidth) / 3000;
-
-            if (ref.innerHeight < window.innerHeight)
-                ref.stage.scale.y += (window.innerHeight - ref.innerHeight) / 1000;
-            else if (ref.innerHeight > window.innerHeight)
-                ref.stage.scale.y -= (ref.innerHeight - window.innerHeight) / 1000;
-
-            ref.innerWidth = window.innerWidth;
-            ref.innerHeight = window.innerHeight;
-            }, false);
     }
 
     LoadRenderer() {
@@ -82,15 +57,16 @@ class Graphics {
 
     // Used to load sprite once
     private LoadSprite(image_url) {
-        if (this.sprites[image_url] == null) {
+        var sprite = this.sprites[image_url];
+        if (sprite == null) {
             var bottle:PIXI.Sprite = PIXI.Sprite.fromImage(image_url);
             bottle.alpha = 0.9;
             bottle.interactive = true;
             bottle.width = 200;
             bottle.height = 300;
 
-            bottle.x = this.width / 2 - bottle.width / 2;
-            bottle.y = this.height - bottle.height - 200;
+            bottle.x = Tools.GetWidth() / 2 - bottle.width / 2;
+            bottle.y = Tools.GetHeight() - bottle.height - 200;
             this.sprites[image_url] = bottle;
         }
     }
