@@ -13,14 +13,7 @@ class Shape {
         world = world_cpy
         var vectors = [];
 
-        var x_center = (Tools.GetWidth() / this.METER / 2) - 1;
-        var y_center = 0.2;
-
-        var width_rampe = 0.9;
-        var mid_width_rampe = width_rampe / 2;
-
         var shapeFlow = new b2EdgeShape();
-        //var origin = new
         shapeFlow.Set(new b2Vec2(0.3,5),
                       new b2Vec2(Tools.GetWidth() / this.METER - 0.3,5));
         //shapeFlow.SetTransform(0, 30);

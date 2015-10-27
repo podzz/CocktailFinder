@@ -33,19 +33,12 @@ class Graphics {
         }
 
         var filters:Filters = new Filters();
-        var threshold:PIXI.AbstractFilter = filters.getThresoldFilter();
+        //var threshold:PIXI.AbstractFilter = filters.getThresoldFilter();
 
         this.stage = new PIXI.Container();
         this.particleStage = new PIXI.Container();
         this.particleStage.filters = [this.GetBlur()];
         this.stage.addChild(this.particleStage);
-    }
-
-    ResizeCanvas()
-    {
-
-    //.scale(0.1,0.1);
-        //this.renderers.view.getContext('2d').scale(0.5,0.5);
     }
 
     RenderRecipe(image_url) {
@@ -71,15 +64,6 @@ class Graphics {
         }
     }
 
-    public DrawDebugBottle()
-    {
-        var graphics:PIXI.Graphics = new PIXI.Graphics();
-        graphics.beginFill(0xFF0000);
-
-        graphics.moveTo(0,10);
-        graphics.lineTo(0, 500);
-        this.stage.addChild(graphics);
-    }
 
     public GetBlur():PIXI.filters.BlurFilter {
         return this.blur;

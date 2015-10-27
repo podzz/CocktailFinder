@@ -1,10 +1,9 @@
 /// <reference path="lib/jquery.d.ts"/>
 
 class Tools {
-    constructor()
-    {
-
+    constructor() {
     }
+    
     public rgbToHex(r, g, b) {
         return "0x" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
     }
