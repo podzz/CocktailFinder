@@ -6,15 +6,15 @@
 
 class Particle {
     METER:number = 100;
-    glassScale:number=1.9;
+    glassScale:number = 1.9;
 
     tools:Tools;
 
     graphics:Graphics;
     events:Events;
 
-    circleArr:PIXI.Graphics[]=[];
-    circleIndex:number[]=[];
+    circleArr:PIXI.Graphics[] = [];
+    circleIndex:number[] = [];
 
     constructor(graphics, events, tools) {
         this.graphics = graphics;
@@ -22,8 +22,7 @@ class Particle {
         this.tools = tools;
     }
 
-    public Reset()
-    {
+    public Reset() {
         this.circleArr = [];
         this.circleIndex = [];
     }
@@ -35,9 +34,19 @@ class Particle {
         console.log('color : ' + color);
         var color_process = null;
         if (opacity == null)
-            color_process = {r: locate.tools.hexToR(color), g: locate.tools.hexToG(color), b: locate.tools.hexToB(color), a: 255};
+            color_process = {
+                r: locate.tools.hexToR(color),
+                g: locate.tools.hexToG(color),
+                b: locate.tools.hexToB(color),
+                a: 255
+            };
         else
-            color_process = {r: locate.tools.hexToR(color), g: locate.tools.hexToG(color), b: locate.tools.hexToB(color), a: opacity};
+            color_process = {
+                r: locate.tools.hexToR(color),
+                g: locate.tools.hexToG(color),
+                b: locate.tools.hexToB(color),
+                a: opacity
+            };
 
         var timeout = setTimeout(function (color_process, particleSystem) {
 
@@ -64,8 +73,8 @@ class Particle {
 
             var tl = new TimelineLite();
 
-            tl.to(bottle, 2, { y: Tools.GetHeight() / 4, rotation: 2.2 });
-            tl.to(bottle, 5, { y: -50, rotation: 0, alpha: 0}, '+=6');
+            tl.to(bottle, 2, {y: Tools.GetHeight() / 4, rotation: 2.2});
+            tl.to(bottle, 5, {y: -50, rotation: 0, alpha: 0}, '+=6');
 
             var count = 2;
             while (quantity > 1) {
@@ -109,7 +118,7 @@ class Particle {
                 count += 1;
             }
             var timeout2 = setTimeout(function (color_process) {
-                var spawnPoint = new b2Vec2((Tools.GetWidth() / locate.METER / 5) - locate.glassScale / 1.5 , Tools.GetHeight() / locate.METER / 3);
+                var spawnPoint = new b2Vec2((Tools.GetWidth() / locate.METER / 5), Tools.GetHeight() / locate.METER / 3);
 
                 var box = new b2PolygonShape();
                 console.log(quantity + " <<<---- ")
