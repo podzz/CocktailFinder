@@ -133,7 +133,7 @@ class AnimationCocktail {
         this.particle.Reset();
     }
 
-    public Load(ingredients:any, recipe_id:number) {
+    public Load(ingredients:any, recipe_id:number, reload:boolean) {
         this.WorldReset();
         var bdDef:b2BodyDef = new b2BodyDef();
         var body:b2Body = this.world.CreateBody(bdDef);
@@ -162,10 +162,11 @@ class AnimationCocktail {
 
         //rotorRender(rotorArr);
         var distributions = this.recipe.generateDistribution(ingredients);
-        for (var i = 0; i < distributions.length; i++){
+        for (var i = 0; i < distributions.length; i++) {
             var distribution = distributions[i];
             this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity, this.world);
         }
+        if (!reload)
         requestAnimationFrame(this.animate.bind(this));
     }
 

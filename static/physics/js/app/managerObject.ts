@@ -1,3 +1,4 @@
+/*
 function createIceCube(offsetX, offsetY, size) {
     var bd = new b2BodyDef();
     var shape = new b2PolygonShape();
@@ -135,7 +136,6 @@ function createBanner(offsetX, offsetY, size) {
 
 
 
-/*
 
  +  bd = new b2BodyDef();
  +  var circle = new b2CircleShape();

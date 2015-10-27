@@ -40,7 +40,7 @@ class Main {
         //requestAnimationFrame(this.managers['animation'].animate);
     }*/
 
-    public Load(ingredients: any, recipe_id: number) {
+    public Load(ingredients: any, recipe_id: number, reload:boolean) {
         this.currentRecipe = recipe_id;
         this.currentIngredients = ingredients;
 
@@ -48,7 +48,7 @@ class Main {
         graphics.LoadRenderer();
 
         var animation:AnimationCocktail = this.managers['animation'];
-        animation.Load(ingredients, recipe_id);
+        animation.Load(ingredients, recipe_id, reload);
     }
 }
 

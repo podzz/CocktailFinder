@@ -71,7 +71,7 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
             if (this.currentIndex != 0) {
                 this.currentIndex--;
                 this.currentCocktail = this.data.cocktails[this.currentIndex];
-                this.cocktailRenderer.Load(this.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                this.cocktailRenderer.Load(this.currentCocktail.ingredient, that.currentCocktail.recipe_index, true);
             }
         };
         // Increase the current index
@@ -79,7 +79,7 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
             if (this.currentIndex < Object.keys(that.data.cocktails).length - 1) {
                 this.currentIndex++;
                 this.currentCocktail = that.data.cocktails[this.currentIndex];
-                this.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                this.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index, true);
             }
         };
         // Append an ingredient to the missing list
@@ -121,14 +121,14 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
             ingr.selectedColor = color;
             var route = ingr.index + '/' + color.substring(1);
             $http.get("/api/ingredients/setColor/" + route).success(function (data) {
-                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index, true);
             })
         }
 
         this.setOpacity = function (ingr) {
             var route = ingr.index + '/' + ingr.opacity;
             $http.get("/api/ingredients/setOpacity/" + route).success(function (data) {
-                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index, true);
             })
         }
 
@@ -149,7 +149,7 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
                 // Data fetched from server
                 that.data = data;
                 that.currentIndex = 0;
-                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index);
+                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index, false);
             });
 
 
