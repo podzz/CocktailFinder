@@ -1,6 +1,7 @@
 /// <reference path="lib/liquidfun.d.ts"/>
 /// <reference path="lib/pixi.d.ts"/>
 /// <reference path="lib/greensock.d.ts"/>
+/// <reference path="lib/jquery.d.ts"/>
 /// <reference path="lib/three.d.ts"/>
 /// <reference path="Graphics.ts"/>
 /// <reference path="Tools.ts"/>
@@ -42,7 +43,41 @@ class Particle {
             };
     }
 
-    private AddParticleGroup(particleSystem:b2ParticleSystem, spawnPoint, color:any, world:b2World, sphere:THREE.Geometry,
+    public AddRandomParticleGroup(world:b2World, x, y)
+    {
+        var box:b2PolygonShape = new b2PolygonShape();
+        var spawnPoint = new b2Vec2(x, y);
+        box.SetAsBoxXYCenterAngle(0.1, 0.1, spawnPoint,0);
+        var sphere = new THREE.SphereGeometry(0.1, 32, 32);
+        var particlegroupDef:b2ParticleGroupDef = new b2ParticleGroupDef();
+        var particleSystem:b2ParticleSystem = world.particleSystems[0];
+        particlegroupDef.shape = box;
+        particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle;
+
+        var random = new THREE.Color(0xffffff * Math.random());
+        particlegroupDef.color.Set(random.r * 255,random.g * 255,random.b * 255,Math.random() * 255);
+
+        var bottle:b2BodyDef = new b2BodyDef();
+        bottle.type = b2_dynamicBody;
+        bottle.position.Set(2, 2);
+
+        var first_record = particleSystem.GetPositionBuffer().length / 2;
+        particleSystem.CreateParticleGroup(particlegroupDef);
+
+        world.CreateBody(bottle);
+        var second_record = particleSystem.GetPositionBuffer().length / 2;
+
+        for (var i = 0; i < second_record - first_record; i++) {
+            var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: 0xFFFF00}));
+            mesh.renderOrder = 2;
+            mesh.material.depthTest = false;
+            this.graphics.scene.add(mesh);
+            this.circleArr.push(mesh);
+            this.circleIndex.push(this.circleArr.length - 1);
+        }
+    }
+
+    public AddParticleGroup(particleSystem:b2ParticleSystem, spawnPoint, color:any, world:b2World, sphere:THREE.Geometry,
                              graphics:Graphics, circleArr:any[], circleIndex:any[]):void {
         var box:b2PolygonShape = new b2PolygonShape();
         box.SetAsBoxXYCenterAngle(0.5, 0.1, spawnPoint, 0.7);

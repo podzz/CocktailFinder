@@ -8,12 +8,12 @@
 /// <reference path="Tools.ts"/>
 
 class AnimationCocktail {
-    private world:b2World;
+    public world:b2World;
     private parser:Parser;
     private collision:Collision;
     private graphics:Graphics;
     private recipe:Recipe;
-    private particle:Particle;
+    public particle:Particle;
     private tools:Tools;
     private events:Events;
 
