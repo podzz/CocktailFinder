@@ -33,6 +33,7 @@ class AnimationCocktail {
 
     private WorldReset() {
         this.events.resetTimeline();
+        this.time = 0;
         while (this.world.particleSystems.length > 0) {
             this.world.DestroyParticleSystem(this.world.particleSystems[0]);
         }
@@ -76,7 +77,7 @@ class AnimationCocktail {
         var distributions = this.recipe.generateDistribution(ingredients);
         for (var i = 0; i < distributions.length; i++) {
             var distribution = distributions[i];
-            this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity, this.world);
+            this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity * 100, this.world);
         }
         if (!reload)
             requestAnimationFrame(this.animate.bind(this));

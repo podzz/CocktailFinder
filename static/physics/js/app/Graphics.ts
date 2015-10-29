@@ -32,7 +32,7 @@ class Graphics {
         var height = Tools.GetHeight();
         this.camera = new THREE.PerspectiveCamera(70, width / height, 1, 1000);
         try {
-            this.threeRenderer = new THREE.WebGLRenderer({alpha: true, antialiasing:true});
+            this.threeRenderer = new THREE.WebGLRenderer({alpha: true});
         } catch (error) {
             console.log('Your browser doesn\'t support webgl');
             return;
@@ -63,7 +63,7 @@ class Graphics {
         });
     }
 
-    public RenderRotor(image_url, vector:b2Vec2) {
+    public RenderRotor(image_url, vector:b2Vec2, time:number) {
         var textureLoader = new THREE.TextureLoader();
         var locate = this;
         textureLoader.load(image_url, function (tex:THREE.Texture) {

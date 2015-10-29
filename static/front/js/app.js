@@ -114,7 +114,7 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
             }
             this.saveExcludeList();
             this.reloadData();
-            this.cocktailRenderer.reload();
+            this.cocktailRenderer.reload(true);
         }
 
         this.setSelectedColor = function (ingr, color) {
@@ -133,7 +133,7 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
         }
 
         // Fetch data from API with the exclude list in param
-        this.reloadData = function () {
+        this.reloadData = function (value) {
             var route = "/api/missing/";
 
             for (var i = 0; i < this.missing.length; ++i) {
@@ -149,13 +149,13 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
                 // Data fetched from server
                 that.data = data;
                 that.currentIndex = 0;
-                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index, false);
+                that.cocktailRenderer.Load(that.currentCocktail.ingredient, that.currentCocktail.recipe_index, value);
             });
 
 
         }
         this.loadMissingFromCookie();
-        this.reloadData();
+        this.reloadData(false);
 
         $("#main-menu").toggle("slow");
     }]);

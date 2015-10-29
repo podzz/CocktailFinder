@@ -85,7 +85,7 @@ class Particle {
             index_calqueSelected = 1;
         var baseQuantity = quantity;
         var timeout = setTimeout(function () {
-            locate.graphics.RenderRotor('static/physics/img/calque' + index_calqueSelected + '.png', spawnPoint);
+            locate.graphics.RenderRotor('static/physics/img/calque' + index_calqueSelected + '.png', spawnPoint, 1);
             while (quantity > 1) {
                 var timeout2 = setTimeout(function () {
                     locate.AddParticleGroup(system, spawnPoint, color_process, world, sphere, locate.graphics, locate.circleArr, locate.circleIndex);
