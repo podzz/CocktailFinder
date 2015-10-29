@@ -42,9 +42,40 @@ class Particle {
             };
     }
 
+    private AddParticleGroup(particleSystem:b2ParticleSystem, spawnPoint, color:any, world:b2World, sphere:THREE.Geometry,
+                             graphics:Graphics, circleArr:any[], circleIndex:any[]):void {
+        var box:b2PolygonShape = new b2PolygonShape();
+        box.SetAsBoxXYCenterAngle(0.5, 0.1, spawnPoint, 0.7);
+
+        var particlegroupDef:b2ParticleGroupDef = new b2ParticleGroupDef();
+        particlegroupDef.shape = box;
+        particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle;
+
+        particlegroupDef.color.Set(color.r, color.g, color.b, color.a);
+
+        var bottle:b2BodyDef = new b2BodyDef();
+        bottle.type = b2_dynamicBody;
+        bottle.position.Set(2, 2);
+
+        var first_record = particleSystem.GetPositionBuffer().length / 2;
+        particleSystem.CreateParticleGroup(particlegroupDef);
+
+        world.CreateBody(bottle);
+        var second_record = particleSystem.GetPositionBuffer().length / 2;
+
+        for (var i = 0; i < second_record - first_record; i++) {
+            var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: 0xFFFF00}));
+            mesh.renderOrder = 2;
+            mesh.material.depthTest = false;
+            graphics.scene.add(mesh);
+            circleArr.push(mesh);
+            circleIndex.push(circleArr.length - 1);
+        }
+    }
+
     public addFlowBottle(pop, color, opacity, quantity, world:b2World) {
         var locate = this;
-        var particleSystem:b2ParticleSystem = world.particleSystems[0];
+        var system:b2ParticleSystem = world.particleSystems[0];
         var sphere = new THREE.SphereGeometry(0.1, 32, 32);
         var spawnPoint = new b2Vec2(-2.2, -5);
         var color_process = this.get_color(color, opacity, locate.tools);
@@ -53,79 +84,25 @@ class Particle {
             index_calqueSelected = 1;
         var timeout = setTimeout(function () {
             locate.graphics.RenderRotor('static/physics/img/calque' + index_calqueSelected + '.png',
-                                                                    spawnPoint.x,spawnPoint.y);
+                spawnPoint.x, spawnPoint.y);
 
             var count = 3;
             while (quantity > 1) {
                 console.log(quantity + " ---- " + count)
-                var timeout2 = setTimeout(function (particleSystem) {
-                    var box = new b2PolygonShape();
-                    box.SetAsBoxXYCenterAngle(0.5, 0.1, spawnPoint, 0.7);
-
-                    var particlegroupDef = new b2ParticleGroupDef();
-                    particlegroupDef.shape = box;
-                    particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle;
-
-                    particlegroupDef.color.Set(color_process.r, color_process.g, color_process.b, color_process.a);
-
-                    var bottle_flow = new b2BodyDef();
-                    bottle_flow.type = b2_dynamicBody;
-                    bottle_flow.position.Set(2, 2);
-
-                    var first_record = particleSystem.GetPositionBuffer().length / 2;
-                    particleSystem.CreateParticleGroup(particlegroupDef);
-
-                    world.CreateBody(bottle_flow);
-                    var second_record = particleSystem.GetPositionBuffer().length / 2;
-
-                    for (var i = 0; i < second_record - first_record; i++) {
-                        var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: 0xFFFF00}));
-                        mesh.renderOrder =2;
-                        mesh.material.depthTest = false;
-                        locate.graphics.scene.add(mesh);
-                        locate.circleArr.push(mesh);
-                        locate.circleIndex.push(locate.circleArr.length - 1);
-                    }
-                }, 1000 * count, particleSystem);
+                var timeout2 = setTimeout(function () {
+                    locate.AddParticleGroup(system, spawnPoint, color_process, world, sphere, locate.graphics, locate.circleArr, locate.circleIndex);
+                }, 1000 * count);
                 locate.events.AddEvent(timeout2);
                 quantity -= 1;
                 count += 1;
             }
-            var timeout2 = setTimeout(function (color_process, particleSystem) {
+            var timeout2 = setTimeout(function () {
                 var box = new b2PolygonShape();
                 console.log(quantity + " <<<---- ")
-                box.SetAsBoxXYCenterAngle(0.5 * quantity, 0.1 * quantity, spawnPoint, 0.7);
-
-                var particlegroupDef:b2ParticleGroupDef = new b2ParticleGroupDef();
-                particlegroupDef.shape = box;
-                particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle;
-                particlegroupDef.color.Set(color_process.r, color_process.g, color_process.b, color_process.a);
-
-
-                var bottle_flow = new b2BodyDef();
-                bottle_flow.type = b2_dynamicBody;
-                bottle_flow.position.Set(2, 2);
-
-
-                var first_record = particleSystem.GetPositionBuffer().length / 2;
-
-                particleSystem.CreateParticleGroup(particlegroupDef);
-                world.CreateBody(bottle_flow);
-                var second_record = particleSystem.GetPositionBuffer().length / 2;
-
-                for (var i = 0; i < second_record - first_record; i++) {
-                    var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial());
-                    mesh.renderOrder = 2;
-                    mesh.material.depthTest = false;
-                    locate.graphics.scene.add(mesh);
-                    locate.circleArr.push(mesh);
-                    locate.circleIndex.push(locate.circleArr.length - 1);
-                }
-            }, 1000 * count, color_process, particleSystem);
+                locate.AddParticleGroup(system, spawnPoint, color_process, world, sphere, locate.graphics,locate.circleArr, locate.circleIndex);
+            }, 1000 * count);
             locate.events.AddEvent(timeout2);
-        }, pop, color_process, particleSystem);
+        }, pop);
         locate.events.AddEvent(timeout);
     }
-
-
 }
