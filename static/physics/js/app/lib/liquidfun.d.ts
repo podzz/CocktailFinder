@@ -56,6 +56,8 @@ declare class b2Fixture
     GetRestitution():number;
     SetRestitution(restitution:number):void;
 
+    GetShape():b2Shape;
+
     TestPoint(worldPoint:b2Vec2):boolean;
     GetBody():b2Body;
 }
@@ -78,6 +80,7 @@ declare class b2Body
     GetMass():number;
     GetInertia():number;
     GetLocalCenter():b2Vec2;
+    GetTransform():b2Transform;
 
     SetType(type:any);
     GetType():any;
@@ -224,9 +227,27 @@ declare class b2CircleShape extends  b2Shape
 
 }
 
+declare class b2Rot {
+    s:number;
+    c:number;
+
+    constructor(angle:number);
+    Set(angle:number):void;
+    SetIdentity():void;
+    GetAngle():number;
+    GetXAxis():b2Vec2;
+    GetYAxis():b2Vec2;
+}
+
 declare class b2Transform
 {
+    p:b2Vec2;
+    q:b2Rot;
 
+    constructor();
+    constructor(position:b2Vec2, rotation:b2Vec2);
+    SetIdentity():void;
+    Set(position:b2Vec2, angle:number);
 }
 
 declare class b2PolygonShape extends b2Shape

@@ -88,11 +88,7 @@ class AnimationCocktail {
     private tools:Tools;
     private events:Events;
 
-    private timeStep:number = 1.0 / 60.0;
-    private velocityIterations:number = 3;
-    private positionIterations:number = 3;
     private time:number = 0;
-    private particleSize:number = 10;
     private METER:number = 100;
 
     constructor(managers:any) {
@@ -119,6 +115,10 @@ class AnimationCocktail {
             this.world.DestroyBody(body);
         }
 
+        this.graphics.scene = new THREE.Scene();
+        this.graphics.scene.add(this.graphics.camera);
+
+
         var psd = new b2ParticleSystemDef();
         psd.radius = 0.05;
         psd.dampingStrength = 0.4;
@@ -136,7 +136,6 @@ class AnimationCocktail {
 
         var rotorDef:b2BodyDef = new b2BodyDef();
         var rotorBody:b2Body = this.world.CreateBody(rotorDef);
-        //rotorBody.SetFixedRotation(true);
 
         var groundDef:b2BodyDef = new b2BodyDef();
         var groundBody:b2Body = this.world.CreateBody(groundDef);
@@ -148,15 +147,12 @@ class AnimationCocktail {
         rotorArr.push(this.parser.getRotor());
         recipeArr.push(this.parser.getRecipe(recipe));
 
-        //this.shape.LoadGround(groundBody, [], this.world);
-        //shapeManager.LoadStartLiquid(rotorBody, rotorDef, rotorArr);
         this.collision.LinkShape(body, recipeArr, this.world);
 
-        this.collision.LinkRotor(rotorBody, this.world, Tools.GetWidth(), Tools.GetHeight(), this.METER);
+        //this.collision.LinkRotor(rotorBody, this.world, Tools.GetWidth(), Tools.GetHeight(), this.METER);
 
         this.graphics.RenderRecipe(this.parser.getRecipeImagePath(recipe_id));
 
-        //rotorRender(rotorArr);
         var distributions = this.recipe.generateDistribution(ingredients);
         for (var i = 0; i < distributions.length; i++) {
             var distribution = distributions[i];
@@ -167,35 +163,35 @@ class AnimationCocktail {
     }
 
     private step() {
-        this.world.Step(this.timeStep, this.velocityIterations, this.positionIterations);
+        var timeStep:number = 1.0 / 60.0;
+        var velocityIterations:number = 3;
+        var positionIterations:number = 3;
+        this.world.Step(timeStep, velocityIterations, positionIterations);
         this.time += 1 / 60;
     }
 
     public animate() {
         this.step();
-        var particles = this.world.particleSystems[this.world.particleSystems.length - 1].GetPositionBuffer();
-        var colorsBuffer = this.world.particleSystems[this.world.particleSystems.length - 1].GetColorBuffer();
+        var system = this.world.particleSystems[0];
+
+        var particles = system.GetPositionBuffer();
+        var color = system.GetColorBuffer();
 
         var dropable_index = [];
         for (var key in this.particle.circleIndex) {
             var index = this.particle.circleIndex[key];
             var circle = this.particle.circleArr[index];
-            if (circle.y < Tools.GetHeight()) {
-                circle.position.x = ((particles[index * 2] ) * this.METER);
-                circle.position.y = ((particles[(index * 2) + 1]) * this.METER);
-                circle.clear();
-
-                circle.beginFill(parseInt(this.tools.rgbToHex(colorsBuffer[index * 4], colorsBuffer[(index * 4) + 1], colorsBuffer[(index * 4) + 2]), 16));
-                circle.drawCircle(0, 0, this.particleSize);
-
+            if (circle.position.y < 10) {
+                circle.position.x = particles[index * 2];
+                circle.position.y = particles[(index * 2) + 1];
+                circle.material.setValues({color: parseInt(this.tools.rgbToHex(color[index * 4], color[(index * 4) + 1], color[(index * 4) + 2]), 16)});
             }
             else {
-                circle.clear();
                 dropable_index.push(this.particle.circleIndex[key]);
             }
         }
 
-        if (dropable_index.length > 20) {
+        if (dropable_index.length > 0) {
             for (var key in dropable_index) {
                 var index = this.particle.circleIndex.indexOf(dropable_index[key]);
                 if (index > -1) {
@@ -203,21 +199,7 @@ class AnimationCocktail {
                 }
             }
         }
-
-        /*
-         for (var i = 0; i < objectArrInc; i++) {
-         var currentPosition = objectPhysicsArr[i].GetWorldCenter();
-         var currentAngle = objectPhysicsArr[i].GetAngle();
-
-         objectDisplayArr[i].position.x = currentPosition.x * this.METER;
-         objectDisplayArr[i].position.y = currentPosition.y * this.METER;
-         objectDisplayArr[i].rotation = currentAngle;
-         }*/
-
-        this.graphics.GetRenderers().render(this.graphics.GetStage());
-
-
+        this.graphics.threeRenderer.render(this.graphics.scene, this.graphics.camera);
         requestAnimationFrame(this.animate.bind(this));
-
     }
 }

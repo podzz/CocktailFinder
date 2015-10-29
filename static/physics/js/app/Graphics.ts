@@ -1,83 +1,82 @@
 /// <reference path="lib/pixi.d.ts"/>
 /// <reference path="lib/jquery.d.ts"/>
+/// <reference path="lib/three.d.ts"/>
+/// <reference path="lib/liquidfun.d.ts"/>
+/// <reference path="lib/greensock.d.ts"/>
 /// <reference path="Events.ts"/>
-/// <reference path="Filters.ts"/>
 /// <reference path="Tools.ts"/>
 
 class Graphics {
-    stage:PIXI.Container;
-    particleStage:PIXI.Container;
-    renderers:PIXI.CanvasRenderer | PIXI.WebGLRenderer;
-
     private events:Events;
-    private sprites:any=[];
 
-    private blur:PIXI.filters.BlurFilter;
+    // Renderer
+    public threeRenderer:THREE.WebGLRenderer;
+    public camera:THREE.PerspectiveCamera;
+
+    // Geometry
+    public geometry:THREE.BufferGeometry;
+    public currentVertex:number = 0;
+    public buffer:THREE.Mesh;
+    public scene:THREE.Scene;
+
 
     constructor(events:Events) {
 
         this.events = events;
-        this.renderers = PIXI.autoDetectRenderer($("#renderer").width(), $("#renderer").height(), {transparent: true}, false);  // arguments: width, height, view, transparent, disableWebGL
 
-        this.blur = new PIXI.filters.BlurFilter();
-        this.blur.blur = 0;
-
-        this.renderers.view.id = "viewer";
-        $("#renderer").append(this.renderers.view);
+        this.initRenderer();
     }
 
-    LoadRenderer() {
-        if (this.stage != null && this.particleStage != null) {
-            this.stage.destroy(false);
-            this.particleStage.destroy(false);
+    private initRenderer():void {
+        var width = Tools.GetWidth();
+        var height = Tools.GetHeight();
+        this.camera = new THREE.PerspectiveCamera(70, width / height, 1, 1000);
+        try {
+            this.threeRenderer = new THREE.WebGLRenderer({alpha: true, antialiasing:true});
+        } catch (error) {
+            console.log('Your browser doesn\'t support webgl');
+            return;
         }
-
-        var filters:Filters = new Filters();
-        //var threshold:PIXI.AbstractFilter = filters.getThresoldFilter();
-
-        this.stage = new PIXI.Container();
-        this.particleStage = new PIXI.Container();
-        this.particleStage.filters = [this.GetBlur()];
-        this.stage.addChild(this.particleStage);
+        this.threeRenderer.setClearColor(0x000000, 0);
+        this.threeRenderer.setSize(width, height);
+        this.camera.position.set(0,0,-10);
+        this.camera.up = new THREE.Vector3(0, -1, 0);
+        this.scene = new THREE.Scene();
+        this.camera.lookAt(this.scene.position);
+        this.scene.add(this.camera);
+        $("#renderer").append(this.threeRenderer.domElement);
     }
 
-    RenderRecipe(image_url) {
-        this.LoadSprite(image_url);
-        var bottle:PIXI.Sprite = this.sprites[image_url];
-        //recipeArr.push(bottle);
-        this.stage.addChild(bottle);
+    public RenderRecipe(image_url) {
+        var textureLoader = new THREE.TextureLoader();
+        var locate = this;
+        textureLoader.load(image_url, function (tex:THREE.Texture) {
+            tex.needsUpdate = true;
+            var material = new THREE.SpriteMaterial({map: tex });
+            var cube = new THREE.Sprite(material);
+            cube.scale.set(3,5,0);
+            cube.position.set(0,1.5,0);
+            locate.scene.add(cube);
+        });
     }
 
-    // Used to load sprite once
-    private LoadSprite(image_url) {
-        var sprite = this.sprites[image_url];
-        if (sprite == null) {
-            var bottle:PIXI.Sprite = PIXI.Sprite.fromImage(image_url);
-            bottle.alpha = 0.9;
-            bottle.interactive = true;
-            bottle.width = 200;
-            bottle.height = 300;
+    public RenderRotor(image_url, px, py) {
+        var textureLoader = new THREE.TextureLoader();
+        var locate = this;
+        textureLoader.load(image_url, function (tex:THREE.Texture) {
+            tex.needsUpdate = true;
+            var material = new THREE.SpriteMaterial({map: tex });
+            var cube = new THREE.Sprite(material);
+            cube.scale.set(1.5,3,0);
+            cube.position.set(px,-6,0);
+            cube.renderOrder = 3;
+            locate.scene.add(cube);
 
-            bottle.x = Tools.GetWidth() / 2 - bottle.width / 2;
-            bottle.y = Tools.GetHeight() - bottle.height - 200;
-            this.sprites[image_url] = bottle;
-        }
-    }
+            var tl = new TimelineLite();
 
-
-    public GetBlur():PIXI.filters.BlurFilter {
-        return this.blur;
-    }
-
-    public GetParticleStage():PIXI.Container {
-        return this.particleStage;
-    }
-
-    public GetStage():PIXI.Container {
-        return this.stage;
-    }
-
-    public GetRenderers():PIXI.CanvasRenderer | PIXI.WebGLRenderer {
-        return this.renderers;
+            tl.to(cube.position, 2, {x: px, y: py});
+            TweenLite.to(cube.material, 2, { rotation: -2.2});
+            //tl.to(cube, 5, {y: -50, rotation: 0, alpha: 0}, '+=6');
+        });
     }
 }

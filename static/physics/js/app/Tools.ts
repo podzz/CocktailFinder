@@ -3,7 +3,7 @@
 class Tools {
     constructor() {
     }
-    
+
     public rgbToHex(r, g, b) {
         return "0x" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
     }
@@ -31,12 +31,12 @@ class Tools {
 
     static GetWidth():number
     {
-        return $("#viewer").width();
+        return $("#renderer").width();
     }
 
     static GetHeight():number
     {
-        return $("#viewer").height();
+        return $("#renderer").height();
     }
 }
 

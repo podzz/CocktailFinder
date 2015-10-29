@@ -60,14 +60,15 @@ class Parser {
                 success: function (data) {
                     var f = JSON.parse(data);
                     var parse:any = f.rigidBodies[0].shapes[0].vertices;
+
+
                     var listPoint = [];
                     for (var i = 0; i < parse.length; i++) {
                         var vector = parse[i];
-                        vector.x *= 1.9;
-                        vector.y *= 1.9;
-                        vector.x = (Tools.GetWidth() / 2 / locate.METER) - 1 + vector.x;
-                        vector.y = (Tools.GetHeight() / locate.METER) - 1.1 - vector.y - 1;
-
+                        vector.x *= 2.5;
+                        vector.y *= 2.5;
+                        vector.x = vector.x - 0.5 * 2.5;
+                        vector.y = -vector.y + 3.3;
                         listPoint.push(vector);
                     }
                     vectorsRecipes[item] = listPoint;

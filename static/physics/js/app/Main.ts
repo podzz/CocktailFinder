@@ -28,94 +28,28 @@ class Main {
         this.managers['collision'] = new Collision();
         this.managers['animation'] = new AnimationCocktail(this.managers);
 
-        this.initResize();
+        this.InitResize();
     }
 
-    private initResize()
+    private InitResize()
     {
         var ref = this;
         window.addEventListener('resize', function() {
-            ref.Load(ref.currentRecipe, ref.currentIngredients, true);
-        }, false);
+            var graphics:Graphics = ref.managers['graphics'];
+            graphics.threeRenderer.setSize(Tools.GetWidth(), Tools.GetHeight());
+            graphics.camera.aspect = Tools.GetWidth() / Tools.GetHeight();
+            graphics.camera.updateProjectionMatrix();
+        });
     }
-
-    /*
-    public InitDisplay() {
-        //this.world.CreateBody(new b2BodyDef);
-        //requestAnimationFrame(this.managers['animation'].animate);
-    }*/
 
     public Load(ingredients: any, recipe_id: number, reload:boolean) {
         this.currentRecipe = recipe_id;
         this.currentIngredients = ingredients;
 
         var graphics:Graphics = this.managers['graphics'];
-        graphics.LoadRenderer();
 
         var animation:AnimationCocktail = this.managers['animation'];
         animation.Load(ingredients, recipe_id, reload);
     }
 }
-
-
-//manager.parser = new Parser();
-//manager.collisionManager = new CollisionManager();
-//manager.shapeManager = new ShapeManager();
-//manager.animationManager = AnimationManager();
-
-//$("#renderer").append(renderers.view);
-
-/*
-circleIndex = [];
-recipeArr = [];
-edgeArr = [];
-shapeArr = [];
-circleArr = [];
-rotorArr = [];
-soundArray = [];
-*/
-
-/*
- var circleArr = [];
- var circleIndex = [];
- var shapeArr = [];
- var edgeArr = [];
- var recipeArr = [];
- var rotorArr = [];
- var objectDisplayArr = [];
- var objectPhysicsArr = [];
- var soundMute = false;
- var soundArray = [];
- var soundAmbiant = null;
-
- var currentIngredients = null;
- var currentRecipe = null;
- var rotorBodyWidth = 0;
- var rotorBodyHeight = 0;
-
- var objectArrInc = 0;
-
- var right;
- var left;
- var timeStep = 1.0 / 60.0;
- var particleSystem;
- var velocityIterations = 3;
- var positionIterations = 3;
- var g_groundBody = null;
- var test;
-
- var particleSize = 10;
-
- var world = null;
- var parser = null;
- var collisionManager = null;
- var animationManager = null;
- var shapeManager = null;
-
- var stage = null;
- var particleStage = null;
- var renderers = null;
-
- var custom = null;
- */
 export=Main
