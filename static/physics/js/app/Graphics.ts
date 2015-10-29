@@ -39,6 +39,7 @@ class Graphics {
         }
         this.threeRenderer.setClearColor(0x000000, 0);
         this.threeRenderer.setSize(width, height);
+        this.threeRenderer.sortObjects = true;
         this.camera.position.set(0,0,-10);
         this.camera.up = new THREE.Vector3(0, -1, 0);
         this.scene = new THREE.Scene();
@@ -54,6 +55,7 @@ class Graphics {
             tex.needsUpdate = true;
             var material = new THREE.SpriteMaterial({map: tex });
             var cube = new THREE.Sprite(material);
+            cube.renderOrder = 1;
             cube.scale.set(3,5,0);
             cube.position.set(0,1.5,0);
             locate.scene.add(cube);
@@ -69,7 +71,7 @@ class Graphics {
             var cube = new THREE.Sprite(material);
             cube.scale.set(2,3.5,0);
             cube.position.set(px - 0.4,-15,0);
-            cube.renderOrder = 3;
+            cube.renderOrder = 1;
             locate.scene.add(cube);
 
             var tl = new TimelineLite();

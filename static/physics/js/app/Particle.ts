@@ -6,9 +6,6 @@
 /// <reference path="Tools.ts"/>
 
 class Particle {
-    METER:number = 100;
-    glassScale:number = 1.9;
-
     tools:Tools;
 
     graphics:Graphics;
@@ -83,6 +80,8 @@ class Particle {
 
                     for (var i = 0; i < second_record - first_record; i++) {
                         var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: 0xFFFF00}));
+                        mesh.renderOrder =2;
+                        mesh.material.depthTest = false;
                         locate.graphics.scene.add(mesh);
                         locate.circleArr.push(mesh);
                         locate.circleIndex.push(locate.circleArr.length - 1);
@@ -115,14 +114,15 @@ class Particle {
                 var second_record = particleSystem.GetPositionBuffer().length / 2;
 
                 for (var i = 0; i < second_record - first_record; i++) {
-                    var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: 0xFFFF00}));
+                    var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial());
+                    mesh.renderOrder = 2;
+                    mesh.material.depthTest = false;
                     locate.graphics.scene.add(mesh);
                     locate.circleArr.push(mesh);
                     locate.circleIndex.push(locate.circleArr.length - 1);
                 }
             }, 1000 * count, color_process, particleSystem);
             locate.events.AddEvent(timeout2);
-            //locate.graphics.GetStage().addChild(bottle);
         }, pop, color_process, particleSystem);
         locate.events.AddEvent(timeout);
     }
