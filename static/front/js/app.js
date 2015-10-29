@@ -95,14 +95,14 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
                 this.missing = this.sortByKey(this.missing, "name");
             }
             this.saveExcludeList();
-            this.reloadData();
+            this.reloadData(true);
         }
 
         // For Dev purpose
         this.removeCookie = function () {
             $.removeCookie('cocktailFinder');
             this.missing = [];
-            this.reloadData();
+            this.reloadData(true);
         }
 
         // Remove an ingredient ID from the missing list
