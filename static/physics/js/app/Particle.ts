@@ -68,7 +68,7 @@ class Particle {
         var second_record = particleSystem.GetPositionBuffer().length / 2;
 
         for (var i = 0; i < second_record - first_record; i++) {
-            var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: 0xFFFF00}));
+            var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: random.getHex()}));
             mesh.renderOrder = 2;
             mesh.material.depthTest = false;
             this.graphics.scene.add(mesh);
@@ -99,7 +99,7 @@ class Particle {
         var second_record = particleSystem.GetPositionBuffer().length / 2;
 
         for (var i = 0; i < second_record - first_record; i++) {
-            var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: 0xFFFF00}));
+            var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: 0xFFFF00, transparent: true}));
             mesh.renderOrder = 2;
             mesh.material.depthTest = false;
             graphics.scene.add(mesh);

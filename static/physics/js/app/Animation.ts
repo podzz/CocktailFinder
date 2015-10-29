@@ -50,7 +50,7 @@ class AnimationCocktail {
         psd.dampingStrength = 0.4;
         psd.viscousStrength = 0.05;
         //psd.colorMixingStrength = 0.8;
-        psd.colorMixingStrength = 0.01;
+        psd.colorMixingStrength = 0.009;
         this.world.CreateParticleSystem(psd);
         this.particle.Reset();
     }
@@ -107,7 +107,7 @@ class AnimationCocktail {
                     color: parseInt(this.tools.rgbToHex(
                         color[index * 4],
                         color[(index * 4) + 1],
-                        color[(index * 4) + 2]), 16)
+                        color[(index * 4) + 2]), 16), opacity: color[(index * 4) + 3] / 255
                 });
             }
             else {
