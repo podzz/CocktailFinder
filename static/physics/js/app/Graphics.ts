@@ -67,16 +67,18 @@ class Graphics {
             tex.needsUpdate = true;
             var material = new THREE.SpriteMaterial({map: tex });
             var cube = new THREE.Sprite(material);
-            cube.scale.set(1.5,3,0);
-            cube.position.set(px,-6,0);
+            cube.scale.set(2,3.5,0);
+            cube.position.set(px - 0.4,-15,0);
             cube.renderOrder = 3;
             locate.scene.add(cube);
 
             var tl = new TimelineLite();
+            var tl2 = new TimelineLite();
 
-            tl.to(cube.position, 2, {x: px, y: py});
-            TweenLite.to(cube.material, 2, { rotation: -2.2});
-            //tl.to(cube, 5, {y: -50, rotation: 0, alpha: 0}, '+=6');
+            tl.to(cube.position, 2, {y: py});
+            tl2.to(cube.material, 2, { rotation: -2.5});
+            tl.to(cube.position, 2, {y: -15}, '+=6');
+            tl2.to(cube.material,2,{rotation:0}, '+=6');
         });
     }
 }

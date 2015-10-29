@@ -49,7 +49,7 @@ class Particle {
         var locate = this;
         var particleSystem:b2ParticleSystem = world.particleSystems[0];
         var sphere = new THREE.SphereGeometry(0.1, 32, 32);
-        var spawnPoint = new b2Vec2(-2, -5);
+        var spawnPoint = new b2Vec2(-2.2, -5);
         var color_process = this.get_color(color, opacity, locate.tools);
         var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
         if (index_calqueSelected == 8)
@@ -95,7 +95,7 @@ class Particle {
             var timeout2 = setTimeout(function (color_process, particleSystem) {
                 var box = new b2PolygonShape();
                 console.log(quantity + " <<<---- ")
-                box.SetAsBoxXYCenterAngle(0.5, 0.1 * quantity, spawnPoint, 0.7);
+                box.SetAsBoxXYCenterAngle(0.5 * quantity, 0.1 * quantity, spawnPoint, 0.7);
 
                 var particlegroupDef:b2ParticleGroupDef = new b2ParticleGroupDef();
                 particlegroupDef.shape = box;

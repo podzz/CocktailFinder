@@ -51,7 +51,6 @@ class Parser {
 
     private initRecipesVectors(hash, vectorsRecipes:any)
     {
-        var locate = this;
         for (var item in hash) {
             $.ajax({
                 url: hash[item.toString()],
@@ -68,7 +67,7 @@ class Parser {
                         vector.x *= 2.5;
                         vector.y *= 2.5;
                         vector.x = vector.x - 0.5 * 2.5;
-                        vector.y = -vector.y + 3.3;
+                        vector.y = -vector.y + 3.6;
                         listPoint.push(vector);
                     }
                     vectorsRecipes[item] = listPoint;

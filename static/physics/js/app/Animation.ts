@@ -137,10 +137,6 @@ class AnimationCocktail {
         var rotorDef:b2BodyDef = new b2BodyDef();
         var rotorBody:b2Body = this.world.CreateBody(rotorDef);
 
-        var groundDef:b2BodyDef = new b2BodyDef();
-        var groundBody:b2Body = this.world.CreateBody(groundDef);
-        groundBody.SetType(b2_staticBody);
-
         var recipe:number = ((recipe_id == 0) ? Math.floor(Math.random() * 12) + 1 : recipe_id);
         var rotorArr:any = [];
         var recipeArr:any = [];
@@ -149,7 +145,7 @@ class AnimationCocktail {
 
         this.collision.LinkShape(body, recipeArr, this.world);
 
-        //this.collision.LinkRotor(rotorBody, this.world, Tools.GetWidth(), Tools.GetHeight(), this.METER);
+        this.collision.LinkRotor(rotorBody, this.world);
 
         this.graphics.RenderRecipe(this.parser.getRecipeImagePath(recipe_id));
 
