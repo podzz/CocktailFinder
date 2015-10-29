@@ -32,6 +32,7 @@ curl -H "Content-Type":"application/json" -X POST -d $NEO4J_SETPASS_JSON http://
 
 echo "Fill Database ..."
 neo4j-shell -file /vagrant/data/import.cypher
+neo4j-shell -file /vagrant/data/bootstrap.cypher
 
 service neo4j-service restart
 
