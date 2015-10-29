@@ -37,14 +37,17 @@ class Graphics {
             console.log('Your browser doesn\'t support webgl');
             return;
         }
-        this.threeRenderer.setClearColor(0x000000, 0);
+        this.threeRenderer.setClearColor(0x000000, 1);
         this.threeRenderer.setSize(width, height);
         this.threeRenderer.sortObjects = true;
-        this.camera.position.set(0,0,-10);
+        this.camera.position.set(0,1,-10);
         this.camera.up = new THREE.Vector3(0, -1, 0);
         this.scene = new THREE.Scene();
         this.camera.lookAt(this.scene.position);
         this.scene.add(this.camera);
+
+        
+
         this.RenderCocktailArtist('static/front/img/artist-sidebar.png');
         $("#renderer").append(this.threeRenderer.domElement);
     }
