@@ -73,7 +73,8 @@ class Graphics {
             tex.needsUpdate = true;
             var material = new THREE.SpriteMaterial({map: tex });
             var cube = new THREE.Sprite(material);
-            cube.scale.set(2,3.5,0);
+            //cube.scale.set(2,3.5,0); // Valeur de base, qui ne masquait pas totalement le liquide
+            cube.scale.set(2.25,3.94,0);
             cube.position.set(vector.x - 0.4,-15,0);
             cube.renderOrder = 1;
             locate.scene.add(cube);
@@ -81,10 +82,10 @@ class Graphics {
             var tl = new TimelineLite();
             var tl2 = new TimelineLite();
 
-            tl.to(cube.position, 2, {y: vector.y});
+            tl.to(cube.position, 2, {y: vector.y - 0.2});
             tl2.to(cube.material, 2, { rotation: -2.5});
-            tl.to(cube.position, 2, {y: -15}, '+=6');
-            tl2.to(cube.material,2,{rotation:0}, '+=6');
+            tl.to(cube.position, 2, {y: -15}, time);
+            tl2.to(cube.material,2,{rotation:0}, time);
         });
     }
 

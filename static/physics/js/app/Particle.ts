@@ -120,15 +120,18 @@ class Particle {
             index_calqueSelected = 1;
         var baseQuantity = quantity;
         var timeout = setTimeout(function () {
-            locate.graphics.RenderRotor('static/physics/img/calque' + index_calqueSelected + '.png', spawnPoint, 1);
-            while (quantity > 1) {
-                var timeout2 = setTimeout(function () {
-                    locate.AddParticleGroup(system, spawnPoint, color_process, world, sphere, locate.graphics, locate.circleArr, locate.circleIndex);
-                }, 1000 * (baseQuantity - quantity));
-                quantity -= 1;
+            locate.graphics.RenderRotor('static/physics/img/calque' + index_calqueSelected + '.png', spawnPoint, baseQuantity * 1.5 * 0.4); // 0.4 is the 400ms of timeout to spawn one liquid.
+            var timeout1 = setTimeout(function() {
+                while (quantity > 1) {
+                    var timeout2 = setTimeout(function () {
+                        locate.AddParticleGroup(system, spawnPoint, color_process, world, sphere, locate.graphics, locate.circleArr, locate.circleIndex);
+                    }, 400 * (baseQuantity - quantity));
+                    quantity -= 1;
+                    locate.events.AddEvent(timeout2);
+                }
                 locate.events.AddEvent(timeout2);
-            }
-            locate.events.AddEvent(timeout2);
+            }, 2000); // Timeout1 added to have time between the bottle's spawn and the liquid's one.
+            locate.events.AddEvent(timeout1);
         }, pop);
         locate.events.AddEvent(timeout);
     }

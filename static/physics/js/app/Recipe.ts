@@ -1,5 +1,5 @@
 class Recipe {
-    glassQuantity:number = 8.0;
+    glassQuantity:number = 35.0;
     constructor() {}
 
     public generateDistribution(ingredient: any):any
@@ -36,7 +36,7 @@ class Recipe {
 
                 if (ingr.selectedColor && ingr.selectedColor != "#null") {
                     distribution.push({ 'pop': ingr_pop, 'color': ingr.selectedColor, 'opacity': ingr.opacity, 'quantity': r});
-                    ingr_pop += r * 2000;
+                    ingr_pop += r * 400;
                 }
             }
         }
