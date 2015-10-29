@@ -77,7 +77,7 @@ class AnimationCocktail {
         var distributions = this.recipe.generateDistribution(ingredients);
         for (var i = 0; i < distributions.length; i++) {
             var distribution = distributions[i];
-            this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity * 100, this.world);
+            this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity, this.world);
         }
         if (!reload)
             requestAnimationFrame(this.animate.bind(this));

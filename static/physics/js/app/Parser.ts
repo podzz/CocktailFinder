@@ -64,10 +64,10 @@ class Parser {
                     var listPoint = [];
                     for (var i = 0; i < parse.length; i++) {
                         var vector = parse[i];
-                        vector.x *= 2.75;
-                        vector.y *= 4; //FIXME
-                        vector.x = vector.x - 0.5 * 2.75;
-                        vector.y = -vector.y + 4;
+                        vector.x *= 2.8;    //Best Value found : 2.8
+                        vector.y *= 4;      //Best Value found : 4
+                        vector.x = vector.x - 0.5 * 2.8;    //Best Value found : -0.5 * 2.8
+                        vector.y = -vector.y + 3.95;        //Best Value found : + 3.95
                         listPoint.push(vector);
                     }
                     vectorsRecipes[item] = listPoint;
