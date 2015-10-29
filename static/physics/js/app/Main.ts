@@ -2,14 +2,11 @@
 /// <reference path="lib/pixi.d.ts"/>
 /// <reference path="Events.ts"/>
 /// <reference path="Recipe.ts"/>
-/// <reference path="Shape.ts"/>
 /// <reference path="Graphics.ts"/>
 /// <reference path="Animation.ts"/>
 /// <reference path="Tools.ts"/>
 
 class Main {
-    METER:number = 100;
-
     currentRecipe: number =  0;
     currentIngredients: any;
 
@@ -22,7 +19,6 @@ class Main {
         this.managers['events'] = new Events();
         this.managers['recipe'] = new Recipe();
         this.managers['graphics'] = new Graphics(this.managers['events']);
-        this.managers['shape'] = new Shape();
         this.managers['tools'] = new Tools();
         this.managers['parser'] = new Parser();
         this.managers['collision'] = new Collision();
@@ -45,11 +41,7 @@ class Main {
     public Load(ingredients: any, recipe_id: number, reload:boolean) {
         this.currentRecipe = recipe_id;
         this.currentIngredients = ingredients;
-
-        var graphics:Graphics = this.managers['graphics'];
-
-        var animation:AnimationCocktail = this.managers['animation'];
-        animation.Load(ingredients, recipe_id, reload);
+        this.managers['animation'].Load(ingredients, recipe_id, reload);
     }
 }
 export=Main

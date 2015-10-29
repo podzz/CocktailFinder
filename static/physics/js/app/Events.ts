@@ -1,12 +1,7 @@
-/**
- * Created by Francois on 12/10/15.
- */
 class Events {
-    constructor()
-    {
+    private eventArray:any[];
 
-    }
-    eventArray:any[];
+    constructor() {}
 
     AddEvent(event)
     {

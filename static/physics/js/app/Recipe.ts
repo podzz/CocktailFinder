@@ -1,9 +1,6 @@
 class Recipe {
-    glassQuantity:number;
-    constructor()
-    {
-        this.glassQuantity = 8.0;
-    }
+    glassQuantity:number = 8.0;
+    constructor() {}
 
     public generateDistribution(ingredient: any):any
     {

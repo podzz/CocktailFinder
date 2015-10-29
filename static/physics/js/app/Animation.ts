@@ -1,86 +1,15 @@
 /// <reference path="lib/liquidfun.d.ts"/>
 /// <reference path="lib/pixi.d.ts"/>
 /// <reference path="Parser.ts"/>
-/// <reference path="Shape.ts"/>
 /// <reference path="Collision.ts"/>
 /// <reference path="Graphics.ts"/>
 /// <reference path="Recipe.ts"/>
 /// <reference path="Particle.ts"/>
 /// <reference path="Tools.ts"/>
 
-
-/*
- document.addEventListener('mousedown', function (event) {
- var width = $("#cocktailRenderer").width();
- var height = $("#cocktailRenderer").height();
- var mouse = {x: (event.clientX - width) / METER , y:(event.clientY) / METER};
- var p = new b2Vec2(mouse.x, mouse.y);
- var aabb = new b2AABB();
- var d = new b2Vec2();
-
- d.Set(0.01, 0.01);
- b2Vec2.Sub(aabb.lowerBound, p, d);
- b2Vec2.Add(aabb.upperBound, p, d);
-
- var queryCallback = new QueryCallback(p)
- world.QueryAABB(queryCallback, aabb);
-
- if (queryCallback.fixture) {
- var body_query = queryCallback.fixture.body;
- var md = new b2MouseJointDef();
- md.bodyA = body;
- md.bodyB = body_query;
- md.target = p;
- md.maxForce = 1000;
- that.mouseJoint = world.CreateJoint(md);
- body_query.SetAwake(true);
- }
- });
-
- document.addEventListener('mousemove', function(event) {
- var width = $("#cocktailRenderer").width();
- var height = $("#cocktailRenderer").height();
- var mouse = {x: (event.clientX - width) / METER , y:(event.clientY) / METER};
- var p = new b2Vec2(mouse.x, mouse.y);
- if (that.mouseJoint) {
- that.mouseJoint.SetTarget(p);
- }
- });
-
- document.addEventListener('mouseup', function(event) {
- if (that.mouseJoint) {
- world.DestroyJoint(that.mouseJoint);
- that.mouseJoint = null;
- }
- });
-
-
- }
-
- function QueryCallback(point) {
- this.point = point;
- this.fixture = null;
- }
-
- QueryCallback.prototype.ReportFixture = function (fixture) {
- var body = fixture.body;
- if (body.GetType() == b2_dynamicBody) {
- var inside = fixture.TestPoint(this.point);
- if (inside) {
- this.fixture = fixture;
- return true;
- }
- }
- return false;
- };*/
-
 class AnimationCocktail {
-    width:number;
-    height:number;
-
     private world:b2World;
     private parser:Parser;
-    private shape:Shape;
     private collision:Collision;
     private graphics:Graphics;
     private recipe:Recipe;
@@ -89,13 +18,11 @@ class AnimationCocktail {
     private events:Events;
 
     private time:number = 0;
-    private METER:number = 100;
 
     constructor(managers:any) {
         this.world = new b2World(new b2Vec2(0, 10));
 
         this.parser = managers['parser'];
-        this.shape = managers['shape'];
         this.collision = managers['collision'];
         this.graphics = managers['graphics'];
         this.recipe = managers['recipe'];
@@ -107,12 +34,10 @@ class AnimationCocktail {
     private WorldReset() {
         this.events.resetTimeline();
         while (this.world.particleSystems.length > 0) {
-            var system = this.world.particleSystems[0];
-            this.world.DestroyParticleSystem(system);
+            this.world.DestroyParticleSystem(this.world.particleSystems[0]);
         }
         while (this.world.bodies.length > 0) {
-            var body = this.world.bodies[0];
-            this.world.DestroyBody(body);
+            this.world.DestroyBody(this.world.bodies[0]);
         }
 
         this.graphics.scene = new THREE.Scene();
@@ -134,17 +59,16 @@ class AnimationCocktail {
         var bdDef:b2BodyDef = new b2BodyDef();
         var body:b2Body = this.world.CreateBody(bdDef);
 
+        //var bdDefRotor:b2BodyDef = new b2BodyDef();
+        //var bodyRotor:b2Body = this.world.CreateBody(bdDefRotor);
+
         var rotorDef:b2BodyDef = new b2BodyDef();
         var rotorBody:b2Body = this.world.CreateBody(rotorDef);
 
         var recipe:number = ((recipe_id == 0) ? Math.floor(Math.random() * 12) + 1 : recipe_id);
-        var rotorArr:any = [];
-        var recipeArr:any = [];
-        rotorArr.push(this.parser.getRotor());
-        recipeArr.push(this.parser.getRecipe(recipe));
 
-        this.collision.LinkShape(body, recipeArr, this.world);
-
+        this.collision.LinkShape(body, this.parser.getRecipe(recipe), this.world);
+        //this.collision.LinkShape(bodyRotor, this.parser.getRotor(), this.world);
         this.collision.LinkRotor(rotorBody, this.world);
 
         this.graphics.RenderRecipe(this.parser.getRecipeImagePath(recipe_id));
@@ -160,9 +84,7 @@ class AnimationCocktail {
 
     private step() {
         var timeStep:number = 1.0 / 60.0;
-        var velocityIterations:number = 3;
-        var positionIterations:number = 3;
-        this.world.Step(timeStep, velocityIterations, positionIterations);
+        this.world.Step(timeStep, 3, 3);
         this.time += 1 / 60;
     }
 
@@ -180,7 +102,12 @@ class AnimationCocktail {
             if (circle.position.y < 10) {
                 circle.position.x = particles[index * 2];
                 circle.position.y = particles[(index * 2) + 1];
-                circle.material.setValues({color: parseInt(this.tools.rgbToHex(color[index * 4], color[(index * 4) + 1], color[(index * 4) + 2]), 16)});
+                circle.material.setValues({
+                    color: parseInt(this.tools.rgbToHex(
+                        color[index * 4],
+                        color[(index * 4) + 1],
+                        color[(index * 4) + 2]), 16)
+                });
             }
             else {
                 dropable_index.push(this.particle.circleIndex[key]);
