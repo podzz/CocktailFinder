@@ -74,33 +74,25 @@ class Particle {
     }
 
     public addFlowBottle(pop, color, opacity, quantity, world:b2World) {
+        console.log(pop);
         var locate = this;
         var system:b2ParticleSystem = world.particleSystems[0];
         var sphere = new THREE.SphereGeometry(0.1, 32, 32);
-        var spawnPoint = new b2Vec2(-2.2, -5);
+        var spawnPoint:b2Vec2 = new b2Vec2(-2.2, -5);
         var color_process = this.get_color(color, opacity, locate.tools);
         var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
         if (index_calqueSelected == 8)
             index_calqueSelected = 1;
+        var baseQuantity = quantity;
         var timeout = setTimeout(function () {
-            locate.graphics.RenderRotor('static/physics/img/calque' + index_calqueSelected + '.png',
-                spawnPoint.x, spawnPoint.y);
-
-            var count = 3;
+            locate.graphics.RenderRotor('static/physics/img/calque' + index_calqueSelected + '.png', spawnPoint);
             while (quantity > 1) {
-                console.log(quantity + " ---- " + count)
                 var timeout2 = setTimeout(function () {
                     locate.AddParticleGroup(system, spawnPoint, color_process, world, sphere, locate.graphics, locate.circleArr, locate.circleIndex);
-                }, 1000 * count);
-                locate.events.AddEvent(timeout2);
+                }, 1000 * (baseQuantity - quantity));
                 quantity -= 1;
-                count += 1;
+                locate.events.AddEvent(timeout2);
             }
-            var timeout2 = setTimeout(function () {
-                var box = new b2PolygonShape();
-                console.log(quantity + " <<<---- ")
-                locate.AddParticleGroup(system, spawnPoint, color_process, world, sphere, locate.graphics,locate.circleArr, locate.circleIndex);
-            }, 1000 * count);
             locate.events.AddEvent(timeout2);
         }, pop);
         locate.events.AddEvent(timeout);

@@ -63,7 +63,7 @@ class Graphics {
         });
     }
 
-    public RenderRotor(image_url, px, py) {
+    public RenderRotor(image_url, vector:b2Vec2) {
         var textureLoader = new THREE.TextureLoader();
         var locate = this;
         textureLoader.load(image_url, function (tex:THREE.Texture) {
@@ -71,14 +71,14 @@ class Graphics {
             var material = new THREE.SpriteMaterial({map: tex });
             var cube = new THREE.Sprite(material);
             cube.scale.set(2,3.5,0);
-            cube.position.set(px - 0.4,-15,0);
+            cube.position.set(vector.x - 0.4,-15,0);
             cube.renderOrder = 1;
             locate.scene.add(cube);
 
             var tl = new TimelineLite();
             var tl2 = new TimelineLite();
 
-            tl.to(cube.position, 2, {y: py});
+            tl.to(cube.position, 2, {y: vector.y});
             tl2.to(cube.material, 2, { rotation: -2.5});
             tl.to(cube.position, 2, {y: -15}, '+=6');
             tl2.to(cube.material,2,{rotation:0}, '+=6');

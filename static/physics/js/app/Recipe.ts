@@ -36,7 +36,7 @@ class Recipe {
 
                 if (ingr.selectedColor && ingr.selectedColor != "#null") {
                     distribution.push({ 'pop': ingr_pop, 'color': ingr.selectedColor, 'opacity': ingr.opacity, 'quantity': r});
-                    ingr_pop += r * 4000;
+                    ingr_pop += r * 2000;
                 }
             }
         }
