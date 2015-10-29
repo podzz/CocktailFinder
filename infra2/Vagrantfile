@@ -1,0 +1,65 @@
+# Defines our Vagrant environment
+#
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # manager node
+  config.vm.define :manager do |manager_config|
+      manager_config.vm.box = "precise64"
+      manager_config.vm.hostname = "mgr"
+      manager_config.vm.network :private_network, ip: "192.168.50.1", virtualbox__intnet: "cf"
+      manager_config.vm.provider "virtualbox" do |vb|
+        vb.memory = "256"
+      end
+      manager_config.vm.provision :shell, path: "bootstrap-manager.sh"
+  end
+
+  # load balancer node
+  config.vm.define :lb do |lb_config|
+      lb_config.vm.box = "precise64"
+      lb_config.vm.hostname = "lb"
+      lb_config.vm.network :private_network, ip: "192.168.50.2", virtualbox__intnet: "cf"
+      lb_config.vm.network "forwarded_port", guest: 80, host: 8080
+      lb_config.vm.provider "virtualbox" do |vb|
+        vb.memory = "256"
+      end
+  end
+
+  # database node
+  config.vm.define :db do |db_config|
+      db_config.vm.box = "precise64"
+      db_config.vm.hostname = "db"
+      db_config.vm.network :private_network, ip: "192.168.50.3", virtualbox__intnet: "cf"
+      db_config.vm.network "forwarded_port", guest: 7474, host: 4242
+      db_config.vm.provider "virtualbox" do |vb|
+        vb.memory = "256"
+      end
+  end
+
+  # frontoffice API nodes
+  (1..2).each do |i|
+    config.vm.define "frontofficeAPI#{i}" do |node|
+        node.vm.box = "precise64"
+        node.vm.hostname = "frontofficeAPI#{i}"
+        node.vm.network :private_network, ip: "192.168.50.1#{i}", virtualbox__intnet: "cf"
+        node.vm.provider "virtualbox" do |vb|
+          vb.memory = "256"
+        end
+    end
+  end
+
+  # static nodes
+  (1..2).each do |i|
+    config.vm.define "static#{i}" do |node|
+        node.vm.box = "precise64"
+        node.vm.hostname = "static#{i}"
+        node.vm.network :private_network, ip: "192.168.50.2#{i}", virtualbox__intnet: "cf"
+        node.vm.provider "virtualbox" do |vb|
+          vb.memory = "256"
+        end
+    end
+  end
+
+end
