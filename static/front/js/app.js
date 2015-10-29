@@ -113,7 +113,7 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
                 }
             }
             this.saveExcludeList();
-            this.reloadData();
+            this.reloadData(true);
             this.cocktailRenderer.reload(true);
         }
 
