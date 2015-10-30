@@ -1,8 +1,7 @@
 class Recipe {
-    glassQuantity:number = 35.0;
     constructor() {}
 
-    public generateDistribution(ingredient: any):any
+    public generateDistribution(ingredient: any, glassQuantity:number):any
     {
         var distribution:any=[];
         var ingr_pop = 0;
@@ -32,7 +31,7 @@ class Recipe {
                     qua = qua.replace(';', '.');
                 qua = parseFloat(qua);
                 qua = Math.ceil(qua);
-                var r = Math.ceil(qua / totalQuantity * this.glassQuantity);
+                var r = Math.ceil(qua / totalQuantity * glassQuantity);
 
                 if (ingr.selectedColor && ingr.selectedColor != "#null") {
                     distribution.push({ 'pop': ingr_pop, 'color': ingr.selectedColor, 'opacity': ingr.opacity, 'quantity': r});

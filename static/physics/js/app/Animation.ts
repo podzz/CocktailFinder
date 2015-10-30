@@ -72,9 +72,10 @@ class AnimationCocktail {
         //this.collision.LinkShape(bodyRotor, this.parser.getRotor(), this.world);
         this.collision.LinkRotor(rotorBody, this.world);
 
-        this.graphics.RenderRecipe(this.parser.getRecipeImagePath(recipe_id));
+        var contener:any = this.parser.getRecipeImagePath(recipe_id);
+        this.graphics.RenderRecipe(contener.path);
 
-        var distributions = this.recipe.generateDistribution(ingredients);
+        var distributions = this.recipe.generateDistribution(ingredients, contener.quantity);
         for (var i = 0; i < distributions.length; i++) {
             var distribution = distributions[i];
             this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity, this.world);
