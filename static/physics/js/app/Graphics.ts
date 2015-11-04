@@ -37,7 +37,7 @@ class Graphics {
             console.log('Your browser doesn\'t support webgl');
             return;
         }
-        this.threeRenderer.setClearColor(0x000000, 0.05);
+        this.threeRenderer.setClearColor(0x000000, 0);
         this.threeRenderer.setSize(width, height);
         this.threeRenderer.setPixelRatio(window.devicePixelRatio);
         this.threeRenderer.sortObjects = true;
@@ -49,7 +49,13 @@ class Graphics {
         this.camera.lookAt(this.scene.position);
         this.scene.add(this.camera);
 
-        
+        var DirectionalLight = new THREE.DirectionalLight(0xffffff, 4);
+        DirectionalLight.position.set(0,1,0);
+        DirectionalLight.lookAt(this.scene.position);
+        this.scene.add(DirectionalLight);
+
+
+
 
         this.RenderCocktailArtist('static/front/img/artist-sidebar.png');
         $("#renderer").append(this.threeRenderer.domElement);
@@ -64,6 +70,7 @@ class Graphics {
             var cube = new THREE.Sprite(material);
             cube.renderOrder = 1;
             cube.scale.set(3,5,0);
+            cube.material.opacity = 0.7;
             cube.position.set(0,1.5,0);
             locate.scene.add(cube);
         });
@@ -110,8 +117,8 @@ class Graphics {
             var tl = new TimelineLite();
             var tl2 = new TimelineLite();
             tl.to(cube.position, 2, {x: 0});
-            tl.to(cube.position, 2, {y: -5, x:4}, '+=2');
-            tl2.to(cube.scale, 2, {x: 6,y:2}, '+=4');
+            tl.to(cube.position, 2, {y: -5, x:2}, '+=2');
+            tl2.to(cube.scale, 2, {x: 4,y:2}, '+=4');
         });
     }
 }

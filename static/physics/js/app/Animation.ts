@@ -1,5 +1,6 @@
 /// <reference path="lib/liquidfun.d.ts"/>
 /// <reference path="lib/pixi.d.ts"/>
+/// <reference path="lib/jquery.d.ts"/>
 /// <reference path="Parser.ts"/>
 /// <reference path="Collision.ts"/>
 /// <reference path="Graphics.ts"/>
@@ -92,6 +93,18 @@ class AnimationCocktail {
 
     public animate() {
         this.step();
+        requestAnimationFrame(this.animate.bind(this));
+
+        /*var timer = 0.02;
+        var x = this.graphics.camera.position.x;
+        var y = this.graphics.camera.position.y;
+        var z = this.graphics.camera.position.z;
+
+        this.graphics.camera.position.x = Math.cos(timer) * x + Math.sin(timer) * z;
+        this.graphics.camera.position.z = Math.cos(timer) * z - Math.sin(timer) * x;
+        this.graphics.camera.lookAt(this.graphics.scene.position);*/
+
+
         var system = this.world.particleSystems[0];
 
         var particles = system.GetPositionBuffer();
@@ -108,23 +121,25 @@ class AnimationCocktail {
                     color: parseInt(this.tools.rgbToHex(
                         color[index * 4],
                         color[(index * 4) + 1],
-                        color[(index * 4) + 2]), 16), opacity: color[(index * 4) + 3] / 255
+                        color[(index * 4) + 2]), 16),
+                    opacity: color[(index * 4) + 3] / 255
                 });
             }
             else {
-                dropable_index.push(this.particle.circleIndex[key]);
+                this.graphics.scene.remove(circle);
+                circle.material.dispose();
+                circle.geometry.dispose();
+                dropable_index.push(index);
             }
         }
 
         if (dropable_index.length > 0) {
             for (var key in dropable_index) {
                 var index = this.particle.circleIndex.indexOf(dropable_index[key]);
-                if (index > -1) {
-                    this.particle.circleIndex.splice(index, 1);
-                }
+                this.particle.circleIndex.splice(index, 1);
+
             }
         }
         this.graphics.threeRenderer.render(this.graphics.scene, this.graphics.camera);
-        requestAnimationFrame(this.animate.bind(this));
     }
 }

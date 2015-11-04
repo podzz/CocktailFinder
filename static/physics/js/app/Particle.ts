@@ -22,8 +22,8 @@ class Particle {
     }
 
     public Reset() {
-        this.circleArr = [];
         this.circleIndex = [];
+        this.circleArr = [];
     }
 
     private get_color(color, opacity, tools) {
@@ -63,7 +63,6 @@ class Particle {
 
         var first_record = particleSystem.GetPositionBuffer().length / 2;
         particleSystem.CreateParticleGroup(particlegroupDef);
-
         world.CreateBody(bottle);
         var second_record = particleSystem.GetPositionBuffer().length / 2;
 
@@ -71,9 +70,9 @@ class Particle {
             var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: random.getHex()}));
             mesh.renderOrder = 2;
             mesh.material.depthTest = false;
-            this.graphics.scene.add(mesh);
             this.circleArr.push(mesh);
             this.circleIndex.push(this.circleArr.length - 1);
+            this.graphics.scene.add(mesh);
         }
     }
 
@@ -105,6 +104,7 @@ class Particle {
             graphics.scene.add(mesh);
             circleArr.push(mesh);
             circleIndex.push(circleArr.length - 1);
+            graphics.scene.add(mesh);
         }
     }
 
@@ -112,7 +112,7 @@ class Particle {
         console.log(pop);
         var locate = this;
         var system:b2ParticleSystem = world.particleSystems[0];
-        var sphere = new THREE.SphereGeometry(0.1, 32, 32);
+        var sphere = new THREE.SphereGeometry(0.06, 5, 5);
         var spawnPoint:b2Vec2 = new b2Vec2(-2.2, -5);
         var color_process = this.get_color(color, opacity, locate.tools);
         var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
