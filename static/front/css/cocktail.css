@@ -15,7 +15,7 @@ body {
 }
 
 .direction {
-    background-color: rgba(49, 49, 44, 0.7);
+    background-color: rgba(51, 51, 51, 0.9);
     border-radius: 10px;
     opacity: 0.8;
     width: 43%;
@@ -133,7 +133,7 @@ body {
 .btn {
     border: none;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: none;
+    background-color:white;
     cursor: pointer;
     display: inline-block;
     letter-spacing: 1px;
@@ -149,39 +149,15 @@ body {
     box-shadow: 0 6px #2a557e;
 }
 
-.btn-luxe {
-    background-color: rgba(251, 248, 255, 0.88);
-    color: black;
-    font-family: 'Raleway', sans-serif;
-    boc-shadow: 0 6px #ffc23a;
-}
-
-.btn-missing {
-    background-color: rgba(251, 248, 255, 0.88);
-    color: black;
-    font-family: 'Raleway', sans-serif;
-    box-shadow: 0 3px black;
-}
-
-.btn-b {
-    color: black;
-    font-family: 'Raleway', sans-serif;
-}
-
 /* Button b */
-.btn-b:hover {
+.btn:hover {
     box-shadow: 0 8px #2a557e;
     top: -2px;
 }
 
-.btn-b:active {
+.btn:active {
     box-shadow: 0 0 #2a557e;
     top: 6px;
-}
-
-.btn-missing:hover {
-    box-shadow: 0 6px red;
-    top: -2px;
 }
 
 .colorsBlock {
