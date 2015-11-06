@@ -1,10 +1,15 @@
 var request = require("request");
+var config  = require("../config");
 
 var ControllerGlass = module.exports = function ControllerGlass(_node) {
 }
 
 function cypher(query, cb) {
-    var txUrl = "http://localhost:7474/db/data/transaction/commit";
+    var txUrl = "http://";
+    if (config.app.db.username && config.app.db.password) {
+        txUrl += config.app.db.username + ":" + config.app.db.password + "@";
+    }
+    txUrl += config.app.db.endpoint;
     request.post({
             uri: txUrl,
             json: {statements: [{statement: query}]}

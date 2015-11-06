@@ -12,6 +12,9 @@ var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var errorhandler    = require('errorhandler');
 
+// CocktailFd Config
+var config          = require("./config");
+
 // CocktailFd Route module
 var routes          = require('./routes');
 
@@ -21,7 +24,7 @@ var app             = express();
 // ENV setup
 // ---------------------------------
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', config.app.port);
 
 // CORS Control for remote API cases
 var allowCrossDomain = function(req, res, next) {
