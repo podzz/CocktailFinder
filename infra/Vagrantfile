@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  config.vm.define :api do |api_config|
+      api_config.vm.box = "precise64"
+      api_config.vm.hostname = "api"
+      api_config.vm.network :private_network, ip: "192.168.50.11", virtualbox__intnet: "cf"
+      api_config.vm.provision :shell, path: "CF-ND_API.sh"
+  end
+
+ config.vm.define :database do |database_config|
+      database_config.vm.box = "precise64"
+      database_config.vm.hostname = "database"
+      database_config.vm.network "private_network", ip: "192.168.50.21", virtualbox__intnet: "cf"
+      database_config.vm.network :forwarded_port, guest: 7474, host: 4242
+      database_config.vm.synced_folder "../data/", "/vagrant/data"
+      database_config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+      database_config.vm.provision :shell, :path => "setup.sh"
+  end
+
+  config.vm.define :loadbalancer do |loadbalancer_config|
+      loadbalancer_config.vm.hostname = "loadbalancer"
+      loadbalancer_config.vm.box = "precise64"
+      loadbalancer_config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+      loadbalancer_config.vm.network :forwarded_port, guest: 80, host: 8080
+      loadbalancer_config.vm.network "private_network", ip: "192.168.50.1", virtualbox__intnet: "cf"
+      loadbalancer_config.vm.provision :shell, :path => "CF-LB.sh"
+      loadbalancer_config.vm.synced_folder "../static/", "/vagrant/static"
+  end
+
+end
