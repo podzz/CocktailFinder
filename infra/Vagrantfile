@@ -10,7 +10,14 @@ Vagrant.configure(2) do |config|
       api_config.vm.box = "precise64"
       api_config.vm.hostname = "api"
       api_config.vm.network :private_network, ip: "192.168.50.11", virtualbox__intnet: "cf"
-      api_config.vm.provision :shell, path: "CF-ND_API.sh"
+      api_config.vm.provision :shell, path: "api.sh"
+  end
+
+  config.vm.define :backofficeApi do |backofficeApi_config|
+      backofficeApi_config.vm.box = "precise64"
+      backofficeApi_config.vm.hostname = "backofficeApi"
+      backofficeApi_config.vm.network :private_network, ip: "192.168.50.31", virtualbox__intnet: "cf"
+      backofficeApi_config.vm.provision :shell, path: "backofficeApi.sh"
   end
 
  config.vm.define :database do |database_config|
@@ -20,7 +27,7 @@ Vagrant.configure(2) do |config|
       database_config.vm.network :forwarded_port, guest: 7474, host: 4242
       database_config.vm.synced_folder "../data/", "/vagrant/data"
       database_config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-      database_config.vm.provision :shell, :path => "setup.sh"
+      database_config.vm.provision :shell, :path => "database.sh"
   end
 
   config.vm.define :loadbalancer do |loadbalancer_config|
@@ -29,7 +36,7 @@ Vagrant.configure(2) do |config|
       loadbalancer_config.vm.box_url = "http://files.vagrantup.com/precise64.box"
       loadbalancer_config.vm.network :forwarded_port, guest: 80, host: 8080
       loadbalancer_config.vm.network "private_network", ip: "192.168.50.1", virtualbox__intnet: "cf"
-      loadbalancer_config.vm.provision :shell, :path => "CF-LB.sh"
+      loadbalancer_config.vm.provision :shell, :path => "loadbalancer.sh"
       loadbalancer_config.vm.synced_folder "../static/", "/vagrant/static"
   end
 

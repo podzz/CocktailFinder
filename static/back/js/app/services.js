@@ -1,5 +1,7 @@
+var endpoint = 'http://localhost:8080/backofficeApi'
+
 angular.module('adminApp.services',[]).factory('Ingredient', function($resource) {
-    return $resource('http://localhost:3000/api/ingredients/:id', {id:'@index'}, {
+    return $resource(endpoint + '/ingredients/:id', {id:'@index'}, {
         update: {
             method: 'PUT'
         },
@@ -11,7 +13,7 @@ angular.module('adminApp.services',[]).factory('Ingredient', function($resource)
         }
     });
 }).factory('Glass', function($resource) {
-    return $resource('http://localhost:3000/api/glasses/:id', {id:'@index'}, {
+    return $resource(endpoint + '/glasses/:id', {id:'@index'}, {
         update: {
             method: 'PUT'
         },
@@ -23,7 +25,7 @@ angular.module('adminApp.services',[]).factory('Ingredient', function($resource)
         }
     });
 }).factory('Recipe', function($resource) {
-    return $resource('http://localhost:3000/api/recipes/:id', {id:'@index'}, {
+    return $resource(endpoint + '/recipes/:id', {id:'@index'}, {
         update: {
             method: 'PUT'
         },
