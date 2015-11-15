@@ -8,7 +8,7 @@ config.app.port							= 3000;
 
 // Database authentification parameters
 config.app.db = {};
-config.app.db.endpoint					= "localhost:4242/db/data/transaction/commit";
+config.app.db.endpoint					= "192.168.50.21:7474/db/data/transaction/commit";
 config.app.db.username					= "neo4j";
 config.app.db.password					= "secret";
 
