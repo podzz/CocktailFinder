@@ -123,7 +123,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
         // Fetch data from API with the exclude list in param
         $scope.reloadData = function () {
 
-            var route = "bdd/verify/";
+            var route = "backofficeApi/bdd/verify/";
 
             $http.get(route).success(function (data) {
                 $scope.data = data;
@@ -133,7 +133,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
 
         $scope.saveData = function () {
             $scope.data.cocktails[0] = $scope.currentCocktail;
-            var route = "bdd/verifyCocktail/";
+            var route = "backofficeApi/bdd/verifyCocktail/";
 
             $http.post(route, $scope.data).success(function (data) {
                 $scope.reloadData();
@@ -147,7 +147,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
         // Fetch data from API with the exclude list in param
         $scope.reloadData = function () {
 
-            var route = "bdd/links/";
+            var route = "backofficeApi/bdd/links/";
 
             $http.get(route).success(function (data) {
                 $scope.data = data;
@@ -155,7 +155,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
         }
 
         $scope.saveData = function (id) {
-            var route = "bdd/editLink/";
+            var route = "backofficeApi/bdd/editLink/";
 
             $http.post(route, id).success(function (data) {
             });
