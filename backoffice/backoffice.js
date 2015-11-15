@@ -63,46 +63,46 @@ if ('development' == app.get('env')) {
 // ---------------------------------
 
 // Bootstrap/Install routes
-app.get('/bdd/rank/ingredients',	routes.bdd.rankIngredients);
-app.get('/bdd/rank/recipes',		  routes.bdd.rankRecipes);
-app.get('/bdd/clean/',			    	routes.bdd.clean);
-app.get('/bdd/bootstrap',         routes.bdd.bootstrap);
+app.get('backofficeApi/bdd/rank/ingredients',	 routes.bdd.rankIngredients);
+app.get('backofficeApi/bdd/rank/recipes',		 routes.bdd.rankRecipes);
+app.get('backofficeApi/bdd/clean/',			     routes.bdd.clean);
+app.get('backofficeApi/bdd/bootstrap',           routes.bdd.bootstrap);
 
 // Routes for admin panel, that allows to set the genericUnits in DB
-app.get('/bdd/verify',			      routes.api.giveUnverifiedCocktail);
-app.post('/bdd/verifyCocktail',   routes.api.verifyCocktail);
-app.get('/bdd/links',             routes.api.getLinks);
-app.post('/bdd/editLink/',        routes.api.editLink);
+app.get('backofficeApi/bdd/verify',			     routes.api.giveUnverifiedCocktail);
+app.post('backofficeApi/bdd/verifyCocktail',     routes.api.verifyCocktail);
+app.get('backofficeApi/bdd/links',               routes.api.getLinks);
+app.post('backofficeApi/bdd/editLink/',          routes.api.editLink);
 
 // Bing routes
-app.get('/bing/search/:search',    routes.bing.downloadPicturesIngredients);
+app.get('backofficeApi/bing/search/:search',     routes.bing.downloadPicturesIngredients);
 
 // --------------------------------
 // Ingredients
 // --------------------------------
-app.get('/api/ingredients',         routes.api.ingredient.getIngredients);
-app.post('/api/ingredients',        routes.api.ingredient.addIngredient);
-app.get('/api/ingredients/:id',     routes.api.ingredient.getIngredientById);
-app.put('/api/ingredients/:id',     routes.api.ingredient.putIngredientById);
-app.delete('/api/ingredients/:id',  routes.api.ingredient.deleteIngredientById);
+app.get('backofficeApi/api/ingredients',         routes.api.ingredient.getIngredients);
+app.post('backofficeApi/api/ingredients',        routes.api.ingredient.addIngredient);
+app.get('backofficeApi/api/ingredients/:id',     routes.api.ingredient.getIngredientById);
+app.put('backofficeApi/api/ingredients/:id',     routes.api.ingredient.putIngredientById);
+app.delete('backofficeApi/api/ingredients/:id',  routes.api.ingredient.deleteIngredientById);
 
 // --------------------------------
 // Recipe
 // --------------------------------
-app.get('/api/recipes',             routes.api.recipe.getRecipes);
-app.post('/api/recipes',            routes.api.recipe.addRecipe);
-app.get('/api/recipes/:id',         routes.api.recipe.getRecipeById);
-app.put('/api/recipes/:id',         routes.api.recipe.putRecipeById);
-app.delete('/api/recipes/:id',      routes.api.recipe.deleteRecipeById);
+app.get('backofficeApi/api/recipes',             routes.api.recipe.getRecipes);
+app.post('backofficeApi/api/recipes',            routes.api.recipe.addRecipe);
+app.get('backofficeApi/api/recipes/:id',         routes.api.recipe.getRecipeById);
+app.put('backofficeApi/api/recipes/:id',         routes.api.recipe.putRecipeById);
+app.delete('backofficeApi/api/recipes/:id',      routes.api.recipe.deleteRecipeById);
 
 // --------------------------------
 // Glass
 // --------------------------------
-app.get('/api/glasses',             routes.api.glass.getGlasses);
-app.post('/api/glasses',            routes.api.glass.addGlass);
-app.get('/api/glasses/:id',         routes.api.glass.getGlassById);
-app.put('/api/glasses/:id',         routes.api.glass.putGlassById);
-app.delete('/api/glasses/:id',      routes.api.glass.deleteGlassById);
+app.get('backofficeApi/api/glasses',             routes.api.glass.getGlasses);
+app.post('backofficeApi/api/glasses',            routes.api.glass.addGlass);
+app.get('backofficeApi/api/glasses/:id',         routes.api.glass.getGlassById);
+app.put('backofficeApi/api/glasses/:id',         routes.api.glass.putGlassById);
+app.delete('backofficeApi/api/glasses/:id',      routes.api.glass.deleteGlassById);
 
 // ---------------------------------
 // Server deployment
