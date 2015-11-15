@@ -80,29 +80,29 @@ app.get('backofficeApi/bing/search/:search',     routes.bing.downloadPicturesIng
 // --------------------------------
 // Ingredients
 // --------------------------------
-app.get('backofficeApi/api/ingredients',         routes.api.ingredient.getIngredients);
-app.post('backofficeApi/api/ingredients',        routes.api.ingredient.addIngredient);
-app.get('backofficeApi/api/ingredients/:id',     routes.api.ingredient.getIngredientById);
-app.put('backofficeApi/api/ingredients/:id',     routes.api.ingredient.putIngredientById);
-app.delete('backofficeApi/api/ingredients/:id',  routes.api.ingredient.deleteIngredientById);
+app.get('backofficeApi/ingredients',         routes.api.ingredient.getIngredients);
+app.post('backofficeApi/ingredients',        routes.api.ingredient.addIngredient);
+app.get('backofficeApi/ingredients/:id',     routes.api.ingredient.getIngredientById);
+app.put('backofficeApi/ingredients/:id',     routes.api.ingredient.putIngredientById);
+app.delete('backofficeApi/ingredients/:id',  routes.api.ingredient.deleteIngredientById);
 
 // --------------------------------
 // Recipe
 // --------------------------------
-app.get('backofficeApi/api/recipes',             routes.api.recipe.getRecipes);
-app.post('backofficeApi/api/recipes',            routes.api.recipe.addRecipe);
-app.get('backofficeApi/api/recipes/:id',         routes.api.recipe.getRecipeById);
-app.put('backofficeApi/api/recipes/:id',         routes.api.recipe.putRecipeById);
-app.delete('backofficeApi/api/recipes/:id',      routes.api.recipe.deleteRecipeById);
+app.get('backofficeApi/recipes',             routes.api.recipe.getRecipes);
+app.post('backofficeApi/recipes',            routes.api.recipe.addRecipe);
+app.get('backofficeApi/recipes/:id',         routes.api.recipe.getRecipeById);
+app.put('backofficeApi/recipes/:id',         routes.api.recipe.putRecipeById);
+app.delete('backofficeApi/recipes/:id',      routes.api.recipe.deleteRecipeById);
 
 // --------------------------------
 // Glass
 // --------------------------------
-app.get('backofficeApi/api/glasses',             routes.api.glass.getGlasses);
-app.post('backofficeApi/api/glasses',            routes.api.glass.addGlass);
-app.get('backofficeApi/api/glasses/:id',         routes.api.glass.getGlassById);
-app.put('backofficeApi/api/glasses/:id',         routes.api.glass.putGlassById);
-app.delete('backofficeApi/api/glasses/:id',      routes.api.glass.deleteGlassById);
+app.get('backofficeApi/glasses',             routes.api.glass.getGlasses);
+app.post('backofficeApi/glasses',            routes.api.glass.addGlass);
+app.get('backofficeApi/glasses/:id',         routes.api.glass.getGlassById);
+app.put('backofficeApi/glasses/:id',         routes.api.glass.putGlassById);
+app.delete('backofficeApi/glasses/:id',      routes.api.glass.deleteGlassById);
 
 // ---------------------------------
 // Server deployment
