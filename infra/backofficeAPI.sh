@@ -2,15 +2,14 @@
 
 # General packages installation
 sudo apt-get update
-sudo apt-get install -y git curl upstart
+sudo apt-get install -y curl upstart
 
 # NodeJs Installation
 curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
 sudo apt-get install -y nodejs
 
 # CocktailFinder fetching && Installaiton
-git clone https://github.com/Flasheur111/CocktailFinder.git
-cd CocktailFinder/backoffice
+cd /CocktailFinder/backoffice
 sudo npm install forever -g
 sudo npm install
 

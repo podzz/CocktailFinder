@@ -10,6 +10,7 @@ Vagrant.configure(2) do |config|
       api_config.vm.box = "precise64"
       api_config.vm.hostname = "api"
       api_config.vm.network :private_network, ip: "192.168.50.11", virtualbox__intnet: "cf"
+      api_config.vm.synced_folder "../", "/CocktailFinder"
       api_config.vm.provision :shell, path: "api.sh"
   end
 
@@ -17,6 +18,7 @@ Vagrant.configure(2) do |config|
       backofficeApi_config.vm.box = "precise64"
       backofficeApi_config.vm.hostname = "backofficeApi"
       backofficeApi_config.vm.network :private_network, ip: "192.168.50.31", virtualbox__intnet: "cf"
+      backofficeApi_config.vm.synced_folder "../", "/CocktailFinder"
       backofficeApi_config.vm.provision :shell, path: "backofficeApi.sh"
   end
 
