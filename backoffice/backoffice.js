@@ -63,16 +63,17 @@ if ('development' == app.get('env')) {
 // ---------------------------------
 
 // Bootstrap/Install routes
-app.get('/backofficeApi/bdd/rank/ingredients',	 routes.bdd.rankIngredients);
-app.get('/backofficeApi/bdd/rank/recipes',		 routes.bdd.rankRecipes);
-app.get('/backofficeApi/bdd/clean/',			     routes.bdd.clean);
+app.get('/backofficeApi/bdd/rank/ingredients',	  routes.bdd.rankIngredients);
+app.get('/backofficeApi/bdd/rank/recipes',		  routes.bdd.rankRecipes);
+app.get('/backofficeApi/bdd/clean/',			  routes.bdd.clean);
 app.get('/backofficeApi/bdd/bootstrap',           routes.bdd.bootstrap);
 
 // Routes for admin panel, that allows to set the genericUnits in DB
-app.get('/backofficeApi/bdd/verify',			     routes.api.giveUnverifiedCocktail);
+app.get('/backofficeApi/bdd/verify',			  routes.api.giveUnverifiedCocktail);
 app.post('/backofficeApi/bdd/verifyCocktail',     routes.api.verifyCocktail);
 app.get('/backofficeApi/bdd/links',               routes.api.getLinks);
 app.post('/backofficeApi/bdd/editLink/',          routes.api.editLink);
+app.post('/backofficeApi/bdd/renameLink/',        routes.api.renameLink);
 
 // Bing routes
 app.get('/backofficeApi/bing/search/:search',     routes.bing.downloadPicturesIngredients);

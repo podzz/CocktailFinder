@@ -159,7 +159,7 @@ ControllerCocktail.verifyCocktail = function (data, callback) {
 };
 
 ControllerCocktail.getLinks = function (data, callback) {
-    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) RETURN DISTINCT r.unity, r.genericUnity;';
+    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) RETURN DISTINCT r.unity, r.conversionValue, r.genericUnity;';
     cypher(query, function(err, data) {
         var index_list = [];
         for (var i = 0; i < data.results[0].data.length; i++) {
@@ -171,9 +171,15 @@ ControllerCocktail.getLinks = function (data, callback) {
 }
 
 ControllerCocktail.editLink = function (data, callback) {
-    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) WHERE r.unity="'+ data.id + '" SET r.genericUnity="'+ data.value + '";';
+    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) WHERE r.unity="'+ data.unity + '" SET r.genericUnity="'+ data.genericUnity + '" SET r.conversionValue="'+ data.conversionValue + '";';
     cypher(query, function(err, data) {
         callback(null, data);
     });
 }
 
+ControllerCocktail.renameLink = function (data, callback) {
+    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) WHERE r.unity="'+ data.old + '" SET r.unity="'+ data.new + '";';
+    cypher(query, function(err, data) {
+        callback(null, data);
+    });
+}

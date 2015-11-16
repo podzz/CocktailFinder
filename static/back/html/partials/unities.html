@@ -10,8 +10,12 @@
                 <input type="text" ng-model="link[0]" class="form-control"/>
             </td>
             <td>
-                <select ng-model="link[1]" class="form-control">
+                <input type="text" ng-model="link[1]" class="form-control"/>
+            </td>
+            <td>
+                <select ng-model="link[2]" class="form-control">
                     <option value="%">%</option>
+                    <option value="g">Mass (g)</option>
                     <option value="cl">Volume (cl)</option>
                     <option value="oz">Volume (oz)</option>
                     <option value="qty">qty</option>
@@ -19,7 +23,7 @@
                 </select>
             </td>
             <td>
-                <input type="button" ng-click="saveData(link[0], link[1])" class="btn" value="Save"/>
+                <input type="button" ng-click="saveData($index)" class="btn" value="Save"/>
             </td>
     </tr>
 </table>

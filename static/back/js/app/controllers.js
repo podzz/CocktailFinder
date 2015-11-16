@@ -149,6 +149,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
     }]).controller('UnitiesController', ['$scope', '$http', function ($scope, $http) {
         // Current recipe displayed
         $scope.data = {};
+        $scope.dataCopy = {};
 
         // Fetch data from API with the exclude list in param
         $scope.reloadData = function () {
@@ -156,14 +157,34 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
 
             $http.get(route).success(function (data) {
                 $scope.data = data;
+                $scope.dataCopy = data;
+                console.log(data);
             });
         }
 
-        $scope.saveData = function (id, value) {
-            var route = "backofficeApi/bdd/editLink/";
-            var postData = { id: id, value: value };
-            $http.post(route, postData).success(function (data) {
-            });
+        $scope.saveData = function (index) {
+            var editRoute = "backofficeApi/bdd/editLink/";
+            var renameRoute = "backofficeApi/bdd/renameLink/";
+            var editData = {
+                unity:              $scope.data[index][0],
+                conversionValue:    $scope.data[index][1],
+                genericUnity:       $scope.data[index][2]
+            };
+            if ($scope.data[index][0] == $scope.dataCopy[index][0]) {
+                $http.post(editRoute, editData).success(function (data) {
+                });
+            } else {
+                var renameData = {
+                    old:  $scope.dataCopy[index][0],
+                    new:  $scope.data[index][0]
+                }
+                $http.post(renameRoute, renameData).success(function (data) {
+                    $http.post(editRoute, editData).success(function (data) {
+                        $scope.reloadData();
+                    });
+                });
+            }
+
         }
         $scope.reloadData();
     }]);

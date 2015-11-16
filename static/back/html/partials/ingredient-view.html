@@ -15,9 +15,15 @@
         <td>Recipe Count</td>
         <td>{{ingredient.recipeCount}}</td>
     </tr>
+    <tr ng-repeat="color in ingredient.colors" >
+        <td ng-if="$index == 0">Colors</td>
+        <td ng-if="$index != 0"></td>
+
+        <td ng-style='{"background-color": color}'>{{color}}</td>
+    </tr>
     <tr>
-        <td>Colors</td>
-        <td>{{ingredient.colors}}</td>
+        <td>Selected Color</td>
+        <td style="background-color: {{ingredient.selectedColor}}">{{ingredient.selectedColor}}</td>
     </tr>
 </table>
 <div>
