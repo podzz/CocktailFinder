@@ -64,6 +64,7 @@ exports.getLinks = function (req, res, next) {
 };
 
 exports.editLink = function (req, res, next) {
+    console.log("coucou");
     ControllerCocktail.editLink(req.body, function(err, result) {
       res.json(result);
     });

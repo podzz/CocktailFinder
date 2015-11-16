@@ -6,6 +6,7 @@ var ControllerCocktail = module.exports = function ControllerCocktail(_node) {
 
 function cypher(query, cb) {
     var txUrl = "http://";
+    console.log(query);
     if (config.app.db.username && config.app.db.password) {
         txUrl += config.app.db.username + ":" + config.app.db.password + "@";
     }
@@ -170,7 +171,7 @@ ControllerCocktail.getLinks = function (data, callback) {
 }
 
 ControllerCocktail.editLink = function (data, callback) {
-    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) WHERE r.unity="'+ data[0] + '" SET r.genericUnity="'+ data[1] + '";';
+    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) WHERE r.unity="'+ data.id + '" SET r.genericUnity="'+ data.value + '";';
     cypher(query, function(err, data) {
         callback(null, data);
     });
