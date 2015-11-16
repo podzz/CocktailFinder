@@ -31,8 +31,15 @@ echo "Set Neo4J password to" $NEO4J_PASS
 curl -H "Content-Type":"application/json" -X POST -d $NEO4J_SETPASS_JSON http://neo4j:neo4j@127.0.0.1:7474/user/neo4j/password
 
 echo "Fill Database ..."
-neo4j-shell -file /vagrant/data/import.cypher
-neo4j-shell -file /vagrant/data/bootstrap.cypher
+if grep -e "dump.cypher"
+then
+    echo "Dump Found, dumping DB"
+    neo4j-shell -file /vagrant/data/dump.cypher
+else
+    echo "Dump not found, filling DB from CSV and bootstraping"
+    neo4j-shell -file /vagrant/data/import.cypher
+    neo4j-shell -file /vagrant/data/bootstrap.cypher
+fi
 
 service neo4j-service restart
 
