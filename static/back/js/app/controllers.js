@@ -120,12 +120,20 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
         $scope.currentCocktail = {};
         $scope.data = {};
 
+        $scope.copyGenericsFromQuantities = function () {
+            for (var i = 0; i < $scope.data.cocktails[0].ingredient.length; i++) {
+                $scope.data.cocktails[0].ingredient[i].genericQuantity = $scope.data.cocktails[0].ingredient[i].quantity;
+            }
+        }
+
         // Fetch data from API with the exclude list in param
         $scope.reloadData = function () {
             var route = "backofficeApi/bdd/verify/";
 
             $http.get(route).success(function (data) {
                 $scope.data = data;
+                console.log($scope.data);
+
                 $scope.currentCocktail = data.cocktails[0];
             });
         }
