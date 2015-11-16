@@ -159,7 +159,7 @@ ControllerCocktail.verifyCocktail = function (data, callback) {
 };
 
 ControllerCocktail.getLinks = function (data, callback) {
-    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) RETURN DISTINCT r.unity, r.conversionValue, r.genericUnity;';
+    var query = 'MATCH (re:Recipe)-[r:COMPOSED_OF]->(i:Ingredient) RETURN DISTINCT r.unity, r.conversionValue, r.genericUnity ORDER BY r.unity, r.genericUnity;';
     cypher(query, function(err, data) {
         var index_list = [];
         for (var i = 0; i < data.results[0].data.length; i++) {
