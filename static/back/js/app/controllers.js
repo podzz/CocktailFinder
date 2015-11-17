@@ -132,8 +132,6 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
 
             $http.get(route).success(function (data) {
                 $scope.data = data;
-                console.log($scope.data);
-
                 $scope.currentCocktail = data.cocktails[0];
             });
         }
@@ -157,8 +155,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
 
             $http.get(route).success(function (data) {
                 $scope.data = data;
-                $scope.dataCopy = data;
-                console.log(data);
+                $scope.dataCopy = (JSON.parse(JSON.stringify(data)));
             });
         }
 
