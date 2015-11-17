@@ -30,16 +30,16 @@ class Parser {
 
         this.hashLayerPng["1"] = { path:"static/physics/img/sprite-low_0000_Calque-2.png", quantity: 35.0} ;
         this.hashLayerPng["2"] = { path:"static/physics/img/sprite-low_0001_Calque-3.png", quantity: 45.0} ;
-        this.hashLayerPng["3"] = { path:"static/physics/img/sprite-low_0002_Calque-4.png", quantity: 35.0} ;
-        this.hashLayerPng["4"] = { path:"static/physics/img/sprite-low_0003_Calque-5.png", quantity: 35.0} ;
-        this.hashLayerPng["5"] = { path:"static/physics/img/sprite-low_0004_Calque-6.png", quantity: 35.0} ;
+        this.hashLayerPng["3"] = { path:"static/physics/img/sprite-low_0002_Calque-4.png", quantity: 20.0} ;
+        this.hashLayerPng["4"] = { path:"static/physics/img/sprite-low_0003_Calque-5.png", quantity: 32.0} ;
+        this.hashLayerPng["5"] = { path:"static/physics/img/sprite-low_0004_Calque-6.png", quantity: 15.0} ;
         this.hashLayerPng["6"] = { path:"static/physics/img/sprite-low_0005_Calque-7.png", quantity: 35.0} ;
-        this.hashLayerPng["7"] = { path:"static/physics/img/sprite-low_0006_Calque-8.png", quantity: 35.0} ;
-        this.hashLayerPng["8"] = { path:"static/physics/img/sprite-low_0007_Calque-9.png", quantity: 35.0} ;
-        this.hashLayerPng["9"] = { path:"static/physics/img/sprite-low_0008_Calque-1.png", quantity: 35.0} ;
+        this.hashLayerPng["7"] = { path:"static/physics/img/sprite-low_0006_Calque-8.png", quantity: 70.0} ;
+        this.hashLayerPng["8"] = { path:"static/physics/img/sprite-low_0007_Calque-9.png", quantity: 65.0} ;
+        this.hashLayerPng["9"] = { path:"static/physics/img/sprite-low_0008_Calque-1.png", quantity: 20.0} ;
         this.hashLayerPng["10"] = { path:"static/physics/img/sprite-low_0000_Calque-2.png", quantity: 35.0} ;
-        this.hashLayerPng["11"] = { path:"static/physics/img/sprite-low_0001_Calque-3.png", quantity: 35.0} ;
-        this.hashLayerPng["12"] = { path:"static/physics/img/sprite-low_0002_Calque-4.png", quantity: 35.0} ;
+        this.hashLayerPng["11"] = { path:"static/physics/img/sprite-low_0001_Calque-3.png", quantity: 45.0} ;
+        this.hashLayerPng["12"] = { path:"static/physics/img/sprite-low_0002_Calque-4.png", quantity: 20.0} ;
 
         this.hashRotorJson["1"] = "static/physics/json/bottle.json";
 
