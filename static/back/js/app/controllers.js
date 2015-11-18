@@ -187,7 +187,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
     }]).controller('TranslateController', ['$scope', '$http', function ($scope, $http) {
     // Current recipe displayed
     $scope.data = {};
-    $scope.origin = "pomme";
+    $scope.origin = "";
 
     // Fetch data from API with the exclude list in param
     $scope.reloadData = function () {

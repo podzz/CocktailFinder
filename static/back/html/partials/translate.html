@@ -181,7 +181,7 @@
 <h4>Displayed :</h4>
 
 <div class="row">
-    <div class="well">{{ tokens.origin }}</div>
+    <div class="well">{{getStr("qty")}} {{getStr("unityDisplayed")}} {{getStr("subIngredient")}} {{getStr("ingredient")}}</div>
 </div>
 
 <h4>Understood :</h4>
@@ -189,8 +189,8 @@
 <div class="row">
     <div class="well">
         <table class="table">
-            <tr><td>QTY</td><td> 10</td></tr>
-            <tr><td>UNIT</td><td> cl</td></tr>
+            <tr><td>QTY</td><td>{{getStr("qty")}}</td></tr>
+            <tr><td>UNIT</td><td> {{getStr("unityComputed")}}</td></tr>
             <tr><td>TYPE</td><td> liquid</td></tr>
             <tr><td>COLOR</td><td> #yellow</td></tr>
         </table>
