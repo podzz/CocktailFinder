@@ -76,7 +76,7 @@ ControllerIngredient.getIngredientById = function(id, callback)
     var cb = function (err, data) {
         if (err)
             return callback(err, null);
-        
+
         var data_final = "";
 
         try {
@@ -101,7 +101,7 @@ ControllerIngredient.putIngredientById = function(id, ingredient, callback)
     var cb = function (err, data) {
         if (err)
             return callback(err, null);
-        
+
         var data_final = "";
 
         try {
@@ -123,7 +123,7 @@ ControllerIngredient.putIngredientById = function(id, ingredient, callback)
 
 
 ControllerIngredient.addIngredient = function(ingredient, callback)
-{   
+{
     var query = 'CREATE (i:Ingredient ' + JSON.stringify(ingredient).replace(/\"([^(\")"]+)\":/g,"$1:") + ');';
     console.log(ingredient);
     console.log(query);
@@ -137,7 +137,7 @@ ControllerIngredient.addIngredient = function(ingredient, callback)
 }
 
 ControllerIngredient.deleteIngredientById = function(id, callback)
-{   
+{
     var query = 'MATCH (i:Ingredient { index : "' + id + '"})-[r]-() DELETE i, r';
 
     var cb = function (err, data) {

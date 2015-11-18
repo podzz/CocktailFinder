@@ -17,6 +17,7 @@ var config          = require("./config");
 
 // CocktailFd Route module
 var routes          = require('./routes');
+var routesV2        = require('./routesV2');
 
 var app             = express();
 
@@ -104,6 +105,14 @@ app.post('/backofficeApi/glasses',            routes.api.glass.addGlass);
 app.get('/backofficeApi/glasses/:id',         routes.api.glass.getGlassById);
 app.put('/backofficeApi/glasses/:id',         routes.api.glass.putGlassById);
 app.delete('/backofficeApi/glasses/:id',      routes.api.glass.deleteGlassById);
+
+// ---------------------------------
+// V2
+// ---------------------------------
+app.get('/backofficeApi/v2/ingredients',      routesV2.ingredient.getIngredients);
+app.get('/backofficeApi/v2/subIngredients',   routesV2.subIngredient.getSubIngredients);
+app.get('/backofficeApi/v2/composedOf',       routesV2.composedOf.getComposedOfRels);
+
 
 // ---------------------------------
 // Server deployment

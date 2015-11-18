@@ -57,6 +57,10 @@ angular.module('adminApp').config(function($stateProvider, $httpProvider){
         url:'/unities',
         templateUrl:'static/back/html/partials/unities.html',
         controller:'UnitiesController'
+    }).state('translate',{
+        url:'/translate',
+        templateUrl:'static/back/html/partials/translate.html',
+        controller:'TranslateController'
     });
 }).run(function($state){
    $state.go('ingredients');

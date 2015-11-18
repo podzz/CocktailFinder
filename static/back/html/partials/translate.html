@@ -1,0 +1,195 @@
+<h1>Translate</h1>
+<h4>Source :</h4>
+<div class="row">
+    <div class="well"><pre style="margin: 0; padding: 0; border: none;">>{{ tokens.origin }}<</pre></div>
+</div>
+<h4>Cleaned :</h4>
+<div class="row">
+    <div class="well">{{ tokens.cleaned }}</div>
+</div>
+
+<h4>Tokenized :</h4>
+
+<div class="row">
+    <div class="well">
+        <div class="button-group">
+            <button type="button" class="btn btn-default" ng-repeat="token in tokens.tokens">
+                {{ token.str }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<h4>Computed :</h4>
+
+<div class="row">
+    <div class="well">
+        <div class="btn-group" ng-repeat="token in tokens.tokens">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                {{ token.str }} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Ingredient</a></li>
+                <li><a href="#">Sub-Ingredient</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Unity Displayed</a></li>
+                <li><a href="#">Unity Computed</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Quantity</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<h4>DB schema :</h4>
+<div class="row">
+    <div class="well">
+        <div class="col-xs-12 col-md-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Recipe</h3>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipeName">Recipe Index</label>
+                            <input type="text" class="form-control" id="recipeName" value="1234" placeholder="Index" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipeName">Recipe Name</label>
+                            <input type="text" class="form-control" id="recipeName" value="Black Russian" placeholder="Name" disabled>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Composed_Of</h3>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipeName">Display Qty</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Display Qty">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipeName">Computed Qty</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Computed Qty">
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="recipeName">Display Unit</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Display Unit">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipeName">Computed Unit</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Computed Unit">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipeName">Conversion Ratio</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Ratio">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">SubIngredient</h3>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipeName">Sub Ingredient Index</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Index">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipeName">Sub Ingredient Name</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="sel1">Sub Ingredient type:</label>
+                            <select class="form-control" id="sel1">
+                                <option>Solid</option>
+                                <option>Liquid</option>
+                                <option>Icy</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Derivate_From</h3>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="sel1">Relation type:</label>
+                            <select class="form-control" id="sel1">
+                                <option>Left</option>
+                                <option>Right</option>
+                                <option>Bidirectionnal</option>
+                                <option>None</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Ingredient</h3>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipeName">Ingredient Index</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Index">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipeName">Ingredient Name</label>
+                            <input type="text" class="form-control" id="recipeName" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="sel1">Ingredient type:</label>
+                            <select class="form-control" id="sel1">
+                                <option>Solid</option>
+                                <option>Liquid</option>
+                                <option>Icy</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+</div>
+
+<h4>Displayed :</h4>
+
+<div class="row">
+    <div class="well">{{ tokens.origin }}</div>
+</div>
+
+<h4>Understood :</h4>
+
+<div class="row">
+    <div class="well">
+        <table class="table">
+            <tr><td>QTY</td><td> 10</td></tr>
+            <tr><td>UNIT</td><td> cl</td></tr>
+            <tr><td>TYPE</td><td> liquid</td></tr>
+            <tr><td>COLOR</td><td> #yellow</td></tr>
+        </table>
+    </div>
+</div>

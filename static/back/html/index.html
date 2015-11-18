@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/"/>
     <title>Cocktail Finder</title>
+    <script src="static/common/js/lib/jquery.min.js"></script>
+    <script type="text/javascript" src='static/common/js/lib/bootstrap.min.js'></script>
     <link rel="stylesheet" href="static/back/css/app/app.css"/>
     <link href="static/common/css/lib/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -22,15 +24,14 @@
                     <li class="active"><a ui-sref="recipes">Recipes</a></li>
                     <li class="active"><a ui-sref="verify">Verify</a></li>
                     <li class="active"><a ui-sref="unity">Unities</a></li>
+                    <li class="active"><a ui-sref="translate">Translate</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container">
         <div class="row top-buffer">
-            <div class="col-xs-8 col-xs-offset-2">
-                <div ui-view></div>
-            </div>
+            <div ui-view></div>
         </div>
     </div>
     <script type="text/javascript" src="static/common/js/lib/angular.min.js"></script>
