@@ -43,7 +43,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
 
     $scope.deleteGlass = function(glass) {
         if (popupService.showPopup('Do you really want to delete this glass ?')) {
-            glass.delete(function(){
+            glass.$delete(function(){
                 $window.location.href = '';
             });
         }
@@ -82,7 +82,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
 
     $scope.deleteRecipe = function(recipe) {
         if (popupService.showPopup('Do you really want to delete this recipe ?')) {
-            recipe.delete(function(){
+            recipe.$delete(function(){
                 $window.location.href = '';
             });
         }
