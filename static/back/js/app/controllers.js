@@ -187,6 +187,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
     }]).controller('TranslateController', ['$scope', '$http', function ($scope, $http) {
     // Current recipe displayed
     $scope.data = {};
+    $scope.origin = "pomme";
 
     // Fetch data from API with the exclude list in param
     $scope.reloadData = function () {
@@ -221,51 +222,88 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
                 pos: index,
                 originStart: cursor,
                 originEnd: cursor + elt.length,
-                type: ''
+                type: '',
+                style: 'btn-default'
             });
             // The +1 stands for the space we trashed while splitting
             cursor += elt.length + 1;
         });
-        return { origin: raw, cleaned: cleaned, tokens: tokens};
+        if (cleaned == "")
+            return { origin: raw, cleaned: cleaned, tokens: []};
+        else
+            return { origin: raw, cleaned: cleaned, tokens: tokens};
     }
 
     $scope.lookForIngredient = function (tokenList) {
         var ingrs = [];
         $http.get("backofficeApi/v2/ingredients").then(function (data) {
-            ingrs = data.body;
+            ingrs = ["citron", "pomme", "oeuf"];
+
             ingrs.forEach(function(ingr, index) {
                 if (tokenList.cleaned.indexOf(ingr) != -1) {
                     for (var i = 0; i < tokenList.tokens.length; i++) {
                         if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(ingr) &&
-                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(ingr) + ingr.length()) &&
+                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(ingr) + ingr.length) &&
                             tokenList.tokens[i].type == '') {
-                            tokenList.tokens[i].type = "Ingr";
+                            tokenList.tokens[i].type = "ingredient";
+                            tokenList.tokens[i].style = "btn-primary";
                         }
                     }
                 }
             })
         }, function() {
             console.log("Error loading ingredients");
+            ingrs = ["citron", "pomme", "oeuf"];
+            ingrs.forEach(function(ingr, index) {
+                if (tokenList.cleaned.indexOf(ingr) != -1) {
+                    for (var i = 0; i < tokenList.tokens.length; i++) {
+                        if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(ingr) &&
+                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(ingr) + ingr.length) &&
+                            tokenList.tokens[i].type == '') {
+                            tokenList.tokens[i].type = "ingredient";
+                            tokenList.tokens[i].style = "btn-primary";
+
+                        }
+                    }
+                }
+            })
         });
     }
 
     $scope.lookForSubIngredient = function (tokenList) {
         var subIngrs = [];
         $http.get("backofficeApi/v2/subIngredients").then(function (data) {
-            subIngrs = data.body;
+            subIngrs = ["jus de", "purée de", "jaune d'"];
+
             subIngrs.forEach(function(subIngr, index) {
                 if (tokenList.cleaned.indexOf(subIngr) != -1) {
                     for (var i = 0; i < tokenList.tokens.length; i++) {
                         if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(subIngr) &&
-                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(subIngr) + subIngr.length()) &&
+                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(subIngr) + subIngr.length) &&
                             tokenList.tokens[i].type == '') {
-                            tokenList.tokens[i].type = "subIngr";
+                            tokenList.tokens[i].type = "subIngredient";
+                            tokenList.tokens[i].style = "btn-info";
+
                         }
                     }
                 }
             })
         }, function() {
             console.log("Error loading subIngredients");
+            subIngrs = ["jus de", "purée de", "jaune d'"];
+            subIngrs.forEach(function(subIngr, index) {
+                if (tokenList.cleaned.indexOf(subIngr) != -1) {
+                    for (var i = 0; i < tokenList.tokens.length; i++) {
+                        if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(subIngr) &&
+                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(subIngr) + subIngr.length) &&
+                            tokenList.tokens[i].type == '') {
+                            tokenList.tokens[i].type = "subIngredient";
+                            tokenList.tokens[i].style = "btn-info";
+
+                        }
+                    }
+                }
+            })
         });
     }
 
@@ -279,13 +317,25 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
                         if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(unit) &&
                             tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(unit) + unit.length()) &&
                             tokenList.tokens[i].type == '') {
-                            tokenList.tokens[i].type = "unit";
+                            tokenList.tokens[i].type = "unityComputed";
                         }
                     }
                 }
             })
         }, function() {
             console.log("Error loading Units");
+            var units = ["cl", "gramme"];
+            units.forEach(function(unit, index) {
+                if (tokenList.cleaned.indexOf(unit) != -1) {
+                    for (var i = 0; i < tokenList.tokens.length; i++) {
+                        if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(unit) &&
+                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(unit) + unit.length()) &&
+                            tokenList.tokens[i].type == '') {
+                            tokenList.tokens[i].type = "unityComputed";
+                        }
+                    }
+                }
+            })
         });
     }
 
@@ -299,7 +349,7 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
                         if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(subUnit) &&
                             tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(subUnit) + subUnit.length()) &&
                             tokenList.tokens[i].type == '') {
-                            tokenList.tokens[i].type = "subUnit";
+                            tokenList.tokens[i].type = "unityDisplayed";
                         }
                     }
                 }
@@ -315,11 +365,51 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
             $scope.reloadData();
         });
     }
-    $scope.tokens = $scope.tokenize($scope.reloadData());
+    $scope.change = function() {
+        $scope.tokens = $scope.tokenize($scope.origin);
+        $scope.lookForIngredient($scope.tokens);
+        $scope.lookForSubIngredient($scope.tokens);
+        console.log()
+    };
+    $scope.setType = function(idToken, type) {
+        $scope.tokens.tokens.forEach(function(elt, index) {
+            if (elt.pos == idToken) {
+                elt.type = type;
+                switch(type) {
+                    case "ingredient":
+                        elt.style = "btn-primary";
+                        break;
+                    case "subIngredient":
+                        elt.style = "btn-info";
+                        break;
+                    case "unityDisplayed":
+                        elt.style = "btn-warning";
+                        break;
+                    case "unityComputed":
+                        elt.style = "btn-danger";
+                        break;
+                    case "qty":
+                        elt.style = "btn-success";
+                        break;
+                }
+            }
+        });
+    }
+
+    $scope.getStr = function(type)
+    {
+        var res = '';
+        $scope.tokens.tokens.forEach(function (elt, index) {
+            if (elt.type == type) {
+                res += elt.str;
+                res += ' ';
+            }
+        });
+        return res.trim();
+    }
+
+    $scope.tokens = $scope.tokenize($scope.origin);
     $scope.lookForIngredient($scope.tokens);
     $scope.lookForSubIngredient($scope.tokens);
-    $scope.lookForUnit($scope.tokens);
-    $scope.lookForSubUnit($scope.tokens);
-    console.log($scope.tokens);
-    console.log($scope.tokens.origin);
+
 }]);

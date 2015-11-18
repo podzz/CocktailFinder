@@ -1,7 +1,11 @@
 <h1>Translate</h1>
 <h4>Source :</h4>
 <div class="row">
-    <div class="well"><pre style="margin: 0; padding: 0; border: none;">>{{ tokens.origin }}<</pre></div>
+    <div class="well">
+        <div class="form-group">
+            <input type="text" class="form-control" id="recipeName" placeholder="Display Qty" ng-model="origin" ng-change="change()">
+        </div>
+    </div>
 </div>
 <h4>Cleaned :</h4>
 <div class="row">
@@ -25,18 +29,17 @@
 <div class="row">
     <div class="well">
         <div class="btn-group" ng-repeat="token in tokens.tokens">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn dropdown-toggle {{token.style}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"">
                 {{ token.str }} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Ingredient</a></li>
-                <li><a href="#">Sub-Ingredient</a></li>
+                <li><a ng-click="setType(token.pos, 'ingredient');">Ingredient</a></li>
+                <li><a ng-click="setType(token.pos, 'subIngredient');">Sub-Ingredient</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Unity Displayed</a></li>
-                <li><a href="#">Unity Computed</a></li>
+                <li><a ng-click="setType(token.pos, 'unityDisplayed');">Unity Displayed</a></li>
+                <li><a ng-click="setType(token.pos, 'unityComputed');">Unity Computed</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Quantity</a></li>
+                <li><a ng-click="setType(token.pos, 'qty');">Quantity</a></li>
             </ul>
         </div>
     </div>
@@ -74,7 +77,7 @@
                     <form>
                         <div class="form-group">
                             <label for="recipeName">Display Qty</label>
-                            <input type="text" class="form-control" id="recipeName" placeholder="Display Qty">
+                            <input type="text" class="form-control" id="recipeName" placeholder="Display Qty" ng-value="getStr('qty');">
                         </div>
                         <div class="form-group">
                             <label for="recipeName">Computed Qty</label>
@@ -83,11 +86,11 @@
                         <hr>
                         <div class="form-group">
                             <label for="recipeName">Display Unit</label>
-                            <input type="text" class="form-control" id="recipeName" placeholder="Display Unit">
+                            <input type="text" class="form-control" id="recipeName" placeholder="Display Unit" ng-value="getStr('unityDisplayed');">
                         </div>
                         <div class="form-group">
                             <label for="recipeName">Computed Unit</label>
-                            <input type="text" class="form-control" id="recipeName" placeholder="Computed Unit">
+                            <input type="text" class="form-control" id="recipeName" placeholder="Computed Unit" ng-value="getStr('unityComputed');">
                         </div>
                         <div class="form-group">
                             <label for="recipeName">Conversion Ratio</label>
@@ -110,7 +113,7 @@
                         </div>
                         <div class="form-group">
                             <label for="recipeName">Sub Ingredient Name</label>
-                            <input type="text" class="form-control" id="recipeName" placeholder="Name">
+                            <input type="text" class="form-control" id="recipeName" placeholder="Name" ng-value="getStr('subIngredient');">
                         </div>
                         <div class="form-group">
                             <label for="sel1">Sub Ingredient type:</label>
@@ -157,7 +160,7 @@
                         </div>
                         <div class="form-group">
                             <label for="recipeName">Ingredient Name</label>
-                            <input type="text" class="form-control" id="recipeName" placeholder="Name">
+                            <input type="text" class="form-control" id="recipeName" placeholder="Name" ng-value="getStr('ingredient');">
                         </div>
                         <div class="form-group">
                             <label for="sel1">Ingredient type:</label>
