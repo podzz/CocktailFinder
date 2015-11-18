@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-md-2">
+        <div class="col-xs-12 col-md-2" ng-if="hasIngredient() || hasSubIngredient()" >
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Composed_Of</h3>
@@ -100,7 +100,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-md-2">
+        <div class="col-xs-12 col-md-2" ng-if="hasSubIngredient()">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">SubIngredient</h3>
@@ -127,7 +127,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-md-2">
+        <div class="col-xs-12 col-md-2" ng-if="hasSubIngredient()">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Derivate_From</h3>
@@ -147,7 +147,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-md-2">
+        <div class="col-xs-12 col-md-2" ng-if="hasIngredient()">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Ingredient</h3>

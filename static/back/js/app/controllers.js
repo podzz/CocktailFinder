@@ -396,6 +396,25 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
         });
     }
 
+    $scope.hasSubIngredient = function() {
+        var res = false;
+        $scope.tokens.tokens.forEach(function(elt, index) {
+            if (elt.type == "subIngredient") {
+                res = true;
+            }
+        });
+        return res;
+    }
+
+    $scope.hasIngredient = function() {
+        var res = false;
+        $scope.tokens.tokens.some(function(elt) {
+             if (elt.type == "ingredient")
+                res = true;
+        });
+        return res;
+    }
+
     $scope.getStr = function(type)
     {
         var res = '';
