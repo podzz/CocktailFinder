@@ -253,20 +253,6 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
             })
         }, function() {
             console.log("Error loading ingredients");
-            ingrs = ["citron", "pomme", "oeuf"];
-            ingrs.forEach(function(ingr, index) {
-                if (tokenList.cleaned.indexOf(ingr) != -1) {
-                    for (var i = 0; i < tokenList.tokens.length; i++) {
-                        if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(ingr) &&
-                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(ingr) + ingr.length) &&
-                            tokenList.tokens[i].type == '') {
-                            tokenList.tokens[i].type = "ingredient";
-                            tokenList.tokens[i].style = "btn-primary";
-
-                        }
-                    }
-                }
-            })
         });
     }
 
@@ -290,20 +276,6 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
             })
         }, function() {
             console.log("Error loading subIngredients");
-            subIngrs = ["jus de", "purée de", "jaune d'"];
-            subIngrs.forEach(function(subIngr, index) {
-                if (tokenList.cleaned.indexOf(subIngr) != -1) {
-                    for (var i = 0; i < tokenList.tokens.length; i++) {
-                        if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(subIngr) &&
-                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(subIngr) + subIngr.length) &&
-                            tokenList.tokens[i].type == '') {
-                            tokenList.tokens[i].type = "subIngredient";
-                            tokenList.tokens[i].style = "btn-info";
-
-                        }
-                    }
-                }
-            })
         });
     }
 
@@ -324,18 +296,6 @@ angular.module('adminApp.controllers',[]).controller('IngredientListController',
             })
         }, function() {
             console.log("Error loading Units");
-            var units = ["cl", "gramme"];
-            units.forEach(function(unit, index) {
-                if (tokenList.cleaned.indexOf(unit) != -1) {
-                    for (var i = 0; i < tokenList.tokens.length; i++) {
-                        if (tokenList.tokens[i].originStart >= tokenList.origin.indexOf(unit) &&
-                            tokenList.tokens[i].originEnd <= (tokenList.origin.indexOf(unit) + unit.length()) &&
-                            tokenList.tokens[i].type == '') {
-                            tokenList.tokens[i].type = "unityComputed";
-                        }
-                    }
-                }
-            })
         });
     }
 
