@@ -78,7 +78,8 @@ class AnimationCocktail {
 
         var distributions = this.recipe.generateDistribution(ingredients, contener.quantity);
 
-        this.particle.addIceCube(0, -20, 0.4, this.world);
+        //this.particle.addIceCube(0, -20, 0.35, this.world);
+        //this.particle.addIceCube(0.5, -30, 0.35, this.world);
 
         for (var i = 0; i < distributions.length; i++) {
             var distribution = distributions[i];
@@ -136,19 +137,20 @@ class AnimationCocktail {
             }
         }
 
-        var temp = 0;
         for (var key in this.particle.objectIndex) {
             var index = this.particle.circleIndex[key];
             var mesh = this.particle.objectMeshArr[index];
             var body = this.particle.objectPhysicsArr[index];
+            var lastAngle = this.particle.objectAngle[index];
 
-            //console.log(body.GetWorldCenter());
             if (mesh != null) {
                 mesh.visible = true;
                 mesh.position.x = body.GetWorldCenter().x;
                 mesh.position.y = body.GetWorldCenter().y;
-                temp = (body.GetAngle() * Math.PI / 180) - temp;
-                mesh.rotateZ(temp);
+
+                lastAngle = body.GetAngle() - lastAngle;
+                mesh.rotateZ(lastAngle);
+                this.particle.objectAngle[index] = body.GetAngle();
             }
         }
 

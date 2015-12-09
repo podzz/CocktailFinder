@@ -15,6 +15,7 @@ class Particle {
     objectMeshArr:THREE.Mesh[] = [];
     circleArr:THREE.Mesh[] = [];
     objectIndex:number[] = [];
+    objectAngle:number[] = [];
     circleIndex:number[] = [];
     objectPhysicsArr:b2Body[] = [];
 
@@ -29,6 +30,7 @@ class Particle {
         this.circleIndex = [];
         this.circleArr = [];
         this.objectIndex = [];
+        this.objectAngle = [];
         this.objectPhysicsArr = [];
     }
 
@@ -154,19 +156,15 @@ class Particle {
         var box:b2PolygonShape = new b2PolygonShape();
         box.SetAsBoxXYCenterAngle(size, size, new b2Vec2(offsetX, offsetY), 0);
         fixDef.shape = box;
-        bodyDef.position.x = 0;
-        bodyDef.position.y = 0;
+        bodyDef.position.x = offsetX;
+        bodyDef.position.y = offsetY;
 
         var b = world.CreateBody(bodyDef);
-        var fixture = b.CreateFixtureFromDef(fixDef);
-        /*console.log(b);
-        console.log(fixture);
-        console.log(fixture.shape);
-        console.log(fixture.shape.position);*/
+        b.CreateFixtureFromDef(fixDef);
 
 
         var sphere = new THREE.BoxGeometry(0.9, 0.9, 0);
-        var material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture("static/physics/img/icecube2.png")});
+        var material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture("static/physics/img/icecube2.png"), transparent: true});
 
         var mesh = new THREE.Mesh(sphere, material);
         mesh.renderOrder = 2;
@@ -176,6 +174,7 @@ class Particle {
         this.objectMeshArr.push(mesh);
         this.objectPhysicsArr.push(b);
         this.objectIndex.push(this.objectMeshArr.length - 1);
+        this.objectAngle.push(0);
         this.graphics.scene.add(mesh);
     }
 }

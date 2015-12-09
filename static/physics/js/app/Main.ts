@@ -49,7 +49,9 @@ class Main {
                 var p = ref.GetMouseCoords(event, raycaster, ref.managers['graphics']);
                 var particle:Particle = ref.managers['animation'].particle;
                 var world:b2World = ref.managers['animation'].world;
-                particle.AddRandomParticleGroup(world, p.x, p.y);
+                //particle.AddRandomParticleGroup(world, p.x, p.y);
+                particle.addIceCube(p.x / (Tools.GetWidth()), p.y / (Tools.GetHeight()), 0.35, world);
+                mouseDown = false;
             }
         });
 
