@@ -208,6 +208,7 @@ declare class b2Shape
     GetPositionX():number;
     GetPositionY():number;
     SetPosition(x:number, y:number);
+    SetAsArray(array:b2Vec2[]);
 }
 
 declare class b2EdgeShape extends b2Shape
@@ -254,6 +255,8 @@ declare class b2PolygonShape extends b2Shape
 {
     SetAsBoxXY(halfWidth:number,halfHeight:number);
     SetAsBoxXYCenterAngle(halfWidth:number, halfHeight:number, center:b2Vec2, angle:number);
+    SetAsArray(array:b2Vec2[]);
+    vertices:[b2Vec2];
 }
 
 declare var b2_dynamicBody:any

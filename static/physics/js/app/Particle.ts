@@ -135,4 +135,23 @@ class Particle {
         }, pop);
         locate.events.AddEvent(timeout);
     }
+
+    public addIceCube(offsetX:number, offsetY:number, size:number, world:b2World) {
+        var bodyDef = new b2BodyDef;
+        var fixDef = new b2FixtureDef;
+        fixDef.density = Math.random();
+        fixDef.friction = Math.random();
+        fixDef.restitution = 0.2;
+
+        bodyDef.type = b2_dynamicBody;
+        fixDef.shape = new b2PolygonShape;
+        var box:b2PolygonShape = new b2PolygonShape();
+        box.SetAsBoxXYCenterAngle(size, size, new b2Vec2(offsetX, offsetY), 0);
+        fixDef.shape = box;
+        bodyDef.position.x = 0;
+        bodyDef.position.y = 0;
+
+        var b = world.CreateBody(bodyDef);
+        b.CreateFixtureFromDef(fixDef);
+    }
 }

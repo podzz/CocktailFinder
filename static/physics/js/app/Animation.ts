@@ -77,6 +77,9 @@ class AnimationCocktail {
         this.graphics.RenderRecipe(contener.path);
 
         var distributions = this.recipe.generateDistribution(ingredients, contener.quantity);
+
+        this.particle.addIceCube(0, 0, 0.5, this.world);
+
         for (var i = 0; i < distributions.length; i++) {
             var distribution = distributions[i];
             this.particle.addFlowBottle(distribution.pop, distribution.color, distribution.opacity, distribution.quantity, this.world);
