@@ -53,11 +53,7 @@ class Graphics {
         DirectionalLight.position.set(0,1,0);
         DirectionalLight.lookAt(this.scene.position);
         this.scene.add(DirectionalLight);
-
-
-
-
-        this.RenderCocktailArtist('static/front/img/artist-sidebar.png');
+        
         $("#renderer").append(this.threeRenderer.domElement);
     }
 
@@ -96,29 +92,6 @@ class Graphics {
             tl2.to(cube.material, 2, { rotation: -2.5});
             tl.to(cube.position, 2, {y: -15}, time);
             tl2.to(cube.material,2,{rotation:0}, time);
-        });
-    }
-
-    public RenderCocktailArtist(image_url)
-    {
-        var textureLoader = new THREE.TextureLoader();
-        var locate = this;
-        textureLoader.load(image_url, function (tex:THREE.Texture) {
-            tex.needsUpdate = true;
-            var material = new THREE.SpriteMaterial({map: tex });
-            var cube = new THREE.Sprite(material);
-            cube.scale.set(8,3,0);
-
-            cube.position.set(-9,0,0);
-            cube.renderOrder = 0;
-            cube.material.depthTest = false;
-            locate.scene.add(cube);
-
-            var tl = new TimelineLite();
-            var tl2 = new TimelineLite();
-            tl.to(cube.position, 2, {x: 0});
-            tl.to(cube.position, 2, {y: -5, x:2}, '+=2');
-            tl2.to(cube.scale, 2, {x: 4,y:2}, '+=4');
         });
     }
 }
