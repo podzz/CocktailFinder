@@ -145,7 +145,7 @@ class Particle {
     public addIceCube(offsetX:number, offsetY:number, size:number, world:b2World) {
         var bodyDef = new b2BodyDef;
         var fixDef = new b2FixtureDef;
-        fixDef.density = Math.random();
+        fixDef.density = 0.6;
         fixDef.friction = Math.random();
         fixDef.restitution = 0.2;
 
@@ -165,12 +165,13 @@ class Particle {
         console.log(fixture.shape.position);*/
 
 
-        var sphere = new THREE.BoxGeometry(1.1, 1.1, 1.1);
+        var sphere = new THREE.BoxGeometry(0.9, 0.9, 0.9);
         var material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture("static/physics/img/icecube2.png")});
 
         var mesh = new THREE.Mesh(sphere, material);
         mesh.renderOrder = 2;
         mesh.material.depthTest = false;
+        mesh.visible = false;
         this.graphics.scene.add(mesh);
         this.objectMeshArr.push(mesh);
         this.objectPhysicsArr.push(b);
