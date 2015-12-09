@@ -136,6 +136,19 @@ class AnimationCocktail {
             }
         }
 
+        var temp = 0;
+        for (var key in this.particle.objectIndex) {
+            var index = this.particle.circleIndex[key];
+            var mesh = this.particle.objectMeshArr[index];
+            var body = this.particle.objectPhysicsArr[index];
+
+            //console.log(body.GetWorldCenter());
+            mesh.position.x = body.GetWorldCenter().x;
+            mesh.position.y = body.GetWorldCenter().y;
+            temp = body.GetAngle() * Math.PI / 180;
+            mesh.rotateZ(temp);
+        }
+
         if (dropable_index.length > 0) {
             for (var key in dropable_index) {
                 var index = this.particle.circleIndex.indexOf(dropable_index[key]);

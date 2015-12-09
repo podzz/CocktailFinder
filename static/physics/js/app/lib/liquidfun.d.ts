@@ -49,6 +49,7 @@ declare class b2Fixture
 {
     SetDensity(density:number);
     filter:b2Filter
+    shape:any
 
     GetFriction():number;
     SetFriction(friction:number):void;
@@ -71,6 +72,7 @@ declare class b2Body
 {
 
     fixtures:b2Fixture[]
+    position:b2Vec2
 
     CreateFixtureFromShape(shape:b2Shape, density:number):b2Fixture;
     CreateFixtureFromDef(fixtureDefinition:b2FixtureDef):b2Fixture;
@@ -204,6 +206,7 @@ interface b2ContactListener
 declare class b2Shape
 {
     radius:number
+    position:b2Vec2
 
     GetPositionX():number;
     GetPositionY():number;

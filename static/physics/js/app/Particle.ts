@@ -12,8 +12,11 @@ class Particle {
     graphics:Graphics;
     events:Events;
 
+    objectMeshArr:THREE.Mesh[] = [];
     circleArr:THREE.Mesh[] = [];
+    objectIndex:number[] = [];
     circleIndex:number[] = [];
+    objectPhysicsArr:b2Body[] = [];
 
     constructor(graphics, events, tools) {
         this.graphics = graphics;
@@ -22,8 +25,11 @@ class Particle {
     }
 
     public Reset() {
+        this.objectMeshArr = [];
         this.circleIndex = [];
         this.circleArr = [];
+        this.objectIndex = [];
+        this.objectPhysicsArr = [];
     }
 
     private get_color(color, opacity, tools) {
@@ -152,6 +158,23 @@ class Particle {
         bodyDef.position.y = 0;
 
         var b = world.CreateBody(bodyDef);
-        b.CreateFixtureFromDef(fixDef);
+        var fixture = b.CreateFixtureFromDef(fixDef);
+        /*console.log(b);
+        console.log(fixture);
+        console.log(fixture.shape);
+        console.log(fixture.shape.position);*/
+
+
+        var sphere = new THREE.BoxGeometry(1.1, 1.1, 1.1);
+        var material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture("static/physics/img/icecube2.png")});
+
+        var mesh = new THREE.Mesh(sphere, material);
+        mesh.renderOrder = 2;
+        mesh.material.depthTest = false;
+        this.graphics.scene.add(mesh);
+        this.objectMeshArr.push(mesh);
+        this.objectPhysicsArr.push(b);
+        this.objectIndex.push(this.objectMeshArr.length - 1);
+        this.graphics.scene.add(mesh);
     }
 }
