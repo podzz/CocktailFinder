@@ -18,11 +18,13 @@ class Particle {
     objectAngle:number[] = [];
     circleIndex:number[] = [];
     objectPhysicsArr:b2Body[] = [];
+    icecubeMaterial:any;
 
     constructor(graphics, events, tools) {
         this.graphics = graphics;
         this.events = events;
         this.tools = tools;
+        this.icecubeMaterial = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture("static/physics/img/icecube2.png"), transparent: true});
     }
 
     public Reset() {
@@ -162,11 +164,9 @@ class Particle {
         var b = world.CreateBody(bodyDef);
         b.CreateFixtureFromDef(fixDef);
 
-
         var sphere = new THREE.BoxGeometry(0.9, 0.9, 0);
-        var material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture("static/physics/img/icecube2.png"), transparent: true});
 
-        var mesh = new THREE.Mesh(sphere, material);
+        var mesh = new THREE.Mesh(sphere, this.icecubeMaterial);
         mesh.renderOrder = 2;
         mesh.material.depthTest = false;
         mesh.visible = false;
