@@ -165,7 +165,7 @@ class Particle {
         console.log(fixture.shape.position);*/
 
 
-        var sphere = new THREE.BoxGeometry(0.9, 0.9, 0.9);
+        var sphere = new THREE.BoxGeometry(0.9, 0.9, 0);
         var material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture("static/physics/img/icecube2.png")});
 
         var mesh = new THREE.Mesh(sphere, material);
