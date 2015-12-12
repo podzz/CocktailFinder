@@ -14,7 +14,16 @@ requirejs.config({
         },
         'jquery': {
             exports: "$"
-        }
+        },
+
+        'physics/lib/copyshader' : ['physics/lib/three'],
+        'physics/lib/maskpass' : ['physics/lib/three'],
+        'physics/lib/renderpass' : ['physics/lib/three'],
+        'physics/lib/effectcomposer' : ['physics/lib/three'],
+        'physics/lib/shaderpass' : ['physics/lib/three'],
+        'physics/lib/horizontalblurshader' : ['physics/lib/three'],
+        'physics/lib/verticalblurshader': ['physics/lib/three'],
+        'physics/lib/tresholdshader': ['physics/lib/three']
     }
 });
 
@@ -23,6 +32,14 @@ require(['angular',
         'physics/lib/liquidfun',
         'physics/lib/TweenMax.min',
         'physics/lib/three',
+        'physics/lib/maskpass',
+        'physics/lib/copyshader',
+        'physics/lib/effectcomposer',
+        'physics/lib/renderpass',
+        'physics/lib/shaderpass',
+        'physics/lib/horizontalblurshader',
+        'physics/lib/verticalblurshader',
+        'physics/lib/tresholdshader',
         'physics/app/Parser',
         'physics/app/Collision',
         'physics/app/managerObject',

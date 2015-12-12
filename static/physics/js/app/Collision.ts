@@ -2,7 +2,25 @@
 /// <reference path="lib/pixi.d.ts"/>
 
 declare var world:any;
-class Collision {
+class Collision implements b2ContactListener {
+    /*BeginContactBody(contact:b2Contact):void {
+        if (contact.GetFixtureB().body.GetUserData() == 1 && contact.GetFixtureA().body.GetUserData() == 1)
+            console.log('touch glacon !');
+    }*/
+
+    BeginContactBody(contact:b2Contact):void {
+        console.log('test');
+    }
+
+    EndContactBody(contact:b2Contact):void {
+    }
+
+    PreSolve(contact:b2Contact, manifold:b2Manifold):void {
+    }
+
+    PostSolve(contact:b2Contact, manifold:b2Manifold):void {
+    }
+
     public LinkShape(body:b2Body, vectors:any, world_cpy:b2World) {
         world = world_cpy;
         if (vectors != null && vectors.length > 0) {
@@ -10,13 +28,13 @@ class Collision {
             for (var j = 1; j < vectors.length; j++) {
                 var shape = new b2EdgeShape();
                 shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[j].x, vectors[j].y));
-                body.CreateFixtureFromShape(shape, 20);
+                body.CreateFixtureFromShape(shape, 0);
                 vectorStart = vectors[j];
             }
             // PART TO LINK LAST AND FIRST VERTEX
             shape = new b2EdgeShape();
             shape.Set(new b2Vec2(vectorStart.x, vectorStart.y), new b2Vec2(vectors[0].x, vectors[0].y));
-            body.CreateFixtureFromShape(shape, 20);
+            body.CreateFixtureFromShape(shape, 0);
             vectors[vectors.length] = shape.vertex2;
         }
     }

@@ -12,20 +12,5 @@ export:
 	cp scraping/export/recipes_link_recipient.csv data
 	neo4j-shell -file data/import.cypher
 
-API:
-	cd infra/APIserv; vagrant up; cd -
-
-cleanAPI:
-	cd infra/APIserv; vagrant destroy; cd -
-
-NGINX:
-	cd infra/LBserv; vagrant up; cd -
-
-cleanNGINX:
-	cd infra/LBserv;vagrant destroy;cd -
-
-DB:
-	cd infra/DBserv;vagrant up;cd -
-
-cleanDB:
-	cd infra/DBserv;vagrant destroy;cd -
+ts:
+	tsc -m amd static/physics/js/app/*.ts

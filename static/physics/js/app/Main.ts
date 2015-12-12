@@ -29,8 +29,6 @@ class Main {
 
     private InitCallbacks() {
         var ref = this;
-        var raycaster = new THREE.Raycaster();
-        var mouse = new THREE.Vector2();
 
         var mouseDown = false;
         window.addEventListener('resize', function () {
@@ -42,16 +40,14 @@ class Main {
 
         window.addEventListener('mousedown', function (event) {
             mouseDown = true;
+            var p = ref.GetMouseCoords(event, ref.managers['graphics']);
+            var particle:Particle = ref.managers['animation'].particle;
+            particle.addIceCube(p.x, p.y , 0.35, ref.managers['animation'].world);
         });
 
         window.addEventListener('mousemove', function (event) {
             if (mouseDown) {
-                var p = ref.GetMouseCoords(event, raycaster, ref.managers['graphics']);
-                var particle:Particle = ref.managers['animation'].particle;
-                var world:b2World = ref.managers['animation'].world;
-                //particle.AddRandomParticleGroup(world, p.x, p.y);
-                particle.addIceCube(p.x / (Tools.GetWidth()), p.y / (Tools.GetHeight()), 0.35, world);
-                mouseDown = false;
+                 mouseDown = false;
             }
         });
 
@@ -60,18 +56,13 @@ class Main {
         });
     }
 
-    private GetMouseCoords(event, raycaster, graphics:Graphics):THREE.Vector3 {
+    private GetMouseCoords(event, graphics:Graphics):THREE.Vector3 {
         var vector = new THREE.Vector3();
-        var tmp_x = (event.clientX / Tools.GetWidth())  * 2;
-        var tmp_max_x = (window.innerWidth / Tools.GetWidth()) * 2;
-        vector.set(tmp_x - tmp_max_x * 3/4,
+        vector.set((event.clientX / Tools.GetWidth()) * 2 - 1,
             -(event.clientY / Tools.GetHeight()) * 2 + 1,
             0.5);
         vector.unproject(graphics.camera);
-        var dir = vector.sub(graphics.camera.position).normalize();
-        var distance = -graphics.camera.position.z / dir.z;
-        var pos = graphics.camera.position.clone().add(dir.multiplyScalar(distance));
-        return pos;
+        return vector;
     }
 
     public Load(ingredients:any, recipe_id:number, reload:boolean) {

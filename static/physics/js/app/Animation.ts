@@ -29,6 +29,8 @@ class AnimationCocktail {
         this.recipe = managers['recipe'];
         this.events = managers['events'];
         this.tools = managers['tools'];
+        this.world.SetContactListener(this.collision);
+
         this.particle = new Particle(this.graphics, this.events, this.tools);
     }
 
@@ -42,8 +44,7 @@ class AnimationCocktail {
             this.world.DestroyBody(this.world.bodies[0]);
         }
 
-        this.graphics.scene = new THREE.Scene();
-        this.graphics.scene.add(this.graphics.camera);
+        this.graphics.reset();
 
 
         var psd = new b2ParticleSystemDef();
@@ -96,8 +97,8 @@ class AnimationCocktail {
     }
 
     public animate() {
-        this.step();
         requestAnimationFrame(this.animate.bind(this));
+        this.step();
 
         /*var timer = 0.02;
         var x = this.graphics.camera.position.x;
@@ -138,13 +139,12 @@ class AnimationCocktail {
         }
 
         for (var key in this.particle.objectIndex) {
-            var index = this.particle.circleIndex[key];
+            var index = this.particle.objectIndex[key];
             var mesh = this.particle.objectMeshArr[index];
             var body = this.particle.objectPhysicsArr[index];
             var lastAngle = this.particle.objectAngle[index];
 
             if (mesh != null) {
-                mesh.visible = true;
                 mesh.position.x = body.GetWorldCenter().x;
                 mesh.position.y = body.GetWorldCenter().y;
 
@@ -160,6 +160,11 @@ class AnimationCocktail {
                 this.particle.circleIndex.splice(index, 1);
             }
         }
-        this.graphics.threeRenderer.render(this.graphics.scene, this.graphics.camera);
+
+        this.graphics.threeRenderer.clear();
+        this.graphics.composer.render();
+        this.graphics.threeRenderer.clearDepth();
+        this.graphics.threeRenderer.render(this.graphics.recipeScene, this.graphics.camera, null, false);
+
     }
 }

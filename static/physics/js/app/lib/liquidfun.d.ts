@@ -60,7 +60,10 @@ declare class b2Fixture
     GetShape():b2Shape;
 
     TestPoint(worldPoint:b2Vec2):boolean;
-    GetBody():b2Body;
+
+    userData: number;
+    body:b2Body;
+    GetUserData(): number;
 }
 
 declare class b2MassData
@@ -150,6 +153,7 @@ declare class b2Body
     GetAngularVelocity():number;
 
     GetUserData():number;
+    userData: number;
 }
 
 interface b2QueryCallback
@@ -195,12 +199,23 @@ declare module 'b2World' {
     export = b2World
 }
 
-interface b2ContactListener
+declare interface b2ContactListener
 {
-    BeginContact(contact:b2Contact):void;
-    EndContact(contect:b2Contact):void;
+    BeginContactBody(contact:b2Contact):void;
+    //BeginContactBody(particleSystem: b2ParticleSystem, particleContact: b2ParticleContact):void;
+    EndContactBody(contact:b2Contact):void;
     PreSolve(contact:b2Contact, manifold:b2Manifold):void;
-    PostSolve(contect:b2Contact, manifold:b2Manifold):void;
+    PostSolve(contact:b2Contact, manifold:b2Manifold):void;
+}
+
+declare class b2ParticleBodyContact
+{
+    index: number;
+    body: b2Body;
+    fixture: b2Fixture;
+    weight: number;
+    normal: b2Vec2;
+    mass:number;
 }
 
 declare class b2Shape
@@ -376,8 +391,32 @@ declare class b2Contact
 
 declare class b2Manifold
 {
-
+    points:[b2ManifoldPoint];
 }
+
+declare class b2ManifoldPoint
+{
+    localPoint:b2Vec2;
+    normalImpulse:number;
+    tangentImpulse:number;
+    id:b2ContactID;
+}
+
+declare class b2ContactID
+{
+    cf:b2ContactFeature;
+    key:number;
+}
+
+declare class b2ContactFeature
+{
+    indexA:number;
+    indexB:number;
+    typeA:number;
+    typeB:number;
+}
+
+
 
 //Particles
 declare class b2ParticleColor
@@ -457,6 +496,11 @@ declare class b2ParticleSystem
     GetColorBuffer():Uint8Array;
 
     SetRadius(radious:number):void;
+}
+
+declare class b2ParticleContact
+{
+
 }
 
 declare var b2_waterParticle:any;

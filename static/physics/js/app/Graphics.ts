@@ -17,7 +17,11 @@ class Graphics {
     public geometry:THREE.BufferGeometry;
     public currentVertex:number = 0;
     public buffer:THREE.Mesh;
+
     public scene:THREE.Scene;
+    public recipeScene:THREE.Scene;
+
+    public composer:THREE.EffectComposer;
 
 
     constructor(events:Events) {
@@ -37,25 +41,61 @@ class Graphics {
             console.log('Your browser doesn\'t support webgl');
             return;
         }
+
         this.threeRenderer.setClearColor(0x000000, 0);
         this.threeRenderer.setSize(width, height);
         this.threeRenderer.setPixelRatio(window.devicePixelRatio);
         this.threeRenderer.sortObjects = true;
+        this.threeRenderer.autoClear = false;
+        this.threeRenderer.gammaInput = true;
+        this.threeRenderer.gammaOutput = true;
 
         this.camera.up = new THREE.Vector3(0, -1, 0);
-
         this.camera.position.set(0,0,-10);
-        this.scene = new THREE.Scene();
-        this.camera.lookAt(this.scene.position);
-        this.scene.add(this.camera);
 
-        var DirectionalLight = new THREE.DirectionalLight(0xffffff, 4);
-        DirectionalLight.position.set(0,1,0);
-        DirectionalLight.lookAt(this.scene.position);
-        this.scene.add(DirectionalLight);
-        
+        this.reset();
+
         $("#renderer").append(this.threeRenderer.domElement);
     }
+
+    public reset():void
+    {
+        this.scene = new THREE.Scene();
+        this.scene.add(this.camera);
+
+        this.recipeScene = new THREE.Scene();
+        this.recipeScene.add(this.camera);
+        /*var DirectionalLight = new THREE.DirectionalLight(0xffffff, 10);
+        DirectionalLight.position.set(0,1,0);
+        DirectionalLight.lookAt(this.scene.position);
+        this.scene.add(DirectionalLight);*/
+
+        this.camera.lookAt(this.scene.position);
+
+        this.composer = new THREE.EffectComposer(this.threeRenderer);
+
+        var renderPass = new THREE.RenderPass(this.scene, this.camera);
+        this.composer.addPass(renderPass);
+
+        var hblur = new THREE.ShaderPass(THREE.HorizontalBlurShader);
+        hblur.uniforms['h'].value = 1 / 1000;
+        this.composer.addPass(hblur);
+
+        var vblur = new THREE.ShaderPass(THREE.VerticalBlurShader);
+        vblur.uniforms['v'].value = 1 / 1000;
+        vblur.renderToScreen = true;
+        this.composer.addPass(vblur);
+
+       // var treshold = new THREE.ShaderPass(THREE.TresholdShader);
+        //treshold.renderToScreen = true;
+        //this.composer.addPass(treshold);
+
+        //var copypass = new THREE.ShaderPass(THREE.CopyShader);
+        //copypass.renderToScreen = true;
+        //this.composer.addPass(copypass);
+    }
+
+
 
     public RenderRecipe(image_url) {
         var textureLoader = new THREE.TextureLoader();
@@ -68,7 +108,7 @@ class Graphics {
             cube.scale.set(3,5,0);
             cube.material.opacity = 0.7;
             cube.position.set(0,1.5,0);
-            locate.scene.add(cube);
+            locate.recipeScene.add(cube);
         });
     }
 
@@ -83,7 +123,7 @@ class Graphics {
             cube.scale.set(2.25,3.94,0);
             cube.position.set(vector.x - 0.4,-15,0);
             cube.renderOrder = 1;
-            locate.scene.add(cube);
+            locate.recipeScene.add(cube);
 
             var tl = new TimelineLite();
             var tl2 = new TimelineLite();

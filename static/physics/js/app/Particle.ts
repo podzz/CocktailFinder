@@ -18,13 +18,19 @@ class Particle {
     objectAngle:number[] = [];
     circleIndex:number[] = [];
     objectPhysicsArr:b2Body[] = [];
-    icecubeMaterial:any;
+    icecubeMaterial:THREE.Texture;
 
     constructor(graphics, events, tools) {
         this.graphics = graphics;
         this.events = events;
         this.tools = tools;
-        this.icecubeMaterial = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture("static/physics/img/icecube2.png"), transparent: true});
+
+        var textureLoader = new THREE.TextureLoader();
+        var ref = this;
+        textureLoader.load("static/physics/img/icecube2.png", function (tex:THREE.Texture) {
+            tex.needsUpdate = true;
+            ref.icecubeMaterial = tex;
+        });
     }
 
     public Reset() {
@@ -59,6 +65,7 @@ class Particle {
         var spawnPoint = new b2Vec2(x, y);
         box.SetAsBoxXYCenterAngle(0.1, 0.1, spawnPoint,0);
         var sphere = new THREE.SphereGeometry(0.1, 32, 32);
+
         var particlegroupDef:b2ParticleGroupDef = new b2ParticleGroupDef();
         var particleSystem:b2ParticleSystem = world.particleSystems[0];
         particlegroupDef.shape = box;
@@ -73,6 +80,7 @@ class Particle {
 
         var first_record = particleSystem.GetPositionBuffer().length / 2;
         particleSystem.CreateParticleGroup(particlegroupDef);
+
         world.CreateBody(bottle);
         var second_record = particleSystem.GetPositionBuffer().length / 2;
 
@@ -93,7 +101,7 @@ class Particle {
 
         var particlegroupDef:b2ParticleGroupDef = new b2ParticleGroupDef();
         particlegroupDef.shape = box;
-        particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle;
+        particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle | b2_particleContactFilterParticle | b2_fixtureContactFilterParticle;
 
         particlegroupDef.color.Set(color.r, color.g, color.b, color.a);
 
@@ -103,6 +111,8 @@ class Particle {
 
         var first_record = particleSystem.GetPositionBuffer().length / 2;
         particleSystem.CreateParticleGroup(particlegroupDef);
+
+
 
         world.CreateBody(bottle);
         var second_record = particleSystem.GetPositionBuffer().length / 2;
@@ -122,7 +132,7 @@ class Particle {
         console.log(pop);
         var locate = this;
         var system:b2ParticleSystem = world.particleSystems[0];
-        var sphere = new THREE.SphereGeometry(0.06, 5, 5);
+        var sphere = new THREE.SphereGeometry(0.1, 0.09, 0);
         var spawnPoint:b2Vec2 = new b2Vec2(-2.2, -5);
         var color_process = this.get_color(color, opacity, locate.tools);
         var index_calqueSelected = Math.floor(Math.random() * 11) + 1;
@@ -154,27 +164,27 @@ class Particle {
         fixDef.restitution = 0.2;
 
         bodyDef.type = b2_dynamicBody;
-        fixDef.shape = new b2PolygonShape;
+        bodyDef.userData = 1;
+
         var box:b2PolygonShape = new b2PolygonShape();
         box.SetAsBoxXYCenterAngle(size, size, new b2Vec2(offsetX, offsetY), 0);
+
         fixDef.shape = box;
         bodyDef.position.x = offsetX;
         bodyDef.position.y = offsetY;
 
         var b = world.CreateBody(bodyDef);
-        b.CreateFixtureFromDef(fixDef);
 
+        b.CreateFixtureFromDef(fixDef);
+        b.userData = 1;
         var sphere = new THREE.BoxGeometry(0.9, 0.9, 0);
 
-        var mesh = new THREE.Mesh(sphere, this.icecubeMaterial);
-        mesh.renderOrder = 2;
-        mesh.material.depthTest = false;
-        mesh.visible = false;
+        var mesh_material = new THREE.MeshBasicMaterial( { map: this.icecubeMaterial, transparent: true});
+        var mesh = new THREE.Mesh(sphere, mesh_material);
         this.graphics.scene.add(mesh);
         this.objectMeshArr.push(mesh);
         this.objectPhysicsArr.push(b);
         this.objectIndex.push(this.objectMeshArr.length - 1);
         this.objectAngle.push(0);
-        this.graphics.scene.add(mesh);
     }
 }

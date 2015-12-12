@@ -158,6 +158,13 @@ declare module THREE {
     export var RGBA_PVRTC_4BPPV1_Format: CompressedPixelFormat;
     export var RGBA_PVRTC_2BPPV1_Format: CompressedPixelFormat;
 
+    // Shaders
+    export var HorizontalBlurShader : Shader;
+    export var VerticalBlurShader : Shader;
+    export var CopyShader: Shader;
+    export var TresholdShader: Shader;
+
+
     // log handlers
     export function warn(message?: any, ...optionalParams: any[]): void;
     export function error(message?: any, ...optionalParams: any[]): void;
@@ -5880,6 +5887,63 @@ declare module THREE {
         stopAnimation(name: string): void;
         update(delta: number): void;
     }
+
+    export class ShaderPass {
+        constructor( shader: Shader, textureID?: string );
+
+        textureID: string;
+        uniforms: any;
+        material: ShaderMaterial;
+        renderToScreen: boolean;
+        enabled: boolean;
+        needsSwap: boolean;
+        clear: boolean;
+        camera: Camera;
+        scene: Scene;
+        quad: Mesh;
+
+        render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
+    }
+
+    export class EffectComposer {
+        constructor(renderer: WebGLRenderer, renderTarget?: WebGLRenderTarget);
+
+        renderTarget1: WebGLRenderTarget;
+        renderTarget2: WebGLRenderTarget;
+        writeBuffer: WebGLRenderTarget;
+        readBuffer: WebGLRenderTarget;
+        passes: any[];
+        copyPass: ShaderPass;
+
+        swapBuffers(): void;
+        addPass(pass: any): void;
+        insertPass(pass: any, index: number): void;
+        render(delta?: number): void;
+        reset(renderTarget?: WebGLRenderTarget): void;
+        setSize( width: number, height: number ): void;
+    }
+
+
+    export class RenderPass {
+        constructor( scene: Scene, camera: Camera, overrideMaterial?: Material, clearColor?: Color, clearAlpha?: number );
+        constructor( scene: Scene, camera: Camera, overrideMaterial?: Material, clearColor?: string, clearAlpha?: number );
+        constructor( scene: Scene, camera: Camera, overrideMaterial?: Material, clearColor?: number, clearAlpha?: number );
+
+        scene: Scene;
+        camera: Camera;
+        overrideMaterial: Material;
+        clearColor: any; // Color or string or number
+        clearAlpha: number;
+        oldClearColor: Color;
+        oldClearAlpha: number;
+        enabled: boolean;
+        clear: boolean;
+        needsSwap: boolean;
+
+        render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
+    }
+
+
 }
 
 declare module 'three' {
