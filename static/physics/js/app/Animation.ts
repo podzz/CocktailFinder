@@ -7,6 +7,7 @@
 /// <reference path="Recipe.ts"/>
 /// <reference path="Particle.ts"/>
 /// <reference path="Tools.ts"/>
+/// <reference path="Contact.ts"/>
 
 class AnimationCocktail {
     public world:b2World;
@@ -29,7 +30,6 @@ class AnimationCocktail {
         this.recipe = managers['recipe'];
         this.events = managers['events'];
         this.tools = managers['tools'];
-        this.world.SetContactListener(this.collision);
 
         this.particle = new Particle(this.graphics, this.events, this.tools);
     }
@@ -138,11 +138,11 @@ class AnimationCocktail {
             }
         }
 
-        for (var key in this.particle.objectIndex) {
-            var index = this.particle.objectIndex[key];
+        for (var key in this.particle.objectMeshIndex) {
+            var index = this.particle.objectMeshIndex[key];
             var mesh = this.particle.objectMeshArr[index];
-            var body = this.particle.objectPhysicsArr[index];
-            var lastAngle = this.particle.objectAngle[index];
+            var body = this.particle.objectPhysicsArr[index][0];
+            var lastAngle = this.particle.objectPhysicsArr[index][1];
 
             if (mesh != null) {
                 mesh.position.x = body.GetWorldCenter().x;
@@ -150,7 +150,7 @@ class AnimationCocktail {
 
                 lastAngle = body.GetAngle() - lastAngle;
                 mesh.rotateZ(lastAngle);
-                this.particle.objectAngle[index] = body.GetAngle();
+                this.particle.objectPhysicsArr[index][1] = body.GetAngle();
             }
         }
 

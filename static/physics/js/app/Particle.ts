@@ -14,10 +14,9 @@ class Particle {
 
     objectMeshArr:THREE.Mesh[] = [];
     circleArr:THREE.Mesh[] = [];
-    objectIndex:number[] = [];
-    objectAngle:number[] = [];
+    objectMeshIndex:number[] = [];
     circleIndex:number[] = [];
-    objectPhysicsArr:b2Body[] = [];
+    objectPhysicsArr:any[] = [];
     icecubeMaterial:THREE.Texture;
 
     constructor(graphics, events, tools) {
@@ -37,8 +36,7 @@ class Particle {
         this.objectMeshArr = [];
         this.circleIndex = [];
         this.circleArr = [];
-        this.objectIndex = [];
-        this.objectAngle = [];
+        this.objectMeshIndex = [];
         this.objectPhysicsArr = [];
     }
 
@@ -181,10 +179,13 @@ class Particle {
 
         var mesh_material = new THREE.MeshBasicMaterial( { map: this.icecubeMaterial, transparent: true});
         var mesh = new THREE.Mesh(sphere, mesh_material);
-        this.graphics.scene.add(mesh);
+        this.graphics.recipeScene.add(mesh);
+
+
         this.objectMeshArr.push(mesh);
-        this.objectPhysicsArr.push(b);
-        this.objectIndex.push(this.objectMeshArr.length - 1);
-        this.objectAngle.push(0);
+        this.objectMeshIndex.push(this.objectMeshArr.length - 1);
+        var tuple: [b2Body, number] = [b,0];
+        this.objectPhysicsArr.push(tuple);
+
     }
 }

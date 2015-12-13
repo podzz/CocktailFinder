@@ -2,24 +2,15 @@
 /// <reference path="lib/pixi.d.ts"/>
 
 declare var world:any;
-class Collision implements b2ContactListener {
+class Collision {
     /*BeginContactBody(contact:b2Contact):void {
         if (contact.GetFixtureB().body.GetUserData() == 1 && contact.GetFixtureA().body.GetUserData() == 1)
             console.log('touch glacon !');
     }*/
 
-    BeginContactBody(contact:b2Contact):void {
+    /*BeginContactBody(contact:b2Contact):void {
         console.log('test');
-    }
-
-    EndContactBody(contact:b2Contact):void {
-    }
-
-    PreSolve(contact:b2Contact, manifold:b2Manifold):void {
-    }
-
-    PostSolve(contact:b2Contact, manifold:b2Manifold):void {
-    }
+    }*/
 
     public LinkShape(body:b2Body, vectors:any, world_cpy:b2World) {
         world = world_cpy;

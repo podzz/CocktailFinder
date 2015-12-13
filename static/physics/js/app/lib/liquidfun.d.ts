@@ -208,6 +208,10 @@ declare interface b2ContactListener
     PostSolve(contact:b2Contact, manifold:b2Manifold):void;
 }
 
+declare interface b2ContactFilter {
+    ShouldCollide(particleSystem:b2ParticleSystem, particleIndexA:number, particleIndexB:number);
+}
+
 declare class b2ParticleBodyContact
 {
     index: number;

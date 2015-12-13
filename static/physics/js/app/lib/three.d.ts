@@ -162,7 +162,7 @@ declare module THREE {
     export var HorizontalBlurShader : Shader;
     export var VerticalBlurShader : Shader;
     export var CopyShader: Shader;
-    export var TresholdShader: Shader;
+    export var MetaballShader : Shader;
 
 
     // log handlers
