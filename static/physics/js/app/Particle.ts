@@ -204,7 +204,6 @@ class Particle {
         var tl = new TimelineLite();
         var tl2 = new TimelineLite();
         //console.log(f.shape.radius);
-        tl2.to(f.shape, 15, { radius: 0 }, 0);
-        tl.to(mesh.scale, 15, {x: 0, y: 0}, 0);
+        tl.to(mesh.scale, 30, {x: 0.3, y: 0.3});
     }
 }
