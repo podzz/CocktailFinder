@@ -42,7 +42,7 @@ class Main {
             mouseDown = true;
             var p = ref.GetMouseCoords(event, ref.managers['graphics']);
             var particle:Particle = ref.managers['animation'].particle;
-            particle.addIceCube(p.x, p.y , 0.35, ref.managers['animation'].world);
+            particle.addIceCube(p.x, p.y , 0.20, ref.managers['animation'].world);
         });
 
         window.addEventListener('mousemove', function (event) {

@@ -3,15 +3,6 @@
 
 declare var world:any;
 class Collision {
-    /*BeginContactBody(contact:b2Contact):void {
-        if (contact.GetFixtureB().body.GetUserData() == 1 && contact.GetFixtureA().body.GetUserData() == 1)
-            console.log('touch glacon !');
-    }*/
-
-    /*BeginContactBody(contact:b2Contact):void {
-        console.log('test');
-    }*/
-
     public LinkShape(body:b2Body, vectors:any, world_cpy:b2World) {
         world = world_cpy;
         if (vectors != null && vectors.length > 0) {

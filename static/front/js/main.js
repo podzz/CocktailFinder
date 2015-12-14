@@ -23,8 +23,8 @@ requirejs.config({
         'physics/lib/shaderpass' : ['physics/lib/three'],
         'physics/lib/horizontalblurshader' : ['physics/lib/three'],
         'physics/lib/verticalblurshader': ['physics/lib/three'],
-        'physics/lib/tresholdshader': ['physics/lib/three'],
-        'physics/lib/metaballshader': ['physics/lib/three']
+        'physics/lib/marchingcubes': ['physics/lib/three'],
+        'physics/lib/orbitcontrols': ['physics/lib/three']
     }
 });
 
@@ -40,18 +40,15 @@ require(['angular',
         'physics/lib/shaderpass',
         'physics/lib/horizontalblurshader',
         'physics/lib/verticalblurshader',
-        'physics/lib/tresholdshader',
-        'physics/lib/metaballshader',
+        'physics/lib/marchingcubes',
         'physics/app/Parser',
         'physics/app/Collision',
-        'physics/app/managerObject',
         'physics/app/Particle',
         'physics/app/Recipe',
         'physics/app/Tools',
         'physics/app/Graphics',
         'physics/app/Animation',
         'physics/app/Events',
-        'physics/app/Contact',
         'physics/app/Main',
         'jquery',
         'jquery.cookie',

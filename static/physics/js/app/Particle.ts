@@ -11,6 +11,7 @@ class Particle {
 
     graphics:Graphics;
     events:Events;
+    effect:THREE.MarchingCubes;
 
     objectMeshArr:THREE.Mesh[] = [];
     circleArr:THREE.Mesh[] = [];
@@ -30,6 +31,18 @@ class Particle {
             tex.needsUpdate = true;
             ref.icecubeMaterial = tex;
         });
+
+
+        /// MARCHING CUBES
+        var mesh =  new THREE.MeshPhongMaterial( { color: 0x333333, specular: 0xffffff, shininess: 2, vertexColors: THREE.VertexColors });
+        this.effect = new THREE.MarchingCubes(50, mesh, true, true);
+        this.effect.position.set(0,0,0);
+        this.effect.scale.set(700,700,700);
+
+        this.effect.enableUvs = false;
+        this.effect.enableColors = false;
+
+        this.graphics.scene.add(this.effect);
     }
 
     public Reset() {
@@ -57,34 +70,31 @@ class Particle {
             };
     }
 
-    public AddRandomParticleGroup(world:b2World, x, y)
+    public AddRandomParticleGroup(world:b2World, x, y, color)
     {
-        var box:b2PolygonShape = new b2PolygonShape();
+        var box:b2CircleShape = new b2CircleShape();
         var spawnPoint = new b2Vec2(x, y);
-        box.SetAsBoxXYCenterAngle(0.1, 0.1, spawnPoint,0);
-        var sphere = new THREE.SphereGeometry(0.1, 32, 32);
+        box.position.y = y - 0.4;
+        box.position.x = x;
+        box.radius = 0.02;
+        var sphere = new THREE.SphereGeometry(0.1, 0.1, 0.1);
 
         var particlegroupDef:b2ParticleGroupDef = new b2ParticleGroupDef();
         var particleSystem:b2ParticleSystem = world.particleSystems[0];
         particlegroupDef.shape = box;
         particlegroupDef.flags = b2_colorMixingParticle | b2_waterParticle;
 
-        var random = new THREE.Color(0xffffff * Math.random());
+        var random = new THREE.Color(color);
         particlegroupDef.color.Set(random.r * 255,random.g * 255,random.b * 255,Math.random() * 255);
-
-        var bottle:b2BodyDef = new b2BodyDef();
-        bottle.type = b2_dynamicBody;
-        bottle.position.Set(2, 2);
 
         var first_record = particleSystem.GetPositionBuffer().length / 2;
         particleSystem.CreateParticleGroup(particlegroupDef);
 
-        world.CreateBody(bottle);
         var second_record = particleSystem.GetPositionBuffer().length / 2;
 
         for (var i = 0; i < second_record - first_record; i++) {
             var mesh = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({color: random.getHex()}));
-            mesh.renderOrder = 2;
+            mesh.renderOrder = 1;
             mesh.material.depthTest = false;
             this.circleArr.push(mesh);
             this.circleIndex.push(this.circleArr.length - 1);
@@ -158,14 +168,16 @@ class Particle {
         var bodyDef = new b2BodyDef;
         var fixDef = new b2FixtureDef;
         fixDef.density = 0.6;
-        fixDef.friction = Math.random();
+        fixDef.friction = Math.random() * 10;
         fixDef.restitution = 0.2;
 
         bodyDef.type = b2_dynamicBody;
         bodyDef.userData = 1;
 
-        var box:b2PolygonShape = new b2PolygonShape();
-        box.SetAsBoxXYCenterAngle(size, size, new b2Vec2(offsetX, offsetY), 0);
+        var box:b2CircleShape = new b2CircleShape();
+        box.position.x = offsetX;
+        box.position.y = offsetY;
+        box.radius = 0.2;
 
         fixDef.shape = box;
         bodyDef.position.x = offsetX;
@@ -173,12 +185,14 @@ class Particle {
 
         var b = world.CreateBody(bodyDef);
 
-        b.CreateFixtureFromDef(fixDef);
+        var f:b2Fixture = b.CreateFixtureFromDef(fixDef);
         b.userData = 1;
         var sphere = new THREE.BoxGeometry(0.9, 0.9, 0);
 
         var mesh_material = new THREE.MeshBasicMaterial( { map: this.icecubeMaterial, transparent: true});
         var mesh = new THREE.Mesh(sphere, mesh_material);
+        mesh.renderOrder = 2;
+
         this.graphics.recipeScene.add(mesh);
 
 
@@ -187,5 +201,10 @@ class Particle {
         var tuple: [b2Body, number] = [b,0];
         this.objectPhysicsArr.push(tuple);
 
+        var tl = new TimelineLite();
+        var tl2 = new TimelineLite();
+        //console.log(f.shape.radius);
+        tl2.to(f.shape, 15, { radius: 0 }, 0);
+        tl.to(mesh.scale, 15, {x: 0, y: 0}, 0);
     }
 }

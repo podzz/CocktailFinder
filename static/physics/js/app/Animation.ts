@@ -7,7 +7,6 @@
 /// <reference path="Recipe.ts"/>
 /// <reference path="Particle.ts"/>
 /// <reference path="Tools.ts"/>
-/// <reference path="Contact.ts"/>
 
 class AnimationCocktail {
     public world:b2World;
@@ -138,22 +137,6 @@ class AnimationCocktail {
             }
         }
 
-        for (var key in this.particle.objectMeshIndex) {
-            var index = this.particle.objectMeshIndex[key];
-            var mesh = this.particle.objectMeshArr[index];
-            var body = this.particle.objectPhysicsArr[index][0];
-            var lastAngle = this.particle.objectPhysicsArr[index][1];
-
-            if (mesh != null) {
-                mesh.position.x = body.GetWorldCenter().x;
-                mesh.position.y = body.GetWorldCenter().y;
-
-                lastAngle = body.GetAngle() - lastAngle;
-                mesh.rotateZ(lastAngle);
-                this.particle.objectPhysicsArr[index][1] = body.GetAngle();
-            }
-        }
-
         if (dropable_index.length > 0) {
             for (var key in dropable_index) {
                 var index = this.particle.circleIndex.indexOf(dropable_index[key]);
@@ -161,8 +144,46 @@ class AnimationCocktail {
             }
         }
 
+        var dropable_cubes = [];
+        for (var key in this.particle.objectMeshIndex) {
+            var index = this.particle.objectMeshIndex[key];
+            var mesh = this.particle.objectMeshArr[index];
+            var body = this.particle.objectPhysicsArr[index][0];
+            var lastAngle = this.particle.objectPhysicsArr[index][1];
+
+            if (mesh != null && mesh.position.y < 10 && mesh.scale.x >= 0.3 && mesh.scale.y >= 0.3) {
+                mesh.position.x = body.GetWorldCenter().x;
+                mesh.position.y = body.GetWorldCenter().y;
+
+                if (mesh.scale.x % 0.1 < 0.02)
+                    this.particle.AddRandomParticleGroup(this.world, mesh.position.x, mesh.position.y, 0xaeeeee);
+
+                lastAngle = body.GetAngle() - lastAngle;
+                mesh.rotateZ(lastAngle);
+                this.particle.objectPhysicsArr[index][1] = body.GetAngle();
+            }
+            else {
+                this.world.DestroyBody(body);
+                mesh.visible = false;
+                mesh.material.dispose();
+                mesh.geometry.dispose();
+                this.graphics.scene.remove(mesh);
+                dropable_cubes.push(index);
+
+            }
+        }
+
+        if (dropable_cubes.length > 0) {
+            for (var key in dropable_cubes) {
+                var index = this.particle.objectMeshIndex.indexOf(dropable_cubes[key]);
+                this.particle.objectMeshIndex.splice(index, 1);
+            }
+        }
+
+
+
         this.graphics.threeRenderer.clear();
-        this.graphics.composer.render();
+        this.graphics.threeRenderer.render(this.graphics.scene, this.graphics.camera, null, false);
         this.graphics.threeRenderer.clearDepth();
         this.graphics.threeRenderer.render(this.graphics.recipeScene, this.graphics.camera, null, false);
 

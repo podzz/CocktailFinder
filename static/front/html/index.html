@@ -24,49 +24,39 @@
     <script data-main="static/front/js/main" src="static/common/js/lib/require.js"></script>
 
 </head>
-<body ng-controller="recipeController as recipeCtrl">
+<body ng-controller="recipeController as recipeCtrl" ng-cloak>
 <div class="wrapper">
     <div id="renderer"></div>
     <div class="direction">
         <div class="directionData">
             <p class="panel-title2" ng-cloak>{{ recipeCtrl.currentCocktail.name }}</p>
+
             <p class="panel-title3">Pour réaliser ce cocktail, vous aurez besoin de :</p>
             <ul id="cocktailList">
                 <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient" class="directionLi">
 
                     <button id="color" type="button" ng-click="recipeCtrl.addMissing(ingr);"
-                            class="btn btn-b" ng-mouseover="show = true"
-                            ng-mouseleave="show = false">
+                            class="btn btn-b" ng-mouseover="recipeCtrl.setOverIngredient(ingr);">
                         <div class="quantityDirection">{{ ingr.quantity }} {{ ingr.unity }}<br/>{{ ingr.name }}</div>
                     </button>
-
-
-                    <div id="{{ 'colorBlock' + $index }}" class="colorsBlock"
-                         ng-mouseover="show = true"
-                         ng-mouseleave="show = false" ng-show="show">
-                        <div ng-if="!(ingr.selectedColor == '#null')" class="colorSelected"
-                             style="{{ 'background:' + ingr.selectedColor + '; opacity:' + ingr.opacity / 255 }}">
-
-                        </div>
-
-                        <ul id="listColors">
-                            <li ng-repeat="color in ingr.colors track by $index"
-                                ng-if="!(ingr.selectedColor == color)"
-                                ng-click="recipeCtrl.setSelectedColor(ingr, color)"
-                                class="btn btn-quantity btn-b colorView"
-                                style="{{ 'background:' + color}}">
-                            </li>
-                        </ul>
-                        <div ng-if="!(ingr.selectedColor == '#null')" id="slider"
-                             style="{{ 'background-image:-webkit-linear-gradient(left, white, ' + ingr.selectedColor + ');' }}">
-                            <input class="barslider" type="range" id="rangeinput"
-                                   ng-mouseup="recipeCtrl.setOpacity(ingr)" ng-model="ingr.opacity"
-                                   min="0"
-                                   max="255" value="{{ recipeCtrl.opacity }}" step="25.5"/>
-                        </div>
-                    </div>
                 </li>
             </ul>
+            <ul id="listColors" ng-show="recipeCtrl.overIngredient != null && recipeCtrl.isNotOnMobile()" ng-cloak>
+                <p class="panel-title4">{{ recipeCtrl.overIngredient.name }} {{ recipeCtrl.overIngredient.selectedColor }} {{recipeCtrl.overIngredient.opacity}}</p>
+                <li ng-repeat="color in recipeCtrl.overIngredient.colors track by $index"
+                    ng-click="recipeCtrl.setSelectedColor(recipeCtrl.overIngredient, color)"
+                    class="btn btn-quantity btn-b colorView"
+                    style="{{ 'background:' + color}}">
+                </li>
+
+            </ul>
+            <div id="slider" ng-show="recipeCtrl.overIngredient != null && recipeCtrl.isNotOnMobile()"
+                 style="{{ 'background-image:-webkit-linear-gradient(left, white, ' + recipeCtrl.overIngredient.selectedColor + ');' }}" ng-cloak>
+                <input class="barslider" type="range" id="rangeinput"
+                       ng-mouseup="recipeCtrl.setOpacity(recipeCtrl.overIngredient)" ng-model="recipeCtrl.overIngredient.opacity"
+                       min="0"
+                       max="255" value="{{ recipeCtrl.overIngredient.opacity }}" step="25.5"/>
+            </div>
         </div>
     </div>
 </div>
@@ -95,10 +85,23 @@
                 <button type="button" ng-click="recipeCtrl.removeMissing(ingr);"
                         class="btn btn-b">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    {{
-                    ingr.name }}
+                    {{ ingr.name }}
                 </button>
             </li>
+            <!--<li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient" class="directionLi" ng-show="show">
+                <p>salut</p>
+                <div id="{{ 'colorBlock' + $index }}" class="colorsBlock"
+                     ng-mouseover="show = true"
+                     ng-mouseleave="show = false" ng-show="show">
+                    <div ng-if="!(ingr.selectedColor == '#null')" class="colorSelected"
+                         style="{{ 'background:' + ingr.selectedColor + '; opacity:' + ingr.opacity / 255 }}">
+
+                    </div>
+
+
+
+                </div>
+            </li>-->
         </ul>
     </div>
 </div>

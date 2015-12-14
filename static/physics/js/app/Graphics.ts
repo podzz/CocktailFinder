@@ -6,6 +6,7 @@
 /// <reference path="Events.ts"/>
 /// <reference path="Tools.ts"/>
 
+import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 class Graphics {
     private events:Events;
 
@@ -18,10 +19,15 @@ class Graphics {
     public currentVertex:number = 0;
     public buffer:THREE.Mesh;
 
+    // Scene
     public scene:THREE.Scene;
     public recipeScene:THREE.Scene;
 
+    // Effect
     public composer:THREE.EffectComposer;
+
+    // Controls
+    public controls:THREE.OrbitControls;
 
 
     constructor(events:Events) {
@@ -47,8 +53,8 @@ class Graphics {
         this.threeRenderer.setPixelRatio(window.devicePixelRatio);
         this.threeRenderer.sortObjects = true;
         this.threeRenderer.autoClear = false;
-        this.threeRenderer.gammaInput = true;
-        this.threeRenderer.gammaOutput = true;
+        //this.threeRenderer.gammaInput = true;
+        //this.threeRenderer.gammaOutput = true;
 
         this.camera.up = new THREE.Vector3(0, -1, 0);
         this.camera.position.set(0,0,-10);
@@ -56,6 +62,7 @@ class Graphics {
         this.reset();
 
         $("#renderer").append(this.threeRenderer.domElement);
+        //this.controls = new THREE.OrbitControls(this.camera, this.threeRenderer.domElement);
     }
 
     public reset():void
@@ -77,22 +84,22 @@ class Graphics {
         var renderPass = new THREE.RenderPass(this.scene, this.camera);
         this.composer.addPass(renderPass);
 
-        var hblur = new THREE.ShaderPass(THREE.HorizontalBlurShader);
-        hblur.uniforms['h'].value = 1 / 1000;
-        this.composer.addPass(hblur);
+        //var hblur = new THREE.ShaderPass(THREE.HorizontalBlurShader);
+        //hblur.uniforms['h'].value = 0;
+        //this.composer.addPass(hblur);
 
-        var vblur = new THREE.ShaderPass(THREE.VerticalBlurShader);
-        vblur.uniforms['v'].value = 1 / 1000;
-        vblur.renderToScreen = true;
-        this.composer.addPass(vblur);
+        //var vblur = new THREE.ShaderPass(THREE.VerticalBlurShader);
+        //vblur.uniforms['v'].value = 0;
+        //vblur.renderToScreen = true;
+        //this.composer.addPass(vblur);
 
        // var treshold = new THREE.ShaderPass(THREE.TresholdShader);
         //treshold.renderToScreen = true;
         //this.composer.addPass(treshold);
 
-        //var copypass = new THREE.ShaderPass(THREE.CopyShader);
-        //copypass.renderToScreen = true;
-        //this.composer.addPass(copypass);
+        var copypass = new THREE.ShaderPass(THREE.CopyShader);
+        copypass.renderToScreen = true;
+        this.composer.addPass(copypass);
     }
 
 
@@ -102,13 +109,19 @@ class Graphics {
         var locate = this;
         textureLoader.load(image_url, function (tex:THREE.Texture) {
             tex.needsUpdate = true;
-            var material = new THREE.SpriteMaterial({map: tex });
-            var cube = new THREE.Sprite(material);
-            cube.renderOrder = 1;
-            cube.scale.set(3,5,0);
-            cube.material.opacity = 0.7;
-            cube.position.set(0,1.5,0);
-            locate.recipeScene.add(cube);
+            //var cube = new THREE.Sprite(material);
+            //cube.renderOrder = 1;
+
+            var cube = new THREE.BoxGeometry(3, 5, 0);
+
+            //cube.position.set(0,1.5,0);
+            var mesh_material = new THREE.MeshBasicMaterial( { map: tex, transparent: true});
+            var mesh = new THREE.Mesh(cube, mesh_material);
+            mesh.rotation.z = Math.PI;
+            mesh.material.opacity = 0.8;
+            mesh.position.set(0,1.5,0);
+            locate.recipeScene.add(mesh);
+
         });
     }
 
@@ -132,6 +145,14 @@ class Graphics {
             tl2.to(cube.material, 2, { rotation: -2.5});
             tl.to(cube.position, 2, {y: -15}, time);
             tl2.to(cube.material,2,{rotation:0}, time);
+
+            var d:TimelineMax = new TimelineMax();
+            d.addCallback(function() {
+                cube.visible = false;
+                cube.material.dispose();
+                cube.geometry.dispose();
+                locate.recipeScene.remove(cube);
+            }, time + 2, null, locate);
         });
     }
 }

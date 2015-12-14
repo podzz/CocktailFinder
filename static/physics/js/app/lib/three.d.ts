@@ -162,7 +162,6 @@ declare module THREE {
     export var HorizontalBlurShader : Shader;
     export var VerticalBlurShader : Shader;
     export var CopyShader: Shader;
-    export var MetaballShader : Shader;
 
 
     // log handlers
@@ -1307,6 +1306,17 @@ declare module THREE {
         intersectObject(object: Object3D, recursive?: boolean): Intersection[];
         intersectObjects(objects: Object3D[], recursive?: boolean): Intersection[];
     }
+
+    export class MarchingCubes extends Object3D {
+        constructor(resolution, material, enableUvs, enableColors);
+
+        addBall(ballx:number, bally:number, ballz:number, strength:number, substract:number): void;
+        position:any;
+        scale:any;
+        enableUvs:boolean;
+        enableColors:boolean;
+    }
+
 
     // Lights //////////////////////////////////////////////////////////////////////////////////
 
@@ -5941,6 +5951,10 @@ declare module THREE {
         needsSwap: boolean;
 
         render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
+    }
+
+    export class OrbitControls {
+        constructor(camera: Camera, renderer: THREE.WebGLRenderer);
     }
 
 
