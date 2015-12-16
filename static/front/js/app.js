@@ -25,7 +25,9 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
         var width = $("#renderer").width();
         var height = $("#renderer").height();
         var METER = 100;
+
         this.cocktailRenderer = new Main(width, height, METER);
+        this.barShow = false;
 
         var that = this;
 
@@ -39,12 +41,6 @@ define(['angular', 'physics/lib/pixi', 'physics/lib/liquidfun', 'physics/app/Rec
 
         this.createFlow = function () {
             addFlowBottle(200, 3, 0.1);
-        }
-
-        this.hideMenu = function () {
-            $(".bar").toggle("slow");
-            $("#hide").toggle();
-            $("#show").toggle();
         }
 
         // Load the exclude list from cookie array

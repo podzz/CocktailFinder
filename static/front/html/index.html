@@ -12,10 +12,8 @@
     <!-- Bootstrap CSS -->
     <link rel="shortcut icon"
           href="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.iconarchive.com/download/i88095/icons8/ios7/Food-Cocktail.ico&sa=X&ei=f5laVazuBcrSUcrkgJgP&ved=0CAkQ8wc&usg=AFQjCNHn4cyNSTx8ZQL0fDXceNTocBwlZQ">
-    <link href="static/front/css/bootstrap-tour-standalone.css" rel="stylesheet">
-    <link href="static/front/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/front/css/customBootstrap.css" rel="stylesheet">
     <link href="static/front/css/cocktail.css" rel="stylesheet">
-    <link href="static/front/css/slider.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Raleway:800,400' rel='stylesheet' type='text/css'>
@@ -25,13 +23,15 @@
 
 </head>
 <body ng-controller="recipeController as recipeCtrl" ng-cloak>
+<img class="background-image" src="static/front/img/bar.jpg"/>
+<img class="artist-cf" src="static/front/img/artist-sidebar.png"/>
 <div class="wrapper">
     <div id="renderer"></div>
     <div class="direction">
         <div class="directionData">
-            <p class="panel-title2" ng-cloak>{{ recipeCtrl.currentCocktail.name }}</p>
+            <p class="panel-title2 unselectable" ng-cloak>{{ recipeCtrl.currentCocktail.name }}</p>
 
-            <p class="panel-title3">Pour réaliser ce cocktail, vous aurez besoin de :</p>
+            <p class="panel-title3 unselectable">Pour réaliser ce cocktail, vous aurez besoin de :</p>
             <ul id="cocktailList">
                 <li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient" class="directionLi">
 
@@ -42,21 +42,24 @@
                 </li>
             </ul>
             <ul id="listColors" ng-show="recipeCtrl.overIngredient != null && recipeCtrl.isNotOnMobile()" ng-cloak>
-                <p class="panel-title4">{{ recipeCtrl.overIngredient.name }} {{ recipeCtrl.overIngredient.selectedColor }} {{recipeCtrl.overIngredient.opacity}}</p>
+                <p class="panel-title4 unselectable">{{ recipeCtrl.overIngredient.name }} {{ recipeCtrl.overIngredient.selectedColor
+                    }} {{recipeCtrl.overIngredient.opacity}}</p>
                 <li ng-repeat="color in recipeCtrl.overIngredient.colors track by $index"
                     ng-click="recipeCtrl.setSelectedColor(recipeCtrl.overIngredient, color)"
                     class="btn btn-quantity btn-b colorView"
                     style="{{ 'background:' + color}}">
                 </li>
-
+                <li id="slider" ng-show="recipeCtrl.overIngredient != null && recipeCtrl.isNotOnMobile()"
+                    style="{{ 'background-image:-webkit-linear-gradient(left, white, ' + recipeCtrl.overIngredient.selectedColor + ');' }}"
+                    ng-cloak>
+                    <input class="barslider" type="range" id="rangeinput"
+                           ng-mouseup="recipeCtrl.setOpacity(recipeCtrl.overIngredient)"
+                           ng-model="recipeCtrl.overIngredient.opacity"
+                           min="0"
+                           max="255" value="{{ recipeCtrl.overIngredient.opacity }}" step="25.5"/>
+                </li>
             </ul>
-            <div id="slider" ng-show="recipeCtrl.overIngredient != null && recipeCtrl.isNotOnMobile()"
-                 style="{{ 'background-image:-webkit-linear-gradient(left, white, ' + recipeCtrl.overIngredient.selectedColor + ');' }}" ng-cloak>
-                <input class="barslider" type="range" id="rangeinput"
-                       ng-mouseup="recipeCtrl.setOpacity(recipeCtrl.overIngredient)" ng-model="recipeCtrl.overIngredient.opacity"
-                       min="0"
-                       max="255" value="{{ recipeCtrl.overIngredient.opacity }}" step="25.5"/>
-            </div>
+
         </div>
     </div>
 </div>
@@ -68,17 +71,13 @@
 <button type="button" ng-click="recipeCtrl.increaseIndex();" class="nextButton"
         ng-cloak>
 </button>
+
 <div class="exclude-bar" ng-cloak>
-    <button type="button" class="btn btn-default" ng-click="recipeCtrl.hideMenu()"
+    <button type="button" class="btn btn-default" ng-click="recipeCtrl.barShow=!recipeCtrl.barShow"
             aria-label="Left Align" id="hide">
         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
     </button>
-    <button type="button" class="btn btn-default" ng-click="recipeCtrl.hideMenu()"
-            aria-label="Left Align" id="show"
-            style="display:none;">
-        <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-    </button>
-    <div class="bar">
+    <div class="bar" ng-show="recipeCtrl.barShow">
         <ul name="excludes" class="list-unstyled">
             <li ng-repeat="ingr in recipeCtrl.missing track by $index"
                 id="{{ 'itemli' + $index }}">
@@ -88,20 +87,6 @@
                     {{ ingr.name }}
                 </button>
             </li>
-            <!--<li ng-repeat="ingr in recipeCtrl.currentCocktail.ingredient" class="directionLi" ng-show="show">
-                <p>salut</p>
-                <div id="{{ 'colorBlock' + $index }}" class="colorsBlock"
-                     ng-mouseover="show = true"
-                     ng-mouseleave="show = false" ng-show="show">
-                    <div ng-if="!(ingr.selectedColor == '#null')" class="colorSelected"
-                         style="{{ 'background:' + ingr.selectedColor + '; opacity:' + ingr.opacity / 255 }}">
-
-                    </div>
-
-
-
-                </div>
-            </li>-->
         </ul>
     </div>
 </div>

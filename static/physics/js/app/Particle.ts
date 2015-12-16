@@ -120,8 +120,6 @@ class Particle {
         var first_record = particleSystem.GetPositionBuffer().length / 2;
         particleSystem.CreateParticleGroup(particlegroupDef);
 
-
-
         world.CreateBody(bottle);
         var second_record = particleSystem.GetPositionBuffer().length / 2;
 
@@ -137,7 +135,6 @@ class Particle {
     }
 
     public addFlowBottle(pop, color, opacity, quantity, world:b2World) {
-        console.log(pop);
         var locate = this;
         var system:b2ParticleSystem = world.particleSystems[0];
         var sphere = new THREE.SphereGeometry(0.1, 0.09, 0);
@@ -203,7 +200,7 @@ class Particle {
 
         var tl = new TimelineLite();
         var tl2 = new TimelineLite();
-        //console.log(f.shape.radius);
-        tl.to(mesh.scale, 30, {x: 0.3, y: 0.3});
+
+        tl.to(mesh.scale, 30, {x: 0.2, y: 0.2});
     }
 }

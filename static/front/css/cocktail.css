@@ -2,16 +2,30 @@
 body {
     height: 100%;
     width: 100%;
-    background: url('../img/bar.jpg') no-repeat center center fixed;
     background-size: cover;
     margin:0;
 }
 
+.artist-cf {
+    position:absolute;
+    display:block;
+    right:40%;
+    left:40%;
+    width:300px;
+}
 
 .wrapper {
     position:absolute;
     width:100%;
     height: 100%;
+}
+
+.background-image {
+    width:100%;
+    height:100%;
+    max-width:100%;
+    max-height: 100%;
+    position:absolute;
 }
 
 .direction {
@@ -38,6 +52,7 @@ body {
 @media all and (max-width: 599px) {
     .direction { position:relative; margin: 0 auto 0 auto; width:100%; right:0%; }
     #renderer { right:auto;left:0; width:100%; height:100%; position:absolute}
+    .artist-cf { right: 10%; left: auto;}
 }
 
 .previousButton {
@@ -61,20 +76,12 @@ body {
     border-radius: 4px;
 }
 
-.wrappercocktails {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 80%;
-    margin: auto auto auto auto;
-}
-
-
 .exclude-bar {
     position: absolute;
     width: 100%;
     bottom: 0%;
     overflow: auto;
+    list-style-type: none;
 
     text-align: center;
 }
@@ -99,10 +106,8 @@ body {
     background-color: rgba(51,51,51,1);
     border-radius: 10px;
     position: relative;
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .exclude-bar ul {
@@ -110,14 +115,23 @@ body {
 }
 
 .exclude-bar li {
-    display: inline;
+    display:inline;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .panel-title2 {
     text-align: center;
     font-family: 'Raleway', sans-serif;
     margin-bottom: 5%;
-    font-size: 10vmin;
+    font-size: 8vmin;
     color: #fbf8ff;
 }
 
@@ -149,13 +163,6 @@ body {
     position: relative;
 }
 
-/* Blue Buttons */
-.btn-blue {
-    background-color: #417ab0;
-    color: #fff;
-    box-shadow: 0 6px #2a557e;
-}
-
 /* Button b */
 .btn:hover {
     box-shadow: 0 8px #2a557e;
@@ -167,33 +174,12 @@ body {
     top: 6px;
 }
 
-.colorsBlock {
-    background: #fffbf9;
-    position: absolute;
-    z-index: 1;
-    color: black;
-    display:inline-block;
-    width: 400px;
-    text-transform: uppercase;
-    font-family: 'Helvetica Neue', cursive;
-    font-weight: 400;
-    -moz-box-shadow: 10px 10px 5px 0px #656565;
-    -webkit-box-shadow: 10px 10px 5px 0px #656565;
-    -o-box-shadow: 10px 10px 5px 0px #656565;
-    box-shadow: 10px 10px 5px 0px #656565;
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=5);
-}
-
 .colorView {
-    height: 50px;
-    width: 50px;
+    height: 20px;
+    width: 15px;
 }
 
-.colorSelected {
-    height: 50px;
-}
-
-ul#listColors, li#listColors {
+ul#listColors {
     list-style-type: none;
 }
 
@@ -203,27 +189,21 @@ ul#listColors, li#listColors {
     margin-bottom:2%;
 }
 
-.circleShow {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    position: relative;
-    border: 1px solid black;
-}
-
-.circleShow:hover {
-    top: -3px;
-    box-shadow: 0 8px #003b80;
-}
-
 /* Create the animation blocks */
 
-/* Spinning, gradient circle; CSS only! */
-#advanced {
-    width: 100px;
-    height: 100px;
+#slider {
+    height: 20px;
+    position: relative;
+    margin:auto;
 }
 
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+#slider .barslider {
+    width: 98%;
+    background: #333;
+    position: relative;
+    left: 4px;
+}
+
+[ng-cloak]{
     display: none !important;
 }
